@@ -1,0 +1,13 @@
+{
+  "name": "hxatom",
+  "version": "0.188.0",
+  "description": "Type definitions for atom.io",
+  "tags": ["atom","github","ide","editor","tool"],
+  "url": "https://github.com/tong/hxatom",
+  "license": "Public",
+  "contributors": ["tong"],
+  "classPath":"src/",
+  "releasenote": "See CHANGES",
+  "dependencies": {
+  }
+}
