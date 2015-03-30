@@ -1,10 +1,33 @@
 package atom;
 
+private typedef PaneOptions = {
+    item:Dynamic,
+    pane:Pane,
+    index:Int
+}
+
+private typedef PanelOptions = {
+    item:Dynamic,
+    ?visible:Bool,
+    ?priority:Int
+}
+
+@:enum abstract Split(String) {
+    var left = "left";
+    var right = "right";
+}
+
+private typedef OpenOptions = {
+    initialLine : Int,
+    initialColumn : Int,
+    split : Split,
+    activatePane : Bool,
+    searchAllPanes : Bool
+}
+
 extern class Workspace {
 
-    function new( params : Dynamic ) : Void;
-
-    ///// Event Subscription
+    // Event Subscription
 
     function observeTextEditors( callback : TextEditor->Void ) : Void;
     function observePaneItems( callback : Dynamic->Void ) : Void;
@@ -12,55 +35,55 @@ extern class Workspace {
     function observeActivePaneItem( callback : Dynamic->Void ) : Void;
     function onDidOpen( callback : Dynamic->Void ) : Void;
 
-    ///// Opening
+    function onDidAddPane( callback : {pane:Pane}->Void ) : Void;
+    function onDidDestroyPane( callback : {pane:Pane}->Void ) : Void;
+    function observePanes( callback : Pane->Void ) : Void;
+    function onDidChangeActivePane( callback : Pane->Void ) : Void;
+    function observeActivePane( callback : Pane->Void ) : Void;
+    function onDidAddPaneItem( callback : PaneOptions->Void ) : Void;
+    function onWillDestroyPaneItem( callback : PaneOptions->Void ) : Void;
+    function onDidDestroyPaneItem( callback : PaneOptions->Void ) : Void;
+    function onDidAddTextEditor( callback : {textEditor:TextEditor,pane:Pane,index:Int}->Void ) : Void;
 
-    function open( uri : String, ?options : Dynamic ) : Void;
+    // Opening
+
+    function open( uri : String, ?options : OpenOptions ) : Void;
     function reopenItem() : Void;
-    function addOpener( opener : Dynamic ) : Void;
+    function addOpener( opener : Void->Void ) : Void;
 
-    ///// Pane Items
+    // Pane Items
 
     function getPaneItems() : Array<Dynamic>;
     function getActivePaneItem() : Pane;
     function getTextEditors() : Array<TextEditor>;
     function getActiveTextEditor() : TextEditor;
 
-/*
-    //TODO
-    ///// Panes
+    // Panes
 
-    This section only has Extended methods.
+    function getPanes() : Array<Pane>;
+    function getActivePane() : Pane;
+    function activateNextPane() : Void;
+    function activatePreviousPane() : Void;
+    function paneForURI( uri : String ) : Pane;
+    function paneForItem(item : Dynamic ) : Pane;
 
-     Extended Methods
-    ::getPanes()
-
-    ::getActivePane()
-
-    ::activateNextPane()
-
-    ::activatePreviousPane()
-
-    ::paneForURI(uri)
-
-    ::paneForItem(item)
-    */
-
-    ///// Panels
+    // Panels
 
     function getBottomPanels() : Array<Dynamic>;
-    function addBottomPanel( options : Dynamic ) : Panel;
+    function addBottomPanel( options : PanelOptions ) : Panel;
     function getLeftPanels() : Array<Panel>;
-    function addLeftPanel( options : Dynamic ) : Panel;
+    function addLeftPanel( options : PanelOptions ) : Panel;
     function getRightPanels() : Array<Panel>;
-    function addRightPanel( options : Dynamic ) : Panel;
-    function getTopPanels() : Array<Dynamic>;
-    function addTopPanel( options : Dynamic ) : Panel;
+    function addRightPanel( options : PanelOptions ) : Panel;
+    function getTopPanels() : Array<Panel>;
+    function addTopPanel( options : PanelOptions ) : Panel;
     function getModalPanels() : Array<Panel>;
-    function addModalPanel( options : Dynamic ) : Panel;
+    function addModalPanel( options : PanelOptions ) : Panel;
     function panelForItem( item : Dynamic ) : Panel;
 
-    ///// Searching and Replacing
+    // Searching and Replacing
 
-    function scan( regex : EReg, ?options : Dynamic, iterator : Dynamic ) : Dynamic;
-    function replace( regex : EReg, replacementText : String, filePaths : Array<String>, options : Dynamic ) : Dynamic;
+    function scan( regex : EReg, ?options : {paths:Array<String>}, iterator : String->Void ) : Promise;
+    function replace( regex : EReg, replacementText : String, filePaths : Array<String>, options : {filePath:String,replacements:Array<String>} ) : Promise;
+
 }

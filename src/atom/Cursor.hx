@@ -3,132 +3,84 @@ package atom;
 extern class Cursor {
 
     /*
-    Event Subscription
+    //Event Subscription
 
-::onDidChangePosition(callback)
+    function onDidChangePosition(callback)
+    function onDidDestroy(callback)
+    function onDidChangeVisibility(callback)
 
-::onDidDestroy(callback)
+    // Managing Cursor Position
 
-::onDidChangeVisibility(callback)
+    function setScreenPosition(screenPosition, [options])
+    function getScreenPosition()
+    function setBufferPosition(bufferPosition, [options])
+    function getBufferPosition()
+    function getScreenRow()
+    function getScreenColumn()
+    function getBufferRow()
+    function getBufferColumn()
+    function getCurrentBufferLine()
+    function isAtBeginningOfLine()
+    function isAtEndOfLine()
 
-Managing Cursor Position
+    // Cursor Position Details
 
-::setScreenPosition(screenPosition, [options])
+    function getMarker()
+    function isSurroundedByWhitespace()
+    function isBetweenWordAndNonWord()
+    function isInsideWord([options])
+    function getIndentLevel()
+    function getScopeDescriptor()
+    function hasPrecedingCharactersOnLine()
+    function isLastCursor()
 
-::getScreenPosition()
+    // Moving the Cursor
 
-::setBufferPosition(bufferPosition, [options])
+    function moveUp([rowCount], [options])
+    function moveDown([rowCount], [options])
+    function moveLeft([columnCount], [options])
+    function moveRight([columnCount], [options])
+    function moveToTop()
+    function moveToBottom()
+    function moveToBeginningOfScreenLine()
+    function moveToBeginningOfLine()
+    function moveToFirstCharacterOfLine()
+    function moveToEndOfScreenLine()
+    function moveToEndOfLine()
+    function moveToBeginningOfWord()
+    function moveToEndOfWord()
+    function moveToBeginningOfNextWord()
+    function moveToPreviousWordBoundary()
+    function moveToNextWordBoundary()
+    function skipLeadingWhitespace()
+    function moveToBeginningOfNextParagraph()
+    function moveToBeginningOfPreviousParagraph()
 
-::getBufferPosition()
+    // Local Positions and Ranges
 
-::getScreenRow()
+    function getPreviousWordBoundaryBufferPosition([options])
+    function getNextWordBoundaryBufferPosition([options])
+    function getBeginningOfCurrentWordBufferPosition([options])
+    function getEndOfCurrentWordBufferPosition([options])
+    function getBeginningOfNextWordBufferPosition([options])
+    function getCurrentWordBufferRange([options])
+    function getCurrentLineBufferRange([options])
+    function getCurrentParagraphBufferRange()
+    function getCurrentWordPrefix()
 
-::getScreenColumn()
+    // Visibility
 
-::getBufferRow()
+    function setVisible()
+    function isVisible()
 
-::getBufferColumn()
+    // Comparing to another cursor
 
-::getCurrentBufferLine()
+    function compare(otherCursor)
 
-::isAtBeginningOfLine()
+    // Utilities
 
-::isAtEndOfLine()
-
-Cursor Position Details
-
-::getMarker()
-
-::isSurroundedByWhitespace()
-
-::isBetweenWordAndNonWord()
-
-::isInsideWord([options])
-
-::getIndentLevel()
-
-::getScopeDescriptor()
-
-::hasPrecedingCharactersOnLine()
-
-::isLastCursor()
-
-Moving the Cursor
-
-::moveUp([rowCount], [options])
-
-::moveDown([rowCount], [options])
-
-::moveLeft([columnCount], [options])
-
-::moveRight([columnCount], [options])
-
-::moveToTop()
-
-::moveToBottom()
-
-::moveToBeginningOfScreenLine()
-
-::moveToBeginningOfLine()
-
-::moveToFirstCharacterOfLine()
-
-::moveToEndOfScreenLine()
-
-::moveToEndOfLine()
-
-::moveToBeginningOfWord()
-
-::moveToEndOfWord()
-
-::moveToBeginningOfNextWord()
-
-::moveToPreviousWordBoundary()
-
-::moveToNextWordBoundary()
-
-::skipLeadingWhitespace()
-
-::moveToBeginningOfNextParagraph()
-
-::moveToBeginningOfPreviousParagraph()
-
-Local Positions and Ranges
-
-::getPreviousWordBoundaryBufferPosition([options])
-
-::getNextWordBoundaryBufferPosition([options])
-
-::getBeginningOfCurrentWordBufferPosition([options])
-
-::getEndOfCurrentWordBufferPosition([options])
-
-::getBeginningOfNextWordBufferPosition([options])
-
-::getCurrentWordBufferRange([options])
-
-::getCurrentLineBufferRange([options])
-
-::getCurrentParagraphBufferRange()
-
-::getCurrentWordPrefix()
-
-Visibility
-
-::setVisible()
-
-::isVisible()
-
-Comparing to another cursor
-
-::compare(otherCursor)
-
-Utilities
-
-::clearAutoscroll()
-
-::clearSelection()
-
-::wordRegExp([options])
-*/
+    function clearAutoscroll()
+    function clearSelection()
+    function wordRegExp([options])
+    */
 }

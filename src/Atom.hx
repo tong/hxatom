@@ -1,7 +1,6 @@
 
 import atom.*;
 
-//@:jsRequire("atom")
 @:native("atom")
 extern class Atom {
 
