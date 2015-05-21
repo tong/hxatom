@@ -11,6 +11,7 @@ extern class Atom {
     static var menu(default,null) : MenuManager;
     static var keymaps(default,null) : KeymapManager;
     static var tooltips(default,null) : TooltipManager;
+    static var notifications(default,null) : NotificationManager;
     static var project(default,null) : Project;
     static var grammars(default,null) : GrammarRegistry;
     static var packages(default,null) : PackageManager;

@@ -1,63 +1,49 @@
 package atom;
 
+typedef Package = Dynamic; //TODO
+
 extern class PackageManager {
-    /*
-    Event Subscription
 
-::onDidLoadInitialPackages(callback)
+    // Event Subscription
 
-::onDidActivateInitialPackages(callback)
+    function onDidLoadInitialPackages( callback : Void->Void ) : Disposable;
+    function onDidActivateInitialPackages( callback : Void->Void ) : Disposable;
+    function onDidActivatePackage( callback : Package->Void ) : Disposable;
+    function onDidDeactivatePackage( callback : Package->Void ) : Disposable;
+    function onDidLoadPackage( callback : Package->Void ) : Disposable;
+    function onDidUnloadPackage( callback : Package->Void ) : Disposable;
 
-::onDidActivatePackage(callback)
+    // Package system data
 
-::onDidDeactivatePackage(callback)
+    function getApmPath() : String;
+    function getPackageDirPaths() : Array<String>;
 
-::onDidLoadPackage(callback)
+    // General package data
 
-::onDidUnloadPackage(callback)
+    function resolvePackagePath( name : String ) : String;
+    function isBundledPackage( name : String ) : Bool;
 
-Package system data
+    // Enabling and disabling packages
 
-::getApmPath()
+    function enablePackage() : Package;
+    function disablePackage() : Package;
+    function isPackageDisabled( name : String ) : Bool;
 
-::getPackageDirPaths()
+    // Accessing active packages
 
-General package data
+    function getActivePackages() : Array<Package>;
+    function getActivePackage( name : String ) : Package;
+    function isPackageActive( name : String ) : Bool;
 
-::resolvePackagePath(name)
+    // Accessing loaded packages
 
-::isBundledPackage(name)
+    function getLoadedPackages() : Array<Package>;
+    function getLoadedPackage( name : String ) : Package;
+    function isPackageLoaded( name : String ) : Bool;
 
-Enabling and disabling packages
+    // Accessing available packages
 
-::enablePackage()
-
-::disablePackage()
-
-::isPackageDisabled(name)
-
-Accessing active packages
-
-::getActivePackages()
-
-::getActivePackage(name)
-
-::isPackageActive(name)
-
-Accessing loaded packages
-
-::getLoadedPackages()
-
-::getLoadedPackage(name)
-
-::isPackageLoaded(name)
-
-Accessing available packages
-
-::getAvailablePackagePaths()
-
-::getAvailablePackageNames()
-
-::getAvailablePackageMetadata() 
-    */
+    function getAvailablePackagePaths() : Array<String>;
+    function getAvailablePackageNames() : Array<String>;
+    function getAvailablePackageMetadata() : Array<String>;
 }
