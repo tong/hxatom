@@ -1,6 +1,7 @@
 package atom;
 
 import js.Error;
+import js.Promise;
 import haxe.extern.EitherType;
 
 extern class Directory {
@@ -8,7 +9,7 @@ extern class Directory {
     // Construction
 
     function new( directoryPath : String, ?symlink : Bool ) : Void;
-    function create( mode : Int ) : Promise;
+    function create( mode : Int ) : Promise<Dynamic>;
 
     // Event Subscription
 

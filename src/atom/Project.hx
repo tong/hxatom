@@ -5,7 +5,7 @@ extern class Project {
     function onDidChangePaths( callback : Array<String>->Void ) : Void;
 
     function getRepositories() : Array<GitRepository>;
-    function repositoryForDirectory( directory : String ) : Promise;
+    function repositoryForDirectory( directory : String ) : js.Promise<Dynamic>;
 
     function getPaths() : Array<String>;
     function setPaths( projectPaths : Array<String> ) : Void;

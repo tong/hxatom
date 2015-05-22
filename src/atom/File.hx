@@ -1,5 +1,6 @@
 package atom;
 
+import js.Promise;
 import haxe.extern.EitherType;
 
 extern class File {
@@ -7,7 +8,7 @@ extern class File {
     // Construction
 
     function new( filePath : String, ?symlink : Bool ) : Void;
-    function create() : Promise;
+    function create() : Promise<Dynamic>;
 
     // Event Subscription
 
@@ -22,7 +23,7 @@ extern class File {
     function isDirectory() : Bool;
     function exists() : Bool;
     function existsSync() : Bool;
-    function getDigest() : Promise;
+    function getDigest() : Promise<Dynamic>;
     function getDigestSync() : String;
     function setEncoding( encoding : String ) : Void;
     function getEncoding() : String;
@@ -40,8 +41,8 @@ extern class File {
 
     // Reading and Writing
 
-    function read( flushCache : Bool ) : Promise;
-    function write( text : String ) : Promise;
+    function read( flushCache : Bool ) : Promise<Dynamic>;
+    function write( text : String ) : Promise<Dynamic>;
     function writeSync( text : String ) : Void;
 
 }

@@ -1,5 +1,7 @@
 package atom;
 
+import js.Promise;
+
 private typedef PaneOptions = {
     item:Dynamic,
     pane:Pane,
@@ -17,12 +19,12 @@ private typedef PanelOptions = {
     var right = "right";
 }
 
-private typedef OpenOptions = {
-    initialLine : Int,
-    initialColumn : Int,
-    split : Split,
-    activatePane : Bool,
-    searchAllPanes : Bool
+typedef OpenOptions = {
+    ?initialLine : Int,
+    ?initialColumn : Int,
+    ?split : Split,
+    ?activatePane : Bool,
+    ?searchAllPanes : Bool
 }
 
 extern class Workspace {
@@ -48,8 +50,8 @@ extern class Workspace {
     // Opening
 
     function open( uri : String, ?options : OpenOptions ) : Void;
-    function reopenItem() : Void;
-    function addOpener( opener : Void->Void ) : Void;
+    function reopenItem() : Promise<Dynamic>;
+    function addOpener( opener : String->Void ) : Disposable;
 
     // Pane Items
 
@@ -83,7 +85,7 @@ extern class Workspace {
 
     // Searching and Replacing
 
-    function scan( regex : EReg, ?options : {paths:Array<String>}, iterator : String->Void ) : Promise;
-    function replace( regex : EReg, replacementText : String, filePaths : Array<String>, options : {filePath:String,replacements:Array<String>} ) : Promise;
+    function scan( regex : EReg, ?options : {paths:Array<String>}, iterator : String->Void ) : Promise<Dynamic>;
+    function replace( regex : EReg, replacementText : String, filePaths : Array<String>, options : {filePath:String,replacements:Array<String>} ) : Promise<Dynamic>;
 
 }
