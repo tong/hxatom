@@ -1,64 +1,39 @@
 package atom;
 
+import haxe.extern.EitherType;
+
 extern class Range {
 
-    /*
-    Construction
+    var start : Point;
+    var end : Point;
 
-.fromObject(object, copy)
+    function new( pointA : EitherType<Point,Array<Float>>, pointB : EitherType<Point,Array<Float>> ) : Void;
 
-::constructor(pointA, pointB)
+    function fromObject( object : Dynamic, ?copy : Bool ) : Range;
+    function copy() : Range;
+    function negate() : Range;
 
-::copy() 
+    function deserialize( array : Array<Dynamic> ) : Void;
+    function serialize() : Dynamic;
 
-::negate()
+    function isEmpty() : Bool;
+    function isSingleLine() : Bool;
+    function getRowCount() : Int;
+    function getRows() : Array<Dynamic>;
 
-Serialization and Deserialization
+    function freeze() : Range;
+    function union( otherRange : Range ) : Range;
+    function translate( startDelta : Point, ?endDelta : Point ) : Range;
+    function traverse( delta : Point ) : Range;
 
-.deserialize(array)
+    function compare( otherRange : Range ) : Int;
+    function isEqual( otherRange : Range ) : Bool;
+    function coversSameRows( otherRange : Range ) : Bool;
+    function intersectsWith( otherRange : Range, ?exclusive : Bool ) : Bool;
+    function containsRange( otherRange : Range , ?exclusive : Bool) : Bool;
+    function containsPoint( point : Point , ?exclusive : Bool ) : Bool;
+    function intersectsRow( row : Int ) : Bool;
+    function intersectsRowRange( startRow : Int , endRow : Int ) : Bool;
 
-::serialize()
-
-Range Details
-
-::isEmpty()
-
-::isSingleLine()
-
-::getRowCount()
-
-::getRows()
-
-Operations
-
-::freeze()
-
-::union(otherRange)
-
-::translate(startDelta, [endDelta])
-
-::traverse(delta)
-
-Comparison
-
-::compare(otherRange)
-
-::isEqual(otherRange)
-
-::coversSameRows(otherRange)
-
-::intersectsWith(otherRange, [exclusive])
-
-::containsRange(otherRange, exclusive)
-
-::containsPoint(point, exclusive)
-
-::intersectsRow(row)
-
-::intersectsRowRange(startRow, endRow)
-
-Conversion
-
-::toString()
-    */
+    function toString() : String;
 }

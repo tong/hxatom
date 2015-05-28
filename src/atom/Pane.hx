@@ -27,7 +27,7 @@ extern class Pane {
     function moveItemLeft() : Void;
     function getActiveItemIndex() : Int;
     function activateItemAtIndex( index : Int ) : Void;
-    function activateItem() : Void;
+    function activateItem( item : Dynamic ) : Void;
     function addItem( item : Dynamic, ?index : Int ) : Dynamic;
     function addItems( items : Array<Dynamic>, ?index : Int ) : Array<Dynamic>;
     function moveItem( item : Dynamic, index : Int ) : Void;
