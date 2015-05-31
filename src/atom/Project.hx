@@ -12,5 +12,6 @@ extern class Project {
     function addPath( projectPath : String ) : Void;
     function removePath( projectPath : String ) : Void;
     function getDirectories() : Array<Directory>;
+    function relativizePath( fullPath : String ) : Array<String>;
     function contains( pathToCheck : String ) : Bool;
 }
