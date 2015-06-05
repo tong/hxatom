@@ -6,283 +6,283 @@ extern class TextEditor {
 
     // Event Subscription
 
-    static function onDidChangeTitle( callback : Void->Void ) : Disposable;
-    static function onDidChangePath( callback : Void->Void ) : Disposable;
-    static function onDidChange( callback : Void->Void ) : Disposable;
-    static function onDidStopChanging( callback : Void->Void ) : Disposable;
-    static function onDidChangeCursorPosition( callback : Dynamic->Void ) : Disposable;
-    static function onDidChangeSelectionRange( callback : Dynamic->Void ) : Disposable;
-    static function onDidSave( callback : Dynamic->Void ) : Disposable;
-    static function onDidDestroy( callback : Void->Void ) : Disposable;
+    function onDidChangeTitle( callback : Void->Void ) : Disposable;
+    function onDidChangePath( callback : Void->Void ) : Disposable;
+    function onDidChange( callback : Void->Void ) : Disposable;
+    function onDidStopChanging( callback : Void->Void ) : Disposable;
+    function onDidChangeCursorPosition( callback : Dynamic->Void ) : Disposable;
+    function onDidChangeSelectionRange( callback : Dynamic->Void ) : Disposable;
+    function onDidSave( callback : Dynamic->Void ) : Disposable;
+    function onDidDestroy( callback : Void->Void ) : Disposable;
 
-    static function onDidChangeSoftWrapped( callback : Void->Void ) : Disposable;
-    static function onDidChangeEncoding( callback : Void->Void ) : Disposable;
-    static function observeGrammar( callback : Grammar->Void ) : Disposable;
-    static function onDidChangeGrammar( callback : Grammar->Void ) : Disposable;
-    static function onDidChangeModified( callback : Void->Void ) : Disposable;
-    static function onDidConflict( callback : Void->Void ) : Disposable;
-    static function onWillInsertText( callback : {text:String,cancel:Void->Void}->Void ) : Disposable;
-    static function onDidInsertText( callback : {text:String}->Void ) : Disposable;
-    static function observeCursors( callback : Cursor->Void ) : Disposable;
-    static function onDidAddCursor( callback : Cursor->Void ) : Disposable;
-    static function onDidRemoveCursor( callback : Cursor->Void ) : Disposable;
-    static function observeSelections( callback : Selection->Void ) : Disposable;
-    static function onDidAddSelection( callback : Selection->Void ) : Disposable;
-    static function onDidRemoveSelection( callback : Selection->Void ) : Disposable;
-    static function observeDecorations( callback : Decoration->Void ) : Disposable;
-    static function onDidAddDecoration( callback : Decoration->Void ) : Disposable;
-    static function onDidRemoveDecoration( callback : Decoration->Void ) : Disposable;
-    static function onDidChangePlaceholderText( callback : String->Void ) : Disposable;
+    function onDidChangeSoftWrapped( callback : Void->Void ) : Disposable;
+    function onDidChangeEncoding( callback : Void->Void ) : Disposable;
+    function observeGrammar( callback : Grammar->Void ) : Disposable;
+    function onDidChangeGrammar( callback : Grammar->Void ) : Disposable;
+    function onDidChangeModified( callback : Void->Void ) : Disposable;
+    function onDidConflict( callback : Void->Void ) : Disposable;
+    function onWillInsertText( callback : {text:String,cancel:Void->Void}->Void ) : Disposable;
+    function onDidInsertText( callback : {text:String}->Void ) : Disposable;
+    function observeCursors( callback : Cursor->Void ) : Disposable;
+    function onDidAddCursor( callback : Cursor->Void ) : Disposable;
+    function onDidRemoveCursor( callback : Cursor->Void ) : Disposable;
+    function observeSelections( callback : Selection->Void ) : Disposable;
+    function onDidAddSelection( callback : Selection->Void ) : Disposable;
+    function onDidRemoveSelection( callback : Selection->Void ) : Disposable;
+    function observeDecorations( callback : Decoration->Void ) : Disposable;
+    function onDidAddDecoration( callback : Decoration->Void ) : Disposable;
+    function onDidRemoveDecoration( callback : Decoration->Void ) : Disposable;
+    function onDidChangePlaceholderText( callback : String->Void ) : Disposable;
 
     // File Details
 
-    static function getTitle() : String;
-    static function getLongTitle() : String;
-    static function getPath() : String;
-    static function isModified() : Bool;
-    static function isEmpty() : Bool;
+    function getTitle() : String;
+    function getLongTitle() : String;
+    function getPath() : String;
+    function isModified() : Bool;
+    function isEmpty() : Bool;
 
     // File Operations
 
-    static function save() : Void;
-    static function saveAs( filePath : String ) : Void;
+    function save() : Void;
+    function saveAs( filePath : String ) : Void;
 
     // Reading Text
 
-    static function getText() : String;
-    static function getTextInBufferRange( range : Range ) : String;
-    static function getLineCount() : Int;
-    static function getScreenLineCount() : Int;
-    static function getLastBufferRow() : Int;
-    static function getLastScreenRow() : Int;
-    static function lineTextForBufferRow( bufferRow : Int ) : String;
-    static function lineTextForScreenRow( screenRow : Int ) : String;
-    static function getCurrentParagraphBufferRange() : Range;
+    function getText() : String;
+    function getTextInBufferRange( range : Range ) : String;
+    function getLineCount() : Int;
+    function getScreenLineCount() : Int;
+    function getLastBufferRow() : Int;
+    function getLastScreenRow() : Int;
+    function lineTextForBufferRow( bufferRow : Int ) : String;
+    function lineTextForScreenRow( screenRow : Int ) : String;
+    function getCurrentParagraphBufferRange() : Range;
 
     // Mutating Text
 
-    static function setText( text : String ) : Void;
-    static function setTextInBufferRange( range : Range, text : String, ?options : Dynamic ) : Void;
-    static function insertText( text : String, ?options : Dynamic ) : Void;
-    static function insertNewline() : Void;
-    static function delete() : Void;
-    static function backspace() : Void;
+    function setText( text : String ) : Void;
+    function setTextInBufferRange( range : Range, text : String, ?options : Dynamic ) : Void;
+    function insertText( text : String, ?options : Dynamic ) : Void;
+    function insertNewline() : Void;
+    function delete() : Void;
+    function backspace() : Void;
 
-    static function mutateSelectedText( fn : Selection->Int->Void ) : Void;
-    static function transpose() : Void;
-    static function upperCase() : Void;
-    static function lowerCase() : Void;
-    static function toggleLineCommentsInSelection() : Void;
-    static function insertNewlineBelow() : Void;
-    static function insertNewlineAbove() : Void;
-    static function deleteToBeginningOfWord() : Void;
-    static function deleteToBeginningOfLine() : Void;
-    static function deleteToEndOfLine() : Void;
-    static function deleteToEndOfWord() : Void;
-    static function deleteLine() : Void;
+    function mutateSelectedText( fn : Selection->Int->Void ) : Void;
+    function transpose() : Void;
+    function upperCase() : Void;
+    function lowerCase() : Void;
+    function toggleLineCommentsInSelection() : Void;
+    function insertNewlineBelow() : Void;
+    function insertNewlineAbove() : Void;
+    function deleteToBeginningOfWord() : Void;
+    function deleteToBeginningOfLine() : Void;
+    function deleteToEndOfLine() : Void;
+    function deleteToEndOfWord() : Void;
+    function deleteLine() : Void;
 
     // History
 
-    static function undo() : String;
-    static function redo() : String;
+    function undo() : String;
+    function redo() : String;
 
-    static function transact( ?groupingInterval : Float, fn : Void->Void ) : Void;
-    static function abortTransaction() : Void;
-    static function createCheckpoint() : Void;
-    static function revertToCheckpoint() : Void;
-    static function groupChangesSinceCheckpoint() : Void;
+    function transact( ?groupingInterval : Float, fn : Void->Void ) : Void;
+    function abortTransaction() : Void;
+    function createCheckpoint() : Void;
+    function revertToCheckpoint() : Void;
+    function groupChangesSinceCheckpoint() : Void;
 
     // TextEditor Coordinates
 
-    static function screenPositionForBufferPosition( bufferPosition : Dynamic, ?options : Dynamic ) : Point;
-    static function bufferPositionForScreenPosition( bufferPosition : Dynamic, ?options : Dynamic ) : Point;
-    static function screenRangeForBufferRange( bufferRange : Range ) : Range;
-    static function bufferRangeForScreenRange( screenRange : Range ) : Range;
+    function screenPositionForBufferPosition( bufferPosition : Dynamic, ?options : Dynamic ) : Point;
+    function bufferPositionForScreenPosition( bufferPosition : Dynamic, ?options : Dynamic ) : Point;
+    function screenRangeForBufferRange( bufferRange : Range ) : Range;
+    function bufferRangeForScreenRange( screenRange : Range ) : Range;
 
-    static function clipBufferPosition( bufferPosition : Point ) : Point;
-    static function clipBufferRange( range : Range ) : Range;
-    static function clipScreenPosition( screenPosition : Point, ?options:{?wrapBeyondNewlines:Bool,wrapAtSoftNewlines:Bool,?screenLine:Int} ) : Point;
-    static function clipScreenRange( range : Range, ?options:{?wrapBeyondNewlines:Bool,wrapAtSoftNewlines:Bool,?screenLine:Int} ) : Range;
+    function clipBufferPosition( bufferPosition : Point ) : Point;
+    function clipBufferRange( range : Range ) : Range;
+    function clipScreenPosition( screenPosition : Point, ?options:{?wrapBeyondNewlines:Bool,wrapAtSoftNewlines:Bool,?screenLine:Int} ) : Point;
+    function clipScreenRange( range : Range, ?options:{?wrapBeyondNewlines:Bool,wrapAtSoftNewlines:Bool,?screenLine:Int} ) : Range;
 
     // Decorations
 
-    static function decorateMarker( marker : Marker, decorationParams : DecorationParams ) : Decoration;
-    static function decorationsForScreenRowRange( startScreenRow : Int, endScreenRow : Int ) : Dynamic;
+    function decorateMarker( marker : Marker, decorationParams : DecorationParams ) : Decoration;
+    function decorationsForScreenRowRange( startScreenRow : Int, endScreenRow : Int ) : Dynamic;
 
-    static function getDecorations( ?propertyFilter : Dynamic ) : Array<Decoration>;
-    static function getLineDecorations( ?propertyFilter : Dynamic ) : Array<Decoration>;
-    static function getLineNumberDecorations( ?propertyFilter : Dynamic ) : Array<Decoration>;
-    static function getHighlightDecorations( ?propertyFilter : Dynamic ) : Array<Decoration>;
-    static function getOverlayDecorations( ?propertyFilter : Dynamic ) : Array<Decoration>;
+    function getDecorations( ?propertyFilter : Dynamic ) : Array<Decoration>;
+    function getLineDecorations( ?propertyFilter : Dynamic ) : Array<Decoration>;
+    function getLineNumberDecorations( ?propertyFilter : Dynamic ) : Array<Decoration>;
+    function getHighlightDecorations( ?propertyFilter : Dynamic ) : Array<Decoration>;
+    function getOverlayDecorations( ?propertyFilter : Dynamic ) : Array<Decoration>;
 
     // Markers
 
-    static function markBufferRange( range : Range, properties : {?properties:Dynamic,?reversed:Bool,?persistent:Bool,?invalidate:Bool} ) : Marker;
-    static function markScreenRange( range : Range, properties  : {?properties:Dynamic,?reversed:Bool,?persistent:Bool,?invalidate:Bool} ) : Marker;
-    static function markBufferPosition( position : Point, ?options : Dynamic ) : Marker;
-    static function markScreenPosition( position : Point, ?options : Dynamic ) : Marker;
-    static function findMarkers( properties : {?startBufferRow:Int,?endBufferRow:Int,?containsBufferRange:Range,?containsBufferPosition:Point} ) : Array<Marker>;
+    function markBufferRange( range : Range, ?properties : {?properties:Dynamic,?reversed:Bool,?persistent:Bool,?invalidate:Bool} ) : Marker;
+    function markScreenRange( range : Range, ?properties  : {?properties:Dynamic,?reversed:Bool,?persistent:Bool,?invalidate:Bool} ) : Marker;
+    function markBufferPosition( position : Point, ?options : Dynamic ) : Marker;
+    function markScreenPosition( position : Point, ?options : Dynamic ) : Marker;
+    function findMarkers( properties : {?startBufferRow:Int,?endBufferRow:Int,?containsBufferRange:Range,?containsBufferPosition:Point} ) : Array<Marker>;
 
-    static function getMarker( id : Int ) : Marker;
-    static function getMarkers() : Array<Marker>;
-    static function getMarkerCount() : Int;
+    function getMarker( id : Int ) : Marker;
+    function getMarkers() : Array<Marker>;
+    function getMarkerCount() : Int;
 
     // Cursors
 
-    static function getCursorBufferPosition() : Point;
-    static function getCursorBufferPositions() : Array<Point>;
-    static function setCursorBufferPosition( position : Point, ?options : {?autoscroll:Bool} ) : Void;
-    static function getCursorScreenPosition() : Point;
-    static function getCursorScreenPositions() : Array<Point>;
-    static function setCursorScreenPosition(position : Point, ?options : {?autoscroll:Bool} )  : Void;
-    static function addCursorAtBufferPosition( bufferPosition : Point ) : Cursor;
-    static function addCursorAtScreenPosition( screenPosition : Point ) : Cursor;
-    static function hasMultipleCursors() : Bool;
-    static function moveUp( ?lineCount : Int ) : Int;
-    static function moveDown( ?lineCount : Int ) : Int;
-    static function moveLeft( ?columnCount : Int ) : Void;
-    static function moveRight( ?columnCount : Int ) : Void;
-    static function moveToBeginningOfLine() : Void;
-    static function moveToBeginningOfScreenLine() : Void;
-    static function moveToFirstCharacterOfLine() : Void;
-    static function moveToEndOfLine() : Void;
-    static function moveToEndOfScreenLine() : Void;
-    static function moveToBeginningOfWord() : Void;
-    static function moveToEndOfWord() : Void;
+    function getCursorBufferPosition() : Point;
+    function getCursorBufferPositions() : Array<Point>;
+    function setCursorBufferPosition( position : Point, ?options : {?autoscroll:Bool} ) : Void;
+    function getCursorScreenPosition() : Point;
+    function getCursorScreenPositions() : Array<Point>;
+    function setCursorScreenPosition(position : Point, ?options : {?autoscroll:Bool} )  : Void;
+    function addCursorAtBufferPosition( bufferPosition : Point ) : Cursor;
+    function addCursorAtScreenPosition( screenPosition : Point ) : Cursor;
+    function hasMultipleCursors() : Bool;
+    function moveUp( ?lineCount : Int ) : Int;
+    function moveDown( ?lineCount : Int ) : Int;
+    function moveLeft( ?columnCount : Int ) : Void;
+    function moveRight( ?columnCount : Int ) : Void;
+    function moveToBeginningOfLine() : Void;
+    function moveToBeginningOfScreenLine() : Void;
+    function moveToFirstCharacterOfLine() : Void;
+    function moveToEndOfLine() : Void;
+    function moveToEndOfScreenLine() : Void;
+    function moveToBeginningOfWord() : Void;
+    function moveToEndOfWord() : Void;
 
-    static function moveToTop() : Void;
-    static function moveToBottom() : Void;
-    static function moveToBeginningOfNextWord() : Void;
-    static function moveToPreviousWordBoundary() : Void;
-    static function moveToNextWordBoundary() : Void;
-    static function moveToBeginningOfNextParagraph() : Void;
-    static function moveToBeginningOfPreviousParagraph() : Void;
-    static function getLastCursor() : Cursor;
-    static function getWordUnderCursor( ?options:Dynamic ) : String;
-    static function getCursors() : Array<Cursor>;
-    static function getCursorsOrderedByBufferPosition() : Array<Cursor>;
+    function moveToTop() : Void;
+    function moveToBottom() : Void;
+    function moveToBeginningOfNextWord() : Void;
+    function moveToPreviousWordBoundary() : Void;
+    function moveToNextWordBoundary() : Void;
+    function moveToBeginningOfNextParagraph() : Void;
+    function moveToBeginningOfPreviousParagraph() : Void;
+    function getLastCursor() : Cursor;
+    function getWordUnderCursor( ?options:Dynamic ) : String;
+    function getCursors() : Array<Cursor>;
+    function getCursorsOrderedByBufferPosition() : Array<Cursor>;
 
     // Selections
 
-    static function getSelectedText() : String;
-    static function getSelectedBufferRange() : Range;
-    static function getSelectedBufferRanges() : Array<Range>;
-    static function setSelectedBufferRange( bufferRange : Range, ?options : {?reversed:Bool} ) : Void;
-    static function setSelectedBufferRanges( bufferRanges : Array<Range>, ?options: {?reversed:Bool} ) : Void;
-    static function getSelectedScreenRange() : Range;
-    static function getSelectedScreenRanges() : Array<Range>;
-    static function setSelectedScreenRange( screenRange : Range, ?options : {?reversed:Bool} ) : Void;
-    static function setSelectedScreenRanges( screenRanges : Array<Range>, ?options : {?reversed:Bool} ) : Void;
-    static function addSelectionForBufferRange( bufferRange : Range, ?options :  {?reversed:Bool} ) : Selection;
-    static function addSelectionForScreenRange( screenRange : Range, ?options : {?reversed:Bool} ) : Selection;
-    static function selectToBufferPosition( position : Point ) : Void;
-    static function selectToScreenPosition( position : Point ) : Void;
-    static function selectUp( ?rowCount : Int ) : Void;
-    static function selectDown( ?rowCount : Int ) : Void;
-    static function selectLeft( ?columnCount : Int ) : Void;
-    static function selectRight( ?columnCount : Int ) : Void;
-    static function selectToTop() : Void;
-    static function selectToBottom() : Void;
-    static function selectAll() : Void;
-    static function selectToBeginningOfLine() : Void;
-    static function selectToFirstCharacterOfLine() : Void;
-    static function selectToEndOfLine() : Void;
-    static function selectToBeginningOfWord() : Void;
-    static function selectToEndOfWord() : Void;
-    static function selectLinesContainingCursors() : Void;
-    static function selectWordsContainingCursors() : Void;
+    function getSelectedText() : String;
+    function getSelectedBufferRange() : Range;
+    function getSelectedBufferRanges() : Array<Range>;
+    function setSelectedBufferRange( bufferRange : Range, ?options : {?reversed:Bool} ) : Void;
+    function setSelectedBufferRanges( bufferRanges : Array<Range>, ?options: {?reversed:Bool} ) : Void;
+    function getSelectedScreenRange() : Range;
+    function getSelectedScreenRanges() : Array<Range>;
+    function setSelectedScreenRange( screenRange : Range, ?options : {?reversed:Bool} ) : Void;
+    function setSelectedScreenRanges( screenRanges : Array<Range>, ?options : {?reversed:Bool} ) : Void;
+    function addSelectionForBufferRange( bufferRange : Range, ?options :  {?reversed:Bool} ) : Selection;
+    function addSelectionForScreenRange( screenRange : Range, ?options : {?reversed:Bool} ) : Selection;
+    function selectToBufferPosition( position : Point ) : Void;
+    function selectToScreenPosition( position : Point ) : Void;
+    function selectUp( ?rowCount : Int ) : Void;
+    function selectDown( ?rowCount : Int ) : Void;
+    function selectLeft( ?columnCount : Int ) : Void;
+    function selectRight( ?columnCount : Int ) : Void;
+    function selectToTop() : Void;
+    function selectToBottom() : Void;
+    function selectAll() : Void;
+    function selectToBeginningOfLine() : Void;
+    function selectToFirstCharacterOfLine() : Void;
+    function selectToEndOfLine() : Void;
+    function selectToBeginningOfWord() : Void;
+    function selectToEndOfWord() : Void;
+    function selectLinesContainingCursors() : Void;
+    function selectWordsContainingCursors() : Void;
 
-    static function selectToPreviousWordBoundary() : Void;
-    static function selectToNextWordBoundary() : Void;
-    static function selectToBeginningOfNextWord() : Void;
-    static function selectToBeginningOfNextParagraph() : Void;
-    static function selectToBeginningOfPreviousParagraph() : Void;
-    static function selectMarker( marker : Marker ) : Void;
-    static function getLastSelection() : Selection;
-    static function getSelections() : Array<Selection>;
-    static function getSelectionsOrderedByBufferPosition() : Array<Selection>;
-    static function selectionIntersectsBufferRange( bufferRange : Range ) : Void;
+    function selectToPreviousWordBoundary() : Void;
+    function selectToNextWordBoundary() : Void;
+    function selectToBeginningOfNextWord() : Void;
+    function selectToBeginningOfNextParagraph() : Void;
+    function selectToBeginningOfPreviousParagraph() : Void;
+    function selectMarker( marker : Marker ) : Void;
+    function getLastSelection() : Selection;
+    function getSelections() : Array<Selection>;
+    function getSelectionsOrderedByBufferPosition() : Array<Selection>;
+    function selectionIntersectsBufferRange( bufferRange : Range ) : Void;
 
     // Searching and Replacing
 
-    static function scan( regex : EReg, iterator : Dynamic ) : Void;
-    static function scanInBufferRange( regex : EReg, range : Range, iterator : Dynamic ) : Void;
-    static function backwardsScanInBufferRange( regex : EReg, range : Range, iterator : Dynamic ) : Void;
+    function scan( regex : EReg, iterator : Dynamic ) : Void;
+    function scanInBufferRange( regex : EReg, range : Range, iterator : Dynamic ) : Void;
+    function backwardsScanInBufferRange( regex : EReg, range : Range, iterator : Dynamic ) : Void;
 
     // Tab Behavior
 
-    static function getSoftTabs() : Bool;
-    static function setSoftTabs( softTabs : Bool ) : Void;
-    static function toggleSoftTabs() : Void;
-    static function getTabLength() : Int;
-    static function setTabLength( tabLength : Int ) : Void;
+    function getSoftTabs() : Bool;
+    function setSoftTabs( softTabs : Bool ) : Void;
+    function toggleSoftTabs() : Void;
+    function getTabLength() : Int;
+    function setTabLength( tabLength : Int ) : Void;
 
-    static function usesSoftTabs(): Void;
-    static function getTabText() : Void;
+    function usesSoftTabs(): Void;
+    function getTabText() : Void;
 
     // Soft Wrap Behavior
 
-    static function isSoftWrapped() : Bool;
-    static function setSoftWrapped( softWrapped : Bool ) : Void;
-    static function toggleSoftWrapped() : Bool;
-    static function getSoftWrapColumn() : Int;
+    function isSoftWrapped() : Bool;
+    function setSoftWrapped( softWrapped : Bool ) : Void;
+    function toggleSoftWrapped() : Bool;
+    function getSoftWrapColumn() : Int;
 
     // Indentation
 
-    static function indentationForBufferRow() : Int;
-    static function setIndentationForBufferRow( bufferRow : Int, newLevel : Int, ?options : {?preserveLeadingWhitespace:Bool} ) : Void;
-    static function indentSelectedRows() : Void;
-    static function outdentSelectedRows() : Void;
-    static function indentLevelForLine() : Float;
-    static function autoIndentSelectedRows() : Void;
+    function indentationForBufferRow() : Int;
+    function setIndentationForBufferRow( bufferRow : Int, newLevel : Int, ?options : {?preserveLeadingWhitespace:Bool} ) : Void;
+    function indentSelectedRows() : Void;
+    function outdentSelectedRows() : Void;
+    function indentLevelForLine() : Float;
+    function autoIndentSelectedRows() : Void;
 
     // Grammars
 
-    static function getGrammar() : Grammar;
-    static function setGrammar( grammar : Grammar ) : Void;
+    function getGrammar() : Grammar;
+    function setGrammar( grammar : Grammar ) : Void;
 
     // Managing Syntax Scopes
 
-    static function getRootScopeDescriptor() : ScopeDescriptor;
-    static function scopeDescriptorForBufferPosition( bufferPosition : Point ) : ScopeDescriptor;
-    static function bufferRangeForScopeAtCursor( scopeSelector : String ) : Range;
-    static function isBufferRowCommented() : Bool;
+    function getRootScopeDescriptor() : ScopeDescriptor;
+    function scopeDescriptorForBufferPosition( bufferPosition : Point ) : ScopeDescriptor;
+    function bufferRangeForScopeAtCursor( scopeSelector : String ) : Range;
+    function isBufferRowCommented() : Bool;
 
     // Clipboard Operations
 
-    static function copySelectedText() : Void;
-    static function cutSelectedText() : Void;
-    static function pasteText( options : Dynamic ) : Void;
-    static function cutToEndOfLine() : Void;
+    function copySelectedText() : Void;
+    function cutSelectedText() : Void;
+    function pasteText( options : Dynamic ) : Void;
+    function cutToEndOfLine() : Void;
 
     // Folds
 
-    static function foldCurrentRow() : Void;
-    static function unfoldCurrentRow() : Void;
-    static function foldBufferRow( bufferRow : Int ) : Void;
-    static function unfoldBufferRow( bufferRow : Int ) : Void;
-    static function foldSelectedLines() : Void;
-    static function foldAll() : Void;
-    static function unfoldAll() : Void;
-    static function foldAllAtIndentLevel( level : Float ) : Void;
-    static function isFoldableAtBufferRow(  bufferRow : Int ) : Void;
-    static function isFoldableAtScreenRow(  bufferRow : Int ) : Void;
-    static function toggleFoldAtBufferRow() : Void;
-    static function isFoldedAtCursorRow() : Bool;
-    static function isFoldedAtBufferRow(  bufferRow : Int ) : Bool;
-    static function isFoldedAtScreenRow( screenRow : Int ) : Bool;
+    function foldCurrentRow() : Void;
+    function unfoldCurrentRow() : Void;
+    function foldBufferRow( bufferRow : Int ) : Void;
+    function unfoldBufferRow( bufferRow : Int ) : Void;
+    function foldSelectedLines() : Void;
+    function foldAll() : Void;
+    function unfoldAll() : Void;
+    function foldAllAtIndentLevel( level : Float ) : Void;
+    function isFoldableAtBufferRow(  bufferRow : Int ) : Void;
+    function isFoldableAtScreenRow(  bufferRow : Int ) : Void;
+    function toggleFoldAtBufferRow() : Void;
+    function isFoldedAtCursorRow() : Bool;
+    function isFoldedAtBufferRow(  bufferRow : Int ) : Bool;
+    function isFoldedAtScreenRow( screenRow : Int ) : Bool;
 
     //Scrolling the TextEditor
 
-    static function scrollToCursorPosition( ?options : {?center:Bool} ) : Void;
-    static function scrollToBufferPosition( bufferPosition : Point ,  ?options : {?center:Bool} ) : Void;
-    static function scrollToScreenPosition( screenPosition : Point,  ?options : {?center:Bool} ) : Void;
-    static function scrollToTop() : Void;
-    static function scrollToBottom() : Void;
+    function scrollToCursorPosition( ?options : {?center:Bool} ) : Void;
+    function scrollToBufferPosition( bufferPosition : Point ,  ?options : {?center:Bool} ) : Void;
+    function scrollToScreenPosition( screenPosition : Point,  ?options : {?center:Bool} ) : Void;
+    function scrollToTop() : Void;
+    function scrollToBottom() : Void;
 
     // TextEditor Rendering
 
-    static function getPlaceholderText() : String;
-    static function setPlaceholderText( placeholderText : String ) : Void;
+    function getPlaceholderText() : String;
+    function setPlaceholderText( placeholderText : String ) : Void;
 
 }
