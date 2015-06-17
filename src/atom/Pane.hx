@@ -4,6 +4,8 @@ extern class Pane {
 
     // Event Subscription
 
+    function onDidChangeFlexScale( callback : Void->Void ) : Disposable;
+    function observerFlexScale( callback : Void->Void ) : Disposable;
     function onDidActivate( callback : Void->Void ) : Disposable;
     function onDidDestroy( callback : Void->Void ) : Disposable;
     function onDidChangeActive( callback : Bool->Void ) : Disposable;
