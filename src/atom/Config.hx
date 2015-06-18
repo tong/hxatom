@@ -1,8 +1,17 @@
 package atom;
 
+
+typedef OnDidChangeCallbackEvent<T> = {
+    newValue : T,
+    oldValue : T,
+    keyPath : String
+}
+
+
 extern class Config {
 
-    function observe<T>( keyPath : String, ?options : {?scopeDescriptor:ScopeDescriptor}, cb : T->Void ) : Void;
+    function observe<T>( keyPath : String, ?options : {?scopeDescriptor:ScopeDescriptor}, callback : T->Void ) : Void;
+    function onDidChange<T>( ?keyPath : String, ?options : {?scopeDescriptor:ScopeDescriptor}, callback : OnDidChangeCallbackEvent<T>->Void ) : Void;
 
     function get<T>( keyPath : String, ?options : {?sources:Array<String>,?excludeSources:Array<String>,?scope:ScopeDescriptor} ) : T;
     function set( keyPath : String, value : Dynamic, ?options : {?scopeSelector:String,source:String} ) : Bool;
