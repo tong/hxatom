@@ -10,8 +10,8 @@ typedef OnDidChangeCallbackEvent<T> = {
 
 extern class Config {
 
-    function observe<T>( keyPath : String, ?options : {?scopeDescriptor:ScopeDescriptor}, callback : T->Void ) : Void;
-    function onDidChange<T>( ?keyPath : String, ?options : {?scopeDescriptor:ScopeDescriptor}, callback : OnDidChangeCallbackEvent<T>->Void ) : Void;
+    function observe<T>( keyPath : String, ?options : {?scopeDescriptor:ScopeDescriptor}, callback : T->Void ) : Disposable;
+    function onDidChange<T>( ?keyPath : String, ?options : {?scopeDescriptor:ScopeDescriptor}, callback : OnDidChangeCallbackEvent<T>->Void ) : Disposable;
 
     function get<T>( keyPath : String, ?options : {?sources:Array<String>,?excludeSources:Array<String>,?scope:ScopeDescriptor} ) : T;
     function set( keyPath : String, value : Dynamic, ?options : {?scopeSelector:String,source:String} ) : Bool;
