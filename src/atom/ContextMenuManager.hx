@@ -11,5 +11,5 @@ extern class ContextMenuManager {
             ?event:Dynamic,
             ?shouldDisplay:Dynamic->Void
         }
-    ) : Void;
+    ) : Disposable;
 }
