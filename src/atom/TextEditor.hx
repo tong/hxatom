@@ -2,6 +2,7 @@ package atom;
 
 typedef DecorationParams = Dynamic; //TODO
 
+@:native("TextEditor")
 extern class TextEditor {
 
     // Event Subscription
@@ -50,6 +51,7 @@ extern class TextEditor {
     // Reading Text
 
     function getText() : String;
+    @:overload(function(range:Array<Dynamic>):String{}) //TODO range-compatible Array
     function getTextInBufferRange( range : Range ) : String;
     function getLineCount() : Int;
     function getScreenLineCount() : Int;
