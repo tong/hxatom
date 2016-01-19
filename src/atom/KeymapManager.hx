@@ -4,6 +4,7 @@ import js.html.Element;
 
 private typedef KeyBinding = Dynamic; //TODO
 
+@:native("KeymapManager")
 extern class KeymapManager {
 
     static function buildKeydownEvent( key : Int, ?options : {ctrl:Bool,alt:Bool,shift:Bool,cmd:Bool,which:Int,target:Element} ) : Void;

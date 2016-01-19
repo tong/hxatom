@@ -2,6 +2,7 @@ package atom;
 
 typedef Package = Dynamic; //TODO
 
+@:native("PackageManager")
 extern class PackageManager {
 
     // Event Subscription

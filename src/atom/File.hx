@@ -3,6 +3,7 @@ package atom;
 import js.Promise;
 import haxe.extern.EitherType;
 
+@:jsRequire("atom","File")
 extern class File {
 
     // Construction

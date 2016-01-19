@@ -2,14 +2,16 @@ package atom;
 
 import haxe.extern.EitherType;
 
+@:native("Range")
 extern class Range {
 
     var start : Point;
     var end : Point;
 
-    function new( pointA : EitherType<Point,Array<Float>>, pointB : EitherType<Point,Array<Float>> ) : Void;
+    function new( pointA : EitherType<Point,Array<Int>>, pointB : EitherType<Point,Array<Int>> ) : Void;
 
-    function fromObject( object : Dynamic, ?copy : Bool ) : Range;
+    static function fromObject( object : Dynamic, ?copy : Bool ) : Range;
+    
     function copy() : Range;
     function negate() : Range;
 

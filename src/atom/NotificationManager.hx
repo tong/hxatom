@@ -1,5 +1,6 @@
 package atom;
 
+@:native("NotificationManager")
 extern class NotificationManager {
 
     function onDidAddNotification( callback : Notification->Void ) : Disposable;

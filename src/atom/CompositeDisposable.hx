@@ -1,5 +1,6 @@
 package atom;
 
+//@:native("CompositeDisposable")
 @:jsRequire("atom","CompositeDisposable")
 extern class CompositeDisposable {
     function new() : Void;

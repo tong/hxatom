@@ -1,5 +1,6 @@
 package atom;
 
+@:native("Grammar")
 extern class Grammar {
     function onDidUpdate( callback : Void->Void ) : Disposable;
     function tokenizeLines( text : String ) : Array<Dynamic>;

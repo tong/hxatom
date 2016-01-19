@@ -7,7 +7,7 @@ LIB = hxatom
 all: haxelib
 
 $(LIB).zip:
-	cd ../ && zip -r $(LIB).zip $(LIB) -x $(LIB)/Makefile -x $(LIB)/.git  && mv $(LIB).zip $(LIB)
+	cd ../ && zip -r $(LIB).zip $(LIB) -x $(LIB)/Makefile -x $(LIB)/.git && mv $(LIB).zip $(LIB)
 
 haxelib: $(LIB).zip
 

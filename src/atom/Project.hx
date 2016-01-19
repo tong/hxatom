@@ -1,5 +1,6 @@
 package atom;
 
+@:native("Project")
 extern class Project {
 
     function onDidChangePaths( callback : Array<String>->Void ) : Void;

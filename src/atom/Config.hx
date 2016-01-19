@@ -1,12 +1,10 @@
 package atom;
 
-
 typedef OnDidChangeCallbackEvent<T> = {
     newValue : T,
     oldValue : T,
     keyPath : String
 }
-
 
 extern class Config {
 

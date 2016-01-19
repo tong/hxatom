@@ -1,5 +1,6 @@
 package atom;
 
+@:native("Cursor")
 extern class Cursor {
 
     /*

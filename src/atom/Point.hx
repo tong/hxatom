@@ -1,5 +1,6 @@
 package atom;
 
+@:native("Point")
 extern class Point {
 
     // Construction

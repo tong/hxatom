@@ -1,5 +1,6 @@
 package atom;
 
+@:native("GrammarRegistry")
 extern class GrammarRegistry {
 
     // Event Subscription

@@ -1,5 +1,6 @@
 package atom;
 
+@:native("Panel")
 extern class Panel {
 
     function destroy() : Void;

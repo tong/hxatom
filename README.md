@@ -1,4 +1,3 @@
 
-HXATOM
-======
-Haxe/Javascript type definitions for [atom.io](https://atom.io/docs/api).
+# Hxatom
+Haxe/Javascript type definitions for the [atom](https://atom.io/docs/api) text editor.

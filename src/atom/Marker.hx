@@ -1,5 +1,6 @@
 package atom;
 
+@:native("Marker")
 extern class Marker {
 
     static function destroy()  : Void;

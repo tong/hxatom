@@ -1,5 +1,6 @@
 package atom;
 
+@:native("Pane")
 extern class Pane {
 
     // Event Subscription

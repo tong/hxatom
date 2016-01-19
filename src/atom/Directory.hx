@@ -4,6 +4,7 @@ import js.Error;
 import js.Promise;
 import haxe.extern.EitherType;
 
+@:native("Directory")
 extern class Directory {
 
     // Construction

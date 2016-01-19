@@ -1,6 +1,34 @@
 package atom;
 
-typedef DecorationParams = Dynamic; //TODO
+@:enum abstract DecorationType(String) from String to String {
+    var line =  "line";
+    var line_number =  "line-number";
+    var highlight =  "highlight";
+    var overlay =  "overlay";
+}
+
+@:enum abstract DecorationPosition(String) from String to String {
+    var head = "head";
+    var tail = "tail";
+}
+
+typedef DecorationParams = {
+    var type : DecorationType;
+    @:native("class")
+    var _class : String;
+    @:optional var onlyHead : Bool;
+    @:optional var onlyEmpty : Bool;
+    @:optional var onlyNonEmpty : Bool;
+    @:optional var position : DecorationPosition;
+}
+
+@:enum abstract MarkerInvalidate(String) from String to String {
+    var never = "never";
+    var surround = "surround";
+    var overlap = "overlap";
+    var inside = "inside";
+    var touch = "touch";
+}
 
 @:native("TextEditor")
 extern class TextEditor {
@@ -119,8 +147,8 @@ extern class TextEditor {
 
     // Markers
 
-    function markBufferRange( range : Range, ?properties : {?properties:Dynamic,?reversed:Bool,?persistent:Bool,?invalidate:Bool} ) : Marker;
-    function markScreenRange( range : Range, ?properties  : {?properties:Dynamic,?reversed:Bool,?persistent:Bool,?invalidate:Bool} ) : Marker;
+    function markBufferRange( range : Range, ?properties : {?maintainHistory:Bool,?reversed:Bool,?persistent:Bool,?invalidate:MarkerInvalidate} ) : Marker;
+    function markScreenRange( range : Range, ?properties  : {?maintainHistory:Bool,?reversed:Bool,?persistent:Bool,?invalidate:MarkerInvalidate} ) : Marker;
     function markBufferPosition( position : Point, ?options : Dynamic ) : Marker;
     function markScreenPosition( position : Point, ?options : Dynamic ) : Marker;
     function findMarkers( properties : {?startBufferRow:Int,?endBufferRow:Int,?containsBufferRange:Range,?containsBufferPosition:Point} ) : Array<Marker>;
@@ -173,6 +201,7 @@ extern class TextEditor {
     function setSelectedBufferRanges( bufferRanges : Array<Range>, ?options: {?reversed:Bool} ) : Void;
     function getSelectedScreenRange() : Range;
     function getSelectedScreenRanges() : Array<Range>;
+    @:overload(function(screenRange : Array<Int>, ?options : {?reversed:Bool}):Void{})
     function setSelectedScreenRange( screenRange : Range, ?options : {?reversed:Bool} ) : Void;
     function setSelectedScreenRanges( screenRanges : Array<Range>, ?options : {?reversed:Bool} ) : Void;
     function addSelectionForBufferRange( bufferRange : Range, ?options :  {?reversed:Bool} ) : Selection;

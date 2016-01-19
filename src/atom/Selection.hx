@@ -1,5 +1,6 @@
 package atom;
 
+@:native("Selection")
 extern class Selection {
 
     //Event Subscription

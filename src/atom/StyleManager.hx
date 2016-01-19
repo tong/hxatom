@@ -2,6 +2,7 @@ package atom;
 
 import js.html.Element;
 
+@:native("StyleManager")
 extern class StyleManager {
 
     // Event Subscription

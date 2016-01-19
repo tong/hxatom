@@ -1,5 +1,6 @@
 package atom;
 
+@:native("GitRepository")
 extern class GitRepository {
     /*
     Construction and Destruction
@@ -76,6 +77,6 @@ Checking Out
 
 ::checkoutHead(path)
 
-::checkoutReference(reference, create) 
+::checkoutReference(reference, create)
     */
 }

@@ -27,6 +27,7 @@ typedef OpenOptions = {
     ?searchAllPanes : Bool
 }
 
+@:native("Workspace")
 extern class Workspace {
 
     // Event Subscription
@@ -49,7 +50,7 @@ extern class Workspace {
 
     // Opening
 
-    function open( uri : String, ?options : OpenOptions ) : Void;
+    function open( uri : String, ?options : OpenOptions ) : Promise<TextEditor>;
     function reopenItem() : Promise<Dynamic>;
     function addOpener( opener : String->Void ) : Disposable;
 
