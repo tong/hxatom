@@ -7,6 +7,9 @@ extern class Point {
 
     static function fromObject( object : Dynamic, ?copy : Bool ) : Point;
 
+    var row : Int;
+    var column : Int;
+
     function new( row : Int, column : Int ) : Void;
     function copy() : Point;
     function negate() : Point;
