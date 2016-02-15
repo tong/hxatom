@@ -149,6 +149,7 @@ extern class TextEditor {
 
     function markBufferRange( range : Range, ?properties : {?maintainHistory:Bool,?reversed:Bool,?persistent:Bool,?invalidate:MarkerInvalidate} ) : Marker;
     function markScreenRange( range : Range, ?properties  : {?maintainHistory:Bool,?reversed:Bool,?persistent:Bool,?invalidate:MarkerInvalidate} ) : Marker;
+    @:overload(function(position : Array<Int>, ?options : Dynamic):Marker{})
     function markBufferPosition( position : Point, ?options : Dynamic ) : Marker;
     function markScreenPosition( position : Point, ?options : Dynamic ) : Marker;
     function findMarkers( properties : {?startBufferRow:Int,?endBufferRow:Int,?containsBufferRange:Range,?containsBufferPosition:Point} ) : Array<Marker>;
