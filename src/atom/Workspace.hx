@@ -32,11 +32,11 @@ extern class Workspace {
 
     // Event Subscription
 
-    function observeTextEditors( callback : TextEditor->Void ) : Void;
-    function observePaneItems( callback : Dynamic->Void ) : Void;
-    function onDidChangeActivePaneItem( callback : Dynamic->Void ) : Void;
-    function observeActivePaneItem( callback : Dynamic->Void ) : Void;
-    function onDidOpen( callback : Dynamic->Void ) : Void;
+    function observeTextEditors( callback : TextEditor->Void ) : Disposable;
+    function observePaneItems( callback : Dynamic->Void ) : Disposable;
+    function onDidChangeActivePaneItem( callback : Dynamic->Void ) : Disposable;
+    function observeActivePaneItem( callback : Dynamic->Void ) : Disposable;
+    function onDidOpen( callback : Dynamic->Void ) : Disposable;
 
     function onDidAddPane( callback : {pane:Pane}->Void ) : Void;
     function onDidDestroyPane( callback : {pane:Pane}->Void ) : Void;
