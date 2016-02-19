@@ -3,18 +3,18 @@ package atom;
 import js.Promise;
 
 private typedef PaneOptions = {
-    item:Dynamic,
-    pane:Pane,
-    index:Int
+    item : Dynamic,
+    pane : Pane,
+    index : Int
 }
 
 private typedef PanelOptions = {
-    item:Dynamic,
-    ?visible:Bool,
-    ?priority:Int
+    item : Dynamic,
+    ?visible : Bool,
+    ?priority : Int
 }
 
-@:enum abstract Split(String) {
+@:enum abstract Split(String) from String to String {
     var left = "left";
     var right = "right";
 }
@@ -38,19 +38,21 @@ extern class Workspace {
     function observeActivePaneItem( callback : Dynamic->Void ) : Disposable;
     function onDidOpen( callback : Dynamic->Void ) : Disposable;
 
-    function onDidAddPane( callback : {pane:Pane}->Void ) : Void;
-    function onDidDestroyPane( callback : {pane:Pane}->Void ) : Void;
-    function observePanes( callback : Pane->Void ) : Void;
-    function onDidChangeActivePane( callback : Pane->Void ) : Void;
-    function observeActivePane( callback : Pane->Void ) : Void;
-    function onDidAddPaneItem( callback : PaneOptions->Void ) : Void;
-    function onWillDestroyPaneItem( callback : PaneOptions->Void ) : Void;
-    function onDidDestroyPaneItem( callback : PaneOptions->Void ) : Void;
-    function onDidAddTextEditor( callback : {textEditor:TextEditor,pane:Pane,index:Int}->Void ) : Void;
+    function onDidAddPane( callback : {pane:Pane}->Void ) : Disposable;
+    function onWillDestroyPane( callback : {pane:Pane}->Void ) : Disposable;
+    function onDidDestroyPane( callback : {pane:Pane}->Void ) : Disposable;
+    function observePanes( callback : Pane->Void ) : Disposable;
+    function onDidChangeActivePane( callback : Pane->Void ) : Disposable;
+    function observeActivePane( callback : Pane->Void ) : Disposable;
+    function onDidAddPaneItem( callback : PaneOptions->Void ) : Disposable;
+    function onWillDestroyPaneItem( callback : PaneOptions->Void ) : Disposable;
+    function onDidDestroyPaneItem( callback : PaneOptions->Void ) : Disposable;
+    function onDidAddTextEditor( callback : {textEditor:TextEditor,pane:Pane,index:Int}->Void ) : Disposable;
 
     // Opening
 
     function open( uri : String, ?options : OpenOptions ) : Promise<TextEditor>;
+    function isTextEditor( object : Dynamic ) : Bool;
     function reopenItem() : Promise<Dynamic>;
     function addOpener( opener : String->Void ) : Disposable;
 
@@ -68,7 +70,7 @@ extern class Workspace {
     function activateNextPane() : Void;
     function activatePreviousPane() : Void;
     function paneForURI( uri : String ) : Pane;
-    function paneForItem(item : Dynamic ) : Pane;
+    function paneForItem( item : Dynamic ) : Pane;
 
     // Panels
 
