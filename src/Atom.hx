@@ -30,6 +30,7 @@ extern class Atom {
     static function getVersion() : String;
     static function isReleasedVersion() : Bool;
     static function getWindowLoadTime() : Float;
+    static function getLoadSettings() : Dynamic;
 
     static function open( options : Dynamic ) : Void;
     static function close() : Void;
