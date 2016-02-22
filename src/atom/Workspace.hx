@@ -53,6 +53,7 @@ extern class Workspace {
 
     function open( uri : String, ?options : OpenOptions ) : Promise<TextEditor>;
     function isTextEditor( object : Dynamic ) : Bool;
+    function buildTextEditor( ?params : Dynamic ) : TextEditor;
     function reopenItem() : Promise<Dynamic>;
     function addOpener( opener : String->Void ) : Disposable;
 
