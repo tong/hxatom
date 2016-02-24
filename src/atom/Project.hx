@@ -3,7 +3,7 @@ package atom;
 @:native("Project")
 extern class Project {
 
-    function onDidChangePaths( callback : Array<String>->Void ) : Void;
+    function onDidChangePaths( callback : Array<String>->Void ) : Disposable;
 
     function getRepositories() : Array<GitRepository>;
     function repositoryForDirectory( directory : String ) : js.Promise<Dynamic>;
