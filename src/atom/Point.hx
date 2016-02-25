@@ -1,6 +1,6 @@
 package atom;
 
-@:native("Point")
+@:jsRequire("atom","Point")
 extern class Point {
 
     // Construction

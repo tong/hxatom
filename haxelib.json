@@ -1,13 +1,14 @@
 {
-  "name": "hxatom",
-  "version": "0.3.0",
-  "description": "Type definitions for atom.io",
-  "tags": ["atom","github","ide","editor","tool"],
-  "url": "https://github.com/tong/hxatom",
-  "license": "Public",
-  "contributors": ["tong"],
-  "classPath":"src/",
-  "releasenote": "See CHANGES",
-  "dependencies": {
-  }
+    "name": "hxatom",
+    "version": "0.3.3",
+    "description": "Type definitions for the atom text editor",
+    "tags": ["atom","github","ide","editor","texteditor","tool","code","nodejs","hxnodejs"],
+    "url": "https://github.com/tong/hxatom",
+    "license": "Public",
+    "contributors": ["tong"],
+    "classPath":"src/",
+    "releasenote": "See CHANGELOG.md",
+    "dependencies": {
+        "hxnodejs": "4.0.3"
+    }
 }

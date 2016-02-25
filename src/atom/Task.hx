@@ -3,7 +3,7 @@ package atom;
 /**
     Run a node script in a separate process.
 */
-@:native("Task")
+@:jsRequire("atom","Task")
 extern class Task {
 
     static function once( taskPath : String, args : Dynamic ) : Task;

@@ -16,6 +16,7 @@ atom.DeserializerManager
 atom.Directory
 atom.DirectorySearch
 atom.Disposable
+atom.Emitter
 atom.File
 atom.GitRepository
 atom.Grammar
@@ -41,3 +42,7 @@ atom.ThemeManager
 atom.TooltipManager
 atom.ViewRegistry
 atom.Workspace
+
+atom.autocomplete.Request
+atom.autocomplete.Suggestion
+atom.autocomplete.SuggestionInsert
