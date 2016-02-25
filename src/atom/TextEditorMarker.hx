@@ -1,7 +1,6 @@
 package atom;
 
-@:native("Marker")
-extern class Marker {
+extern class TextEditorMarker {
 
     static function destroy()  : Void;
     static function copy( properties : Dynamic ) : Void;
@@ -22,8 +21,8 @@ extern class Marker {
 
     // Comparing to other markers
 
-    static function isEqual( other : Marker ) : Bool;
-    static function compare( other : Marker ) : Int;
+    static function isEqual( other : TextEditorMarker ) : Bool;
+    static function compare( other : TextEditorMarker ) : Int;
 
     // Managing the marker's range
 

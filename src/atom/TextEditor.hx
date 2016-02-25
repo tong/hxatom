@@ -136,7 +136,7 @@ extern class TextEditor {
 
     // Decorations
 
-    function decorateMarker( marker : Marker, decorationParams : DecorationParams ) : Decoration;
+    function decorateMarker( marker : TextEditorMarker, decorationParams : DecorationParams ) : Decoration;
     function decorationsForScreenRowRange( startScreenRow : Int, endScreenRow : Int ) : Dynamic;
 
     function getDecorations( ?propertyFilter : Dynamic ) : Array<Decoration>;
@@ -147,15 +147,15 @@ extern class TextEditor {
 
     // Markers
 
-    function markBufferRange( range : Range, ?properties : {?maintainHistory:Bool,?reversed:Bool,?persistent:Bool,?invalidate:MarkerInvalidate} ) : Marker;
-    function markScreenRange( range : Range, ?properties  : {?maintainHistory:Bool,?reversed:Bool,?persistent:Bool,?invalidate:MarkerInvalidate} ) : Marker;
-    @:overload(function(position : Array<Int>, ?options : Dynamic):Marker{})
-    function markBufferPosition( position : Point, ?options : Dynamic ) : Marker;
-    function markScreenPosition( position : Point, ?options : Dynamic ) : Marker;
-    function findMarkers( properties : {?startBufferRow:Int,?endBufferRow:Int,?containsBufferRange:Range,?containsBufferPosition:Point} ) : Array<Marker>;
+    function markBufferRange( range : Range, ?properties : {?maintainHistory:Bool,?reversed:Bool,?persistent:Bool,?invalidate:MarkerInvalidate} ) : TextEditorMarker;
+    function markScreenRange( range : Range, ?properties  : {?maintainHistory:Bool,?reversed:Bool,?persistent:Bool,?invalidate:MarkerInvalidate} ) : TextEditorMarker;
+    @:overload(function(position : Array<Int>, ?options : Dynamic):TextEditorMarker{})
+    function markBufferPosition( position : Point, ?options : Dynamic ) : TextEditorMarker;
+    function markScreenPosition( position : Point, ?options : Dynamic ) : TextEditorMarker;
+    function findMarkers( properties : {?startBufferRow:Int,?endBufferRow:Int,?containsBufferRange:Range,?containsBufferPosition:Point} ) : Array<TextEditorMarker>;
 
-    function getMarker( id : Int ) : Marker;
-    function getMarkers() : Array<Marker>;
+    function getMarker( id : Int ) : TextEditorMarker;
+    function getMarkers() : Array<TextEditorMarker>;
     function getMarkerCount() : Int;
 
     // Cursors
@@ -229,7 +229,7 @@ extern class TextEditor {
     function selectToBeginningOfNextWord() : Void;
     function selectToBeginningOfNextParagraph() : Void;
     function selectToBeginningOfPreviousParagraph() : Void;
-    function selectMarker( marker : Marker ) : Void;
+    function selectMarker( marker : TextEditorMarker ) : Void;
     function getLastSelection() : Selection;
     function getSelections() : Array<Selection>;
     function getSelectionsOrderedByBufferPosition() : Array<Selection>;

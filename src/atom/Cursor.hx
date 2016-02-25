@@ -3,85 +3,84 @@ package atom;
 @:native("Cursor")
 extern class Cursor {
 
-    /*
     //Event Subscription
 
-    function onDidChangePosition(callback)
-    function onDidDestroy(callback)
-    function onDidChangeVisibility(callback)
+    function onDidChangePosition( callback : {oldBufferPosition:Point,oldScreenPosition:Point,newBufferPosition:Point,newScreenPosition:Point,textChanged:Bool,cursor:Cursor}->Void ) : Disposable;
+    function onDidDestroy( callback : Void->Void ) : Disposable;
+    function onDidChangeVisibility( callback : Bool->Void ) : Disposable;
 
     // Managing Cursor Position
 
-    function setScreenPosition(screenPosition, [options])
-    function getScreenPosition()
-    function setBufferPosition(bufferPosition, [options])
-    function getBufferPosition()
-    function getScreenRow()
-    function getScreenColumn()
-    function getBufferRow()
-    function getBufferColumn()
-    function getCurrentBufferLine()
-    function isAtBeginningOfLine()
-    function isAtEndOfLine()
+    function setScreenPosition( screenPosition : Array<Int>, ?options : {autoscroll:Bool} ) : Void;
+    function getScreenPosition() : Point;
+    function setBufferPosition( bufferPosition : Array<Int>, ?options : {autoscroll:Bool} ) : Void;
+    function getBufferPosition() : Array<Int>;
+    function getScreenRow() : Int;
+    function getScreenColumn() : Int;
+    function getBufferRow() : Int;
+    function getBufferColumn() : Int;
+    function getCurrentBufferLine() : Int;
+    function isAtBeginningOfLine() : Bool;
+    function isAtEndOfLine() : Bool;
 
     // Cursor Position Details
 
-    function getMarker()
-    function isSurroundedByWhitespace()
-    function isBetweenWordAndNonWord()
-    function isInsideWord([options])
-    function getIndentLevel()
-    function getScopeDescriptor()
-    function hasPrecedingCharactersOnLine()
-    function isLastCursor()
+    function getMarker() : TextEditorMarker;
+    function isSurroundedByWhitespace() : Bool;
+    function isBetweenWordAndNonWord() : Bool;
+    function isInsideWord( ?options : {wordRegex:EReg} ) : Bool;
+    function getIndentLevel() : Int;
+    function getScopeDescriptor() : ScopeDescriptor;
+    function hasPrecedingCharactersOnLine() : Bool;
+    function isLastCursor() : Bool;
 
     // Moving the Cursor
 
-    function moveUp([rowCount], [options])
-    function moveDown([rowCount], [options])
-    function moveLeft([columnCount], [options])
-    function moveRight([columnCount], [options])
-    function moveToTop()
-    function moveToBottom()
-    function moveToBeginningOfScreenLine()
-    function moveToBeginningOfLine()
-    function moveToFirstCharacterOfLine()
-    function moveToEndOfScreenLine()
-    function moveToEndOfLine()
-    function moveToBeginningOfWord()
-    function moveToEndOfWord()
-    function moveToBeginningOfNextWord()
-    function moveToPreviousWordBoundary()
-    function moveToNextWordBoundary()
-    function skipLeadingWhitespace()
-    function moveToBeginningOfNextParagraph()
-    function moveToBeginningOfPreviousParagraph()
+    function moveUp( ?rowCount : Int, ?options:{moveToEndOfSelection:Bool} ) : Void;
+    function moveDown( ?rowCount : Int,  ?options : {moveToEndOfSelection:Bool} ) : Void;
+    function moveLeft( ?columnCount : Int,  ?options : {moveToEndOfSelection:Bool} ) : Void;
+    function moveRight( ?columnCount : Int,  ?options : {moveToEndOfSelection:Bool} ) : Void;
+    function moveToTop() : Void;
+    function moveToBottom() : Void;
+    function moveToBeginningOfScreenLine() : Void;
+    function moveToBeginningOfLine() : Void;
+    function moveToFirstCharacterOfLine() : Void;
+    function moveToEndOfScreenLine() : Void;
+    function moveToEndOfLine() : Void;
+    function moveToBeginningOfWord() : Void;
+    function moveToEndOfWord() : Void;
+    function moveToBeginningOfNextWord() : Void;
+    function moveToPreviousWordBoundary() : Void;
+    function moveToNextWordBoundary() : Void;
+    function skipLeadingWhitespace() : Void;
+    function moveToBeginningOfNextParagraph() : Void;
+    function moveToBeginningOfPreviousParagraph() : Void;
 
     // Local Positions and Ranges
 
-    function getPreviousWordBoundaryBufferPosition([options])
-    function getNextWordBoundaryBufferPosition([options])
-    function getBeginningOfCurrentWordBufferPosition([options])
-    function getEndOfCurrentWordBufferPosition([options])
-    function getBeginningOfNextWordBufferPosition([options])
-    function getCurrentWordBufferRange([options])
-    function getCurrentLineBufferRange([options])
-    function getCurrentParagraphBufferRange()
-    function getCurrentWordPrefix()
+    function getPreviousWordBoundaryBufferPosition( ?options : { wordRegex:EReg } ) : Point;
+    function getNextWordBoundaryBufferPosition( ?options : { wordRegex:EReg } ) : Point;
+    function getBeginningOfCurrentWordBufferPosition( ?options : { wordRegex:EReg, includeNonWordCharacters:Bool, allowPrevious:Bool } ) : Point;
+    function getEndOfCurrentWordBufferPosition( ?options : { wordRegex:EReg, includeNonWordCharacters:Bool } ) : Point;
+    function getBeginningOfNextWordBufferPosition( ?options : { wordRegex:EReg } ) : Point;
+    function getCurrentWordBufferRange( ?options : { wordRegex:EReg } ) : Point;
+    function getCurrentLineBufferRange( ?options : { includeNewline:Bool } ) : Point;
+    function getCurrentParagraphBufferRange() : Range;
+    function getCurrentWordPrefix() : String;
 
     // Visibility
 
-    function setVisible()
-    function isVisible()
+    function setVisible() : Void;
+    function isVisible() : Bool;
 
     // Comparing to another cursor
 
-    function compare(otherCursor)
+    function compare( otherCursor : Cursor ) : Int;
 
     // Utilities
 
-    function clearAutoscroll()
-    function clearSelection()
-    function wordRegExp([options])
-    */
+    function clearAutoscroll() : Void;
+    function clearSelection() : Void;
+    function wordRegExp( ?options : {includeNonWordCharacters:Bool} ) : EReg;
+    function subwordRegExp( ?options : {backwards:Bool} ) : EReg;
 }
