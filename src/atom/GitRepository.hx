@@ -1,82 +1,52 @@
 package atom;
 
-@:native("GitRepository")
 extern class GitRepository {
-    /*
-    Construction and Destruction
 
-.open(path, options)
+    // Construction and Destruction
 
-::destroy()
+    static function open( path : String, options : { refreshOnWindowFocus:Bool } ) : GitRepository;
 
-::onDidDestroy()
+    function destroy() : Void;
+    function onDidDestroy( callback : Void->Void ) : Disposable;
+    function onDidChangeStatus( callback : {path:String,pathStatus:Int}->Void ) : Disposable;
+    function onDidChangeStatuses( callback : Void->Void ) : Disposable;
 
-Event Subscription
+    // Repository Details
 
-::onDidChangeStatus(callback)
+    function getType() : String;
+    function getPath() : String;
+    function getWorkingDirectory() : String;
+    function isProjectAtRoot() : Bool;
+    function relativize() : Void;
+    function hasBranch() : Void;
+    function getShortHead( path : String ) : String;
+    function isSubmodule() : Bool;
+    function getAheadBehindCount( reference : String, path : String ) : Int;
+    function getCachedUpstreamAheadBehindCount( path : String ) : {ahead:Int,behind:Int};
+    function getConfigValue( ?path : String ) : Dynamic;
+    function getOriginURL( ?path : String ) : String;
+    function getUpstreamBranch( ?path : String ) : String;
+    function getReferences( path : String ) : Dynamic;
+    function getReferenceTarget( reference : String, path : String ) : String;
 
-::onDidChangeStatuses(callback)
+    // Reading Status
 
-Repository Details
+    function isPathModified() : Bool;
+    function isPathNew() : Bool;
+    function isPathIgnored() : Bool;
+    function getDirectoryStatus( path : String ) : Int;
+    function getPathStatus() : String;
+    function getCachedPathStatus( path : String ) : Int;
+    function isStatusModified() : Bool;
+    function isStatusNew() : Bool;
 
-::getType()
+    //Retrieving Diffs
 
-::getPath()
+    function getDiffStats( path : String ) : {added:Int,deleted:Int};
+    function getLineDiffs( path : String, text : String ) : {oldStart:Int,newStart:Int,oldLines:Int,newLines:Int};
 
-::getWorkingDirectory()
+    // Checking Out
 
-::isProjectAtRoot()
-
-::relativize()
-
-::hasBranch()
-
-::getShortHead(path)
-
-::isSubmodule(path)
-
-::getAheadBehindCount(reference, path)
-
-::getCachedUpstreamAheadBehindCount(path)
-
-::getConfigValue(path)
-
-::getOriginURL([path])
-
-::getUpstreamBranch(path)
-
-::getReferences(path)
-
-::getReferenceTarget(reference, path)
-
-Reading Status
-
-::isPathModified()
-
-::isPathNew()
-
-::isPathIgnored()
-
-::getDirectoryStatus(path)
-
-::getPathStatus()
-
-::getCachedPathStatus(path)
-
-::isStatusModified()
-
-::isStatusNew()
-
-Retrieving Diffs
-
-::getDiffStats(path)
-
-::getLineDiffs(path, text)
-
-Checking Out
-
-::checkoutHead(path)
-
-::checkoutReference(reference, create)
-    */
+    function checkoutHead( path : String ) : Bool;
+    function checkoutReference( reference : String, create : Bool ) : Bool;
 }
