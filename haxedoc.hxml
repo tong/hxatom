@@ -4,6 +4,8 @@
 -cp src
 
 Atom
+atom.BufferedProcess
+atom.BufferedNodeProcess
 atom.Clipboard
 atom.Color
 atom.CommandRegistry
@@ -14,15 +16,14 @@ atom.Cursor
 atom.Decoration
 atom.DeserializerManager
 atom.Directory
-atom.DirectorySearch
 atom.Disposable
 atom.Emitter
 atom.File
 atom.GitRepository
 atom.Grammar
 atom.GrammarRegistry
+atom.Gutter
 atom.KeymapManager
-atom.Marker
 atom.MenuManager
 atom.Notification
 atom.NotificationManager
@@ -36,8 +37,9 @@ atom.ScopeDescriptor
 atom.Selection
 atom.StyleManager
 atom.Task
-#atom.TextBuffer #TODO
+atom.TextBuffer
 atom.TextEditor
+atom.TextEditorMarker
 atom.ThemeManager
 atom.TooltipManager
 atom.ViewRegistry
