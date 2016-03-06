@@ -1,6 +1,5 @@
 package atom;
 
-@:native("Decoration")
 extern class Decoration {
     function onDidChangeProperties( callback : {oldProperties:Dynamic,newProperties:Dynamic}->Void ) : Disposable;
     function onDidDestroy( callback : Void->Void ) : Disposable;

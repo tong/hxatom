@@ -8,5 +8,5 @@ extern class Emitter {
     function on( eventName : String, handler : Dynamic->Void, ?unshift : Bool ) : Disposable;
     function preempt( eventName : String, handler : Void->Void ) : Disposable;
     function off( eventName : String, handlerToRemove : Dynamic->Void ) : Void;
-    function emit( eventName : String, value : Dynamic ) : Void;
+    function emit( eventName : String, ?value : Dynamic ) : Void;
 }
