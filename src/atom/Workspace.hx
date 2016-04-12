@@ -24,6 +24,8 @@ typedef OpenOptions = {
     ?initialColumn : Int,
     ?split : Split,
     ?activatePane : Bool,
+    ?activateItem : Bool,
+    ?pending : Bool,
     ?searchAllPanes : Bool
 }
 
