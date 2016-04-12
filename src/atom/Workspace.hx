@@ -85,6 +85,10 @@ extern class Workspace {
     function addRightPanel( options : PanelOptions ) : Panel;
     function getTopPanels() : Array<Panel>;
     function addTopPanel( options : PanelOptions ) : Panel;
+    function getHeaderPanels() : Array<Panel>;
+    function addHeaderPanel( options : PanelOptions ) : Panel;
+    function getFooterPanels() : Array<Panel>;
+    function addFooterPanel( options : PanelOptions ) : Panel;
     function getModalPanels() : Array<Panel>;
     function addModalPanel( options : PanelOptions ) : Panel;
     function panelForItem( item : Dynamic ) : Panel;
