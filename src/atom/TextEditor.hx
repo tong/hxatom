@@ -1,21 +1,28 @@
 package atom;
 
+import haxe.extern.EitherType;
+import js.html.Element;
+
 @:enum abstract DecorationType(String) from String to String {
     var line =  "line";
     var line_number =  "line-number";
     var highlight =  "highlight";
     var overlay =  "overlay";
+    var gutter =  "gutter";
+    var block =  "block";
 }
 
 @:enum abstract DecorationPosition(String) from String to String {
     var head = "head";
     var tail = "tail";
+    var before = "before";
+    var after = "after";
 }
 
 typedef DecorationParams = {
     var type : DecorationType;
-    @:native("class")
-    var _class : String;
+    @:optional @:native("class") var _class : String;
+    @:optional var item : EitherType<Element,Dynamic>;
     @:optional var onlyHead : Bool;
     @:optional var onlyEmpty : Bool;
     @:optional var onlyNonEmpty : Bool;
@@ -30,6 +37,8 @@ typedef DecorationParams = {
     var touch = "touch";
 }
 
+typedef Marker = Dynamic; //TODO
+
 @:native("TextEditor")
 extern class TextEditor {
 
@@ -37,18 +46,23 @@ extern class TextEditor {
 
     function onDidChangeTitle( callback : Void->Void ) : Disposable;
     function onDidChangePath( callback : Void->Void ) : Disposable;
-    function onDidChange( callback : Void->Void ) : Disposable;
+    function onDidChange( callback : {oldRange:Range,newRange:Range,oldText:String,newText:String}->Void ) : Disposable;
     function onDidStopChanging( callback : Void->Void ) : Disposable;
-    function onDidChangeCursorPosition( callback : Dynamic->Void ) : Disposable;
-    function onDidChangeSelectionRange( callback : Dynamic->Void ) : Disposable;
-    function onDidSave( callback : Dynamic->Void ) : Disposable;
+    function onDidChangeCursorPosition( callback : {oldBufferPosition:Point,oldScreenPosition:Point,newBufferPosition:Point,newScreenPosition:Point,textChanged:Bool,cursor:Cursor}->Void ) : Disposable;
+    function onDidChangeSelectionRange( callback : {oldBufferPosition:Range,oldScreenPosition:Range,newBufferPosition:Range,newScreenPosition:Range,selection:Selection}->Void ) : Disposable;
+    function onDidSave( callback : {path:String}->Void ) : Disposable;
     function onDidDestroy( callback : Void->Void ) : Disposable;
 
+    function getBuffer() : TextBuffer;
+
+    function observeGutters( callback : Gutter->Void ) : Disposable;
+    function onDidAddGutter( callback : Gutter->Void ) : Disposable;
+    function onDidRemoveGutter( callback : Gutter->Void ) : Disposable;
     function onDidChangeSoftWrapped( callback : Void->Void ) : Disposable;
-    function onDidChangeEncoding( callback : Void->Void ) : Disposable;
+    function onDidChangeEncoding( callback : String->Void ) : Disposable;
     function observeGrammar( callback : Grammar->Void ) : Disposable;
     function onDidChangeGrammar( callback : Grammar->Void ) : Disposable;
-    function onDidChangeModified( callback : Void->Void ) : Disposable;
+    function onDidChangeModified( callback : Bool->Void ) : Disposable;
     function onDidConflict( callback : Void->Void ) : Disposable;
     function onWillInsertText( callback : {text:String,cancel:Void->Void}->Void ) : Disposable;
     function onDidInsertText( callback : {text:String}->Void ) : Disposable;
@@ -69,7 +83,8 @@ extern class TextEditor {
     function getLongTitle() : String;
     function getPath() : String;
     function isModified() : Bool;
-    function isEmpty() : Bool;
+    function setEncoding( ?encoding : String ) : Void;
+    function getEncoding() : String;
 
     // File Operations
 
@@ -79,22 +94,20 @@ extern class TextEditor {
     // Reading Text
 
     function getText() : String;
-    @:overload(function(range:Array<Dynamic>):String{}) //TODO range-compatible Array
     function getTextInBufferRange( range : Range ) : String;
     function getLineCount() : Int;
     function getScreenLineCount() : Int;
     function getLastBufferRow() : Int;
     function getLastScreenRow() : Int;
-    function lineTextForBufferRow( bufferRow : Int ) : String;
-    function lineTextForScreenRow( screenRow : Int ) : String;
+    function lineTextForBufferRow( row : Int ) : String;
+    function lineTextForScreenRow( row : Int ) : String;
     function getCurrentParagraphBufferRange() : Range;
 
     // Mutating Text
 
     function setText( text : String ) : Void;
     function setTextInBufferRange( range : Range, text : String, ?options : Dynamic ) : Void;
-    function insertText( text : String, ?options : Dynamic ) : Void;
-    function insertNewline() : Void;
+    function insertText( text : String, ?options : {?normalizeLineEndings:Bool,?undo:String} ) : Range;
     function delete() : Void;
     function backspace() : Void;
 
@@ -106,6 +119,10 @@ extern class TextEditor {
     function insertNewlineBelow() : Void;
     function insertNewlineAbove() : Void;
     function deleteToBeginningOfWord() : Void;
+    function deleteToPreviousWordBoundary() : Void;
+    function deleteToNextWordBoundary() : Void;
+    function deleteToBeginningOfSubword() : Void;
+    function deleteToEndOfSubword() : Void;
     function deleteToBeginningOfLine() : Void;
     function deleteToEndOfLine() : Void;
     function deleteToEndOfWord() : Void;
@@ -117,10 +134,11 @@ extern class TextEditor {
     function redo() : String;
 
     function transact( ?groupingInterval : Float, fn : Void->Void ) : Void;
-    function abortTransaction() : Void;
-    function createCheckpoint() : Void;
-    function revertToCheckpoint() : Void;
-    function groupChangesSinceCheckpoint() : Void;
+    function clearUndoStack() : Void;
+    function createCheckpoint() : Dynamic;
+    function revertToCheckpoint() : Bool;
+    function groupChangesSinceCheckpoint() : Bool;
+    function getChangesSinceCheckpoint() : Array<{start:Point,oldExtent:Point,newExtent:Point,newText:String}>;
 
     // TextEditor Coordinates
 
@@ -147,15 +165,13 @@ extern class TextEditor {
 
     // Markers
 
-    function markBufferRange( range : Range, ?properties : {?maintainHistory:Bool,?reversed:Bool,?persistent:Bool,?invalidate:MarkerInvalidate} ) : TextEditorMarker;
-    function markScreenRange( range : Range, ?properties  : {?maintainHistory:Bool,?reversed:Bool,?persistent:Bool,?invalidate:MarkerInvalidate} ) : TextEditorMarker;
-    @:overload(function(position : Array<Int>, ?options : Dynamic):TextEditorMarker{})
-    function markBufferPosition( position : Point, ?options : Dynamic ) : TextEditorMarker;
-    function markScreenPosition( position : Point, ?options : Dynamic ) : TextEditorMarker;
-    function findMarkers( properties : {?startBufferRow:Int,?endBufferRow:Int,?containsBufferRange:Range,?containsBufferPosition:Point} ) : Array<TextEditorMarker>;
-
-    function getMarker( id : Int ) : TextEditorMarker;
+    function addMarkerLayer( options : {?maintainHistory:Bool} ) : MarkerLayer;
+    function getMarkerLayer( id : String ) : MarkerLayer;
+    function getDefaultMarkerLayer() : MarkerLayer;
+    function markRange( range : Range, ?properties : {?reversed:Bool,?persistent:Bool,invalidate:MarkerInvalidate}) : Marker;
+    function markPosition( position : Point, properties : {?reversed:Bool,?persistent:Bool,?invalidate:MarkerInvalidate}) : Marker;
     function getMarkers() : Array<TextEditorMarker>;
+    function findMarkers( properties : {?startBufferRow:Int,?endBufferRow:Int,?containsBufferRange:Range,?containsBufferPosition:Point} ) : Array<TextEditorMarker>;
     function getMarkerCount() : Int;
 
     // Cursors
@@ -238,8 +254,10 @@ extern class TextEditor {
     // Searching and Replacing
 
     function scan( regex : EReg, iterator : Dynamic ) : Void;
-    function scanInBufferRange( regex : EReg, range : Range, iterator : Dynamic ) : Void;
-    function backwardsScanInBufferRange( regex : EReg, range : Range, iterator : Dynamic ) : Void;
+    function backwardsScan( regex : EReg, iterator : Dynamic ) : Void;
+    function scanInRange( regex : EReg, range : Range, iterator : Dynamic ) : Void;
+    function backwardsScanInRange( regex : EReg, range : Range, iterator : Dynamic ) : Void;
+    function replace( regex : EReg, replacementText : String ) : Int;
 
     // Tab Behavior
 
@@ -304,7 +322,13 @@ extern class TextEditor {
     function isFoldedAtBufferRow(  bufferRow : Int ) : Bool;
     function isFoldedAtScreenRow( screenRow : Int ) : Bool;
 
-    //Scrolling the TextEditor
+    // Gutters
+
+    function addGutter( options : {name:String,?priority:Int,?visible:Bool} ) : Gutter;
+    function getGutters() : Array<Gutter>;
+    function gutterWithName( name : String ) : Gutter;
+
+    // Scrolling the TextEditor
 
     function scrollToCursorPosition( ?options : {?center:Bool} ) : Void;
     function scrollToBufferPosition( bufferPosition : Point ,  ?options : {?center:Bool} ) : Void;
