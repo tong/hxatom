@@ -1,12 +1,13 @@
 package atom;
 
 @:jsRequire("atom","Emitter")
-extern class Emitter {
+extern class Emitter implements Disposable {
     function new() : Void;
     function clear() : Void;
     function dispose() : Void;
-    function on( eventName : String, handler : Dynamic->Void, ?unshift : Bool ) : Disposable;
+    @:overload(function( eventName : String, handler : Void->Void, ?unshift : Bool ) : Disposable {})
+    function on<T>( eventName : String, handler : T->Void, ?unshift : Bool ) : Disposable;
     function preempt( eventName : String, handler : Void->Void ) : Disposable;
-    function off( eventName : String, handlerToRemove : Dynamic->Void ) : Void;
-    function emit( eventName : String, ?value : Dynamic ) : Void;
+    function off<T>( eventName : String, handlerToRemove : T->Void ) : Void;
+    function emit<T>( eventName : String, ?value : T ) : Void;
 }

@@ -1,6 +1,5 @@
 package atom;
 
-@:native("ThemeManager")
 extern class ThemeManager {
 
     // Event Subscription

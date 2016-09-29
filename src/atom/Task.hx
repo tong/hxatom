@@ -6,7 +6,7 @@ package atom;
 @:jsRequire("atom","Task")
 extern class Task {
 
-    static function once( taskPath : String, args : Dynamic ) : Task;
+    static function once( taskPath : String, args : haxe.extern.Rest<Dynamic> ) : Task;
 
     function new( taskPath : String ) : Void;
     function start( args : Dynamic, ?cb : Void->Void ) : Void;

@@ -94,6 +94,7 @@ extern class TextEditor {
     // Reading Text
 
     function getText() : String;
+    @:overload(function( range : Array<Array<Float>> ) : String {} )
     function getTextInBufferRange( range : Range ) : String;
     function getLineCount() : Int;
     function getScreenLineCount() : Int;
