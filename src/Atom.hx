@@ -39,6 +39,18 @@ extern class Atom {
     static function getPosition() : {x:Int,y:Int};
     static function setPosition( x : Int, y : Int ) : Void;
 
+    static function pickFolder( callback : Array<String>->Void ) : Void;
+    static function getCurrentWindow() : Dynamic; //TODO ?
+    static function center() : Void;
+    static function focus() : Void;
+    static function show() : Void;
+    static function hide() : Void;
+    static function reload() : Void;
+    static function isMaximized() : Bool;
+    static function isFullScreen() : Bool;
+    static function setFullScreen( ?fullScreen : Bool ) : Void;
+    static function toggleFullScreen() : Void;
+
     static function beep() : Void;
     static function confirm( options : {message:String,?detailedMessage:String,?buttons:Dynamic} ) : Int;
 
