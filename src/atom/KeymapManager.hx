@@ -21,7 +21,7 @@ extern class KeymapManager {
 
     // Adding and Removing Bindings
 
-    function add( source : String, bindings : Dynamic ) : Void;
+    function add( source : String, bindings : Dynamic, ?priority : Int ) : Void;
 
     // Accessing Bindings
 
