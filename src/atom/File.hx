@@ -22,7 +22,7 @@ extern class File {
 
     function isFile() : Bool;
     function isDirectory() : Bool;
-    function exists() : Bool;
+    function exists() : js.Promise<Bool>;
     function existsSync() : Bool;
     function getDigest() : Promise<Dynamic>;
     function getDigestSync() : String;
