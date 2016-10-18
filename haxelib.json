@@ -1,8 +1,8 @@
 {
     "name": "atom",
-    "version": "0.3.4",
+    "version": "0.4.0",
     "description": "Type definitions for the atom text editor",
-    "tags": ["atom","github","ide","editor","texteditor","tool","nodejs","hxnodejs","electron"],
+    "tags": ["atom","ide","editor","texteditor","development","github","plugin"],
     "url": "https://github.com/tong/hxatom",
     "license": "Public",
     "contributors": ["tong"],
