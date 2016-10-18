@@ -4,12 +4,12 @@ import haxe.extern.EitherType;
 import js.html.Element;
 
 @:enum abstract DecorationType(String) from String to String {
-    var line =  "line";
-    var line_number =  "line-number";
-    var highlight =  "highlight";
-    var overlay =  "overlay";
-    var gutter =  "gutter";
-    var block =  "block";
+    var line = "line";
+    var line_number = "line-number";
+    var highlight = "highlight";
+    var overlay = "overlay";
+    var gutter = "gutter";
+    var block = "block";
 }
 
 @:enum abstract DecorationPosition(String) from String to String {
@@ -29,7 +29,7 @@ typedef DecorationParams = {
     @:optional var position : DecorationPosition;
 }
 
-@:enum abstract MarkerInvalidate(String) from String to String {
+@:enum abstract InvalidationStrategy(String) from String to String {
     var never = "never";
     var surround = "surround";
     var overlap = "overlap";
@@ -37,7 +37,65 @@ typedef DecorationParams = {
     var touch = "touch";
 }
 
-typedef Marker = Dynamic; //TODO
+@:enum abstract ClipDirection(String) to String {
+	var backward = "backward";
+	var forward = "forward";
+	var closest = "closest";
+}
+
+//@:jsRequire("atom","Emitter")
+@:native("DisplayMarker")
+extern class DisplayMarker {
+
+	// Construction and Destruction
+	function destroy() : Void;
+	function copy( ?properties : Dynamic ) : DisplayMarker;
+
+	// Event Subscription
+	function onDidChange( callback : {
+		oldHeadBufferPosition : Point,
+		newHeadBufferPosition : Point,
+		oldTailBufferPosition : Point,
+		newTailBufferPosition : Point,
+		oldHeadScreenPosition : Point,
+		newHeadScreenPosition : Point,
+		oldTailScreenPosition : Point,
+		newTailScreenPosition : Point,
+		wasValid : Bool,
+		isValid : Bool,
+		hadTail : Bool,
+		hasTail : Bool,
+		oldProperties : Dynamic,
+		newProperties : Dynamic,
+		textChanged : Bool
+	}->Void ) : Disposable;
+	function onDidDestroy( callback : Void->Void ) : Disposable;
+
+	// TextEditorMarker Details
+	function isValid() : Bool;
+	function isDestroyed() : Bool;
+	function isReversed() : Bool;
+	function isExclusive() : Bool;
+	function getInvalidationStrategy() : InvalidationStrategy;
+	function getProperties() : Dynamic;
+	function setProperties( properties : Dynamic ) : Void;
+	function matchesProperties( attributes : Dynamic ) : Bool;
+
+	// Comparing to other markers
+	function compare( other : DisplayMarker ) : Float;
+	function isEqual( other : DisplayMarker ) : Bool;
+
+	// Managing the marker's range
+	function getBufferRange() : Range;
+	function getScreenRange() : Range;
+	function setBufferRange( bufferRange : Range, ?properties : {reversed:Bool} ) : Void;
+	function setScreenRange( screenRange : Range, ?options : {reversed:Bool,clipDirection:ClipDirection} ) : Void;
+	function getStartScreenPosition( ?options : {clipDirection:ClipDirection} ) : Point;
+	function getEndScreenPosition( ?options : {clipDirection:ClipDirection} ) : Point;
+
+ 	//Extended Methods
+    //TODO
+}
 
 @:native("TextEditor")
 extern class TextEditor {
@@ -46,7 +104,7 @@ extern class TextEditor {
 
     function onDidChangeTitle( callback : Void->Void ) : Disposable;
     function onDidChangePath( callback : Void->Void ) : Disposable;
-    function onDidChange( callback : {oldRange:Range,newRange:Range,oldText:String,newText:String}->Void ) : Disposable;
+    function onDidChange( callback : {newExtent:Point,?newText:String,oldExtent:Point,start:Point}->Void ) : Disposable;
     function onDidStopChanging( callback : Void->Void ) : Disposable;
     function onDidChangeCursorPosition( callback : {oldBufferPosition:Point,oldScreenPosition:Point,newBufferPosition:Point,newScreenPosition:Point,textChanged:Bool,cursor:Cursor}->Void ) : Disposable;
     function onDidChangeSelectionRange( callback : {oldBufferPosition:Range,oldScreenPosition:Range,newBufferPosition:Range,newScreenPosition:Range,selection:Selection}->Void ) : Disposable;
@@ -155,7 +213,7 @@ extern class TextEditor {
 
     // Decorations
 
-    function decorateMarker( marker : TextEditorMarker, decorationParams : DecorationParams ) : Decoration;
+    function decorateMarker( marker : DisplayMarker, decorationParams : DecorationParams ) : Decoration;
     function decorationsForScreenRowRange( startScreenRow : Int, endScreenRow : Int ) : Dynamic;
 
     function getDecorations( ?propertyFilter : Dynamic ) : Array<Decoration>;
@@ -166,13 +224,17 @@ extern class TextEditor {
 
     // Markers
 
-    function addMarkerLayer( options : {?maintainHistory:Bool} ) : MarkerLayer;
-    function getMarkerLayer( id : String ) : MarkerLayer;
-    function getDefaultMarkerLayer() : MarkerLayer;
-    function markRange( range : Range, ?properties : {?reversed:Bool,?persistent:Bool,invalidate:MarkerInvalidate}) : Marker;
-    function markPosition( position : Point, properties : {?reversed:Bool,?persistent:Bool,?invalidate:MarkerInvalidate}) : Marker;
-    function getMarkers() : Array<TextEditorMarker>;
-    function findMarkers( properties : {?startBufferRow:Int,?endBufferRow:Int,?containsBufferRange:Range,?containsBufferPosition:Point} ) : Array<TextEditorMarker>;
+    function markBufferRange( bufferRange : Range, ?properties : {?maintainHistory:Bool,?reversed:Bool,?invalidate:String} ) : DisplayMarker;
+    function markScreenRange( range : Range, ?properties : {?maintainHistory:Bool,?reversed:Bool,?invalidate:InvalidationStrategy} ) : DisplayMarker;
+    function markBufferPosition( bufferPosition : Point, ?properties : {?invalidate:InvalidationStrategy} ) : DisplayMarker;
+    function markScreenPosition( screenPosition : Point, ?properties : {?invalidate:InvalidationStrategy,clipDirection:ClipDirection} ) : DisplayMarker;
+    function findMarkers( properties : {?startBufferRow:Int,?endBufferRow:Int,?containsBufferRange:Range,?containsBufferPosition:Point} ) : Array<DisplayMarker>;
+    function addMarkerLayer( options : {?maintainHistory:Bool,persistent:Bool} ) : DisplayMarkerLayer;
+    function getMarkerLayer( id : String ) : DisplayMarkerLayer;
+    function getDefaultMarkerLayer() : DisplayMarkerLayer;
+
+    function getMarker( id : String ) : DisplayMarker;
+    function getMarkers() : Array<DisplayMarker>;
     function getMarkerCount() : Int;
 
     // Cursors

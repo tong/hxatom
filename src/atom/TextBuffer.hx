@@ -67,9 +67,9 @@ extern class TextBuffer {
 
     // Markers
 
-    function addMarkerLayer( options : {maintainHistory:Bool} ) : MarkerLayer;
-    function getMarkerLayer( id : String ) : MarkerLayer;
-    function getDefaultMarkerLayer() : MarkerLayer;
+    function addMarkerLayer( options : {maintainHistory:Bool} ) : DisplayMarkerLayer;
+    function getMarkerLayer( id : String ) : DisplayMarkerLayer;
+    function getDefaultMarkerLayer() : DisplayMarkerLayer;
     function markRange( range : Range, properties : { ?reversed:Bool, ?persistent:Bool, ?invalidate:String } ) : TextEditorMarker;
     function markPosition( position : Point, properties : { ?reversed:Bool, ?persistent:Bool, ?invalidate:String } ) : TextEditorMarker;
     function getMarkers() : Array<TextEditorMarker>;
