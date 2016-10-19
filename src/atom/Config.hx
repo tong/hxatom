@@ -1,17 +1,21 @@
 package atom;
 
+import haxe.extern.EitherType;
+
 typedef OnDidChangeCallbackEvent<T> = {
     newValue : T,
     oldValue : T,
     keyPath : String
 }
 
+typedef ConfigValue = EitherType<String,EitherType<Int,EitherType<Float,EitherType<Bool,EitherType<Array<Dynamic>,Dynamic>>>>>;
+
 extern class Config {
 
     function observe<T>( keyPath : String, ?options : {?scopeDescriptor:ScopeDescriptor}, callback : T->Void ) : Disposable;
     function onDidChange<T>( ?keyPath : String, ?options : {?scopeDescriptor:ScopeDescriptor}, callback : OnDidChangeCallbackEvent<T>->Void ) : Disposable;
 
-    function get<T>( keyPath : String, ?options : {?sources:Array<String>,?excludeSources:Array<String>,?scope:ScopeDescriptor} ) : T;
+    function get<T:ConfigValue>( keyPath : String, ?options : {?sources:Array<String>,?excludeSources:Array<String>,?scope:ScopeDescriptor} ) : T;
     function set( keyPath : String, value : Dynamic, ?options : {?scopeSelector:String,source:String} ) : Bool;
     function unset( keyPath : String, ?options : {?scopeSelector:String,?source:String} ) : Void;
 
