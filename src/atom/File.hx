@@ -33,7 +33,7 @@ extern class File {
 
     function getPath() : String;
     function getRealPathSync() : String;
-    function getRealPath() : String;
+    function getRealPath() : Promise<String>;
     function getBaseName() : String;
 
     // Traversing
