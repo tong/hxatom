@@ -1,4 +1,6 @@
 _*
 doc/
+example/*.js
 haxedoc.xml
 hxatom.zip
+run.n

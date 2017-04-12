@@ -1,29 +1,36 @@
 package atom;
 
-typedef NotificationOptions = {
-    ?buttons : Array<{
-        ?className: String,
-        ?onDidClick: Void->Void,
-        ?text: String
-    }>,
-    ?description: String,
-    ?detail: String,
-    ?dismissable: Bool,
-    ?icon: String,
-    ?stack: String
-}
-
-@:jsRequire("atom","NotificationManager")
-extern class NotificationManager {
-
-    function onDidAddNotification( callback : Notification->Void ) : Disposable;
-
-    function addSuccess( message : String, ?options : NotificationOptions ) : Void;
-    function addInfo( message : String, ?options : NotificationOptions ) : Void;
-    function addWarning( message : String, ?options : NotificationOptions ) : Void;
-    function addError( message : String,?options : NotificationOptions ) : Void;
-    function addFatalError( message : String, ?options : NotificationOptions ) : Void;
-
-    function getNotifications() : Array<Notification>;
-
+/**
+	A notification manager used to create {Notification}s to be shown
+	to the user.
+**/
+@:require(js, atom) @:jsRequire("atom", "NotificationManager") extern class NotificationManager {
+	/**
+		Invoke the given callback after a notification has been added.
+	**/
+	function onDidAddNotification(callback:haxe.Constraints.Function):Disposable;
+	/**
+		Add a success notification.
+	**/
+	function addSuccess(message:String, ?options:Dynamic):Void;
+	/**
+		Add an informational notification.
+	**/
+	function addInfo(message:String, ?options:Dynamic):Void;
+	/**
+		Add a warning notification.
+	**/
+	function addWarning(message:String, ?options:Dynamic):Void;
+	/**
+		Add an error notification.
+	**/
+	function addError(message:String, ?options:Dynamic):Void;
+	/**
+		Add a fatal error notification.
+	**/
+	function addFatalError(message:String, ?options:Dynamic):Void;
+	/**
+		Get all the notifications.
+	**/
+	function getNotifications():Array<Dynamic>;
 }

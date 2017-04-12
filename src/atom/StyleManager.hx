@@ -1,24 +1,35 @@
 package atom;
 
-import js.html.Element;
-
-@:native("StyleManager")
-extern class StyleManager {
-
-    // Event Subscription
-
-    //TODO wtf, docs are unclear about callback types
-
-    function observeStyleElements( callback : Element->String->String->Void ) : Disposable;
-    function onDidAddStyleElement( callback : Element->String->String->Void ) : Disposable;
-    function onDidRemoveStyleElement( callback : Dynamic->Void ) : Disposable;
-    function onDidUpdateStyleElement( callback : Element->String->String->Void ) : Disposable;
-
-    // Reading Style Elements
-
-    function getStyleElements() : Dynamic;
-
-    // Paths
-
-    function getUserStyleSheetPath() : String;
+/**
+	A singleton instance of this class available via `atom.styles`,
+	which you can use to globally query and observe the set of active style
+	sheets. The `StyleManager` doesn't add any style elements to the DOM on its
+	own, but is instead subscribed to by individual `<atom-styles>` elements,
+	which clone and attach style elements in different contexts.
+**/
+@:require(js, atom) @:jsRequire("atom", "StyleManager") extern class StyleManager {
+	/**
+		Invoke `callback` for all current and future style elements.
+	**/
+	function observeStyleElements(callback:haxe.Constraints.Function, styleElement:Dynamic, sourcePath:String, context:String):Disposable;
+	/**
+		Invoke `callback` when a style element is added.
+	**/
+	function onDidAddStyleElement(callback:haxe.Constraints.Function, styleElement:Dynamic, sourcePath:String, context:String):Disposable;
+	/**
+		Invoke `callback` when a style element is removed.
+	**/
+	function onDidRemoveStyleElement(callback:haxe.Constraints.Function, styleElement:Dynamic):Disposable;
+	/**
+		Invoke `callback` when an existing style element is updated.
+	**/
+	function onDidUpdateStyleElement(callback:haxe.Constraints.Function, styleElement:Dynamic, sourcePath:String, context:String):Disposable;
+	/**
+		Get all loaded style elements.
+	**/
+	function getStyleElements():Void;
+	/**
+		Get the path of the user style sheet in `~/.atom`.
+	**/
+	function getUserStyleSheetPath():String;
 }

@@ -1,25 +1,15 @@
 package atom;
 
-import js.html.Element;
-
-typedef TooltipOptions = {
-
-    title : String,
-    ?keyBindingCommand : String,
-    ?keyBindingTarget : String,
-
-    ?animation : Bool,
-    ?container : Dynamic,
-    ?delay : Dynamic,
-    ?html : Bool,
-    ?placement : Dynamic,
-    ?selector : String,
-    ?template : String,
-    ?trigger : String,
-    ?viewport : Dynamic
-}
-
-@:native("TooltipManager")
-extern class TooltipManager {
-    function add( target : Element, options : TooltipOptions ) : Disposable;
+/**
+	Associates tooltips with HTML elements.
+**/
+@:require(js, atom) @:jsRequire("atom", "TooltipManager") extern class TooltipManager {
+	/**
+		Add a tooltip to the given element.
+	**/
+	function add(target:Dynamic, options:Dynamic):Disposable;
+	/**
+		Find the tooltips that have been applied to the given element.
+	**/
+	function findTooltips(target:Dynamic):Array<Dynamic>;
 }

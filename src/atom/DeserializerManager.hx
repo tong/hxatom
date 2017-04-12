@@ -1,9 +1,15 @@
 package atom;
 
-extern class DeserializerManager {
-    //function add( deserializers : Array<{name:String,deserialize:Dynamic}> ) : Void;
-    function add( deserializers : haxe.extern.Rest<Dynamic> ) : Void;
-    function getDeserializerCount() : Int;
-    function deserialize( state : Dynamic ) : Dynamic;
-    function get( state : Dynamic ) : Dynamic;
+/**
+	Manages the deserializers used for serialized state
+**/
+@:require(js, atom) @:jsRequire("atom", "DeserializerManager") extern class DeserializerManager {
+	/**
+		Register the given class(es) as deserializers.
+	**/
+	function add(deserializers:Atom):Void;
+	/**
+		Deserialize the state and params.
+	**/
+	function deserialize(state:Dynamic):Void;
 }

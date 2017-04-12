@@ -1,11 +1,35 @@
 package atom;
 
-extern class Decoration {
-    function onDidChangeProperties( callback : {oldProperties:Dynamic,newProperties:Dynamic}->Void ) : Disposable;
-    function onDidDestroy( callback : Void->Void ) : Disposable;
-    function getId() : Void;
-    function getMarker() : TextEditorMarker;
-    function getProperties() : Dynamic;
-    function setProperties( newProperties : Dynamic ) : Void;
-    function destroy() : Void;
+/**
+	Represents a decoration that follows a {DisplayMarker}. A decoration is
+	basically a visual representation of a marker. It allows you to add CSS
+	classes to line numbers in the gutter, lines, and add selection-line regions
+	around marked ranges of text.
+**/
+@:require(js, atom) @:jsRequire("atom", "Decoration") extern class Decoration {
+	/**
+		Destroy this marker decoration.
+		
+		You can also destroy the marker if you own it, which will destroy this
+		decoration. 
+	**/
+	function destroy():Void;
+	/**
+		When the {Decoration} is updated via {Decoration::update}.
+	**/
+	function onDidChangeProperties(callback:haxe.Constraints.Function):Disposable;
+	/**
+		Invoke the given callback when the {Decoration} is destroyed
+	**/
+	function onDidDestroy(callback:haxe.Constraints.Function):Disposable;
+	/**
+		An id unique across all {Decoration} objects 
+	**/
+	function getId():Void;
+	function getMarker():Decoration;
+	function getProperties():Decoration;
+	/**
+		Update the marker with new Properties. Allows you to change the decoration's class.
+	**/
+	function setProperties(newProperties:Dynamic):Void;
 }

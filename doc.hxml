@@ -1,9 +1,9 @@
 --no-output
--js hxatom.js
+-js _
 -xml haxedoc.xml
 -cp src
-Atom
 --macro include("atom")
+Atom
 
---next
--cmd haxelib run dox -i ./ -o doc/ --title HXAtom -D source-path https://github.com/tong/hxatom/blob/master/src
+#--next
+#-cmd haxelib run dox -i ./ -o doc/ --title HXAtom -D source-path https://github.com/tong/hxatom/blob/master/src

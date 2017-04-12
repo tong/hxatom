@@ -1,26 +1,50 @@
 package atom;
 
-@:native("GrammarRegistry")
-extern class GrammarRegistry {
-
-    // Event Subscription
-
-    static function onDidAddGrammar( callback : Void->Void ) : Void;
-    static function onDidUpdateGrammar( callback : Void->Void ) : Void;
-
-    // Managing Grammars
-
-    static function getGrammars() : Array<Grammar>;
-    static function grammarForScopeName( scopeName : String ) : Grammar;
-    static function addGrammar( grammar : Grammar ) : Disposable;
-    static function removeGrammarForScopeName( scopeName : String ) : Grammar;
-    static function readGrammarSync( grammarPath : String ) : Grammar;
-    static function readGrammar( grammarPath : String , callback : String->Grammar->Void ) : Void;
-    static function loadGrammarSync( grammarPath : String ) : Grammar;
-    static function loadGrammar( grammarPath : String , callback : String->Grammar->Void ) : Void;
-    static function grammarOverrideForPath( filePath : String ) : Grammar;
-    static function setGrammarOverrideForPath( filePath : String , scopeName : String ) : Grammar;
-    static function clearGrammarOverrideForPath( filePath : String ) : Void;
-    static function clearGrammarOverrides() : Void;
-    static function selectGrammar( filePath : String , fileContents : String ) : Grammar;
+/**
+	Registry containing one or more grammars. 
+**/
+@:require(js, atom) @:jsRequire("atom", "GrammarRegistry") extern class GrammarRegistry {
+	/**
+		Invoke the given callback when a grammar is added to the registry.
+	**/
+	function onDidAddGrammar(callback:haxe.Constraints.Function):Disposable;
+	/**
+		Invoke the given callback when a grammar is updated due to a grammar
+		it depends on being added or removed from the registry.
+	**/
+	function onDidUpdateGrammar(callback:haxe.Constraints.Function):Disposable;
+	/**
+		Get all the grammars in this registry.
+	**/
+	function getGrammars():Array<Dynamic>;
+	/**
+		Get a grammar with the given scope name.
+	**/
+	function grammarForScopeName(scopeName:String):Grammar;
+	/**
+		Add a grammar to this registry.
+		
+		A 'grammar-added' event is emitted after the grammar is added.
+	**/
+	function addGrammar(grammar:Grammar):Disposable;
+	/**
+		Remove the grammar with the given scope name.
+	**/
+	function removeGrammarForScopeName(scopeName:String):Grammar;
+	/**
+		Read a grammar synchronously but don't add it to the registry.
+	**/
+	function readGrammarSync(grammarPath:String):Grammar;
+	/**
+		Read a grammar asynchronously but don't add it to the registry.
+	**/
+	function readGrammar(grammarPath:String, callback:haxe.Constraints.Function):Dynamic;
+	/**
+		Read a grammar synchronously and add it to this registry.
+	**/
+	function loadGrammarSync(grammarPath:String):Grammar;
+	/**
+		Read a grammar asynchronously and add it to the registry.
+	**/
+	function loadGrammar(grammarPath:String, callback:haxe.Constraints.Function):Dynamic;
 }

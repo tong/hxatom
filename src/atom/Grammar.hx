@@ -1,8 +1,20 @@
 package atom;
 
-@:native("Grammar")
-extern class Grammar {
-    function onDidUpdate( callback : Void->Void ) : Disposable;
-    function tokenizeLines( text : String ) : Array<Dynamic>;
-    function tokenizeLine( line : String, ?ruleStack : Array<Dynamic>, ?firstLine : Bool ) : {token:Array<Dynamic>,ruleStack:Array<Dynamic>};
+/**
+	Grammar that tokenizes lines of text.
+**/
+@:require(js, atom) @:jsRequire("atom", "Grammar") extern class Grammar {
+	/**
+		Invoke the given callback when this grammar is updated due to a
+		grammar it depends on being added or removed from the registry.
+	**/
+	function onDidUpdate(callback:haxe.Constraints.Function):Disposable;
+	/**
+		Tokenize all lines in the given text.
+	**/
+	function tokenizeLines(text:String):Array<Dynamic>;
+	/**
+		Tokenize the line of text.
+	**/
+	function tokenizeLine(line:String, ruleStack:Array<Dynamic>, firstLine:Bool):Dynamic;
 }
