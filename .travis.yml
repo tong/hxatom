@@ -1,0 +1,18 @@
+language: haxe
+
+os:
+  - linux
+
+haxe:
+  - "3.4.0"
+  - development
+
+matrix:
+  allow_failures:
+    - haxe: development
+
+script:
+  - haxelib git atom https://github.com/tong/hxatom
+  - haxe run.hxml
+  - neko run.n
+  - haxe doc.hxml
