@@ -9,12 +9,12 @@ package atom;
 		Invoke the given callback with all current and future text
 		editors in the workspace.
 	**/
-	function observeTextEditors(callback:haxe.Constraints.Function):Disposable;
+	function observeTextEditors(callback:haxe.Constraints.Function, editor:TextEditor):Disposable;
 	/**
 		Invoke the given callback with all current and future panes items
 		in the workspace.
 	**/
-	function observePaneItems(callback:haxe.Constraints.Function):Disposable;
+	function observePaneItems(callback:haxe.Constraints.Function, item:Dynamic):Disposable;
 	/**
 		Invoke the given callback when the active pane item changes.
 		
@@ -23,7 +23,7 @@ package atom;
 		{::onDidStopChangingActivePaneItem} to delay operations until after changes
 		stop occurring.
 	**/
-	function onDidChangeActivePaneItem(callback:haxe.Constraints.Function):Disposable;
+	function onDidChangeActivePaneItem(callback:haxe.Constraints.Function, item:Dynamic):Disposable;
 	/**
 		Invoke the given callback when the active pane item stops
 		changing.
@@ -34,72 +34,72 @@ package atom;
 		changing or closing tabs and ensures critical UI feedback, like changing the
 		highlighted tab, gets priority over work that can be done asynchronously.
 	**/
-	function onDidStopChangingActivePaneItem(callback:haxe.Constraints.Function):Disposable;
+	function onDidStopChangingActivePaneItem(callback:haxe.Constraints.Function, item:Dynamic):Disposable;
 	/**
 		Invoke the given callback with the current active pane item and
 		with all future active pane items in the workspace.
 	**/
-	function observeActivePaneItem(callback:haxe.Constraints.Function):Disposable;
+	function observeActivePaneItem(callback:haxe.Constraints.Function, item:Dynamic):Disposable;
 	/**
 		Invoke the given callback whenever an item is opened. Unlike
 		{::onDidAddPaneItem}, observers will be notified for items that are already
 		present in the workspace when they are reopened.
 	**/
-	function onDidOpen(callback:haxe.Constraints.Function):Disposable;
+	function onDidOpen(callback:haxe.Constraints.Function, event:Dynamic, uri:String, item:Dynamic, pane:Dynamic, index:Dynamic):Disposable;
 	/**
 		Invoke the given callback when a pane is added to the workspace.
 	**/
-	function onDidAddPane(callback:haxe.Constraints.Function):Disposable;
+	function onDidAddPane(callback:haxe.Constraints.Function, event:Dynamic, pane:Dynamic):Disposable;
 	/**
 		Invoke the given callback before a pane is destroyed in the
 		workspace.
 	**/
-	function onWillDestroyPane(callback:haxe.Constraints.Function):Disposable;
+	function onWillDestroyPane(callback:haxe.Constraints.Function, event:Dynamic, pane:Dynamic):Disposable;
 	/**
 		Invoke the given callback when a pane is destroyed in the
 		workspace.
 	**/
-	function onDidDestroyPane(callback:haxe.Constraints.Function):Disposable;
+	function onDidDestroyPane(callback:haxe.Constraints.Function, event:Dynamic, pane:Dynamic):Disposable;
 	/**
 		Invoke the given callback with all current and future panes in the
 		workspace.
 	**/
-	function observePanes(callback:haxe.Constraints.Function):Disposable;
+	function observePanes(callback:haxe.Constraints.Function, pane:Pane):Disposable;
 	/**
 		Invoke the given callback when the active pane changes.
 	**/
-	function onDidChangeActivePane(callback:haxe.Constraints.Function):Disposable;
+	function onDidChangeActivePane(callback:haxe.Constraints.Function, pane:Pane):Disposable;
 	/**
 		Invoke the given callback with the current active pane and when
 		the active pane changes.
 	**/
-	function observeActivePane(callback:haxe.Constraints.Function):Disposable;
+	function observeActivePane(callback:haxe.Constraints.Function, pane:Pane):Disposable;
 	/**
 		Invoke the given callback when a pane item is added to the
 		workspace.
 	**/
-	function onDidAddPaneItem(callback:haxe.Constraints.Function):Disposable;
+	function onDidAddPaneItem(callback:haxe.Constraints.Function, event:Dynamic, item:Dynamic, pane:Pane, index:Float):Disposable;
 	/**
 		Invoke the given callback when a pane item is about to be
 		destroyed, before the user is prompted to save it.
 	**/
-	function onWillDestroyPaneItem(callback:haxe.Constraints.Function):Disposable;
+	function onWillDestroyPaneItem(callback:haxe.Constraints.Function, event:Dynamic, item:Dynamic, pane:Pane, index:Float):Disposable;
 	/**
 		Invoke the given callback when a pane item is destroyed.
 	**/
-	function onDidDestroyPaneItem(callback:haxe.Constraints.Function):Disposable;
+	function onDidDestroyPaneItem(callback:haxe.Constraints.Function, event:Dynamic, item:Dynamic, pane:Pane, index:Float):Disposable;
 	/**
 		Invoke the given callback when a text editor is added to the
 		workspace.
 	**/
-	function onDidAddTextEditor(callback:haxe.Constraints.Function):Disposable;
+	function onDidAddTextEditor(callback:haxe.Constraints.Function, event:Dynamic, textEditor:TextEditor, pane:Pane, index:Float):Disposable;
 	/**
 		Opens the given URI in Atom asynchronously.
 		If the URI is already open, the existing item for that URI will be
 		activated. If no URI is given, or no registered opener can open
 		the URI, a new empty {TextEditor} will be created.
 	**/
-	function open(?uri:String, ?options:Dynamic):js.Promise<Dynamic>;
+	function open(?uri:String, ?options:Dynamic, initialLine:Float, initialColumn:Float, split:Dynamic, activatePane:Bool, activateItem:Bool, pending:Bool, searchAllPanes:Bool):js.Promise<Dynamic>;
 	function isTextEditor(object:Dynamic):Bool;
 	/**
 		Create a new text editor.
@@ -145,11 +145,11 @@ package atom;
 	**/
 	function getActivePane():Pane;
 	/**
-		Make the next pane active. 
+		Make the next pane active.
 	**/
 	function activateNextPane():Void;
 	/**
-		Make the previous pane active. 
+		Make the previous pane active.
 	**/
 	function activatePreviousPane():Void;
 	/**
@@ -161,68 +161,68 @@ package atom;
 	**/
 	function paneForItem(item:Dynamic):Pane;
 	/**
-		Get an {Array} of all the panel items at the bottom of the editor window. 
+		Get an {Array} of all the panel items at the bottom of the editor window.
 	**/
 	function getBottomPanels():Void;
 	/**
 		Adds a panel item to the bottom of the editor window.
 	**/
-	function addBottomPanel(options:Dynamic):Panel;
+	function addBottomPanel(options:Dynamic, item:Dynamic, ?visible:Bool, ?priority:Float):Panel;
 	/**
-		Get an {Array} of all the panel items to the left of the editor window. 
+		Get an {Array} of all the panel items to the left of the editor window.
 	**/
 	function getLeftPanels():Void;
 	/**
 		Adds a panel item to the left of the editor window.
 	**/
-	function addLeftPanel(options:Dynamic):Panel;
+	function addLeftPanel(options:Dynamic, item:Dynamic, ?visible:Bool, ?priority:Float):Panel;
 	/**
-		Get an {Array} of all the panel items to the right of the editor window. 
+		Get an {Array} of all the panel items to the right of the editor window.
 	**/
 	function getRightPanels():Void;
 	/**
 		Adds a panel item to the right of the editor window.
 	**/
-	function addRightPanel(options:Dynamic):Panel;
+	function addRightPanel(options:Dynamic, item:Dynamic, ?visible:Bool, ?priority:Float):Panel;
 	/**
-		Get an {Array} of all the panel items at the top of the editor window. 
+		Get an {Array} of all the panel items at the top of the editor window.
 	**/
 	function getTopPanels():Void;
 	/**
 		Adds a panel item to the top of the editor window above the tabs.
 	**/
-	function addTopPanel(options:Dynamic):Panel;
+	function addTopPanel(options:Dynamic, item:Dynamic, ?visible:Bool, ?priority:Float):Panel;
 	/**
-		Get an {Array} of all the panel items in the header. 
+		Get an {Array} of all the panel items in the header.
 	**/
 	function getHeaderPanels():Void;
 	/**
 		Adds a panel item to the header.
 	**/
-	function addHeaderPanel(options:Dynamic):Panel;
+	function addHeaderPanel(options:Dynamic, item:Dynamic, ?visible:Bool, ?priority:Float):Panel;
 	/**
-		Get an {Array} of all the panel items in the footer. 
+		Get an {Array} of all the panel items in the footer.
 	**/
 	function getFooterPanels():Void;
 	/**
 		Adds a panel item to the footer.
 	**/
-	function addFooterPanel(options:Dynamic):Panel;
+	function addFooterPanel(options:Dynamic, item:Dynamic, ?visible:Bool, ?priority:Float):Panel;
 	/**
-		Get an {Array} of all the modal panel items 
+		Get an {Array} of all the modal panel items
 	**/
 	function getModalPanels():Void;
 	/**
 		Adds a panel item as a modal dialog.
 	**/
-	function addModalPanel(options:Dynamic):Panel;
+	function addModalPanel(options:Dynamic, item:Dynamic, ?visible:Bool, ?priority:Float):Panel;
 	function panelForItem(item:Dynamic):Panel;
 	/**
 		Performs a search across all files in the workspace.
 	**/
-	function scan(regex:EReg, ?options:Dynamic, iterator:haxe.Constraints.Function):js.Promise<Dynamic>;
+	function scan(regex:EReg, ?options:Dynamic, paths:Array<Dynamic>, ?onPathsSearched:haxe.Constraints.Function, iterator:haxe.Constraints.Function):js.Promise<Dynamic>;
 	/**
 		Performs a replace across all the specified files in the project.
 	**/
-	function replace(regex:EReg, replacementText:String, filePaths:Array<Dynamic>, iterator:haxe.Constraints.Function):js.Promise<Dynamic>;
+	function replace(regex:EReg, replacementText:String, filePaths:Array<Dynamic>, iterator:haxe.Constraints.Function, options:Dynamic):js.Promise<Dynamic>;
 }

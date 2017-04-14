@@ -8,7 +8,7 @@ package atom;
 	/**
 		Configures a new File instance, no files are accessed.
 	**/
-	function new(filePath:String, ?symlink:Bool):Void;
+	function new(filePath:String, symlink:Bool):Void;
 	/**
 		Creates the file on disk that corresponds to `::getPath()` if no
 		such file already exists.
@@ -56,11 +56,11 @@ package atom;
 	/**
 		Return the {String} filename without any directory information. 
 	**/
-	function getBaseName():String;
+	function getBaseName():Void;
 	/**
 		Return the {Directory} that contains this file. 
 	**/
-	function getParent():Directory;
+	function getParent():Void;
 	/**
 		Reads the contents of the file.
 	**/
