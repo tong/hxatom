@@ -18,6 +18,7 @@ branches:
 
 script:
   - haxelib install hxnodejs
+  - haxelib install dox
   - haxelib dev atom .
   - haxe run.hxml
   - neko run.n
