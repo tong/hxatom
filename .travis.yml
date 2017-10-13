@@ -11,7 +11,13 @@ matrix:
   allow_failures:
     - haxe: development
 
+branches:
+  only:
+    - master
+    - dev
+
 script:
+  - haxelib install hxnodejs
   - haxelib dev atom .
   - haxe run.hxml
   - neko run.n
