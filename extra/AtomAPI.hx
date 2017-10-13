@@ -155,8 +155,30 @@ class AtomAPI {
 
         for( f in Reflect.fields( api ) ) {
 
+
             var cl : APIClass = Reflect.field( api, f );
             //if( cl.name != 'Color' ) continue;
+
+            switch cl.name {
+            // PATCH
+            case 'Workspace':
+                for( m in cl.instanceMethods ) {
+                    if( m.name == 'hide' )
+                        m.returnValues[0].type = 'Boolean';
+                }
+            // PATCH
+            case 'File':
+                for( m in cl.instanceMethods ) {
+                    switch m.name {
+                    case 'constructor':
+                        m.arguments[1].isOptional = true;
+                    case 'getBaseName':
+                        m.returnValues = [ { type: 'String', description: m.description } ];
+                    case 'getParent':
+                        m.returnValues = [ { type: 'Directory', description: m.description } ];
+                    }
+                }
+            }
 
             var sup = null;
             if( cl.superClass != null && cl.superClass != "Model" ) {
