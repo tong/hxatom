@@ -1,6 +1,6 @@
 {
     "name": "atom",
-    "version": "1.0.0-alpha",
+    "version": "1.0.0-beta",
     "description": "Type definitions for the atom text editor",
     "tags": ["atom","ide","editor","texteditor","development"],
     "url": "https://github.com/tong/hxatom",
