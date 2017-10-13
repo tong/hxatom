@@ -14,10 +14,6 @@ package atom;
 	**/
 	function onDidDestroy(callback:haxe.Constraints.Function):Disposable;
 	/**
-		Calls your `callback` when the cursor's visibility has changed
-	**/
-	function onDidChangeVisibility(callback:haxe.Constraints.Function):Disposable;
-	/**
 		Moves a cursor to a given screen position.
 	**/
 	function setScreenPosition(screenPosition:Array<Dynamic>, ?options:Dynamic):Void;
@@ -175,20 +171,11 @@ package atom;
 	function getCurrentParagraphBufferRange():Range;
 	function getCurrentWordPrefix():Dynamic;
 	/**
-		Sets whether the cursor is visible. 
-	**/
-	function setVisible():Void;
-	function isVisible():Dynamic;
-	/**
 		Compare this cursor's buffer position to another cursor's buffer position.
 		
 		See {Point::compare} for more details.
 	**/
 	function compare(otherCursor:Cursor):Void;
-	/**
-		Prevents this cursor from causing scrolling. 
-	**/
-	function clearAutoscroll():Void;
 	/**
 		Deselects the current selection. 
 	**/

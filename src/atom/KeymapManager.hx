@@ -43,6 +43,10 @@ package atom;
 	**/
 	function onDidFailToReadFile(callback:haxe.Constraints.Function):Disposable;
 	/**
+		Construct [KeyBindings]{KeyBinding} from an object grouping them by CSS selector.
+	**/
+	function build(source:String, bindings:Dynamic, priority:Float):Void;
+	/**
 		Add sets of key bindings grouped by CSS selector.
 	**/
 	function add(source:String, bindings:Dynamic, priority:Float):Void;

@@ -40,4 +40,8 @@ package atom;
 		No more events are emitted once this method is called. 
 	**/
 	function terminate():Void;
+	/**
+		Cancel the running task and emit an event if it was canceled.
+	**/
+	function cancel():Bool;
 }

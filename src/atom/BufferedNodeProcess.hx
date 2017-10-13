@@ -8,5 +8,5 @@ package atom;
 	/**
 		Runs the given Node script by spawning a new child process.
 	**/
-	function new(options:Dynamic, command:String, args:Array<Dynamic>, options:Dynamic, stdout:haxe.Constraints.Function, stderr:haxe.Constraints.Function, exit:haxe.Constraints.Function):Void;
+	function new(options:Dynamic):Void;
 }

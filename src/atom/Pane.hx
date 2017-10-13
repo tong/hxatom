@@ -137,7 +137,7 @@ package atom;
 		Make the given item *active*, causing it to be displayed by
 		the pane's view.
 	**/
-	function activateItem(?options:Dynamic):Void;
+	function activateItem(item:Dynamic, ?options:Dynamic):Void;
 	/**
 		Add the given item to the pane.
 	**/
@@ -165,7 +165,7 @@ package atom;
 		last item, the pane will be destroyed if the `core.destroyEmptyPanes` config
 		setting is `true`.
 	**/
-	function destroyItem(item:Dynamic):Void;
+	function destroyItem(item:Dynamic, ?force:Bool):js.Promise<Dynamic>;
 	/**
 		Destroy all items. 
 	**/
@@ -182,11 +182,11 @@ package atom;
 		Prompt the user for a location and save the active item with the
 		path they select.
 	**/
-	function saveActiveItemAs(?nextAction:haxe.Constraints.Function):Void;
+	function saveActiveItemAs(?nextAction:haxe.Constraints.Function):js.Promise<Dynamic>;
 	/**
 		Save the given item.
 	**/
-	function saveItem(item:Dynamic, ?nextAction:haxe.Constraints.Function):Void;
+	function saveItem(item:Dynamic, ?nextAction:haxe.Constraints.Function):js.Promise<Dynamic>;
 	/**
 		Prompt the user for a location and save the active item with the
 		path they select.
@@ -220,6 +220,10 @@ package atom;
 		itself will not be destroyed. 
 	**/
 	function destroy():Void;
+	/**
+		Determine whether this pane has been destroyed.
+	**/
+	function isDestroyed():Bool;
 	/**
 		Create a new pane to the left of this pane.
 	**/

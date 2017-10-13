@@ -33,7 +33,7 @@ package atom;
 		
 		Uses the value of the `core.apmPath` config setting if it exists.
 		
-		Return a {String} file path to apm. 
+		Return a {String} file path to apm.
 	**/
 	function getApmPath():Void;
 	/**
@@ -43,7 +43,7 @@ package atom;
 	/**
 		Resolve the given package name to a path on disk.
 		
-		Return a {String} folder path or undefined if it could not be resolved. 
+		Return a {String} folder path or undefined if it could not be resolved.
 	**/
 	function resolvePackagePath(name:String):Void;
 	/**
@@ -63,7 +63,7 @@ package atom;
 	**/
 	function isPackageDisabled(name:String):Bool;
 	/**
-		Get an {Array} of all the active {Package}s. 
+		Get an {Array} of all the active {Package}s.
 	**/
 	function getActivePackages():Void;
 	/**
@@ -76,7 +76,7 @@ package atom;
 	function isPackageActive(name:String):Bool;
 	function hasActivatedInitialPackages():Bool;
 	/**
-		Get an {Array} of all the loaded {Package}s 
+		Get an {Array} of all the loaded {Package}s
 	**/
 	function getLoadedPackages():Void;
 	/**

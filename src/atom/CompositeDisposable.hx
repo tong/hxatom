@@ -26,6 +26,10 @@ package atom;
 	**/
 	function remove(disposable:Disposable):Void;
 	/**
+		Alias to {CompositeDisposable::remove} 
+	**/
+	function delete():Void;
+	/**
 		Clear all disposables. They will not be disposed by the next call
 		to dispose. 
 	**/

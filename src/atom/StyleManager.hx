@@ -11,19 +11,19 @@ package atom;
 	/**
 		Invoke `callback` for all current and future style elements.
 	**/
-	function observeStyleElements(callback:haxe.Constraints.Function, styleElement:Dynamic, sourcePath:String, context:String):Disposable;
+	function observeStyleElements(callback:haxe.Constraints.Function):Disposable;
 	/**
 		Invoke `callback` when a style element is added.
 	**/
-	function onDidAddStyleElement(callback:haxe.Constraints.Function, styleElement:Dynamic, sourcePath:String, context:String):Disposable;
+	function onDidAddStyleElement(callback:haxe.Constraints.Function):Disposable;
 	/**
 		Invoke `callback` when a style element is removed.
 	**/
-	function onDidRemoveStyleElement(callback:haxe.Constraints.Function, styleElement:Dynamic):Disposable;
+	function onDidRemoveStyleElement(callback:haxe.Constraints.Function):Disposable;
 	/**
 		Invoke `callback` when an existing style element is updated.
 	**/
-	function onDidUpdateStyleElement(callback:haxe.Constraints.Function, styleElement:Dynamic, sourcePath:String, context:String):Disposable;
+	function onDidUpdateStyleElement(callback:haxe.Constraints.Function):Disposable;
 	/**
 		Get all loaded style elements.
 	**/

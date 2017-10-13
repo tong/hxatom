@@ -354,7 +354,7 @@ package atom;
 		undo history, no changes will be made to the buffer and this method will
 		return `false`.
 	**/
-	function revertToCheckpoint():Bool;
+	function revertToCheckpoint(checkpoint:Dynamic):Bool;
 	/**
 		Group all changes since the given checkpoint into a single
 		transaction for purposes of undo/redo.
@@ -362,7 +362,7 @@ package atom;
 		If the given checkpoint is no longer present in the undo history, no
 		grouping will be performed and this method will return `false`.
 	**/
-	function groupChangesSinceCheckpoint():Bool;
+	function groupChangesSinceCheckpoint(checkpoint:Dynamic):Bool;
 	/**
 		Convert a position in buffer-coordinates to screen-coordinates.
 		
@@ -730,42 +730,42 @@ package atom;
 		Select from the current cursor position to the given position in
 		buffer coordinates.
 		
-		This method may merge selections that end up intesecting.
+		This method may merge selections that end up intersecting.
 	**/
 	function selectToBufferPosition(position:Point):Void;
 	/**
 		Select from the current cursor position to the given position in
 		screen coordinates.
 		
-		This method may merge selections that end up intesecting.
+		This method may merge selections that end up intersecting.
 	**/
 	function selectToScreenPosition(position:Point):Void;
 	/**
 		Move the cursor of each selection one character upward while
 		preserving the selection's tail position.
 		
-		This method may merge selections that end up intesecting. 
+		This method may merge selections that end up intersecting. 
 	**/
 	function selectUp(?rowCount:Float):Void;
 	/**
 		Move the cursor of each selection one character downward while
 		preserving the selection's tail position.
 		
-		This method may merge selections that end up intesecting. 
+		This method may merge selections that end up intersecting. 
 	**/
 	function selectDown(?rowCount:Float):Void;
 	/**
 		Move the cursor of each selection one character leftward while
 		preserving the selection's tail position.
 		
-		This method may merge selections that end up intesecting. 
+		This method may merge selections that end up intersecting. 
 	**/
 	function selectLeft(?columnCount:Float):Void;
 	/**
 		Move the cursor of each selection one character rightward while
 		preserving the selection's tail position.
 		
-		This method may merge selections that end up intesecting. 
+		This method may merge selections that end up intersecting. 
 	**/
 	function selectRight(?columnCount:Float):Void;
 	/**
@@ -792,7 +792,7 @@ package atom;
 		Move the cursor of each selection to the beginning of its line
 		while preserving the selection's tail position.
 		
-		This method may merge selections that end up intesecting. 
+		This method may merge selections that end up intersecting. 
 	**/
 	function selectToBeginningOfLine():Void;
 	/**
@@ -915,7 +915,7 @@ package atom;
 		If you're programmatically modifying the results, you may want to try
 		{::backwardsScanInBufferRange} to avoid tripping over your own changes.
 	**/
-	function scan(regex:EReg, iterator:haxe.Constraints.Function):Void;
+	function scan(regex:EReg, ?options:Dynamic, iterator:haxe.Constraints.Function):Void;
 	/**
 		Scan regular expression matches in a given range, calling the given
 		iterator function on each match.

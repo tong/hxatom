@@ -12,7 +12,7 @@ package atom;
 		Destroy this {GitRepository} object.
 		
 		This destroys any tasks and subscriptions and releases the underlying
-		libgit2 repository handle. This method is idempotent. 
+		libgit2 repository handle. This method is idempotent.
 	**/
 	function destroy():Void;
 	function isDestroyed():Bool;
@@ -43,7 +43,7 @@ package atom;
 	function getWorkingDirectory():String;
 	function isProjectAtRoot():Dynamic;
 	/**
-		Makes a path relative to the repository's working directory. 
+		Makes a path relative to the repository's working directory.
 	**/
 	function relativize():Void;
 	function hasBranch():Dynamic;

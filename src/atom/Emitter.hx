@@ -29,6 +29,11 @@ package atom;
 	**/
 	function on(eventName:String, handler:haxe.Constraints.Function):Disposable;
 	/**
+		Register the given handler function to be invoked the next time an
+		events with the given name is emitted via {::emit}.
+	**/
+	function once(eventName:String, handler:haxe.Constraints.Function):Disposable;
+	/**
 		Register the given handler function to be invoked *before* all
 		other handlers existing at the time of subscription whenever events by the
 		given name are emitted via {::emit}.

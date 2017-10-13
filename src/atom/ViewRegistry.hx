@@ -25,6 +25,8 @@ package atom;
 		sequence
 		
 		1. Is the object an instance of `HTMLElement`? If true, return the object.
+		1. Does the object have a method named `getElement` that returns an
+		  instance of `HTMLElement`? If true, return that value.
 		1. Does the object have a property named `element` with a value which is
 		  an instance of `HTMLElement`? If true, return the property value.
 		1. Is the object a jQuery object, indicated by the presence of a `jquery`
@@ -35,5 +37,5 @@ package atom;
 		
 		If no associated view is returned by the sequence an error is thrown.
 	**/
-	function getView(object:Dynamic):Dynamic;
+	function getView():Dynamic;
 }

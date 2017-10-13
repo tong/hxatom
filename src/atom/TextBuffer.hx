@@ -2,9 +2,23 @@ package atom;
 
 /**
 	A mutable text container with undo/redo support and the ability to
-	annotate logical regions in the text. 
+	annotate logical regions in the text.
 **/
 @:require(js, atom) @:jsRequire("atom", "TextBuffer") extern class TextBuffer {
+	/**
+		Create a new buffer backed by the given file path.
+	**/
+	static function load(source:String, params:Dynamic):js.Promise<Dynamic>;
+	/**
+		Create a new buffer backed by the given file path. For better
+		performance, use {TextBuffer.load} instead.
+	**/
+	static function loadSync(filePath:String, params:Dynamic):TextBuffer;
+	/**
+		Restore a {TextBuffer} based on an earlier state created using
+		the {TextBuffer::serialize} method.
+	**/
+	static function deserialize(params:Dynamic):js.Promise<Dynamic>;
 	/**
 		Create a new buffer with the given params.
 	**/
@@ -19,13 +33,23 @@ package atom;
 	function onWillChange(callback:haxe.Constraints.Function):Disposable;
 	/**
 		Invoke the given callback synchronously when the content of the
-		buffer changes.
+		buffer changes. **You should probably not be using this in packages**.
 		
 		Because observers are invoked synchronously, it's important not to perform
 		any expensive operations via this method. Consider {::onDidStopChanging} to
-		delay expensive operations until after changes stop occurring.
+		delay expensive operations until after changes stop occurring, or at the
+		very least use {::onDidChangeText} to invoke your callback once *per
+		transaction* rather than *once per change*. This will help prevent
+		performance degredation when users of your package are typing with multiple
+		cursors, and other scenarios in which multiple changes occur within
+		transactions.
 	**/
 	function onDidChange(callback:haxe.Constraints.Function):Disposable;
+	/**
+		Invoke the given callback synchronously when a transaction finishes
+		with a list of all the changes in the transaction.
+	**/
+	function onDidChangeText(callback:haxe.Constraints.Function):Disposable;
 	/**
 		Invoke the given callback asynchronously following one or more
 		changes after {::getStoppedChangingDelay} milliseconds elapse without an
@@ -33,7 +57,7 @@ package atom;
 		
 		This method can be used to perform potentially expensive operations that
 		don't need to be performed synchronously. If you need to run your callback
-		synchronously, use {::onDidChange} instead.
+		synchronously, use {::onDidChangeText} instead.
 	**/
 	function onDidStopChanging(callback:haxe.Constraints.Function):Disposable;
 	/**
@@ -329,22 +353,22 @@ package atom;
 		If you're programmatically modifying the results, you may want to try
 		{::backwardsScan} to avoid tripping over your own changes.
 	**/
-	function scan(regex:EReg, iterator:haxe.Constraints.Function):Void;
+	function scan(regex:EReg, ?options:Dynamic, iterator:haxe.Constraints.Function):Void;
 	/**
 		Scan regular expression matches in the entire buffer in reverse
 		order, calling the given iterator function on each match.
 	**/
-	function backwardsScan(regex:EReg, iterator:haxe.Constraints.Function):Void;
+	function backwardsScan(regex:EReg, ?options:Dynamic, iterator:haxe.Constraints.Function):Void;
 	/**
 		Scan regular expression matches in a given range , calling the given
 		iterator function on each match.
 	**/
-	function scanInRange(regex:EReg, range:Range, callback:haxe.Constraints.Function):Void;
+	function scanInRange(regex:EReg, range:Range, ?options:Dynamic, callback:haxe.Constraints.Function):Void;
 	/**
 		Scan regular expression matches in a given range in reverse order,
 		calling the given iterator function on each match.
 	**/
-	function backwardsScanInRange(regex:EReg, range:Range, iterator:haxe.Constraints.Function):Void;
+	function backwardsScanInRange(regex:EReg, range:Range, ?options:Dynamic, iterator:haxe.Constraints.Function):Void;
 	/**
 		Replace all regular expression matches in the entire buffer.
 	**/
@@ -407,17 +431,24 @@ package atom;
 	**/
 	function clipPosition(position:Point):Point;
 	/**
-		Save the buffer. 
+		Save the buffer.
 	**/
-	function save():Void;
+	function save():js.Promise<Dynamic>;
 	/**
 		Save the buffer at a specific path.
 	**/
-	function saveAs(filePath:Dynamic):Void;
+	function saveAs(filePath:Dynamic):js.Promise<Dynamic>;
 	/**
-		Reload the buffer's contents from disk.
-		
-		Sets the buffer's content to the cached disk contents 
+		Reload the file's content from disk.
 	**/
-	function reload():Void;
+	function reload():js.Promise<Dynamic>;
+	/**
+		Create a new buffer backed by the given file path. For better
+		performance, use {TextBuffer.load} instead.
+	**/
+	function loadSync(filePath:String, params:Dynamic):TextBuffer;
+	/**
+		Create a new buffer backed by the given file path.
+	**/
+	function load(source:String, params:Dynamic):js.Promise<Dynamic>;
 }

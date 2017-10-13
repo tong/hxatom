@@ -13,6 +13,9 @@ package atom;
 		
 		Note: This is not a privacy function - other traces will still exist,
 		e.g. window state.
+		
+		Return a {Promise} that resolves when the history has been successfully
+		cleared.
 	**/
 	function clearProjects():Void;
 	/**

@@ -89,6 +89,11 @@ package atom;
 		Invoke the given callback whenever there is an unhandled error.
 	**/
 	static function onDidThrowError(callback:haxe.Constraints.Function):Disposable;
+	/**
+		Invoke the given callback as soon as the shell environment is
+		loaded (or immediately if it was already loaded).
+	**/
+	static function whenShellEnvironmentLoaded(callback:haxe.Constraints.Function):Void;
 	static function inDevMode():Bool;
 	static function inSafeMode():Bool;
 	static function inSpecMode():Bool;
@@ -96,6 +101,10 @@ package atom;
 		Get the version of the Atom application.
 	**/
 	static function getVersion():String;
+	/**
+		Gets the release channel of the Atom application.
+	**/
+	static function getReleaseChannel():String;
 	static function isReleasedVersion():Bool;
 	/**
 		Get the time taken to completely load the current window.

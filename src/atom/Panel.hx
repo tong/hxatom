@@ -7,7 +7,7 @@ package atom;
 **/
 @:require(js, atom) @:jsRequire("atom", "Panel") extern class Panel {
 	/**
-		Destroy and remove this panel from the UI. 
+		Destroy and remove this panel from the UI.
 	**/
 	function destroy():Void;
 	/**
@@ -22,11 +22,11 @@ package atom;
 	function getPriority():Float;
 	function isVisible():Bool;
 	/**
-		Hide this panel 
+		Hide this panel
 	**/
 	function hide():Void;
 	/**
-		Show this panel 
+		Show this panel
 	**/
 	function show():Void;
 }
