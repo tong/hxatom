@@ -74,6 +74,9 @@ package atom;
 		Is the {Package} with the given name active?
 	**/
 	function isPackageActive(name:String):Bool;
+	/**
+		Returns a {Boolean} indicating whether package activation has occurred.
+	**/
 	function hasActivatedInitialPackages():Bool;
 	/**
 		Get an {Array} of all the loaded {Package}s
@@ -87,8 +90,20 @@ package atom;
 		Is the package with the given name loaded?
 	**/
 	function isPackageLoaded(name:String):Bool;
+	/**
+		Returns a {Boolean} indicating whether package loading has occurred.
+	**/
 	function hasLoadedInitialPackages():Bool;
+	/**
+		Returns an {Array} of {String}s of all the available package paths.
+	**/
 	function getAvailablePackagePaths():Array<Dynamic>;
+	/**
+		Returns an {Array} of {String}s of all the available package names.
+	**/
 	function getAvailablePackageNames():Array<Dynamic>;
+	/**
+		Returns an {Array} of {String}s of all the available package metadata.
+	**/
 	function getAvailablePackageMetadata():Array<Dynamic>;
 }

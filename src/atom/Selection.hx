@@ -12,16 +12,26 @@ package atom;
 		Calls your `callback` when the selection was destroyed
 	**/
 	function onDidDestroy(callback:haxe.Constraints.Function):Disposable;
+	/**
+		Returns the screen {Range} for the selection.
+	**/
 	function getScreenRange():Range;
 	/**
 		Modifies the screen range for the selection.
 	**/
 	function setScreenRange(screenRange:Range, ?options:Dynamic):Void;
+	/**
+		Returns the buffer {Range} for the selection.
+	**/
 	function getBufferRange():Range;
 	/**
 		Modifies the buffer {Range} for the selection.
 	**/
 	function setBufferRange(bufferRange:Range, ?options:Dynamic):Void;
+	/**
+		Returns the starting and ending buffer rows the selection is
+		highlighting.
+	**/
 	function getBufferRowRange():Dynamic;
 	/**
 		Determines if the selection contains anything. 
@@ -34,7 +44,13 @@ package atom;
 		This can happen when, for example, you highlight text "up" in a {TextBuffer}. 
 	**/
 	function isReversed():Void;
+	/**
+		Returns whether the selection is a single line or not.
+	**/
 	function isSingleScreenLine():Dynamic;
+	/**
+		Returns the text in the selection.
+	**/
 	function getText():Dynamic;
 	/**
 		Identifies if a selection intersects with a given buffer range.

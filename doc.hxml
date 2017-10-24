@@ -1,9 +1,10 @@
 --no-output
 -lib atom
+Atom
+--macro include("atom")
+-D doc-gen
 -js _
 -xml doc/js.xml
---macro include("atom")
-Atom
 
 --next
 -cmd haxelib run dox -i doc/ -o doc/ --title Hxatom -D version 1.0.0-beta -D source-path https://github.com/tong/hxatom/blob/master/src -D description 'Type definitions for the atom text editor'

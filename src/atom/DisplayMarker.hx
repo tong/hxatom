@@ -31,9 +31,28 @@ package atom;
 		Invoke the given callback when the marker is destroyed.
 	**/
 	function onDidDestroy(callback:haxe.Constraints.Function):Disposable;
+	/**
+		Returns a {Boolean} indicating whether the marker is valid.
+		Markers can be invalidated when a region surrounding them in the buffer is
+		changed.
+	**/
 	function isValid():Bool;
+	/**
+		Returns a {Boolean} indicating whether the marker has been
+		destroyed. A marker can be invalid without being destroyed, in which case
+		undoing the invalidating operation would restore the marker. Once a marker
+		is destroyed by calling {DisplayMarker::destroy}, no undo/redo operation
+		can ever bring it back.
+	**/
 	function isDestroyed():Bool;
+	/**
+		Returns a {Boolean} indicating whether the head precedes the tail.
+	**/
 	function isReversed():Bool;
+	/**
+		Returns a {Boolean} indicating whether changes that occur exactly
+		at the marker's head or tail cause it to move.
+	**/
 	function isExclusive():Bool;
 	/**
 		Get the invalidation strategy for this marker.
@@ -41,17 +60,29 @@ package atom;
 		Valid values include: `never`, `surround`, `overlap`, `inside`, and `touch`.
 	**/
 	function getInvalidationStrategy():String;
+	/**
+		Returns an {Object} containing any custom properties associated with
+		the marker.
+	**/
 	function getProperties():Dynamic;
 	/**
 		Merges an {Object} containing new properties into the marker's
 		existing properties.
 	**/
 	function setProperties(properties:Dynamic):Void;
+	/**
+		Returns whether this marker matches the given parameters. The
+		parameters are the same as {DisplayMarkerLayer::findMarkers}.
+	**/
 	function matchesProperties():Dynamic;
 	/**
 		Compares this marker to another based on their ranges.
 	**/
 	function compare(other:DisplayMarker):Float;
+	/**
+		Returns a {Boolean} indicating whether this marker is equivalent to
+		another marker, meaning they have the same range and options.
+	**/
 	function isEqual(other:DisplayMarker):Bool;
 	/**
 		Gets the buffer range of this marker.
@@ -121,6 +152,9 @@ package atom;
 		greater than or equal to the result of {DisplayMarker::getStartScreenPosition}.
 	**/
 	function getEndScreenPosition(?options:Dynamic):Point;
+	/**
+		Returns a {Boolean} indicating whether the marker has a tail.
+	**/
 	function hasTail():Bool;
 	/**
 		Plants the marker's tail at the current head position. After calling

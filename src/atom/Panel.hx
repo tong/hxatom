@@ -18,8 +18,17 @@ package atom;
 		Invoke the given callback when the pane is destroyed.
 	**/
 	function onDidDestroy(callback:haxe.Constraints.Function):Disposable;
+	/**
+		Returns the panel's item.
+	**/
 	function getItem():Dynamic;
+	/**
+		Returns a {Number} indicating this panel's priority.
+	**/
 	function getPriority():Float;
+	/**
+		Returns a {Boolean} true when the panel is visible.
+	**/
 	function isVisible():Bool;
 	/**
 		Hide this panel

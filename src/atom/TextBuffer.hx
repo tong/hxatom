@@ -159,6 +159,9 @@ package atom;
 		Sets the character set encoding for this buffer.
 	**/
 	function setEncoding(encoding:String):Void;
+	/**
+		Returns the {String} encoding of this buffer.
+	**/
 	function getEncoding():String;
 	/**
 		Get the path of the associated file.

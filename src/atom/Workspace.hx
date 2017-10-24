@@ -127,6 +127,9 @@ package atom;
 		{TextEditor} will be created.
 	**/
 	function createItemForURI(uri:String):js.Promise<Dynamic>;
+	/**
+		Returns a {Boolean} that is `true` if `object` is a `TextEditor`.
+	**/
 	function isTextEditor(object:Dynamic):Bool;
 	/**
 		Create a new text editor.
@@ -272,6 +275,9 @@ package atom;
 		Adds a panel item as a modal dialog.
 	**/
 	function addModalPanel(options:Dynamic):Panel;
+	/**
+		Returns the {Panel} associated with the given item.
+	**/
 	function panelForItem(item:Dynamic):Panel;
 	/**
 		Performs a search across all files in the workspace.

@@ -10,5 +10,8 @@ package atom;
 		Create a {ScopeDescriptor} object.
 	**/
 	function new(object:Dynamic):Void;
+	/**
+		Returns an {Array} of {String}s
+	**/
 	function getScopesArray():Array<Dynamic>;
 }

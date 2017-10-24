@@ -17,22 +17,51 @@ package atom;
 		Moves a cursor to a given screen position.
 	**/
 	function setScreenPosition(screenPosition:Array<Dynamic>, ?options:Dynamic):Void;
+	/**
+		Returns the screen position of the cursor as a {Point}.
+	**/
 	function getScreenPosition():Point;
 	/**
 		Moves a cursor to a given buffer position.
 	**/
 	function setBufferPosition(bufferPosition:Array<Dynamic>, ?options:Dynamic):Void;
+	/**
+		Returns the current buffer position as an Array.
+	**/
 	function getBufferPosition():Dynamic;
+	/**
+		Returns the cursor's current screen row.
+	**/
 	function getScreenRow():Dynamic;
+	/**
+		Returns the cursor's current screen column.
+	**/
 	function getScreenColumn():Dynamic;
 	/**
 		Retrieves the cursor's current buffer row. 
 	**/
 	function getBufferRow():Void;
+	/**
+		Returns the cursor's current buffer column.
+	**/
 	function getBufferColumn():Dynamic;
+	/**
+		Returns the cursor's current buffer row of text excluding its line
+		ending.
+	**/
 	function getCurrentBufferLine():Dynamic;
+	/**
+		Returns whether the cursor is at the start of a line.
+	**/
 	function isAtBeginningOfLine():Dynamic;
+	/**
+		Returns whether the cursor is on the line return character.
+	**/
 	function isAtEndOfLine():Dynamic;
+	/**
+		Returns the underlying {DisplayMarker} for the cursor.
+		Useful with overlay {Decoration}s.
+	**/
 	function getMarker():DisplayMarker;
 	/**
 		Identifies if the cursor is surrounded by whitespace.
@@ -48,12 +77,22 @@ package atom;
 		whitespace.
 	**/
 	function isBetweenWordAndNonWord():Dynamic;
+	/**
+		Returns whether this cursor is between a word's start and end.
+	**/
 	function isInsideWord(?options:Dynamic):Dynamic;
+	/**
+		Returns the indentation level of the current line.
+	**/
 	function getIndentLevel():Dynamic;
 	/**
 		Retrieves the scope descriptor for the cursor's current position.
 	**/
 	function getScopeDescriptor():ScopeDescriptor;
+	/**
+		Returns true if this cursor has no non-whitespace characters before
+		its current position.
+	**/
 	function hasPrecedingCharactersOnLine():Dynamic;
 	/**
 		Identifies if this cursor is the last in the {TextEditor}.
@@ -147,7 +186,15 @@ package atom;
 		Moves the cursor to the beginning of the previous paragraph 
 	**/
 	function moveToBeginningOfPreviousParagraph():Void;
+	/**
+		Returns buffer position of previous word boundary. It might be on
+		the current word, or the previous word.
+	**/
 	function getPreviousWordBoundaryBufferPosition(?options:Dynamic):Dynamic;
+	/**
+		Returns buffer position of the next word boundary. It might be on
+		the current word, or the previous word.
+	**/
 	function getNextWordBoundaryBufferPosition(?options:Dynamic):Dynamic;
 	/**
 		Retrieves the buffer position of where the current word starts.
@@ -161,7 +208,13 @@ package atom;
 		Retrieves the buffer position of where the next word starts.
 	**/
 	function getBeginningOfNextWordBufferPosition(?options:Dynamic):Range;
+	/**
+		Returns the buffer Range occupied by the word located under the cursor.
+	**/
 	function getCurrentWordBufferRange(?options:Dynamic):Dynamic;
+	/**
+		Returns the buffer Range for the current line.
+	**/
 	function getCurrentLineBufferRange(?options:Dynamic):Dynamic;
 	/**
 		Retrieves the range for the current paragraph.
@@ -169,6 +222,9 @@ package atom;
 		A paragraph is defined as a block of text surrounded by empty lines or comments.
 	**/
 	function getCurrentParagraphBufferRange():Range;
+	/**
+		Returns the characters preceding the cursor in the current word.
+	**/
 	function getCurrentWordPrefix():Dynamic;
 	/**
 		Compare this cursor's buffer position to another cursor's buffer position.

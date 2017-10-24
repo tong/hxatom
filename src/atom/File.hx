@@ -32,10 +32,26 @@ package atom;
 		the file watches.
 	**/
 	function onWillThrowWatchError(callback:haxe.Constraints.Function):Void;
+	/**
+		Returns a {Boolean}, always true.
+	**/
 	function isFile():Bool;
+	/**
+		Returns a {Boolean}, always false.
+	**/
 	function isDirectory():Bool;
+	/**
+		Returns a {Boolean} indicating whether or not this is a symbolic link
+	**/
 	function isSymbolicLink():Bool;
+	/**
+		Returns a promise that resolves to a {Boolean}, true if the file
+		exists, false otherwise.
+	**/
 	function exists():Bool;
+	/**
+		Returns a {Boolean}, true if the file exists, false otherwise.
+	**/
 	function existsSync():Bool;
 	/**
 		Get the SHA-1 digest of this file
@@ -49,9 +65,21 @@ package atom;
 		Sets the file's character set encoding name.
 	**/
 	function setEncoding(encoding:String):Void;
+	/**
+		Returns the {String} encoding name for this file (default: 'utf8').
+	**/
 	function getEncoding():String;
+	/**
+		Returns the {String} path for the file.
+	**/
 	function getPath():String;
+	/**
+		Returns this file's completely resolved {String} path.
+	**/
 	function getRealPathSync():String;
+	/**
+		Returns a promise that resolves to the file's completely resolved {String} path.
+	**/
 	function getRealPath():String;
 	/**
 		Return the {String} filename without any directory information. 
@@ -65,11 +93,17 @@ package atom;
 		Reads the contents of the file.
 	**/
 	function read(flushCache:Bool):Dynamic;
+	/**
+		Returns a stream to read the content of the file.
+	**/
 	function createReadStream():Dynamic;
 	/**
 		Overwrites the file with the given text.
 	**/
 	function write(text:String):js.Promise<Dynamic>;
+	/**
+		Returns a stream to write content to the file.
+	**/
 	function createWriteStream():Dynamic;
 	/**
 		Overwrites the file with the given text.

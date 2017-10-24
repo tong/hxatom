@@ -162,14 +162,27 @@ package atom;
 		* "<filename> — <unique-dir-prefix>" when other buffers have this file name.
 	**/
 	function getLongTitle():String;
+	/**
+		Returns the {String} path of this editor's text buffer.
+	**/
 	function getPath():String;
+	/**
+		Returns the {String} character set encoding of this editor's text
+		buffer.
+	**/
 	function getEncoding():String;
 	/**
 		Set the character set encoding to use in this editor's text
 		buffer.
 	**/
 	function setEncoding(encoding:String):Void;
+	/**
+		Returns {Boolean} `true` if this editor has been modified.
+	**/
 	function isModified():Bool;
+	/**
+		Returns {Boolean} `true` if this editor has no content.
+	**/
 	function isEmpty():Bool;
 	/**
 		Saves the editor's text buffer.
@@ -183,16 +196,42 @@ package atom;
 		See {TextBuffer::saveAs} for more details.
 	**/
 	function saveAs(filePath:String):Void;
+	/**
+		Returns a {String} representing the entire contents of the editor.
+	**/
 	function getText():String;
 	/**
 		Get the text in the given {Range} in buffer coordinates.
 	**/
 	function getTextInBufferRange(range:Range):String;
+	/**
+		Returns a {Number} representing the number of lines in the buffer.
+	**/
 	function getLineCount():Float;
+	/**
+		Returns a {Number} representing the number of screen lines in the
+		editor. This accounts for folds.
+	**/
 	function getScreenLineCount():Float;
+	/**
+		Returns a {Number} representing the last zero-indexed buffer row
+		number of the editor.
+	**/
 	function getLastBufferRow():Float;
+	/**
+		Returns a {Number} representing the last zero-indexed screen row
+		number of the editor.
+	**/
 	function getLastScreenRow():Float;
+	/**
+		Returns a {String} representing the contents of the line at the
+		given buffer row.
+	**/
 	function lineTextForBufferRow(bufferRow:Float):String;
+	/**
+		Returns a {String} representing the contents of the line at the
+		given screen row.
+	**/
 	function lineTextForScreenRow(screenRow:Float):String;
 	/**
 		Get the {Range} of the paragraph surrounding the most recently added
@@ -576,6 +615,9 @@ package atom;
 		Add a cursor at the position in screen coordinates.
 	**/
 	function addCursorAtScreenPosition(screenPosition:Point):Cursor;
+	/**
+		Returns {Boolean} indicating whether or not there are multiple cursors.
+	**/
 	function hasMultipleCursors():Bool;
 	/**
 		Move every cursor up one row in screen coordinates.
@@ -661,7 +703,13 @@ package atom;
 		Move every cursor to the beginning of the previous paragraph. 
 	**/
 	function moveToBeginningOfPreviousParagraph():Void;
+	/**
+		Returns the most recently added {Cursor}
+	**/
 	function getLastCursor():Cursor;
+	/**
+		Returns the word surrounding the most recently added cursor.
+	**/
 	function getWordUnderCursor(?options:Dynamic):Dynamic;
 	/**
 		Get an Array of all {Cursor}s. 
@@ -926,6 +974,10 @@ package atom;
 		calling the given iterator function on each match.
 	**/
 	function backwardsScanInBufferRange(regex:EReg, range:Range, iterator:haxe.Constraints.Function):Void;
+	/**
+		Returns a {Boolean} indicating whether softTabs are enabled for this
+		editor.
+	**/
 	function getSoftTabs():Bool;
 	/**
 		Enable or disable soft tabs for this editor.
@@ -1022,6 +1074,11 @@ package atom;
 		grammar.
 	**/
 	function setGrammar(grammar:Grammar):Void;
+	/**
+		Returns a {ScopeDescriptor} that includes this editor's language.
+		e.g. `['.source.ruby']`, or `['.source.coffee']`. You can use this with
+		{Config::get} to get language specific config values.
+	**/
 	function getRootScopeDescriptor():ScopeDescriptor;
 	/**
 		Get the syntactic scopeDescriptor for the given position in buffer

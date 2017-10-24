@@ -17,10 +17,26 @@ package atom;
 		Invoke the given callback when the directory's contents change.
 	**/
 	function onDidChange(callback:haxe.Constraints.Function):Disposable;
+	/**
+		Returns a {Boolean}, always false.
+	**/
 	function isFile():Bool;
+	/**
+		Returns a {Boolean}, always true.
+	**/
 	function isDirectory():Bool;
+	/**
+		Returns a {Boolean} indicating whether or not this is a symbolic link
+	**/
 	function isSymbolicLink():Bool;
+	/**
+		Returns a promise that resolves to a {Boolean}, true if the
+		directory exists, false otherwise.
+	**/
 	function exists():Bool;
+	/**
+		Returns a {Boolean}, true if the directory exists, false otherwise.
+	**/
 	function existsSync():Bool;
 	/**
 		Return a {Boolean}, true if this {Directory} is the root directory
@@ -41,7 +57,14 @@ package atom;
 		their final destination. 
 	**/
 	function getRealPathSync():String;
+	/**
+		Returns the {String} basename of the directory.
+	**/
 	function getBaseName():String;
+	/**
+		Returns the relative {String} path to the given path from this
+		directory.
+	**/
 	function relativize():String;
 	/**
 		Traverse to the parent directory.

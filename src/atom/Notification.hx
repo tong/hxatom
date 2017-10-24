@@ -12,7 +12,13 @@ package atom;
 		Invoke the given callback when the notification is displayed.
 	**/
 	function onDidDisplay(callback:haxe.Constraints.Function):Disposable;
+	/**
+		Returns the {String} type.
+	**/
 	function getType():String;
+	/**
+		Returns the {String} message.
+	**/
 	function getMessage():String;
 	/**
 		Dismisses the notification, removing it from the UI. Calling this programmatically

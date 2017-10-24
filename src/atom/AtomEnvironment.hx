@@ -94,8 +94,17 @@ package atom;
 		loaded (or immediately if it was already loaded).
 	**/
 	static function whenShellEnvironmentLoaded(callback:haxe.Constraints.Function):Void;
+	/**
+		Returns a {Boolean} that is `true` if the current window is in development mode.
+	**/
 	static function inDevMode():Bool;
+	/**
+		Returns a {Boolean} that is `true` if the current window is in safe mode.
+	**/
 	static function inSafeMode():Bool;
+	/**
+		Returns a {Boolean} that is `true` if the current window is running specs.
+	**/
 	static function inSpecMode():Bool;
 	/**
 		Get the version of the Atom application.
@@ -105,6 +114,9 @@ package atom;
 		Gets the release channel of the Atom application.
 	**/
 	static function getReleaseChannel():String;
+	/**
+		Returns a {Boolean} that is `true` if the current version is an official release.
+	**/
 	static function isReleasedVersion():Bool;
 	/**
 		Get the time taken to completely load the current window.
@@ -176,7 +188,13 @@ package atom;
 		Relaunch the entire application. 
 	**/
 	static function restartApplication():Void;
+	/**
+		Returns a {Boolean} that is `true` if the current window is maximized.
+	**/
 	static function isMaximized():Bool;
+	/**
+		Returns a {Boolean} that is `true` if the current window is in full screen mode.
+	**/
 	static function isFullScreen():Bool;
 	/**
 		Set the full screen state of the current window. 

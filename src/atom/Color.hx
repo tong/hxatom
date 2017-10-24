@@ -9,6 +9,12 @@ package atom;
 		Parse a {String} or {Object} into a {Color}.
 	**/
 	static function parse(value:String):Color;
+	/**
+		Returns a {String} in the form `'#abcdef'`.
+	**/
 	function toHexString():String;
+	/**
+		Returns a {String} in the form `'rgba(25, 50, 75, .9)'`.
+	**/
 	function toRGBAString():String;
 }

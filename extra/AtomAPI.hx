@@ -24,6 +24,11 @@ typedef APIReturnValue = {
     var description : String;
 }
 
+typedef APISection = {
+    var name : String;
+    var description : String;
+}
+
 typedef APIMethod = {
     var name : String;
     var sectionName : String;
@@ -40,7 +45,7 @@ typedef APIClass = {
     var superClass : String;
     var filename : String;
     var srcUrl : String;
-    //var sections : Array<Dynamic>;
+    var sections : Array<APISection>;
     var classMethods : Array<APIMethod>;
     var instanceMethods : Array<APIMethod>;
     var classProperties : Array<APIProperty>;
@@ -93,14 +98,11 @@ class AtomAPI {
         }
 
         function convertProperty( prop : APIProperty, isStatic = false ) : Field {
-
             var access = [];
             if( isStatic ) access.push( AStatic );
-
             var name = switch prop.name {
                 case _: escapeName( prop.name );
             }
-
             return {
                 access: access,
                 name: name,
@@ -132,10 +134,19 @@ class AtomAPI {
                 }
             }
 
-            var ret = if( method.returnValues != null ) {
-                getTypeForName( method.returnValues[0].type );
+            var doc = method.description;
+            var ret : ComplexType = null;
+
+            if( method.returnValues != null ) {
+                var retVal = method.returnValues[0];
+                if( retVal == null )
+                    ret = macro: Void;
+                else {
+                    ret = getTypeForName( retVal.type );
+                    if( doc == null || doc.length == 0 ) doc = retVal.description;
+                }
             } else {
-                macro: Void;
+                ret = macro: Void;
             }
 
             return {
@@ -147,7 +158,7 @@ class AtomAPI {
                     ret: ret
                 }),
                 pos: pos,
-                doc: method.description
+                doc: doc
             };
         }
 
@@ -155,9 +166,8 @@ class AtomAPI {
 
         for( f in Reflect.fields( api ) ) {
 
-
             var cl : APIClass = Reflect.field( api, f );
-            //if( cl.name != 'Color' ) continue;
+            //if( cl.name != 'Point' ) continue;
 
             switch cl.name {
             // PATCH
@@ -175,6 +185,7 @@ class AtomAPI {
                     case 'getBaseName':
                         m.returnValues = [ { type: 'String', description: m.description } ];
                     case 'getParent':
+                        //trace(m);
                         m.returnValues = [ { type: 'Directory', description: m.description } ];
                     }
                 }
@@ -191,6 +202,7 @@ class AtomAPI {
                 trace( f );
             }
             for( f in cl.instanceProperties ) {
+                //trace(f.name);
                 fields.push( convertProperty( f, (cl.name == 'AtomEnvironment') ) );
                 /*
                 fields.push({
@@ -261,6 +273,6 @@ class AtomAPI {
         ///////////////////////////////////
 
         return types;
-
     }
+
 }

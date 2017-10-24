@@ -26,7 +26,13 @@ package atom;
 		An id unique across all {Decoration} objects 
 	**/
 	function getId():Void;
+	/**
+		Returns the marker associated with this {Decoration}
+	**/
 	function getMarker():Decoration;
+	/**
+		Returns the {Decoration}'s properties.
+	**/
 	function getProperties():Decoration;
 	/**
 		Update the marker with new Properties. Allows you to change the decoration's class.
