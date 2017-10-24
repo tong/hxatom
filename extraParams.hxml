@@ -1,0 +1,2 @@
+-D hxnodejs_no_version_warning
+#--macro atom.Lib.build()
