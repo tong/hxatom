@@ -1,6 +1,5 @@
 -neko run.n
 -main Run
--lib om.core
 -cp extra
 -dce full
 -debug
