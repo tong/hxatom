@@ -1,2 +1,3 @@
 -D hxnodejs_no_version_warning
+-D electron_renderer
 #--macro atom.Lib.build()

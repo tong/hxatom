@@ -9,6 +9,6 @@
     "classPath":"src/",
     "releasenote": "See CHANGELOG.md",
     "dependencies": {
-        "hxnodejs": ""
+        "electron": ""
     }
 }
