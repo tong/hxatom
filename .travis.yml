@@ -17,7 +17,7 @@ branches:
     - dev
 
 script:
-  - haxelib install hxnodejs
+  - haxelib install electron
   - haxelib install dox
   - haxelib dev atom .
   - haxe run.hxml
