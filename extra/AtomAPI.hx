@@ -259,17 +259,14 @@ class AtomAPI {
             pos: pos,
             fields: []
         } );
-        /*
         types.push( {
 			pack: ['atom'],
 			name: 'Marker',
-            kind: TDAlias( macro: Dynamic ),
+            kind: TDAlias( macro: Any ),
             pos: pos,
             fields: [],
-            isExtern: true
+            //isExtern: true
 		} );
-        */
-
         ///////////////////////////////////
 
         return types;
