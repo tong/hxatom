@@ -3,5 +3,5 @@ _*
 doc/
 example/*.js
 haxedoc.xml
-hxatom.zip
+atom.zip
 run.n
