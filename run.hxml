@@ -2,5 +2,5 @@
 -main Run
 -cp extra
 -dce full
--debug
+#-debug
 #--no-traces
