@@ -1,0 +1,11 @@
+{
+  "name": "hxatom-example",
+  "main": "./example",
+  "version": "1.0.0",
+  "description": "Hxatom example package",
+  "repository": "https://github.com/tong/hxatom",
+  "license": "MIT",
+  "engines": {
+    "atom": ">=1.20.0 <2.0.0"
+  }
+}
