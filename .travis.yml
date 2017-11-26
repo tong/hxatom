@@ -23,3 +23,4 @@ script:
   - haxe run.hxml
   - neko run.n
   - haxe doc.hxml
+  - haxe --cwd example build.hxml
