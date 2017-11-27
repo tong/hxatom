@@ -12,23 +12,23 @@ package atom;
 	/**
 		Add a success notification.
 	**/
-	function addSuccess(message:String, ?options:Dynamic):Void;
+	function addSuccess(message:String, ?options:Dynamic):Notification;
 	/**
 		Add an informational notification.
 	**/
-	function addInfo(message:String, ?options:Dynamic):Void;
+	function addInfo(message:String, ?options:Dynamic):Notification;
 	/**
 		Add a warning notification.
 	**/
-	function addWarning(message:String, ?options:Dynamic):Void;
+	function addWarning(message:String, ?options:Dynamic):Notification;
 	/**
 		Add an error notification.
 	**/
-	function addError(message:String, ?options:Dynamic):Void;
+	function addError(message:String, ?options:Dynamic):Notification;
 	/**
 		Add a fatal error notification.
 	**/
-	function addFatalError(message:String, ?options:Dynamic):Void;
+	function addFatalError(message:String, ?options:Dynamic):Notification;
 	/**
 		Get all the notifications.
 	**/

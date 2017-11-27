@@ -73,11 +73,11 @@ package atom;
 	/**
 		Set the paths of the project's directories.
 	**/
-	function setPaths(projectPaths:Array<Dynamic>):Void;
+	function setPaths(projectPaths:Array<Dynamic>, options:Dynamic):Void;
 	/**
 		Add a path to the project's list of root paths
 	**/
-	function addPath(projectPath:String):Void;
+	function addPath(projectPath:String, options:Dynamic):Void;
 	/**
 		Access a {Promise} that resolves when the filesystem watcher associated with a project
 		root directory is ready to begin receiving events.

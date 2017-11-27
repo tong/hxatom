@@ -1,7 +1,7 @@
 package atom;
 
 /**
-	A notification to the user containing a message and type. 
+	A notification to the user containing a message and type.
 **/
 @:require(js, atom) @:jsRequire("atom", "Notification") extern class Notification {
 	/**
@@ -21,8 +21,8 @@ package atom;
 	**/
 	function getMessage():String;
 	/**
-		Dismisses the notification, removing it from the UI. Calling this programmatically
-		will call all callbacks added via `onDidDismiss`. 
+		Dismisses the notification, removing it from the UI. Calling this
+		programmatically will call all callbacks added via `onDidDismiss`.
 	**/
 	function dismiss():Void;
 }

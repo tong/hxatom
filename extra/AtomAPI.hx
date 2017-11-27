@@ -2,6 +2,7 @@
 import haxe.macro.Expr;
 
 using StringTools;
+using haxe.macro.ComplexTypeTools;
 
 typedef APIProperty = {
     var name : String;
@@ -89,11 +90,14 @@ class AtomAPI {
             case 'RegExp': macro: EReg;
             case 'String': macro: String;
             case 'Promise': macro : js.Promise<Dynamic>;
+            case 'ReadStream': macro : js.node.fs.ReadStream;
+            case 'WriteStream': macro : js.node.fs.WriteStream;
             case 'Function':
                 //TODO
                 macro : haxe.Constraints.Function;
             case 'Array': macro: Array<Dynamic>; //TODO
-            case _: TPath( { pack: [], name: escapeTypeName( name ) } );
+            case _:
+                TPath( { pack: [], name: escapeTypeName( name ) } );
             }
         }
 
@@ -125,11 +129,20 @@ class AtomAPI {
             var args = new Array<FunctionArg>();
             if( method.arguments != null ) {
                 for( arg in method.arguments ) {
-                    var type = (arg.name == 'args...') ? macro:haxe.extern.Rest<Dynamic> : getTypeForName( arg.type );
+                    var type = switch arg.name {
+                    case 'args...':
+                        macro : haxe.extern.Rest<Dynamic>;
+                    default:
+                        var t = getTypeForName( arg.type );
+                        if( arg.name.startsWith( '...' ) ) {
+                            t = TPath( { name : 'Rest', pack: ['haxe','extern'], params:[TPType(t)] });
+                        }
+                        t;
+                    }
                     args.push({
                         opt: arg.isOptional,
                         name: escapeName( arg.name ),
-                        type: type //getTypeForName( arg.type )
+                        type: type
                     });
                 }
             }
@@ -138,7 +151,19 @@ class AtomAPI {
             var ret : ComplexType = null;
 
             if( method.returnValues != null ) {
+                //trace(method.name+'>>>>>>>>>>>');
                 var retVal = method.returnValues[0];
+                //var retVal = null; // = method.returnValues[0];
+                /*
+                for( rv in method.returnValues ) {
+                    if( rv.type == null )
+                        continue;
+                    retVal = rv;
+                    break;
+                }
+                if( retVal == null )
+                    trace(method);
+                    */
                 if( retVal == null )
                     ret = macro: Void;
                 else {
@@ -167,7 +192,7 @@ class AtomAPI {
         for( f in Reflect.fields( api ) ) {
 
             var cl : APIClass = Reflect.field( api, f );
-            //if( cl.name != 'Point' ) continue;
+            //if( cl.name != 'CompositeDisposable' ) continue;
 
             switch cl.name {
             // PATCH

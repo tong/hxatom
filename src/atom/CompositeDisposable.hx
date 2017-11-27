@@ -20,7 +20,7 @@ package atom;
 		
 		If this object has already been disposed, this method has no effect.
 	**/
-	function add(disposables:Disposable):Void;
+	function add(disposables:haxe.extern.Rest<Disposable>):Void;
 	/**
 		Remove a previously added disposable.
 	**/

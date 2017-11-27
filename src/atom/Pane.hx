@@ -110,19 +110,19 @@ package atom;
 	**/
 	function itemAtIndex(index:Float):Dynamic;
 	/**
-		Makes the next item active. 
+		Makes the next item active.
 	**/
 	function activateNextItem():Void;
 	/**
-		Makes the previous item active. 
+		Makes the previous item active.
 	**/
 	function activatePreviousItem():Void;
 	/**
-		Move the active tab to the right. 
+		Move the active tab to the right.
 	**/
 	function moveItemRight():Void;
 	/**
-		Move the active tab to the left 
+		Move the active tab to the left
 	**/
 	function moveItemLeft():Void;
 	/**
@@ -155,9 +155,9 @@ package atom;
 	**/
 	function moveItemToPane(item:Dynamic, pane:Pane, index:Float):Void;
 	/**
-		Destroy the active item and activate the next item. 
+		Destroy the active item and activate the next item.
 	**/
-	function destroyActiveItem():Void;
+	function destroyActiveItem():js.Promise<Dynamic>;
 	/**
 		Destroy the given item.
 		
@@ -167,15 +167,15 @@ package atom;
 	**/
 	function destroyItem(item:Dynamic, ?force:Bool):js.Promise<Dynamic>;
 	/**
-		Destroy all items. 
+		Destroy all items.
 	**/
 	function destroyItems():Void;
 	/**
-		Destroy all items except for the active item. 
+		Destroy all items except for the active item.
 	**/
 	function destroyInactiveItems():Void;
 	/**
-		Save the active item. 
+		Save the active item.
 	**/
 	function saveActiveItem():Void;
 	/**
@@ -193,7 +193,7 @@ package atom;
 	**/
 	function saveItemAs(item:Dynamic, ?nextAction:haxe.Constraints.Function):Void;
 	/**
-		Save all items. 
+		Save all items.
 	**/
 	function saveItems():Void;
 	/**
@@ -210,14 +210,14 @@ package atom;
 	**/
 	function isActive():Bool;
 	/**
-		Makes this pane the *active* pane, causing it to gain focus. 
+		Makes this pane the *active* pane, causing it to gain focus.
 	**/
 	function activate():Void;
 	/**
 		Close the pane and destroy all its items.
 		
 		If this is the last pane, all the items will be destroyed but the pane
-		itself will not be destroyed. 
+		itself will not be destroyed.
 	**/
 	function destroy():Void;
 	/**
