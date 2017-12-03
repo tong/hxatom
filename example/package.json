@@ -1,8 +1,8 @@
 {
-  "name": "hxatom-example",
-  "main": "./example",
+  "name": "hxatom",
+  "main": "./main.js",
   "version": "1.0.0",
-  "description": "Hxatom example package",
+  "description": "Atom example package built with haxe",
   "repository": "https://github.com/tong/hxatom",
   "license": "MIT",
   "engines": {

@@ -1,4 +1,4 @@
--js example.js
+-js main.js
 Main
 -lib atom
 -dce full
