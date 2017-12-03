@@ -9,7 +9,7 @@
 ## Install
 
 ```sh
-haxelib install atom
+haxelib git atom https://github.com/tong/hxatom.git
 ```
 Or:
 
