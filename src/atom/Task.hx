@@ -2,10 +2,17 @@ package atom;
 
 /**
 	Run a node script in a separate process.
+	
+	Used by the fuzzy-finder and [find in project](https://github.com/atom/atom/blob/master/src/scan-handler.coffee).
+	
+	For a real-world example, see the [scan-handler](https://github.com/atom/atom/blob/master/src/scan-handler.coffee)
+	and the [instantiation of the task](https://github.com/atom/atom/blob/4a20f13162f65afc816b512ad7201e528c3443d7/src/project.coffee#L245).
+	@see <https://github.com/atom/atom/blob/v1.22.1/src/task.coffee#L40>
+
 **/
 @:require(js, atom) @:jsRequire("atom", "Task") extern class Task {
 	/**
-		A helper method to easily launch and run a task once.
+		A helper method to easily launch and run a task once.Returns the created `Task`.
 	**/
 	static function once(taskPath:String, args:Dynamic):Task;
 	/**
@@ -27,11 +34,11 @@ package atom;
 	**/
 	function send(message:Dynamic):Void;
 	/**
-		Call a function when an event is emitted by the child process
+		Call a function when an event is emitted by the child processReturns a `Disposable` that can be used to stop listening for the event.
 	**/
 	function on(eventName:String, callback:haxe.Constraints.Function):Disposable;
 	/**
-		A helper method to easily launch and run a task once.
+		A helper method to easily launch and run a task once.Returns the created `Task`.
 	**/
 	function once(taskPath:String, args:Dynamic):Task;
 	/**
@@ -41,7 +48,7 @@ package atom;
 	**/
 	function terminate():Void;
 	/**
-		Cancel the running task and emit an event if it was canceled.
+		Cancel the running task and emit an event if it was canceled.Returns a `Boolean` indicating whether the task was terminated.
 	**/
 	function cancel():Bool;
 }

@@ -3,6 +3,10 @@ package atom;
 /**
 	An object that aggregates multiple {Disposable} instances together
 	into a single disposable, so they can all be disposed as a group.
+	
+	These are very useful when subscribing to multiple events.
+	@see <https://github.com/atom/event-kit/blob/v2.4.0/src/composite-disposable.coffee#L24>
+
 **/
 @:require(js, atom) @:jsRequire("atom", "CompositeDisposable") extern class CompositeDisposable {
 	/**

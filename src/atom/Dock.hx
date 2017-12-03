@@ -5,10 +5,12 @@ package atom;
 	You should not create a Dock directly. Instead, access one of the three docks of the workspace
 	via {Workspace::getLeftDock}, {Workspace::getRightDock}, and {Workspace::getBottomDock}
 	or add an item to a dock via {Workspace::open}.
+	@see <https://github.com/atom/atom/blob/v1.22.1/src/dock.js#L21>
+
 **/
 @:require(js, atom) @:jsRequire("atom", "Dock") extern class Dock {
 	/**
-		Show the dock and focus its active {Pane}.
+		Show the dock and focus its active `Pane`.
 	**/
 	function activate():Void;
 	/**
@@ -21,25 +23,25 @@ package atom;
 	**/
 	function hide():Void;
 	/**
-		Toggle the dock's visibility without changing the {Workspace}'s
+		Toggle the dock's visibility without changing the `Workspace`'s
 		active pane container.
 	**/
 	function toggle():Void;
 	/**
-		Check if the dock is visible.
+		Check if the dock is visible.Returns a `Boolean`.
 	**/
 	function isVisible():Bool;
 	/**
-		Invoke the given callback when the visibility of the dock changes.
+		Invoke the given callback when the visibility of the dock changes.Returns a `Disposable` on which `.dispose()` can be called to unsubscribe.
 	**/
 	function onDidChangeVisible(callback:haxe.Constraints.Function):Disposable;
 	/**
-		Invoke the given callback with the current and all future visibilities of the dock.
+		Invoke the given callback with the current and all future visibilities of the dock.Returns a `Disposable` on which `.dispose()` can be called to unsubscribe.
 	**/
 	function observeVisible(callback:haxe.Constraints.Function):Disposable;
 	/**
 		Invoke the given callback with all current and future panes items
-		in the dock.
+		in the dock.Returns a `Disposable` on which `.dispose()` can be called to unsubscribe.
 	**/
 	function observePaneItems(callback:haxe.Constraints.Function):Disposable;
 	/**
@@ -48,7 +50,7 @@ package atom;
 		Because observers are invoked synchronously, it's important not to perform
 		any expensive operations via this method. Consider
 		{::onDidStopChangingActivePaneItem} to delay operations until after changes
-		stop occurring.
+		stop occurring.Returns a `Disposable` on which `.dispose()` can be called to unsubscribe.
 	**/
 	function onDidChangeActivePaneItem(callback:haxe.Constraints.Function):Disposable;
 	/**
@@ -59,68 +61,68 @@ package atom;
 		change. Handling changes here rather than in the synchronous
 		{::onDidChangeActivePaneItem} prevents unneeded work if the user is quickly
 		changing or closing tabs and ensures critical UI feedback, like changing the
-		highlighted tab, gets priority over work that can be done asynchronously.
+		highlighted tab, gets priority over work that can be done asynchronously.Returns a `Disposable` on which `.dispose()` can be called to unsubscribe.
 	**/
 	function onDidStopChangingActivePaneItem(callback:haxe.Constraints.Function):Disposable;
 	/**
 		Invoke the given callback with the current active pane item and
-		with all future active pane items in the dock.
+		with all future active pane items in the dock.Returns a `Disposable` on which `.dispose()` can be called to unsubscribe.
 	**/
 	function observeActivePaneItem(callback:haxe.Constraints.Function):Disposable;
 	/**
-		Invoke the given callback when a pane is added to the dock.
+		Invoke the given callback when a pane is added to the dock.Returns a `Disposable` on which `.dispose()` can be called to unsubscribe.
 	**/
 	function onDidAddPane(callback:haxe.Constraints.Function):Disposable;
 	/**
 		Invoke the given callback before a pane is destroyed in the
-		dock.
+		dock.Returns a `Disposable` on which `.dispose()` can be called to unsubscribe.
 	**/
 	function onWillDestroyPane(callback:haxe.Constraints.Function):Disposable;
 	/**
-		Invoke the given callback when a pane is destroyed in the dock.
+		Invoke the given callback when a pane is destroyed in the dock.Returns a `Disposable` on which `.dispose()` can be called to unsubscribe.
 	**/
 	function onDidDestroyPane(callback:haxe.Constraints.Function):Disposable;
 	/**
 		Invoke the given callback with all current and future panes in the
-		dock.
+		dock.Returns a `Disposable` on which `.dispose()` can be called to unsubscribe.
 	**/
 	function observePanes(callback:haxe.Constraints.Function):Disposable;
 	/**
-		Invoke the given callback when the active pane changes.
+		Invoke the given callback when the active pane changes.Returns a `Disposable` on which `.dispose()` can be called to unsubscribe.
 	**/
 	function onDidChangeActivePane(callback:haxe.Constraints.Function):Disposable;
 	/**
 		Invoke the given callback with the current active pane and when
-		the active pane changes.
+		the active pane changes.Returns a `Disposable` on which `.dispose()` can be called to unsubscribe.
 	**/
 	function observeActivePane(callback:haxe.Constraints.Function):Disposable;
 	/**
-		Invoke the given callback when a pane item is added to the dock.
+		Invoke the given callback when a pane item is added to the dock.Returns a `Disposable` on which `.dispose()` can be called to unsubscribe.
 	**/
 	function onDidAddPaneItem(callback:haxe.Constraints.Function):Disposable;
 	/**
 		Invoke the given callback when a pane item is about to be
-		destroyed, before the user is prompted to save it.
+		destroyed, before the user is prompted to save it.Returns a `Disposable` on which `.dispose` can be called to unsubscribe.
 	**/
 	function onWillDestroyPaneItem(callback:haxe.Constraints.Function):Disposable;
 	/**
-		Invoke the given callback when a pane item is destroyed.
+		Invoke the given callback when a pane item is destroyed.Returns a `Disposable` on which `.dispose` can be called to unsubscribe.
 	**/
 	function onDidDestroyPaneItem(callback:haxe.Constraints.Function):Disposable;
 	/**
-		Get all pane items in the dock.
+		Get all pane items in the dock.Returns an `Array` of items.
 	**/
 	function getPaneItems():Array<Dynamic>;
 	/**
-		Get the active {Pane}'s active item.
+		Get the active `Pane`'s active item.Returns an pane item `Object`.
 	**/
 	function getActivePaneItem():Dynamic;
 	/**
-		Get all panes in the dock.
+		Get all panes in the dock.Returns an `Array` of `Pane`s.
 	**/
 	function getPanes():Array<Dynamic>;
 	/**
-		Get the active {Pane}.
+		Get the active `Pane`.Returns a `Pane`.
 	**/
 	function getActivePane():Pane;
 	/**

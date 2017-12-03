@@ -3,6 +3,8 @@ package atom;
 /**
 	A wrapper which provides standard error/output line buffering for
 	Node's ChildProcess.
+	@see <https://github.com/atom/atom/blob/v1.22.1/src/buffered-process.js#L22>
+
 **/
 @:require(js, atom) @:jsRequire("atom", "BufferedProcess") extern class BufferedProcess {
 	/**
@@ -13,7 +15,7 @@ package atom;
 		Will call your callback when an error will be raised by the process.
 		Usually this is due to the command not being available or not on the PATH.
 		You can call `handle()` on the object passed to your callback to indicate
-		that you have handled this error.
+		that you have handled this error.Returns a `Disposable`
 	**/
 	function onWillThrowError(callback:haxe.Constraints.Function):Disposable;
 	/**

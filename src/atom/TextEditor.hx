@@ -4,14 +4,51 @@ package atom;
 	This class represents all essential editing state for a single
 	{TextBuffer}, including cursor and selection positions, folds, and soft wraps.
 	If you're manipulating the state of an editor, use this class.
+	
+	A single {TextBuffer} can belong to multiple editors. For example, if the
+	same file is open in two different panes, Atom creates a separate editor for
+	each pane. If the buffer is manipulated the changes are reflected in both
+	editors, but each maintains its own cursor position, folded lines, etc.
+	
+	## Accessing TextEditor Instances
+	
+	The easiest way to get hold of `TextEditor` objects is by registering a callback
+	with `::observeTextEditors` on the `atom.workspace` global. Your callback will
+	then be called with all current editor instances and also when any editor is
+	created in the future.
+	
+	```coffee
+	atom.workspace.observeTextEditors (editor) ->
+	  editor.insertText('Hello World')
+	```
+	
+	## Buffer vs. Screen Coordinates
+	
+	Because editors support folds and soft-wrapping, the lines on screen don't
+	always match the lines in the buffer. For example, a long line that soft wraps
+	twice renders as three lines on screen, but only represents one line in the
+	buffer. Similarly, if rows 5-10 are folded, then row 6 on screen corresponds
+	to row 11 in the buffer.
+	
+	Your choice of coordinates systems will depend on what you're trying to
+	achieve. For example, if you're writing a command that jumps the cursor up or
+	down by 10 lines, you'll want to use screen coordinates because the user
+	probably wants to skip lines *on screen*. However, if you're writing a package
+	that jumps between method definitions, you'll want to work in buffer
+	coordinates.
+	
+	**When in doubt, just default to buffer coordinates**, then experiment with
+	soft wraps and folds to ensure your code interacts with them correctly. 
+	@see <https://github.com/atom/atom/blob/v1.22.1/src/text-editor.coffee#L60>
+
 **/
 @:require(js, atom) @:jsRequire("atom", "TextEditor") extern class TextEditor {
 	/**
-		Calls your `callback` when the buffer's title has changed.
+		Calls your `callback` when the buffer's title has changed.Returns a `Disposable` on which `.dispose()` can be called to unsubscribe.
 	**/
 	function onDidChangeTitle(callback:haxe.Constraints.Function):Disposable;
 	/**
-		Calls your `callback` when the buffer's path, and therefore title, has changed.
+		Calls your `callback` when the buffer's path, and therefore title, has changed.Returns a `Disposable` on which `.dispose()` can be called to unsubscribe.
 	**/
 	function onDidChangePath(callback:haxe.Constraints.Function):Disposable;
 	/**
@@ -20,109 +57,109 @@ package atom;
 		
 		Because observers are invoked synchronously, it's important not to perform
 		any expensive operations via this method. Consider {::onDidStopChanging} to
-		delay expensive operations until after changes stop occurring.
+		delay expensive operations until after changes stop occurring.Returns a `Disposable` on which `.dispose()` can be called to unsubscribe.
 	**/
 	function onDidChange(callback:haxe.Constraints.Function):Disposable;
 	/**
 		Invoke `callback` when the buffer's contents change. It is
 		emit asynchronously 300ms after the last buffer change. This is a good place
-		to handle changes to the buffer without compromising typing performance.
+		to handle changes to the buffer without compromising typing performance.Returns a `Disposable` on which `.dispose()` can be called to unsubscribe.
 	**/
 	function onDidStopChanging(callback:haxe.Constraints.Function):Disposable;
 	/**
-		Calls your `callback` when a {Cursor} is moved. If there are
-		multiple cursors, your callback will be called for each cursor.
+		Calls your `callback` when a `Cursor` is moved. If there are
+		multiple cursors, your callback will be called for each cursor.Returns a `Disposable` on which `.dispose()` can be called to unsubscribe.
 	**/
 	function onDidChangeCursorPosition(callback:haxe.Constraints.Function):Disposable;
 	/**
-		Calls your `callback` when a selection's screen range changes.
+		Calls your `callback` when a selection's screen range changes.Returns a `Disposable` on which `.dispose()` can be called to unsubscribe.
 	**/
 	function onDidChangeSelectionRange(callback:haxe.Constraints.Function):Disposable;
 	/**
-		Calls your `callback` when soft wrap was enabled or disabled.
+		Calls your `callback` when soft wrap was enabled or disabled.Returns a `Disposable` on which `.dispose()` can be called to unsubscribe.
 	**/
 	function onDidChangeSoftWrapped(callback:haxe.Constraints.Function):Disposable;
 	/**
-		Calls your `callback` when the buffer's encoding has changed.
+		Calls your `callback` when the buffer's encoding has changed.Returns a `Disposable` on which `.dispose()` can be called to unsubscribe.
 	**/
 	function onDidChangeEncoding(callback:haxe.Constraints.Function):Disposable;
 	/**
 		Calls your `callback` when the grammar that interprets and
 		colorizes the text has been changed. Immediately calls your callback with
-		the current grammar.
+		the current grammar.Returns a `Disposable` on which `.dispose()` can be called to unsubscribe.
 	**/
 	function observeGrammar(callback:haxe.Constraints.Function):Disposable;
 	/**
 		Calls your `callback` when the grammar that interprets and
-		colorizes the text has been changed.
+		colorizes the text has been changed.Returns a `Disposable` on which `.dispose()` can be called to unsubscribe.
 	**/
 	function onDidChangeGrammar(callback:haxe.Constraints.Function):Disposable;
 	/**
-		Calls your `callback` when the result of {::isModified} changes.
+		Calls your `callback` when the result of {::isModified} changes.Returns a `Disposable` on which `.dispose()` can be called to unsubscribe.
 	**/
 	function onDidChangeModified(callback:haxe.Constraints.Function):Disposable;
 	/**
 		Calls your `callback` when the buffer's underlying file changes on
-		disk at a moment when the result of {::isModified} is true.
+		disk at a moment when the result of {::isModified} is true.Returns a `Disposable` on which `.dispose()` can be called to unsubscribe.
 	**/
 	function onDidConflict(callback:haxe.Constraints.Function):Disposable;
 	/**
-		Calls your `callback` before text has been inserted.
+		Calls your `callback` before text has been inserted.Returns a `Disposable` on which `.dispose()` can be called to unsubscribe.
 	**/
 	function onWillInsertText(callback:haxe.Constraints.Function):Disposable;
 	/**
-		Calls your `callback` after text has been inserted.
+		Calls your `callback` after text has been inserted.Returns a `Disposable` on which `.dispose()` can be called to unsubscribe.
 	**/
 	function onDidInsertText(callback:haxe.Constraints.Function):Disposable;
 	/**
-		Invoke the given callback after the buffer is saved to disk.
+		Invoke the given callback after the buffer is saved to disk.Returns a `Disposable` on which `.dispose()` can be called to unsubscribe.
 	**/
 	function onDidSave(callback:haxe.Constraints.Function):Disposable;
 	/**
-		Invoke the given callback when the editor is destroyed.
+		Invoke the given callback when the editor is destroyed.Returns a `Disposable` on which `.dispose()` can be called to unsubscribe.
 	**/
 	function onDidDestroy(callback:haxe.Constraints.Function):Disposable;
 	/**
-		Calls your `callback` when a {Cursor} is added to the editor.
-		Immediately calls your callback for each existing cursor.
+		Calls your `callback` when a `Cursor` is added to the editor.
+		Immediately calls your callback for each existing cursor.Returns a `Disposable` on which `.dispose()` can be called to unsubscribe.
 	**/
 	function observeCursors(callback:haxe.Constraints.Function):Disposable;
 	/**
-		Calls your `callback` when a {Cursor} is added to the editor.
+		Calls your `callback` when a `Cursor` is added to the editor.Returns a `Disposable` on which `.dispose()` can be called to unsubscribe.
 	**/
 	function onDidAddCursor(callback:haxe.Constraints.Function):Disposable;
 	/**
-		Calls your `callback` when a {Cursor} is removed from the editor.
+		Calls your `callback` when a `Cursor` is removed from the editor.Returns a `Disposable` on which `.dispose()` can be called to unsubscribe.
 	**/
 	function onDidRemoveCursor(callback:haxe.Constraints.Function):Disposable;
 	/**
-		Calls your `callback` when a {Selection} is added to the editor.
-		Immediately calls your callback for each existing selection.
+		Calls your `callback` when a `Selection` is added to the editor.
+		Immediately calls your callback for each existing selection.Returns a `Disposable` on which `.dispose()` can be called to unsubscribe.
 	**/
 	function observeSelections(callback:haxe.Constraints.Function):Disposable;
 	/**
-		Calls your `callback` when a {Selection} is added to the editor.
+		Calls your `callback` when a `Selection` is added to the editor.Returns a `Disposable` on which `.dispose()` can be called to unsubscribe.
 	**/
 	function onDidAddSelection(callback:haxe.Constraints.Function):Disposable;
 	/**
-		Calls your `callback` when a {Selection} is removed from the editor.
+		Calls your `callback` when a `Selection` is removed from the editor.Returns a `Disposable` on which `.dispose()` can be called to unsubscribe.
 	**/
 	function onDidRemoveSelection(callback:haxe.Constraints.Function):Disposable;
 	/**
-		Calls your `callback` with each {Decoration} added to the editor.
-		Calls your `callback` immediately for any existing decorations.
+		Calls your `callback` with each `Decoration` added to the editor.
+		Calls your `callback` immediately for any existing decorations.Returns a `Disposable` on which `.dispose()` can be called to unsubscribe.
 	**/
 	function observeDecorations(callback:haxe.Constraints.Function):Disposable;
 	/**
-		Calls your `callback` when a {Decoration} is added to the editor.
+		Calls your `callback` when a `Decoration` is added to the editor.Returns a `Disposable` on which `.dispose()` can be called to unsubscribe.
 	**/
 	function onDidAddDecoration(callback:haxe.Constraints.Function):Disposable;
 	/**
-		Calls your `callback` when a {Decoration} is removed from the editor.
+		Calls your `callback` when a `Decoration` is removed from the editor.Returns a `Disposable` on which `.dispose()` can be called to unsubscribe.
 	**/
 	function onDidRemoveDecoration(callback:haxe.Constraints.Function):Disposable;
 	/**
-		Calls your `callback` when the placeholder text is changed.
+		Calls your `callback` when the placeholder text is changed.Returns a `Disposable` on which `.dispose()` can be called to unsubscribe.
 	**/
 	function onDidChangePlaceholderText(callback:haxe.Constraints.Function):Disposable;
 	/**
@@ -130,16 +167,16 @@ package atom;
 	**/
 	function getBuffer():Void;
 	/**
-		Calls your `callback` when a {Gutter} is added to the editor.
-		Immediately calls your callback for each existing gutter.
+		Calls your `callback` when a `Gutter` is added to the editor.
+		Immediately calls your callback for each existing gutter.Returns a `Disposable` on which `.dispose()` can be called to unsubscribe.
 	**/
 	function observeGutters(callback:haxe.Constraints.Function):Disposable;
 	/**
-		Calls your `callback` when a {Gutter} is added to the editor.
+		Calls your `callback` when a `Gutter` is added to the editor.Returns a `Disposable` on which `.dispose()` can be called to unsubscribe.
 	**/
 	function onDidAddGutter(callback:haxe.Constraints.Function):Disposable;
 	/**
-		Calls your `callback` when a {Gutter} is removed from the editor.
+		Calls your `callback` when a `Gutter` is removed from the editor.Returns a `Disposable` on which `.dispose()` can be called to unsubscribe.
 	**/
 	function onDidRemoveGutter(callback:haxe.Constraints.Function):Disposable;
 	/**
@@ -147,7 +184,7 @@ package atom;
 		UI such as the tabs.
 		
 		If the editor's buffer is saved, its title is the file name. If it is
-		unsaved, its title is "untitled".
+		unsaved, its title is "untitled".Returns a `String`.
 	**/
 	function getTitle():String;
 	/**
@@ -159,15 +196,15 @@ package atom;
 		of the following,
 		
 		* "<filename>" when it is the only editing buffer with this file name.
-		* "<filename> — <unique-dir-prefix>" when other buffers have this file name.
+		* "<filename> — <unique-dir-prefix>" when other buffers have this file name.Returns a `String`
 	**/
 	function getLongTitle():String;
 	/**
-		Returns the {String} path of this editor's text buffer.
+		Returns the `String` path of this editor's text buffer.
 	**/
 	function getPath():String;
 	/**
-		Returns the {String} character set encoding of this editor's text
+		Returns the `String` character set encoding of this editor's text
 		buffer.
 	**/
 	function getEncoding():String;
@@ -177,11 +214,11 @@ package atom;
 	**/
 	function setEncoding(encoding:String):Void;
 	/**
-		Returns {Boolean} `true` if this editor has been modified.
+		Returns `Boolean` `true` if this editor has been modified.
 	**/
 	function isModified():Bool;
 	/**
-		Returns {Boolean} `true` if this editor has no content.
+		Returns `Boolean` `true` if this editor has no content.
 	**/
 	function isEmpty():Bool;
 	/**
@@ -197,57 +234,57 @@ package atom;
 	**/
 	function saveAs(filePath:String):Void;
 	/**
-		Returns a {String} representing the entire contents of the editor.
+		Returns a `String` representing the entire contents of the editor.
 	**/
 	function getText():String;
 	/**
-		Get the text in the given {Range} in buffer coordinates.
+		Get the text in the given `Range` in buffer coordinates.Returns a `String`.
 	**/
 	function getTextInBufferRange(range:Range):String;
 	/**
-		Returns a {Number} representing the number of lines in the buffer.
+		Returns a `Number` representing the number of lines in the buffer.
 	**/
 	function getLineCount():Float;
 	/**
-		Returns a {Number} representing the number of screen lines in the
+		Returns a `Number` representing the number of screen lines in the
 		editor. This accounts for folds.
 	**/
 	function getScreenLineCount():Float;
 	/**
-		Returns a {Number} representing the last zero-indexed buffer row
+		Returns a `Number` representing the last zero-indexed buffer row
 		number of the editor.
 	**/
 	function getLastBufferRow():Float;
 	/**
-		Returns a {Number} representing the last zero-indexed screen row
+		Returns a `Number` representing the last zero-indexed screen row
 		number of the editor.
 	**/
 	function getLastScreenRow():Float;
 	/**
-		Returns a {String} representing the contents of the line at the
+		Returns a `String` representing the contents of the line at the
 		given buffer row.
 	**/
 	function lineTextForBufferRow(bufferRow:Float):String;
 	/**
-		Returns a {String} representing the contents of the line at the
+		Returns a `String` representing the contents of the line at the
 		given screen row.
 	**/
 	function lineTextForScreenRow(screenRow:Float):String;
 	/**
-		Get the {Range} of the paragraph surrounding the most recently added
-		cursor.
+		Get the `Range` of the paragraph surrounding the most recently added
+		cursor.Returns a `Range`.
 	**/
 	function getCurrentParagraphBufferRange():Range;
 	/**
-		Replaces the entire contents of the buffer with the given {String}.
+		Replaces the entire contents of the buffer with the given `String`.
 	**/
 	function setText(text:String):Void;
 	/**
-		Set the text in the given {Range} in buffer coordinates.
+		Set the text in the given `Range` in buffer coordinates.Returns the `Range` of the newly-inserted text.
 	**/
 	function setTextInBufferRange(range:Range, text:String, ?options:Dynamic):Range;
 	/**
-		For each selection, replace the selected text with the given text.
+		For each selection, replace the selected text with the given text.Returns a `Range` when the text has been inserted
 	**/
 	function insertText(text:String, ?options:Dynamic):Range;
 	/**
@@ -267,7 +304,7 @@ package atom;
 	/**
 		Mutate the text of all the selections in a single transaction.
 		
-		All the changes made inside the given {Function} can be reverted with a
+		All the changes made inside the given `Function` can be reverted with a
 		single call to {::undo}.
 	**/
 	function mutateSelectedText(fn:haxe.Constraints.Function):Void;
@@ -381,7 +418,7 @@ package atom;
 	function abortTransaction():Void;
 	/**
 		Create a pointer to the current state of the buffer for use
-		with {::revertToCheckpoint} and {::groupChangesSinceCheckpoint}.
+		with {::revertToCheckpoint} and {::groupChangesSinceCheckpoint}.Returns a checkpoint value.
 	**/
 	function createCheckpoint():Dynamic;
 	/**
@@ -391,7 +428,7 @@ package atom;
 		The redo stack will be empty following this operation, so changes since the
 		checkpoint will be lost. If the given checkpoint is no longer present in the
 		undo history, no changes will be made to the buffer and this method will
-		return `false`.
+		return `false`.Returns a `Boolean` indicating whether the operation succeeded.
 	**/
 	function revertToCheckpoint(checkpoint:Dynamic):Bool;
 	/**
@@ -399,7 +436,7 @@ package atom;
 		transaction for purposes of undo/redo.
 		
 		If the given checkpoint is no longer present in the undo history, no
-		grouping will be performed and this method will return `false`.
+		grouping will be performed and this method will return `false`.Returns a `Boolean` indicating whether the operation succeeded.
 	**/
 	function groupChangesSinceCheckpoint(checkpoint:Dynamic):Bool;
 	/**
@@ -407,49 +444,49 @@ package atom;
 		
 		The position is clipped via {::clipBufferPosition} prior to the conversion.
 		The position is also clipped via {::clipScreenPosition} following the
-		conversion, which only makes a difference when `options` are supplied.
+		conversion, which only makes a difference when `options` are supplied.Returns a `Point`.
 	**/
 	function screenPositionForBufferPosition(bufferPosition:Point, ?options:Dynamic):Point;
 	/**
 		Convert a position in screen-coordinates to buffer-coordinates.
 		
-		The position is clipped via {::clipScreenPosition} prior to the conversion.
+		The position is clipped via {::clipScreenPosition} prior to the conversion.Returns a `Point`.
 	**/
 	function bufferPositionForScreenPosition(bufferPosition:Point, ?options:Dynamic):Point;
 	/**
-		Convert a range in buffer-coordinates to screen-coordinates.
+		Convert a range in buffer-coordinates to screen-coordinates.Returns a `Range`.
 	**/
 	function screenRangeForBufferRange(bufferRange:Range):Range;
 	/**
-		Convert a range in screen-coordinates to buffer-coordinates.
+		Convert a range in screen-coordinates to buffer-coordinates.Returns a `Range`.
 	**/
 	function bufferRangeForScreenRange(screenRange:Range):Range;
 	/**
-		Clip the given {Point} to a valid position in the buffer.
+		Clip the given `Point` to a valid position in the buffer.
 		
-		If the given {Point} describes a position that is actually reachable by the
+		If the given `Point` describes a position that is actually reachable by the
 		cursor based on the current contents of the buffer, it is returned
-		unchanged. If the {Point} does not describe a valid position, the closest
-		valid position is returned instead.
+		unchanged. If the `Point` does not describe a valid position, the closest
+		valid position is returned instead.Returns a `Point`.
 	**/
 	function clipBufferPosition(bufferPosition:Point):Point;
 	/**
 		Clip the start and end of the given range to valid positions in the
-		buffer. See {::clipBufferPosition} for more information.
+		buffer. See {::clipBufferPosition} for more information.Returns a `Range`.
 	**/
 	function clipBufferRange(range:Range):Range;
 	/**
-		Clip the given {Point} to a valid position on screen.
+		Clip the given `Point` to a valid position on screen.
 		
-		If the given {Point} describes a position that is actually reachable by the
+		If the given `Point` describes a position that is actually reachable by the
 		cursor based on the current contents of the screen, it is returned
-		unchanged. If the {Point} does not describe a valid position, the closest
-		valid position is returned instead.
+		unchanged. If the `Point` does not describe a valid position, the closest
+		valid position is returned instead.Returns a `Point`.
 	**/
 	function clipScreenPosition(screenPosition:Point, ?options:Dynamic):Point;
 	/**
 		Clip the start and end of the given range to valid positions on screen.
-		See {::clipScreenPosition} for more information.
+		See {::clipScreenPosition} for more information.Returns a `Range`.
 	**/
 	function clipScreenRange(range:Range, ?options:Dynamic):Range;
 	/**
@@ -475,63 +512,63 @@ package atom;
 		  ```
 		* __overlay__: Positions the view associated with the given item at the head
 		    or tail of the given `DisplayMarker`.
-		* __gutter__: A decoration that tracks a {DisplayMarker} in a {Gutter}. Gutter
-		    decorations are created by calling {Gutter::decorateMarker} on the
+		* __gutter__: A decoration that tracks a {DisplayMarker} in a `Gutter`. Gutter
+		    decorations are created by calling `Gutter.decorateMarker` on the
 		    desired `Gutter` instance.
 		* __block__: Positions the view associated with the given item before or
-		    after the row of the given `TextEditorMarker`.
+		    after the row of the given `TextEditorMarker`.Returns a `Decoration` object
 	**/
 	function decorateMarker(marker:DisplayMarker, decorationParams:Dynamic):Decoration;
 	/**
 		Add a decoration to every marker in the given marker layer. Can
 		be used to decorate a large number of markers without having to create and
-		manage many individual decorations.
+		manage many individual decorations.Returns a {LayerDecoration}.
 	**/
 	function decorateMarkerLayer(markerLayer:DisplayMarkerLayer, decorationParams:Dynamic):LayerDecoration;
 	/**
-		Get all decorations.
+		Get all decorations.Returns an `Array` of `Decoration`s.
 	**/
 	function getDecorations(?propertyFilter:Dynamic):Array<Dynamic>;
 	/**
-		Get all decorations of type 'line'.
+		Get all decorations of type 'line'.Returns an `Array` of `Decoration`s.
 	**/
 	function getLineDecorations(?propertyFilter:Dynamic):Array<Dynamic>;
 	/**
-		Get all decorations of type 'line-number'.
+		Get all decorations of type 'line-number'.Returns an `Array` of `Decoration`s.
 	**/
 	function getLineNumberDecorations(?propertyFilter:Dynamic):Array<Dynamic>;
 	/**
-		Get all decorations of type 'highlight'.
+		Get all decorations of type 'highlight'.Returns an `Array` of `Decoration`s.
 	**/
 	function getHighlightDecorations(?propertyFilter:Dynamic):Array<Dynamic>;
 	/**
-		Get all decorations of type 'overlay'.
+		Get all decorations of type 'overlay'.Returns an `Array` of `Decoration`s.
 	**/
 	function getOverlayDecorations(?propertyFilter:Dynamic):Array<Dynamic>;
 	/**
 		Create a marker on the default marker layer with the given range
 		in buffer coordinates. This marker will maintain its logical location as the
 		buffer is changed, so if you mark a particular word, the marker will remain
-		over that word even if the word's location in the buffer changes.
+		over that word even if the word's location in the buffer changes.Returns a {DisplayMarker}.
 	**/
 	function markBufferRange(range:Range, properties:Dynamic):DisplayMarker;
 	/**
 		Create a marker on the default marker layer with the given range
 		in screen coordinates. This marker will maintain its logical location as the
 		buffer is changed, so if you mark a particular word, the marker will remain
-		over that word even if the word's location in the buffer changes.
+		over that word even if the word's location in the buffer changes.Returns a {DisplayMarker}.
 	**/
 	function markScreenRange(range:Range, properties:Dynamic):DisplayMarker;
 	/**
 		Create a marker on the default marker layer with the given buffer
 		position and no tail. To group multiple markers together in their own
-		private layer, see {::addMarkerLayer}.
+		private layer, see {::addMarkerLayer}.Returns a {DisplayMarker}.
 	**/
 	function markBufferPosition(bufferPosition:Point, ?options:Dynamic):DisplayMarker;
 	/**
 		Create a marker on the default marker layer with the given screen
 		position and no tail. To group multiple markers together in their own
-		private layer, see {::addMarkerLayer}.
+		private layer, see {::addMarkerLayer}.Returns a {DisplayMarker}.
 	**/
 	function markScreenPosition(screenPosition:Point, ?options:Dynamic):DisplayMarker;
 	/**
@@ -541,7 +578,7 @@ package atom;
 		This method finds markers based on the given properties. Markers can be
 		associated with custom properties that will be compared with basic equality.
 		In addition, there are several special properties that will be compared
-		with the range of the markers rather than their properties.
+		with the range of the markers rather than their properties.Returns an `Array` of {DisplayMarker}s
 	**/
 	function findMarkers(properties:Dynamic):Array<Dynamic>;
 	/**
@@ -555,31 +592,32 @@ package atom;
 	**/
 	function getMarkers():Void;
 	/**
-		Get the number of markers in the default marker layer.
+		Get the number of markers in the default marker layer.Returns a `Number`.
 	**/
 	function getMarkerCount():Float;
 	/**
-		Create a marker layer to group related markers.
+		Create a marker layer to group related markers.Returns a {DisplayMarkerLayer}.
 	**/
 	function addMarkerLayer(options:Dynamic):DisplayMarkerLayer;
 	/**
-		Get a {DisplayMarkerLayer} by id.
+		Get a {DisplayMarkerLayer} by id.Returns a {DisplayMarkerLayer} or `` if no layer exists with the
+		given id.
 	**/
 	function getMarkerLayer(id:Dynamic):DisplayMarkerLayer;
 	/**
 		Get the default {DisplayMarkerLayer}.
 		
 		All marker APIs not tied to an explicit layer interact with this default
-		layer.
+		layer.Returns a {DisplayMarkerLayer}.
 	**/
 	function getDefaultMarkerLayer():DisplayMarkerLayer;
 	/**
 		Get the position of the most recently added cursor in buffer
-		coordinates.
+		coordinates.Returns a `Point`
 	**/
 	function getCursorBufferPosition():Point;
 	/**
-		Get the position of all the cursor positions in buffer coordinates.
+		Get the position of all the cursor positions in buffer coordinates.Returns `Array` of `Point`s in the order they were added
 	**/
 	function getCursorBufferPositions():Array<Dynamic>;
 	/**
@@ -589,16 +627,16 @@ package atom;
 	**/
 	function setCursorBufferPosition(position:Point, ?options:Dynamic):Void;
 	/**
-		Get a {Cursor} at given screen coordinates {Point}
+		Get a `Cursor` at given screen coordinates `Point`Returns the first matched `Cursor` or
 	**/
 	function getCursorAtScreenPosition(position:Point):Cursor;
 	/**
 		Get the position of the most recently added cursor in screen
-		coordinates.
+		coordinates.Returns a `Point`.
 	**/
 	function getCursorScreenPosition():Point;
 	/**
-		Get the position of all the cursor positions in screen coordinates.
+		Get the position of all the cursor positions in screen coordinates.Returns `Array` of `Point`s in the order the cursors were added
 	**/
 	function getCursorScreenPositions():Array<Dynamic>;
 	/**
@@ -608,15 +646,15 @@ package atom;
 	**/
 	function setCursorScreenPosition(position:Point, ?options:Dynamic):Void;
 	/**
-		Add a cursor at the given position in buffer coordinates.
+		Add a cursor at the given position in buffer coordinates.Returns a `Cursor`.
 	**/
 	function addCursorAtBufferPosition(bufferPosition:Point):Cursor;
 	/**
-		Add a cursor at the position in screen coordinates.
+		Add a cursor at the position in screen coordinates.Returns a `Cursor`.
 	**/
 	function addCursorAtScreenPosition(screenPosition:Point):Cursor;
 	/**
-		Returns {Boolean} indicating whether or not there are multiple cursors.
+		Returns `Boolean` indicating whether or not there are multiple cursors.
 	**/
 	function hasMultipleCursors():Bool;
 	/**
@@ -704,7 +742,7 @@ package atom;
 	**/
 	function moveToBeginningOfPreviousParagraph():Void;
 	/**
-		Returns the most recently added {Cursor}
+		Returns the most recently added `Cursor`
 	**/
 	function getLastCursor():Cursor;
 	/**
@@ -712,27 +750,27 @@ package atom;
 	**/
 	function getWordUnderCursor(?options:Dynamic):Dynamic;
 	/**
-		Get an Array of all {Cursor}s. 
+		Get an Array of all `Cursor`s. 
 	**/
 	function getCursors():Void;
 	/**
-		Get all {Cursors}s, ordered by their position in the buffer
-		instead of the order in which they were added.
+		Get all `Cursors`s, ordered by their position in the buffer
+		instead of the order in which they were added.Returns an `Array` of `Selection`s.
 	**/
 	function getCursorsOrderedByBufferPosition():Array<Dynamic>;
 	/**
-		Get the selected text of the most recently added selection.
+		Get the selected text of the most recently added selection.Returns a `String`.
 	**/
 	function getSelectedText():String;
 	/**
-		Get the {Range} of the most recently added selection in buffer
-		coordinates.
+		Get the `Range` of the most recently added selection in buffer
+		coordinates.Returns a `Range`.
 	**/
 	function getSelectedBufferRange():Range;
 	/**
-		Get the {Range}s of all selections in buffer coordinates.
+		Get the `Range`s of all selections in buffer coordinates.
 		
-		The ranges are sorted by when the selections were added. Most recent at the end.
+		The ranges are sorted by when the selections were added. Most recent at the end.Returns an `Array` of `Range`s.
 	**/
 	function getSelectedBufferRanges():Array<Dynamic>;
 	/**
@@ -746,14 +784,14 @@ package atom;
 	**/
 	function setSelectedBufferRanges(bufferRanges:Array<Dynamic>, ?options:Dynamic):Void;
 	/**
-		Get the {Range} of the most recently added selection in screen
-		coordinates.
+		Get the `Range` of the most recently added selection in screen
+		coordinates.Returns a `Range`.
 	**/
 	function getSelectedScreenRange():Range;
 	/**
-		Get the {Range}s of all selections in screen coordinates.
+		Get the `Range`s of all selections in screen coordinates.
 		
-		The ranges are sorted by when the selections were added. Most recent at the end.
+		The ranges are sorted by when the selections were added. Most recent at the end.Returns an `Array` of `Range`s.
 	**/
 	function getSelectedScreenRanges():Array<Dynamic>;
 	/**
@@ -767,7 +805,7 @@ package atom;
 	**/
 	function setSelectedScreenRanges(screenRanges:Array<Dynamic>, ?options:Dynamic):Void;
 	/**
-		Add a selection for the given range in buffer coordinates.
+		Add a selection for the given range in buffer coordinates.Returns the added `Selection`.
 	**/
 	function addSelectionForBufferRange(bufferRange:Range, ?options:Dynamic):Selection;
 	/**
@@ -933,25 +971,25 @@ package atom;
 	**/
 	function selectToBeginningOfPreviousParagraph():Void;
 	/**
-		Select the range of the given marker if it is valid.
+		Select the range of the given marker if it is valid.Returns the selected `Range` or `` if the marker is invalid.
 	**/
 	function selectMarker(marker:DisplayMarker):Range;
 	/**
-		Get the most recently added {Selection}.
+		Get the most recently added `Selection`.Returns a `Selection`.
 	**/
 	function getLastSelection():Selection;
 	/**
-		Get current {Selection}s.
+		Get current `Selection`s.Returns: An `Array` of `Selection`s.
 	**/
 	function getSelections():Array<Dynamic>;
 	/**
-		Get all {Selection}s, ordered by their position in the buffer
-		instead of the order in which they were added.
+		Get all `Selection`s, ordered by their position in the buffer
+		instead of the order in which they were added.Returns an `Array` of `Selection`s.
 	**/
 	function getSelectionsOrderedByBufferPosition():Array<Dynamic>;
 	/**
 		Determine if a given range in buffer coordinates intersects a
-		selection.
+		selection.Returns a `Boolean`.
 	**/
 	function selectionIntersectsBufferRange(bufferRange:Range):Bool;
 	/**
@@ -975,7 +1013,7 @@ package atom;
 	**/
 	function backwardsScanInBufferRange(regex:EReg, range:Range, iterator:haxe.Constraints.Function):Void;
 	/**
-		Returns a {Boolean} indicating whether softTabs are enabled for this
+		Returns a `Boolean` indicating whether softTabs are enabled for this
 		editor.
 	**/
 	function getSoftTabs():Bool;
@@ -988,35 +1026,36 @@ package atom;
 	**/
 	function toggleSoftTabs():Void;
 	/**
-		Get the on-screen length of tab characters.
+		Get the on-screen length of tab characters.Returns a `Number`.
 	**/
 	function getTabLength():Float;
 	/**
 		Set the on-screen length of tab characters. Setting this to a
-		{Number} This will override the `editor.tabLength` setting.
+		`Number` This will override the `editor.tabLength` setting.
 	**/
 	function setTabLength(tabLength:Float):Void;
 	/**
-		Determine if the buffer uses hard or soft tabs.
+		Determine if the buffer uses hard or soft tabs.Returns `true` if the first non-comment line with leading whitespace starts
+		with a space character.
 	**/
 	function usesSoftTabs():Dynamic;
 	/**
 		Get the text representing a single level of indent.
 		
 		If soft tabs are enabled, the text is composed of N spaces, where N is the
-		tab length. Otherwise the text is a tab character (`\t`).
+		tab length. Otherwise the text is a tab character (`\t`).Returns a `String`.
 	**/
 	function getTabText():String;
 	/**
-		Determine whether lines in this editor are soft-wrapped.
+		Determine whether lines in this editor are soft-wrapped.Returns a `Boolean`.
 	**/
 	function isSoftWrapped():Bool;
 	/**
-		Enable or disable soft wrapping for this editor.
+		Enable or disable soft wrapping for this editor.Returns a `Boolean`.
 	**/
 	function setSoftWrapped(softWrapped:Bool):Bool;
 	/**
-		Toggle soft wrapping for this editor
+		Toggle soft wrapping for this editorReturns a `Boolean`.
 	**/
 	function toggleSoftWrapped():Bool;
 	/**
@@ -1029,7 +1068,7 @@ package atom;
 		Determines how deeply the given row is indented based on the soft tabs and
 		tab length settings of this editor. Note that if soft tabs are enabled and
 		the tab length is 2, a row with 4 leading spaces would have an indentation
-		level of 2.
+		level of 2.Returns a `Number`.
 	**/
 	function indentationForBufferRow(bufferRow:Float):Float;
 	/**
@@ -1055,7 +1094,7 @@ package atom;
 		Determines how deeply the given line is indented based on the soft tabs and
 		tab length settings of this editor. Note that if soft tabs are enabled and
 		the tab length is 2, a row with 4 leading spaces would have an indentation
-		level of 2.
+		level of 2.Returns a `Number`.
 	**/
 	function indentLevelForLine(line:String):Float;
 	/**
@@ -1064,11 +1103,11 @@ package atom;
 	**/
 	function autoIndentSelectedRows():Void;
 	/**
-		Get the current {Grammar} of this editor. 
+		Get the current `Grammar` of this editor. 
 	**/
 	function getGrammar():Void;
 	/**
-		Set the current {Grammar} of this editor.
+		Set the current `Grammar` of this editor.
 		
 		Assigning a grammar will cause the editor to re-tokenize based on the new
 		grammar.
@@ -1077,16 +1116,16 @@ package atom;
 	/**
 		Returns a {ScopeDescriptor} that includes this editor's language.
 		e.g. `['.source.ruby']`, or `['.source.coffee']`. You can use this with
-		{Config::get} to get language specific config values.
+		`Config.get` to get language specific config values.
 	**/
 	function getRootScopeDescriptor():ScopeDescriptor;
 	/**
 		Get the syntactic scopeDescriptor for the given position in buffer
-		coordinates. Useful with {Config::get}.
+		coordinates. Useful with `Config.get`.
 		
 		For example, if called with a position inside the parameter list of an
 		anonymous CoffeeScript function, the method returns the following array:
-		`["source.coffee", "meta.inline.function.coffee", "variable.parameter.function.coffee"]`
+		`["source.coffee", "meta.inline.function.coffee", "variable.parameter.function.coffee"]`Returns a {ScopeDescriptor}.
 	**/
 	function scopeDescriptorForBufferPosition(bufferPosition:Point):ScopeDescriptor;
 	/**
@@ -1094,7 +1133,7 @@ package atom;
 		cursor that match the given scope selector.
 		
 		For example, if you wanted to find the string surrounding the cursor, you
-		could call `editor.bufferRangeForScopeAtCursor(".string.quoted")`.
+		could call `editor.bufferRangeForScopeAtCursor(".string.quoted")`.Returns a `Range`.
 	**/
 	function bufferRangeForScopeAtCursor(scopeSelector:String):Range;
 	/**
@@ -1173,13 +1212,13 @@ package atom;
 	/**
 		Determine whether the given row in buffer coordinates is foldable.
 		
-		A *foldable* row is a row that *starts* a row range that can be folded.
+		A *foldable* row is a row that *starts* a row range that can be folded.Returns a `Boolean`.
 	**/
 	function isFoldableAtBufferRow(bufferRow:Float):Bool;
 	/**
 		Determine whether the given row in screen coordinates is foldable.
 		
-		A *foldable* row is a row that *starts* a row range that can be folded.
+		A *foldable* row is a row that *starts* a row range that can be folded.Returns a `Boolean`.
 	**/
 	function isFoldableAtScreenRow(bufferRow:Float):Bool;
 	/**
@@ -1188,27 +1227,27 @@ package atom;
 	**/
 	function toggleFoldAtBufferRow():Void;
 	/**
-		Determine whether the most recently added cursor's row is folded.
+		Determine whether the most recently added cursor's row is folded.Returns a `Boolean`.
 	**/
 	function isFoldedAtCursorRow():Bool;
 	/**
-		Determine whether the given row in buffer coordinates is folded.
+		Determine whether the given row in buffer coordinates is folded.Returns a `Boolean`.
 	**/
 	function isFoldedAtBufferRow(bufferRow:Float):Bool;
 	/**
-		Determine whether the given row in screen coordinates is folded.
+		Determine whether the given row in screen coordinates is folded.Returns a `Boolean`.
 	**/
 	function isFoldedAtScreenRow(screenRow:Float):Bool;
 	/**
-		Add a custom {Gutter}.
+		Add a custom `Gutter`.Returns the newly-created `Gutter`.
 	**/
 	function addGutter(options:Dynamic):Gutter;
 	/**
-		Get this editor's gutters.
+		Get this editor's gutters.Returns an `Array` of `Gutter`s.
 	**/
 	function getGutters():Array<Dynamic>;
 	/**
-		Get the gutter with the given name.
+		Get the gutter with the given name.Returns a `Gutter`, or `null` if no gutter exists for the given name.
 	**/
 	function gutterWithName():Gutter;
 	/**
@@ -1225,7 +1264,7 @@ package atom;
 	**/
 	function scrollToScreenPosition(screenPosition:Dynamic, ?options:Dynamic):Void;
 	/**
-		Retrieves the greyed out placeholder of a mini editor.
+		Retrieves the greyed out placeholder of a mini editor.Returns a `String`.
 	**/
 	function getPlaceholderText():String;
 	/**

@@ -2,6 +2,10 @@ package atom;
 
 /**
 	Atom global for dealing with packages, themes, menus, and the window.
+	
+	An instance of this class is always available as the `atom` global. 
+	@see <https://github.com/atom/atom/blob/v1.22.1/src/atom-environment.coffee#L54>
+
 **/
 @:require(js, atom) @:native("atom") extern class AtomEnvironment {
 	/**
@@ -9,11 +13,11 @@ package atom;
 	**/
 	static var commands : Dynamic;
 	/**
-		A {Config} instance 
+		A `Config` instance 
 	**/
 	static var config : Dynamic;
 	/**
-		A {Clipboard} instance 
+		A `Clipboard` instance 
 	**/
 	static var clipboard : Dynamic;
 	/**
@@ -37,7 +41,7 @@ package atom;
 	**/
 	static var notifications : Dynamic;
 	/**
-		A {Project} instance 
+		A `Project` instance 
 	**/
 	static var project : Dynamic;
 	/**
@@ -69,7 +73,7 @@ package atom;
 	**/
 	static var views : Dynamic;
 	/**
-		A {Workspace} instance 
+		A `Workspace` instance 
 	**/
 	static var workspace : Dynamic;
 	/**
@@ -77,16 +81,16 @@ package atom;
 	**/
 	static var textEditors : Dynamic;
 	/**
-		Invoke the given callback whenever {::beep} is called.
+		Invoke the given callback whenever {::beep} is called.Returns a `Disposable` on which `.dispose()` can be called to unsubscribe.
 	**/
 	static function onDidBeep(callback:haxe.Constraints.Function):Disposable;
 	/**
 		Invoke the given callback when there is an unhandled error, but
-		before the devtools pop open
+		before the devtools pop openReturns a `Disposable` on which `.dispose()` can be called to unsubscribe.
 	**/
 	static function onWillThrowError(callback:haxe.Constraints.Function):Disposable;
 	/**
-		Invoke the given callback whenever there is an unhandled error.
+		Invoke the given callback whenever there is an unhandled error.Returns a `Disposable` on which `.dispose()` can be called to unsubscribe.
 	**/
 	static function onDidThrowError(callback:haxe.Constraints.Function):Disposable;
 	/**
@@ -95,38 +99,39 @@ package atom;
 	**/
 	static function whenShellEnvironmentLoaded(callback:haxe.Constraints.Function):Void;
 	/**
-		Returns a {Boolean} that is `true` if the current window is in development mode.
+		Returns a `Boolean` that is `true` if the current window is in development mode.
 	**/
 	static function inDevMode():Bool;
 	/**
-		Returns a {Boolean} that is `true` if the current window is in safe mode.
+		Returns a `Boolean` that is `true` if the current window is in safe mode.
 	**/
 	static function inSafeMode():Bool;
 	/**
-		Returns a {Boolean} that is `true` if the current window is running specs.
+		Returns a `Boolean` that is `true` if the current window is running specs.
 	**/
 	static function inSpecMode():Bool;
 	/**
-		Get the version of the Atom application.
+		Get the version of the Atom application.Returns the version text `String`.
 	**/
 	static function getVersion():String;
 	/**
-		Gets the release channel of the Atom application.
+		Gets the release channel of the Atom application.Returns the release channel as a `String`. Will return one of `dev`, `beta`, or `stable`.
 	**/
 	static function getReleaseChannel():String;
 	/**
-		Returns a {Boolean} that is `true` if the current version is an official release.
+		Returns a `Boolean` that is `true` if the current version is an official release.
 	**/
 	static function isReleasedVersion():Bool;
 	/**
 		Get the time taken to completely load the current window.
 		
 		This time include things like loading and activating packages, creating
-		DOM elements for the editor, and reading the config.
+		DOM elements for the editor, and reading the config.Returns the `Number` of milliseconds taken to load the window or null
+		if the window hasn't finished loading yet.
 	**/
 	static function getWindowLoadTime():Float;
 	/**
-		Get the load settings for the current window.
+		Get the load settings for the current window.Returns an `Object` containing all the load setting key/value pairs.
 	**/
 	static function getLoadSettings():Dynamic;
 	/**
@@ -145,7 +150,7 @@ package atom;
 	**/
 	static function close():Void;
 	/**
-		Get the size of current window.
+		Get the size of current window.Returns an `Object` in the format `{width: 1000, height: 700}`
 	**/
 	static function getSize():Dynamic;
 	/**
@@ -153,7 +158,7 @@ package atom;
 	**/
 	static function setSize(width:Float, height:Float):Void;
 	/**
-		Get the position of current window.
+		Get the position of current window.Returns an `Object` in the format `{x: 10, y: 20}`
 	**/
 	static function getPosition():Dynamic;
 	/**
@@ -189,11 +194,11 @@ package atom;
 	**/
 	static function restartApplication():Void;
 	/**
-		Returns a {Boolean} that is `true` if the current window is maximized.
+		Returns a `Boolean` that is `true` if the current window is maximized.
 	**/
 	static function isMaximized():Bool;
 	/**
-		Returns a {Boolean} that is `true` if the current window is in full screen mode.
+		Returns a `Boolean` that is `true` if the current window is in full screen mode.
 	**/
 	static function isFullScreen():Bool;
 	/**
@@ -212,15 +217,16 @@ package atom;
 		A flexible way to open a dialog akin to an alert dialog.
 		
 		If the dialog is closed (via `Esc` key or `X` in the top corner) without selecting a button
-		the first button will be clicked unless a "Cancel" or "No" button is provided.
+		the first button will be clicked unless a "Cancel" or "No" button is provided.Returns the chosen button index `Number` if the buttons option is an array or the return value of the callback if the buttons option is an object.
 	**/
 	static function confirm(options:Dynamic):Float;
 	/**
-		Open the dev tools for the current window.
+		Open the dev tools for the current window.Returns a `Promise` that resolves when the DevTools have been opened.
 	**/
 	static function openDevTools():js.Promise<Dynamic>;
 	/**
-		Toggle the visibility of the dev tools for the current window.
+		Toggle the visibility of the dev tools for the current window.Returns a `Promise` that resolves when the DevTools have been opened or
+		closed.
 	**/
 	static function toggleDevTools():js.Promise<Dynamic>;
 	/**

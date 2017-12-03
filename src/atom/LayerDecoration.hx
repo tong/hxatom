@@ -3,6 +3,8 @@ package atom;
 /**
 	Represents a decoration that applies to every marker on a given
 	layer. Created via {TextEditor::decorateMarkerLayer}. 
+	@see <https://github.com/atom/atom/blob/v1.22.1/src/layer-decoration.coffee#L7>
+
 **/
 @:require(js, atom) @:jsRequire("atom", "LayerDecoration") extern class LayerDecoration {
 	/**
@@ -10,11 +12,11 @@ package atom;
 	**/
 	function destroy():Void;
 	/**
-		Determine whether this decoration is destroyed.
+		Determine whether this decoration is destroyed.Returns a `Boolean`.
 	**/
 	function isDestroyed():Bool;
 	/**
-		Get this decoration's properties.
+		Get this decoration's properties.Returns an `Object`.
 	**/
 	function getProperties():Dynamic;
 	/**

@@ -2,18 +2,20 @@ package atom;
 
 /**
 	Represents a selection in the {TextEditor}. 
+	@see <https://github.com/atom/atom/blob/v1.22.1/src/selection.coffee#L10>
+
 **/
 @:require(js, atom) @:jsRequire("atom", "Selection") extern class Selection {
 	/**
-		Calls your `callback` when the selection was moved.
+		Calls your `callback` when the selection was moved.Returns a `Disposable` on which `.dispose()` can be called to unsubscribe.
 	**/
 	function onDidChangeRange(callback:haxe.Constraints.Function):Disposable;
 	/**
-		Calls your `callback` when the selection was destroyed
+		Calls your `callback` when the selection was destroyedReturns a `Disposable` on which `.dispose()` can be called to unsubscribe.
 	**/
 	function onDidDestroy(callback:haxe.Constraints.Function):Disposable;
 	/**
-		Returns the screen {Range} for the selection.
+		Returns the screen `Range` for the selection.
 	**/
 	function getScreenRange():Range;
 	/**
@@ -21,11 +23,11 @@ package atom;
 	**/
 	function setScreenRange(screenRange:Range, ?options:Dynamic):Void;
 	/**
-		Returns the buffer {Range} for the selection.
+		Returns the buffer `Range` for the selection.
 	**/
 	function getBufferRange():Range;
 	/**
-		Modifies the buffer {Range} for the selection.
+		Modifies the buffer `Range` for the selection.
 	**/
 	function setBufferRange(bufferRange:Range, ?options:Dynamic):Void;
 	/**
@@ -53,11 +55,11 @@ package atom;
 	**/
 	function getText():Dynamic;
 	/**
-		Identifies if a selection intersects with a given buffer range.
+		Identifies if a selection intersects with a given buffer range.Returns a `Boolean`
 	**/
 	function intersectsBufferRange(bufferRange:Range):Bool;
 	/**
-		Identifies if a selection intersects with another selection.
+		Identifies if a selection intersects with another selection.Returns a `Boolean`
 	**/
 	function intersectsWith(otherSelection:Selection):Bool;
 	/**
@@ -166,7 +168,7 @@ package atom;
 	**/
 	function selectToBeginningOfPreviousParagraph():Void;
 	/**
-		Modifies the selection to encompass the current word.
+		Modifies the selection to encompass the current word.Returns a `Range`.
 	**/
 	function selectWord():Range;
 	/**
@@ -317,7 +319,7 @@ package atom;
 		Compare this selection's buffer range to another selection's buffer
 		range.
 		
-		See {Range::compare} for more details.
+		See `Range.compare` for more details.
 	**/
 	function compare(otherSelection:Selection):Void;
 }

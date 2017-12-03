@@ -3,14 +3,19 @@ package atom;
 /**
 	The `Cursor` class represents the little blinking line identifying
 	where text can be inserted.
+	
+	Cursors belong to {TextEditor}s and have some metadata attached in the form
+	of a {DisplayMarker}. 
+	@see <https://github.com/atom/atom/blob/v1.22.1/src/cursor.coffee#L14>
+
 **/
 @:require(js, atom) @:jsRequire("atom", "Cursor") extern class Cursor {
 	/**
-		Calls your `callback` when the cursor has been moved.
+		Calls your `callback` when the cursor has been moved.Returns a `Disposable` on which `.dispose()` can be called to unsubscribe.
 	**/
 	function onDidChangePosition(callback:haxe.Constraints.Function):Disposable;
 	/**
-		Calls your `callback` when the cursor is destroyed
+		Calls your `callback` when the cursor is destroyedReturns a `Disposable` on which `.dispose()` can be called to unsubscribe.
 	**/
 	function onDidDestroy(callback:haxe.Constraints.Function):Disposable;
 	/**
@@ -18,7 +23,7 @@ package atom;
 	**/
 	function setScreenPosition(screenPosition:Array<Dynamic>, ?options:Dynamic):Void;
 	/**
-		Returns the screen position of the cursor as a {Point}.
+		Returns the screen position of the cursor as a `Point`.
 	**/
 	function getScreenPosition():Point;
 	/**
@@ -60,21 +65,23 @@ package atom;
 	function isAtEndOfLine():Dynamic;
 	/**
 		Returns the underlying {DisplayMarker} for the cursor.
-		Useful with overlay {Decoration}s.
+		Useful with overlay `Decoration`s.
 	**/
 	function getMarker():DisplayMarker;
 	/**
 		Identifies if the cursor is surrounded by whitespace.
 		
 		"Surrounded" here means that the character directly before and after the
-		cursor are both whitespace.
+		cursor are both whitespace.Returns a `Boolean`.
 	**/
 	function isSurroundedByWhitespace():Bool;
 	/**
 		
 		
 		This method returns false if the character before or after the cursor is
-		whitespace.
+		whitespace.Returns whether the cursor is currently between a word and non-word
+		character. The non-word characters are defined by the
+		`editor.nonWordCharacters` config value.
 	**/
 	function isBetweenWordAndNonWord():Dynamic;
 	/**
@@ -86,7 +93,7 @@ package atom;
 	**/
 	function getIndentLevel():Dynamic;
 	/**
-		Retrieves the scope descriptor for the cursor's current position.
+		Retrieves the scope descriptor for the cursor's current position.Returns a {ScopeDescriptor}
 	**/
 	function getScopeDescriptor():ScopeDescriptor;
 	/**
@@ -97,7 +104,7 @@ package atom;
 	/**
 		Identifies if this cursor is the last in the {TextEditor}.
 		
-		"Last" is defined as the most recently added cursor.
+		"Last" is defined as the most recently added cursor.Returns a `Boolean`.
 	**/
 	function isLastCursor():Bool;
 	/**
@@ -197,15 +204,15 @@ package atom;
 	**/
 	function getNextWordBoundaryBufferPosition(?options:Dynamic):Dynamic;
 	/**
-		Retrieves the buffer position of where the current word starts.
+		Retrieves the buffer position of where the current word starts.Returns a `Range`.
 	**/
 	function getBeginningOfCurrentWordBufferPosition(?options:Dynamic):Range;
 	/**
-		Retrieves the buffer position of where the current word ends.
+		Retrieves the buffer position of where the current word ends.Returns a `Range`.
 	**/
 	function getEndOfCurrentWordBufferPosition(?options:Dynamic):Range;
 	/**
-		Retrieves the buffer position of where the next word starts.
+		Retrieves the buffer position of where the next word starts.Returns a `Range`
 	**/
 	function getBeginningOfNextWordBufferPosition(?options:Dynamic):Range;
 	/**
@@ -219,7 +226,7 @@ package atom;
 	/**
 		Retrieves the range for the current paragraph.
 		
-		A paragraph is defined as a block of text surrounded by empty lines or comments.
+		A paragraph is defined as a block of text surrounded by empty lines or comments.Returns a `Range`.
 	**/
 	function getCurrentParagraphBufferRange():Range;
 	/**
@@ -229,7 +236,7 @@ package atom;
 	/**
 		Compare this cursor's buffer position to another cursor's buffer position.
 		
-		See {Point::compare} for more details.
+		See `Point.compare` for more details.
 	**/
 	function compare(otherCursor:Cursor):Void;
 	/**
@@ -237,11 +244,11 @@ package atom;
 	**/
 	function clearSelection():Void;
 	/**
-		Get the RegExp used by the cursor to determine what a "word" is.
+		Get the RegExp used by the cursor to determine what a "word" is.Returns a {RegExp}.
 	**/
 	function wordRegExp(?options:Dynamic):EReg;
 	/**
-		Get the RegExp used by the cursor to determine what a "subword" is.
+		Get the RegExp used by the cursor to determine what a "subword" is.Returns a {RegExp}.
 	**/
 	function subwordRegExp(?options:Dynamic):EReg;
 }

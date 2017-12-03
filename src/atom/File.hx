@@ -3,6 +3,8 @@ package atom;
 /**
 	Represents an individual file that can be watched, read from, and
 	written to. 
+	@see <https://github.com/atom/node-pathwatcher/blob/v8.0.1/src/file.coffee#L17>
+
 **/
 @:require(js, atom) @:jsRequire("atom", "File") extern class File {
 	/**
@@ -11,19 +13,21 @@ package atom;
 	function new(filePath:String, ?symlink:Bool):Void;
 	/**
 		Creates the file on disk that corresponds to `::getPath()` if no
-		such file already exists.
+		such file already exists.Returns a `Promise` that resolves once the file is created on disk. It
+		resolves to a boolean value that is true if the file was created or false if
+		it already existed.
 	**/
 	function create():js.Promise<Dynamic>;
 	/**
-		Invoke the given callback when the file's contents change.
+		Invoke the given callback when the file's contents change.Returns a `Disposable` on which `.dispose()` can be called to unsubscribe.
 	**/
 	function onDidChange(callback:haxe.Constraints.Function):Disposable;
 	/**
-		Invoke the given callback when the file's path changes.
+		Invoke the given callback when the file's path changes.Returns a `Disposable` on which `.dispose()` can be called to unsubscribe.
 	**/
 	function onDidRename(callback:haxe.Constraints.Function):Disposable;
 	/**
-		Invoke the given callback when the file is deleted.
+		Invoke the given callback when the file is deleted.Returns a `Disposable` on which `.dispose()` can be called to unsubscribe.
 	**/
 	function onDidDelete(callback:haxe.Constraints.Function):Disposable;
 	/**
@@ -33,32 +37,32 @@ package atom;
 	**/
 	function onWillThrowWatchError(callback:haxe.Constraints.Function):Void;
 	/**
-		Returns a {Boolean}, always true.
+		Returns a `Boolean`, always true.
 	**/
 	function isFile():Bool;
 	/**
-		Returns a {Boolean}, always false.
+		Returns a `Boolean`, always false.
 	**/
 	function isDirectory():Bool;
 	/**
-		Returns a {Boolean} indicating whether or not this is a symbolic link
+		Returns a `Boolean` indicating whether or not this is a symbolic link
 	**/
 	function isSymbolicLink():Bool;
 	/**
-		Returns a promise that resolves to a {Boolean}, true if the file
+		Returns a promise that resolves to a `Boolean`, true if the file
 		exists, false otherwise.
 	**/
 	function exists():Bool;
 	/**
-		Returns a {Boolean}, true if the file exists, false otherwise.
+		Returns a `Boolean`, true if the file exists, false otherwise.
 	**/
 	function existsSync():Bool;
 	/**
-		Get the SHA-1 digest of this file
+		Get the SHA-1 digest of this fileReturns a promise that resolves to a `String`.
 	**/
 	function getDigest():String;
 	/**
-		Get the SHA-1 digest of this file
+		Get the SHA-1 digest of this fileReturns a `String`.
 	**/
 	function getDigestSync():String;
 	/**
@@ -66,31 +70,31 @@ package atom;
 	**/
 	function setEncoding(encoding:String):Void;
 	/**
-		Returns the {String} encoding name for this file (default: 'utf8').
+		Returns the `String` encoding name for this file (default: 'utf8').
 	**/
 	function getEncoding():String;
 	/**
-		Returns the {String} path for the file.
+		Returns the `String` path for the file.
 	**/
 	function getPath():String;
 	/**
-		Returns this file's completely resolved {String} path.
+		Returns this file's completely resolved `String` path.
 	**/
 	function getRealPathSync():String;
 	/**
-		Returns a promise that resolves to the file's completely resolved {String} path.
+		Returns a promise that resolves to the file's completely resolved `String` path.
 	**/
 	function getRealPath():String;
 	/**
-		Return the {String} filename without any directory information. 
+		Return the `String` filename without any directory information. Return the `String` filename without any directory information. 
 	**/
 	function getBaseName():String;
 	/**
-		Return the {Directory} that contains this file. 
+		Return the `Directory` that contains this file. Return the `Directory` that contains this file. 
 	**/
 	function getParent():Directory;
 	/**
-		Reads the contents of the file.
+		Reads the contents of the file.Returns a promise that resolves to a String.
 	**/
 	function read(flushCache:Bool):Dynamic;
 	/**
@@ -98,7 +102,7 @@ package atom;
 	**/
 	function createReadStream():Dynamic;
 	/**
-		Overwrites the file with the given text.
+		Overwrites the file with the given text.Returns a `Promise` that resolves when the file has been written.
 	**/
 	function write(text:String):js.Promise<Dynamic>;
 	/**
@@ -106,7 +110,7 @@ package atom;
 	**/
 	function createWriteStream():Dynamic;
 	/**
-		Overwrites the file with the given text.
+		Overwrites the file with the given text.Returns .
 	**/
 	function writeSync(text:String):Dynamic;
 }

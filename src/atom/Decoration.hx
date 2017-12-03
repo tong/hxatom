@@ -5,6 +5,26 @@ package atom;
 	basically a visual representation of a marker. It allows you to add CSS
 	classes to line numbers in the gutter, lines, and add selection-line regions
 	around marked ranges of text.
+	
+	{Decoration} objects are not meant to be created directly, but created with
+	{TextEditor::decorateMarker}. eg.
+	
+	```coffee
+	range = editor.getSelectedBufferRange() # any range you like
+	marker = editor.markBufferRange(range)
+	decoration = editor.decorateMarker(marker, {type: 'line', class: 'my-line-class'})
+	```
+	
+	Best practice for destroying the decoration is by destroying the {DisplayMarker}.
+	
+	```coffee
+	marker.destroy()
+	```
+	
+	You should only use {Decoration::destroy} when you still need or do not own
+	the marker. 
+	@see <https://github.com/atom/atom/blob/v1.22.1/src/decoration.coffee#L37>
+
 **/
 @:require(js, atom) @:jsRequire("atom", "Decoration") extern class Decoration {
 	/**
@@ -15,23 +35,23 @@ package atom;
 	**/
 	function destroy():Void;
 	/**
-		When the {Decoration} is updated via {Decoration::update}.
+		When the `Decoration` is updated via `Decoration.update`.Returns a `Disposable` on which `.dispose()` can be called to unsubscribe.
 	**/
 	function onDidChangeProperties(callback:haxe.Constraints.Function):Disposable;
 	/**
-		Invoke the given callback when the {Decoration} is destroyed
+		Invoke the given callback when the `Decoration` is destroyedReturns a `Disposable` on which `.dispose()` can be called to unsubscribe.
 	**/
 	function onDidDestroy(callback:haxe.Constraints.Function):Disposable;
 	/**
-		An id unique across all {Decoration} objects 
+		An id unique across all `Decoration` objects 
 	**/
 	function getId():Void;
 	/**
-		Returns the marker associated with this {Decoration}
+		Returns the marker associated with this `Decoration`
 	**/
 	function getMarker():Decoration;
 	/**
-		Returns the {Decoration}'s properties.
+		Returns the `Decoration`'s properties.
 	**/
 	function getProperties():Decoration;
 	/**
