@@ -1,4 +1,5 @@
 
+import AtomAPI;
 import haxe.Json;
 import haxe.format.JsonPrinter;
 import haxe.io.Eof;
@@ -6,7 +7,6 @@ import haxe.macro.Expr;
 import sys.FileSystem;
 import sys.io.File;
 import sys.io.Process;
-import AtomAPI;
 
 using haxe.io.Path;
 
@@ -45,26 +45,40 @@ class Run {
 	}
 
 	static function build( api : Array<APIClass>, path : String ) : Array<TypeDefinition> {
-        var types = AtomAPI.build( api );
-        if( !FileSystem.exists( path ) ) FileSystem.createDirectory( path );
+
+		if( !FileSystem.exists( path ) ) FileSystem.createDirectory( path );
+
+		var types = AtomAPI.build( api );
         var printer = new haxe.macro.Printer();
+
         for( type in types ) {
+
             var modulePath = type.pack.join( '.' );
             var moduleName = type.name;
             var code = printer.printTypeDefinition( type );
-            var doc = '\n\n/**\n';
+
+			var doc = '\n\n/**\n';
             var def : APIClass = Reflect.field( api, moduleName );
             if( def != null ) {
-                if( def.summary != null && def.summary.length > 0 )
-                    doc += '\t'+StringTools.replace( def.summary, '\n', '\n\t' );
+				var str = if( def.description != null && def.description.length > 0 )
+					def.description
+				else if( def.summary != null && def.summary.length > 0 )
+					def.summary;
+				else "";
+				str = StringTools.replace( str, '\n', '\n\t' );
+				doc += '\t'+str;
+				if( def.srcUrl != null ) doc += '\n\t@see <'+def.srcUrl+'>\n';
             }
             doc += '\n**/\n';
             var lines = code.split( '\n' );
             code = lines.shift() + doc + lines.join( '\n' );
+
             if( !FileSystem.exists( '$path/$modulePath' ) ) FileSystem.createDirectory( '$path/$modulePath' );
+
             var filePath = '$path/$modulePath/$moduleName.hx';
             File.saveContent( filePath, code );
         }
+
         return types;
     }
 

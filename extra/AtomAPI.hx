@@ -4,11 +4,17 @@ import haxe.macro.Expr;
 using StringTools;
 using haxe.macro.ComplexTypeTools;
 
+@:enum abstract APIVisibility(String) from String {
+    var Public = "Public";
+    var Extended = "Extended";
+    var Essential = "Essential";
+}
+
 typedef APIProperty = {
     var name : String;
     var sectionName : String;
     var srcUrl : String;
-    var visibility : String;
+    var visibility : APIVisibility;
     var summary : String;
     var description : String;
 }
@@ -34,7 +40,7 @@ typedef APIMethod = {
     var name : String;
     var sectionName : String;
     var srcUrl : String;
-    var visibility : String;
+    var visibility : APIVisibility;
     var summary : String;
     var description : String;
     @:optional var arguments : Array<APIArgument>;
@@ -51,7 +57,7 @@ typedef APIClass = {
     var instanceMethods : Array<APIMethod>;
     var classProperties : Array<APIProperty>;
     var instanceProperties : Array<APIProperty>;
-    var visibility : String;
+    var visibility : APIVisibility;
     var summary : String;
     var description : String;
     var examples : Array<APIExample>;
@@ -82,20 +88,33 @@ class AtomAPI {
             return (KWDS.indexOf( name ) != -1) ? name + '_' : name;
         }
 
+        function escapeDoc( str : String ) : String {
+            var ereg = ~/\{[A-Z]+[a-z0-9_]*(::[a-zA-z]+)?\}/g;
+            return ereg.map( str, function(r){
+                var s = r.matched( 0 ).replace( '::', '.' );
+                s = s.substr( 1, s.length - 2 );
+                return '`'+s+'`';
+            });
+        }
+
         function getTypeForName( name : String ) : ComplexType {
             return switch name {
-            case null,'Object': macro: Dynamic;
+            case 'Object':
+                macro: Dynamic;
             case 'Boolean': macro: Bool;
             case 'Double','Float','Number': macro: Float;
             case 'RegExp': macro: EReg;
             case 'String': macro: String;
-            case 'Promise': macro : js.Promise<Dynamic>;
-            case 'ReadStream': macro : js.node.fs.ReadStream;
-            case 'WriteStream': macro : js.node.fs.WriteStream;
+            case 'Promise': macro: js.Promise<Dynamic>;
+            case 'ReadStream': macro: js.node.fs.ReadStream;
+            case 'WriteStream': macro: js.node.fs.WriteStream;
             case 'Function':
                 //TODO
                 macro : haxe.Constraints.Function;
-            case 'Array': macro: Array<Dynamic>; //TODO
+            case 'Array':
+                macro: Array<Dynamic>; //TODO
+            case null:
+                macro: Dynamic;
             case _:
                 TPath( { pack: [], name: escapeTypeName( name ) } );
             }
@@ -107,12 +126,22 @@ class AtomAPI {
             var name = switch prop.name {
                 case _: escapeName( prop.name );
             }
+            // TODO HACK
+            // instanceProperties type names should be specified.
+            // This hack gets the name from the first occurence of {NAME} in summary
+            var summary = prop.summary.trim();
+            var expr = ~/.+ *\{([A-Z]+[a-z0-9_]*)\} *.+\.$/;
+            var ctype = if( expr.match( summary ) ) {
+                var name = expr.matched(1);
+                getTypeForName( name );
+            } else
+                macro: Dynamic;
             return {
                 access: access,
                 name: name,
-                kind: FVar( macro: Dynamic ),
+                kind: FVar( ctype ),
                 pos: pos,
-                doc: prop.description
+                doc: escapeDoc( prop.description )
             };
         }
 
@@ -147,8 +176,9 @@ class AtomAPI {
                 }
             }
 
-            var doc = method.description;
             var ret : ComplexType = null;
+            var doc = method.description;
+            if( doc == null ) doc = '';
 
             if( method.returnValues != null ) {
                 //trace(method.name+'>>>>>>>>>>>');
@@ -168,7 +198,11 @@ class AtomAPI {
                     ret = macro: Void;
                 else {
                     ret = getTypeForName( retVal.type );
-                    if( doc == null || doc.length == 0 ) doc = retVal.description;
+                    //var _doc = escapeDoc( retVal.description );
+                    var _doc = retVal.description;
+                    //var _doc = '';
+                    //if( retVal.type != null ) _doc += '@return `'+retVal.type+'`';//_doc;
+                    doc += _doc;
                 }
             } else {
                 ret = macro: Void;
@@ -183,7 +217,7 @@ class AtomAPI {
                     ret: ret
                 }),
                 pos: pos,
-                doc: doc
+                doc: escapeDoc( doc )
             };
         }
 
@@ -193,15 +227,16 @@ class AtomAPI {
 
             var cl : APIClass = Reflect.field( api, f );
             //if( cl.name != 'CompositeDisposable' ) continue;
+            //trace('#############################'+cl.name);
 
             switch cl.name {
-            // PATCH
+            // TODO PATCH
             case 'Workspace':
                 for( m in cl.instanceMethods ) {
                     if( m.name == 'hide' )
                         m.returnValues[0].type = 'Boolean';
                 }
-            // PATCH
+            // TODO PATCH
             case 'File':
                 for( m in cl.instanceMethods ) {
                     switch m.name {
@@ -227,17 +262,8 @@ class AtomAPI {
                 trace( f );
             }
             for( f in cl.instanceProperties ) {
-                //trace(f.name);
                 fields.push( convertProperty( f, (cl.name == 'AtomEnvironment') ) );
-                /*
-                fields.push({
-                    name: f.name,
-                    kind: FVar( getTypeForName( 'Dynamic' ) ), //TODO
-                    pos: pos
-                });
-                */
             }
-
             for( f in cl.classMethods ) {
                 fields.push( convertMethod( f, true ) );
             }
@@ -246,10 +272,11 @@ class AtomAPI {
             }
 
             var meta = [
-                { name: ':require', params: [macro $i{'js'},macro $i{'atom'}], pos: pos }
+                { name: ':require', params: [ macro $i{'js'}, macro $i{'atom'} ], pos: pos }
             ];
 
             ///////////////////////////// TODO HACK
+            var clName = cl.name;
             switch cl.name {
             case 'AtomEnvironment':
                 meta.push( { name: ':native', params: [macro 'atom'], pos: pos } );
@@ -258,7 +285,7 @@ class AtomAPI {
                 meta.push({
                     name: ":jsRequire",
                     params: [
-                        { expr: EConst( CString( 'atom' ) ), pos: pos },
+                        macro 'atom',
                         { expr: EConst( CString( cl.name ) ), pos: pos }
                     ],
                     pos: pos
@@ -277,6 +304,7 @@ class AtomAPI {
         }
 
         ///////////////////////////// TODO HACK
+
         types.push( {
             pack: ['atom'],
             name: 'JQuery',
@@ -292,6 +320,7 @@ class AtomAPI {
             fields: [],
             //isExtern: true
 		} );
+
         ///////////////////////////////////
 
         return types;
