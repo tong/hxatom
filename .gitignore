@@ -1,7 +1,9 @@
 _*
 *.xml
+api/
 doc/
 example/*.js
 haxedoc.xml
 atom.zip
 run.n
+ISSUES
