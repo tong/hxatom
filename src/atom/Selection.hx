@@ -29,7 +29,13 @@ package atom;
 	/**
 		Modifies the buffer `Range` for the selection.
 	**/
-	function setBufferRange(bufferRange:Range, ?options:Dynamic):Void;
+	function setBufferRange(bufferRange:Range, ?options:{ /**
+		if `true`, the fold settings are preserved after the selection moves.
+	**/
+	var preserveFolds : Dynamic; /**
+		{Boolean} indicating whether to autoscroll to the new range. Defaults to `true` if this is the most recently added selection, `false` otherwise.
+	**/
+	var autoscroll : Bool; }):Void;
 	/**
 		Returns the starting and ending buffer rows the selection is
 		highlighting.
@@ -65,7 +71,10 @@ package atom;
 	/**
 		Clears the selection, moving the marker to the head.
 	**/
-	function clear(?options:Dynamic):Void;
+	function clear(?options:{ /**
+		{Boolean} indicating whether to autoscroll to the new range. Defaults to `true` if this is the most recently added selection, `false` otherwise.
+	**/
+	var autoscroll : Bool; }):Void;
 	/**
 		Selects the text from the current cursor position to a given screen
 		position.
@@ -190,7 +199,29 @@ package atom;
 	/**
 		Replaces text at the current selection.
 	**/
-	function insertText(text:String, ?options:Dynamic):Void;
+	function insertText(text:String, ?options:{ /**
+		If `true`, selects the newly added text.
+	**/
+	var select : Dynamic; /**
+		If `true`, indents all inserted text appropriately.
+	**/
+	var autoIndent : Dynamic; /**
+		If `true`, indent newline appropriately.
+	**/
+	var autoIndentNewline : Dynamic; /**
+		If `true`, decreases indent level appropriately (for example, when a closing bracket is inserted).
+	**/
+	var autoDecreaseIndent : Dynamic; /**
+		By default, when pasting multiple lines, Atom attempts to preserve the relative indent level between the first line and trailing lines, even if the indent level of the first line has changed from the copied text. If this option is `true`, this behavior is suppressed. level between the first lines and the trailing lines.
+	**/
+	var preserveTrailingLineIndentation : Dynamic; /**
+		{Boolean} (default: true)
+	**/
+	@:optional
+	var normalizeLineEndings : Bool; /**
+		If `skip`, skips the undo stack for this operation.
+	**/
+	var undo : Dynamic; }):Void;
 	/**
 		Removes the first character before the selection if the selection
 		is empty otherwise it deletes the selection.

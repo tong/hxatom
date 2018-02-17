@@ -145,11 +145,23 @@ package atom;
 		Make the given item *active*, causing it to be displayed by
 		the pane's view.
 	**/
-	function activateItem(item:Dynamic, ?options:Dynamic):Void;
+	function activateItem(item:Dynamic, ?options:{ /**
+		{Boolean} indicating that the item should be added in a pending state if it does not yet exist in the pane. Existing pending items in a pane are replaced with new pending items when they are opened.
+	**/
+	@:optional
+	var pending : Bool; }):Void;
 	/**
 		Add the given item to the pane.Returns the added item.
 	**/
-	function addItem(item:Dynamic, ?options:Dynamic):Dynamic;
+	function addItem(item:Dynamic, ?options:{ /**
+		{Number} indicating the index at which to add the item. If omitted, the item is added after the current active item.
+	**/
+	@:optional
+	var index : Float; /**
+		{Boolean} indicating that the item should be added in a pending state. Existing pending items in a pane are replaced with new pending items when they are opened.
+	**/
+	@:optional
+	var pending : Bool; }):Dynamic;
 	/**
 		Add the given items to the pane.Returns an `Array` of added items.
 	**/
@@ -236,17 +248,49 @@ package atom;
 	/**
 		Create a new pane to the left of this pane.Returns the new `Pane`.
 	**/
-	function splitLeft(?params:Dynamic):Pane;
+	function splitLeft(?params:{ /**
+		{Array} of items to add to the new pane.
+	**/
+	@:optional
+	var items : Array<Dynamic>; /**
+		{Boolean} true will copy the active item into the new split pane
+	**/
+	@:optional
+	var copyActiveItem : Bool; }):Pane;
 	/**
 		Create a new pane to the right of this pane.Returns the new `Pane`.
 	**/
-	function splitRight(?params:Dynamic):Pane;
+	function splitRight(?params:{ /**
+		{Array} of items to add to the new pane.
+	**/
+	@:optional
+	var items : Array<Dynamic>; /**
+		{Boolean} true will copy the active item into the new split pane
+	**/
+	@:optional
+	var copyActiveItem : Bool; }):Pane;
 	/**
 		Creates a new pane above the receiver.Returns the new `Pane`.
 	**/
-	function splitUp(?params:Dynamic):Pane;
+	function splitUp(?params:{ /**
+		{Array} of items to add to the new pane.
+	**/
+	@:optional
+	var items : Array<Dynamic>; /**
+		{Boolean} true will copy the active item into the new split pane
+	**/
+	@:optional
+	var copyActiveItem : Bool; }):Pane;
 	/**
 		Creates a new pane below the receiver.Returns the new `Pane`.
 	**/
-	function splitDown(?params:Dynamic):Pane;
+	function splitDown(?params:{ /**
+		{Array} of items to add to the new pane.
+	**/
+	@:optional
+	var items : Array<Dynamic>; /**
+		{Boolean} true will copy the active item into the new split pane
+	**/
+	@:optional
+	var copyActiveItem : Bool; }):Pane;
 }

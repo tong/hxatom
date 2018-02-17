@@ -55,7 +55,28 @@ package atom;
 		Create a marker on this layer with its head at the given screen
 		position and no tail.Returns a {DisplayMarker}.
 	**/
-	function markScreenPosition(screenPosition:Point, ?options:Dynamic):DisplayMarker;
+	function markScreenPosition(screenPosition:Point, ?options:{ /**
+		{String} Determines the rules by which changes to the buffer *invalidate* the marker. (default: 'overlap') It can be any of the following strategies, in order of fragility:
+		* __never__: The marker is never marked as invalid. This is a good choice for
+		  markers representing selections in an editor.
+		* __surround__: The marker is invalidated by changes that completely surround it.
+		* __overlap__: The marker is invalidated by changes that surround the
+		  start or end of the marker. This is the default.
+		* __inside__: The marker is invalidated by changes that extend into the
+		  inside of the marker. Changes that end at the marker's start or
+		  start at the marker's end do not invalidate the marker.
+		* __touch__: The marker is invalidated by a change that touches the marked
+		  region in any way, including changes that end at the marker's
+		  start or start at the marker's end. This is the most fragile strategy.
+	**/
+	@:optional
+	var invalidate : String; /**
+		{Boolean} indicating whether insertions at the start or end of the marked range should be interpreted as happening *outside* the marker. Defaults to `false`, except when using the `inside` invalidation strategy or when when the marker has no tail, in which case it defaults to true. Explicitly assigning this option overrides behavior in all circumstances.
+	**/
+	var exclusive : Bool; /**
+		{String} If `'backward'`, returns the first valid position preceding an invalid position. If `'forward'`, returns the first valid position following an invalid position. If `'closest'`, returns the first valid position closest to an invalid position. Defaults to `'closest'`.
+	**/
+	var clipDirection : String; }):DisplayMarker;
 	/**
 		Create a marker with the given buffer range.Returns a {DisplayMarker}.
 	**/
@@ -64,7 +85,25 @@ package atom;
 		Create a marker on this layer with its head at the given buffer
 		position and no tail.Returns a {DisplayMarker}.
 	**/
-	function markBufferPosition(bufferPosition:Point, ?options:Dynamic):DisplayMarker;
+	function markBufferPosition(bufferPosition:Point, ?options:{ /**
+		{String} Determines the rules by which changes to the buffer *invalidate* the marker. (default: 'overlap') It can be any of the following strategies, in order of fragility:
+		* __never__: The marker is never marked as invalid. This is a good choice for
+		  markers representing selections in an editor.
+		* __surround__: The marker is invalidated by changes that completely surround it.
+		* __overlap__: The marker is invalidated by changes that surround the
+		  start or end of the marker. This is the default.
+		* __inside__: The marker is invalidated by changes that extend into the
+		  inside of the marker. Changes that end at the marker's start or
+		  start at the marker's end do not invalidate the marker.
+		* __touch__: The marker is invalidated by a change that touches the marked
+		  region in any way, including changes that end at the marker's
+		  start or start at the marker's end. This is the most fragile strategy.
+	**/
+	@:optional
+	var invalidate : String; /**
+		{Boolean} indicating whether insertions at the start or end of the marked range should be interpreted as happening *outside* the marker. Defaults to `false`, except when using the `inside` invalidation strategy or when when the marker has no tail, in which case it defaults to true. Explicitly assigning this option overrides behavior in all circumstances.
+	**/
+	var exclusive : Bool; }):DisplayMarker;
 	/**
 		Get an existing marker by its id.Returns a {DisplayMarker}.
 	**/
@@ -85,5 +124,65 @@ package atom;
 		In addition, there are several special properties that will be compared
 		with the range of the markers rather than their properties.Returns an `Array` of {DisplayMarker}s
 	**/
-	function findMarkers(properties:Dynamic):Array<Dynamic>;
+	function findMarkers(properties:{ /**
+		Only include markers starting at this {Point} in buffer coordinates.
+	**/
+	var startBufferPosition : Point; /**
+		Only include markers ending at this {Point} in buffer coordinates.
+	**/
+	var endBufferPosition : Point; /**
+		Only include markers starting at this {Point} in screen coordinates.
+	**/
+	var startScreenPosition : Point; /**
+		Only include markers ending at this {Point} in screen coordinates.
+	**/
+	var endScreenPosition : Point; /**
+		Only include markers starting inside this {Range} in buffer coordinates.
+	**/
+	var startsInBufferRange : Range; /**
+		Only include markers ending inside this {Range} in buffer coordinates.
+	**/
+	var endsInBufferRange : Range; /**
+		Only include markers starting inside this {Range} in screen coordinates.
+	**/
+	var startsInScreenRange : Range; /**
+		Only include markers ending inside this {Range} in screen coordinates.
+	**/
+	var endsInScreenRange : Range; /**
+		Only include markers starting at this row in buffer coordinates.
+	**/
+	var startBufferRow : Dynamic; /**
+		Only include markers ending at this row in buffer coordinates.
+	**/
+	var endBufferRow : Dynamic; /**
+		Only include markers starting at this row in screen coordinates.
+	**/
+	var startScreenRow : Dynamic; /**
+		Only include markers ending at this row in screen coordinates.
+	**/
+	var endScreenRow : Dynamic; /**
+		Only include markers intersecting this {Array}  of `[startRow, endRow]` in buffer coordinates.
+	**/
+	var intersectsBufferRowRange : Array<Dynamic>; /**
+		Only include markers intersecting this {Array}  of `[startRow, endRow]` in screen coordinates.
+	**/
+	var intersectsScreenRowRange : Array<Dynamic>; /**
+		Only include markers containing this {Range} in buffer coordinates.
+	**/
+	var containsBufferRange : Range; /**
+		Only include markers containing this {Point} in buffer coordinates.
+	**/
+	var containsBufferPosition : Point; /**
+		Only include markers contained in this {Range} in buffer coordinates.
+	**/
+	var containedInBufferRange : Range; /**
+		Only include markers contained in this {Range} in screen coordinates.
+	**/
+	var containedInScreenRange : Range; /**
+		Only include markers intersecting this {Range} in buffer coordinates.
+	**/
+	var intersectsBufferRange : Range; /**
+		Only include markers intersecting this {Range} in screen coordinates.
+	**/
+	var intersectsScreenRange : Range; }):Array<Dynamic>;
 }

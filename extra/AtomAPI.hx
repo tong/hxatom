@@ -119,6 +119,7 @@ class AtomAPI {
             case 'Promise': macro : js.Promise<Dynamic>;
             case 'ReadStream': macro : js.node.fs.ReadStream;
             case 'WriteStream': macro : js.node.fs.WriteStream;
+            case 'HTMLElement': macro : js.html.HtmlElement;
             case 'Function':
                 //TODO
                 //trace(">>>",name);
@@ -201,14 +202,30 @@ class AtomAPI {
                     case 'args...':
                         macro : haxe.extern.Rest<Dynamic>;
                     default:
-                        //trace(arg.name,arg.type);
                         var type = getTypeForName( arg.type );
+                        switch arg.type {
+                        case 'Object':
+                            if( arg.children != null ) {
+                                var fields = new Array<Field>();
+                                for( child in arg.children ) {
+                                    var meta = new Array<MetadataEntry>();
+                                    if( child.isOptional ) meta.push( { name: ":optional", pos: pos } );
+                                    fields.push({
+                                        name: escapeName( child.name ),
+                                        doc: child.description,
+                                        kind: FVar( getTypeForName( child.type ) ),
+                                        meta: meta,
+                                        pos: pos
+                                    });
+                                }
+                                type = TAnonymous( fields );
+                            }
+                        }
+
                         if( arg.name != null ) {
                             if( arg.name.startsWith( '...' ) ) {
                                 type = TPath( { pack: ['haxe','extern'], name : 'Rest', params: [TPType(type)] });
                             }
-                        } else {
-                            type = getTypeForName( arg.type );
                         }
                         if( type == null ) {
                             type = macro : Dynamic;
@@ -329,7 +346,7 @@ class AtomAPI {
         for( f in Reflect.fields( api ) ) {
 
             var cl : APIClass = Reflect.field( api, f );
-            //if( cl.name != 'CommandRegistry' ) continue;
+            //if( cl.name != 'ContextMenuManager' ) continue;
             //trace('#############################'+cl.name);
 
             // TODO PATCH

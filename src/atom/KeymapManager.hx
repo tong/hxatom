@@ -58,11 +58,32 @@ package atom;
 	/**
 		Create a keydown DOM event for testing purposes.
 	**/
-	static function buildKeydownEvent(key:Dynamic, ?options:Dynamic):Void;
+	static function buildKeydownEvent(key:Dynamic, ?options:{ /**
+		A {Boolean} indicating the ctrl modifier key
+	**/
+	var ctrl : Bool; /**
+		A {Boolean} indicating the alt modifier key
+	**/
+	var alt : Bool; /**
+		A {Boolean} indicating the shift modifier key
+	**/
+	var shift : Bool; /**
+		A {Boolean} indicating the cmd modifier key
+	**/
+	var cmd : Bool; /**
+		A {Number} indicating `which` value of the event. See the docs for KeyboardEvent for more information.
+	**/
+	var which : Float; /**
+		The target element of the event. 
+	**/
+	var target : Dynamic; }):Void;
 	/**
 		Create a new KeymapManager.
 	**/
-	function new(options:Dynamic):Void;
+	function new(options:{ /**
+		This will be used as the target of events whose target is `document.body` to allow for a catch-all element when nothing is focused. 
+	**/
+	var defaultTarget : Dynamic; }):Void;
 	/**
 		Clear all registered key bindings and enqueued keystrokes. For use
 		in tests. 
@@ -106,11 +127,26 @@ package atom;
 	/**
 		Get the key bindings for a given command and optional target.Returns an `Array` of key bindings.
 	**/
-	function findKeyBindings(params:Dynamic):Array<Dynamic>;
+	function findKeyBindings(params:{ /**
+		A {String} representing one or more keystrokes, such as 'ctrl-x ctrl-s'
+	**/
+	var keystrokes : String; /**
+		A {String} representing the name of a command, such as 'editor:backspace'
+	**/
+	var command : String; /**
+		An optional DOM element constraining the search. If this parameter is supplied, the call will only return bindings that can be invoked by a KeyboardEvent originating from the target element.
+	**/
+	var target : Dynamic; }):Array<Dynamic>;
 	/**
 		Load the key bindings from the given path.
 	**/
-	function loadKeymap(path:String, options:Dynamic):Void;
+	function loadKeymap(path:String, options:{ /**
+		If `true`, the keymap will also reload the file at the given path whenever it changes. This option cannot be used with directory paths.
+	**/
+	var watch : Dynamic; /**
+		A {Number} used to sort keybindings which have the same specificity. 
+	**/
+	var priority : Float; }):Void;
 	/**
 		Cause the keymap to reload the key bindings file at the given path
 		whenever it changes.
@@ -118,7 +154,10 @@ package atom;
 		This method doesn't perform the initial load of the key bindings file. If
 		that's what you're looking for, call {::loadKeymap} with `watch: true`.
 	**/
-	function watchKeymap(path:String, options:Dynamic):Void;
+	function watchKeymap(path:String, options:{ /**
+		A {Number} used to sort keybindings which have the same specificity. 
+	**/
+	var priority : Float; }):Void;
 	/**
 		Dispatch a custom event associated with the matching key binding for
 		the given `KeyboardEvent` if one can be found.

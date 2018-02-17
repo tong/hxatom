@@ -50,7 +50,25 @@ package atom;
 	/**
 		Create a marker at with its head at the given position with no tail.Returns a `Marker`.
 	**/
-	function markPosition(position:Point, ?options:Dynamic):Marker;
+	function markPosition(position:Point, ?options:{ /**
+		{String} Determines the rules by which changes to the buffer *invalidate* the marker. (default: 'overlap') It can be any of the following strategies, in order of fragility:
+		* __never__: The marker is never marked as invalid. This is a good choice for
+		  markers representing selections in an editor.
+		* __surround__: The marker is invalidated by changes that completely surround it.
+		* __overlap__: The marker is invalidated by changes that surround the
+		  start or end of the marker. This is the default.
+		* __inside__: The marker is invalidated by changes that extend into the
+		  inside of the marker. Changes that end at the marker's start or
+		  start at the marker's end do not invalidate the marker.
+		* __touch__: The marker is invalidated by a change that touches the marked
+		  region in any way, including changes that end at the marker's
+		  start or start at the marker's end. This is the most fragile strategy.
+	**/
+	@:optional
+	var invalidate : String; /**
+		{Boolean} indicating whether insertions at the start or end of the marked range should be interpreted as happening *outside* the marker. Defaults to `false`, except when using the `inside` invalidation strategy or when when the marker has no tail, in which case it defaults to true. Explicitly assigning this option overrides behavior in all circumstances.
+	**/
+	var exclusive : Bool; }):Marker;
 	/**
 		Subscribe to be notified asynchronously whenever markers are
 		created, updated, or destroyed on this layer. *Prefer this method for

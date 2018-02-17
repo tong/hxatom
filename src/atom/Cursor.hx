@@ -21,7 +21,10 @@ package atom;
 	/**
 		Moves a cursor to a given screen position.
 	**/
-	function setScreenPosition(screenPosition:Array<Dynamic>, ?options:Dynamic):Void;
+	function setScreenPosition(screenPosition:Array<Dynamic>, ?options:{ /**
+		A Boolean which, if `true`, scrolls the {TextEditor} to wherever the cursor moves to.
+	**/
+	var autoscroll : TextEditor; }):Void;
 	/**
 		Returns the screen position of the cursor as a `Point`.
 	**/
@@ -29,7 +32,10 @@ package atom;
 	/**
 		Moves a cursor to a given buffer position.
 	**/
-	function setBufferPosition(bufferPosition:Array<Dynamic>, ?options:Dynamic):Void;
+	function setBufferPosition(bufferPosition:Array<Dynamic>, ?options:{ /**
+		{Boolean} indicating whether to autoscroll to the new position. Defaults to `true` if this is the most recently added cursor, `false` otherwise.
+	**/
+	var autoscroll : Bool; }):Void;
 	/**
 		Returns the current buffer position as an Array.
 	**/
@@ -87,7 +93,10 @@ package atom;
 	/**
 		Returns whether this cursor is between a word's start and end.
 	**/
-	function isInsideWord(?options:Dynamic):Dynamic;
+	function isInsideWord(?options:{ /**
+		A {RegExp} indicating what constitutes a "word" (default: {::wordRegExp}).
+	**/
+	var wordRegex : EReg; }):Dynamic;
 	/**
 		Returns the indentation level of the current line.
 	**/
@@ -110,19 +119,31 @@ package atom;
 	/**
 		Moves the cursor up one screen row.
 	**/
-	function moveUp(?rowCount:Float, ?options:Dynamic):Void;
+	function moveUp(?rowCount:Float, ?options:{ /**
+		if true, move to the left of the selection if a selection exists.
+	**/
+	var moveToEndOfSelection : Dynamic; }):Void;
 	/**
 		Moves the cursor down one screen row.
 	**/
-	function moveDown(?rowCount:Float, ?options:Dynamic):Void;
+	function moveDown(?rowCount:Float, ?options:{ /**
+		if true, move to the left of the selection if a selection exists.
+	**/
+	var moveToEndOfSelection : Dynamic; }):Void;
 	/**
 		Moves the cursor left one screen column.
 	**/
-	function moveLeft(?columnCount:Float, ?options:Dynamic):Void;
+	function moveLeft(?columnCount:Float, ?options:{ /**
+		if true, move to the left of the selection if a selection exists.
+	**/
+	var moveToEndOfSelection : Dynamic; }):Void;
 	/**
 		Moves the cursor right one screen column.
 	**/
-	function moveRight(?columnCount:Float, ?options:Dynamic):Void;
+	function moveRight(?columnCount:Float, ?options:{ /**
+		if true, move to the right of the selection if a selection exists.
+	**/
+	var moveToEndOfSelection : Dynamic; }):Void;
 	/**
 		Moves the cursor to the top of the buffer.
 	**/
@@ -197,32 +218,62 @@ package atom;
 		Returns buffer position of previous word boundary. It might be on
 		the current word, or the previous word.
 	**/
-	function getPreviousWordBoundaryBufferPosition(?options:Dynamic):Dynamic;
+	function getPreviousWordBoundaryBufferPosition(?options:{ /**
+		A {RegExp} indicating what constitutes a "word"  (default: {::wordRegExp})
+	**/
+	var wordRegex : EReg; }):Dynamic;
 	/**
 		Returns buffer position of the next word boundary. It might be on
 		the current word, or the previous word.
 	**/
-	function getNextWordBoundaryBufferPosition(?options:Dynamic):Dynamic;
+	function getNextWordBoundaryBufferPosition(?options:{ /**
+		A {RegExp} indicating what constitutes a "word"  (default: {::wordRegExp})
+	**/
+	var wordRegex : EReg; }):Dynamic;
 	/**
 		Retrieves the buffer position of where the current word starts.Returns a `Range`.
 	**/
-	function getBeginningOfCurrentWordBufferPosition(?options:Dynamic):Range;
+	function getBeginningOfCurrentWordBufferPosition(?options:{ /**
+		A {RegExp} indicating what constitutes a "word" (default: {::wordRegExp}).
+	**/
+	var wordRegex : EReg; /**
+		A {Boolean} indicating whether to include non-word characters in the default word regex. Has no effect if wordRegex is set.
+	**/
+	var includeNonWordCharacters : Bool; /**
+		A {Boolean} indicating whether the beginning of the previous word can be returned.
+	**/
+	var allowPrevious : Bool; }):Range;
 	/**
 		Retrieves the buffer position of where the current word ends.Returns a `Range`.
 	**/
-	function getEndOfCurrentWordBufferPosition(?options:Dynamic):Range;
+	function getEndOfCurrentWordBufferPosition(?options:{ /**
+		A {RegExp} indicating what constitutes a "word"  (default: {::wordRegExp})
+	**/
+	var wordRegex : EReg; /**
+		A Boolean indicating whether to include non-word characters in the default word regex. Has no effect if wordRegex is set.
+	**/
+	var includeNonWordCharacters : Dynamic; }):Range;
 	/**
 		Retrieves the buffer position of where the next word starts.Returns a `Range`
 	**/
-	function getBeginningOfNextWordBufferPosition(?options:Dynamic):Range;
+	function getBeginningOfNextWordBufferPosition(?options:{ /**
+		A {RegExp} indicating what constitutes a "word" (default: {::wordRegExp}).
+	**/
+	var wordRegex : EReg; }):Range;
 	/**
 		Returns the buffer Range occupied by the word located under the cursor.
 	**/
-	function getCurrentWordBufferRange(?options:Dynamic):Dynamic;
+	function getCurrentWordBufferRange(?options:{ /**
+		A {RegExp} indicating what constitutes a "word" (default: {::wordRegExp}).
+	**/
+	var wordRegex : EReg; }):Dynamic;
 	/**
 		Returns the buffer Range for the current line.
 	**/
-	function getCurrentLineBufferRange(?options:Dynamic):Dynamic;
+	function getCurrentLineBufferRange(?options:{ /**
+		A {Boolean} which controls whether the Range should include the newline.
+	**/
+	var includeNewline : Bool; }):Dynamic;
 	/**
 		Retrieves the range for the current paragraph.
 		
@@ -246,9 +297,15 @@ package atom;
 	/**
 		Get the RegExp used by the cursor to determine what a "word" is.Returns a {RegExp}.
 	**/
-	function wordRegExp(?options:Dynamic):EReg;
+	function wordRegExp(?options:{ /**
+		A {Boolean} indicating whether to include non-word characters in the regex. (default: true)
+	**/
+	var includeNonWordCharacters : Bool; }):EReg;
 	/**
 		Get the RegExp used by the cursor to determine what a "subword" is.Returns a {RegExp}.
 	**/
-	function subwordRegExp(?options:Dynamic):EReg;
+	function subwordRegExp(?options:{ /**
+		A {Boolean} indicating whether to look forwards or backwards for the next subword. (default: false)
+	**/
+	var backwards : Bool; }):EReg;
 }

@@ -62,7 +62,10 @@ package atom;
 		  Any additional nonstandard metadata provided when the command was `add`ed
 		  may also be present in the returned descriptor.
 	**/
-	function findCommands(params:Dynamic):Array<Dynamic>;
+	function findCommands(params:{ /**
+		A DOM node that is the hypothetical target of a given command.
+	**/
+	var target : Dynamic; }):Array<Dynamic>;
 	/**
 		Simulate the dispatch of a command on a DOM node.
 		

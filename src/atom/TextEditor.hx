@@ -282,7 +282,15 @@ package atom;
 	/**
 		Set the text in the given `Range` in buffer coordinates.Returns the `Range` of the newly-inserted text.
 	**/
-	function setTextInBufferRange(range:Range, text:String, ?options:Dynamic):Range;
+	function setTextInBufferRange(range:Range, text:String, ?options:{ /**
+		{Boolean} (default: true)
+	**/
+	@:optional
+	var normalizeLineEndings : Bool; /**
+		{String} 'skip' will skip the undo system
+	**/
+	@:optional
+	var undo : String; }):Range;
 	/**
 		For each selection, replace the selected text with the given text.Returns a `Range` when the text has been inserted
 	**/
@@ -483,7 +491,10 @@ package atom;
 		unchanged. If the `Point` does not describe a valid position, the closest
 		valid position is returned instead.Returns a `Point`.
 	**/
-	function clipScreenPosition(screenPosition:Point, ?options:Dynamic):Point;
+	function clipScreenPosition(screenPosition:Point, ?options:{ /**
+		{String} If `'backward'`, returns the first valid position preceding an invalid position. If `'forward'`, returns the first valid position following an invalid position. If `'closest'`, returns the first valid position closest to an invalid position. Defaults to `'closest'`.
+	**/
+	var clipDirection : String; }):Point;
 	/**
 		Clip the start and end of the given range to valid positions on screen.
 		See {::clipScreenPosition} for more information.Returns a `Range`.
@@ -518,7 +529,44 @@ package atom;
 		* __block__: Positions the view associated with the given item before or
 		    after the row of the given `TextEditorMarker`.Returns a `Decoration` object
 	**/
-	function decorateMarker(marker:DisplayMarker, decorationParams:Dynamic):Decoration;
+	function decorateMarker(marker:DisplayMarker, decorationParams:{ /**
+		There are several supported decoration types. The behavior of the types are as follows:
+	**/
+	var type : Dynamic; /**
+		This CSS class will be applied to the decorated line number, line, text spans, highlight regions, cursors, or overlay.
+	**/
+	var class_ : Dynamic; /**
+		An {Object} containing CSS style properties to apply to the relevant DOM node. Currently this only works with a `type` of `cursor` or `text`.
+	**/
+	var style : Dynamic; /**
+		An {HTMLElement} or a model {Object} with a corresponding view registered. Only applicable to the `gutter`, `overlay` and `block` decoration types.
+	**/
+	@:optional
+	var item : js.html.HtmlElement; /**
+		If `true`, the decoration will only be applied to the head of the `DisplayMarker`. Only applicable to the `line` and `line-number` decoration types.
+	**/
+	@:optional
+	var onlyHead : Dynamic; /**
+		If `true`, the decoration will only be applied if the associated `DisplayMarker` is empty. Only applicable to the `gutter`, `line`, and `line-number` decoration types.
+	**/
+	@:optional
+	var onlyEmpty : Dynamic; /**
+		If `true`, the decoration will only be applied if the associated `DisplayMarker` is non-empty. Only applicable to the `gutter`, `line`, and `line-number` decoration types.
+	**/
+	@:optional
+	var onlyNonEmpty : Dynamic; /**
+		If `false`, the decoration will be applied to the last row of a non-empty range, even if it ends at column 0. Defaults to `true`. Only applicable to the `gutter`, `line`, and `line-number` decoration types.
+	**/
+	@:optional
+	var omitEmptyLastRow : Dynamic; /**
+		Only applicable to decorations of type `overlay` and `block`. Controls where the view is positioned relative to the `TextEditorMarker`. Values can be `'head'` (the default) or `'tail'` for overlay decorations, and `'before'` (the default) or `'after'` for block decorations.
+	**/
+	@:optional
+	var position : Dynamic; /**
+		Only applicable to decorations of type  `overlay`. Determines whether the decoration adjusts its horizontal or  vertical position to remain fully visible when it would otherwise  overflow the editor. Defaults to `true`.
+	**/
+	@:optional
+	var avoidOverflow : Dynamic; }):Decoration;
 	/**
 		Add a decoration to every marker in the given marker layer. Can
 		be used to decorate a large number of markers without having to create and
@@ -564,13 +612,46 @@ package atom;
 		position and no tail. To group multiple markers together in their own
 		private layer, see {::addMarkerLayer}.Returns a {DisplayMarker}.
 	**/
-	function markBufferPosition(bufferPosition:Point, ?options:Dynamic):DisplayMarker;
+	function markBufferPosition(bufferPosition:Point, ?options:{ /**
+		{String} Determines the rules by which changes to the buffer *invalidate* the marker. (default: 'overlap') It can be any of the following strategies, in order of fragility:
+		* __never__: The marker is never marked as invalid. This is a good choice for
+		  markers representing selections in an editor.
+		* __surround__: The marker is invalidated by changes that completely surround it.
+		* __overlap__: The marker is invalidated by changes that surround the
+		  start or end of the marker. This is the default.
+		* __inside__: The marker is invalidated by changes that extend into the
+		  inside of the marker. Changes that end at the marker's start or
+		  start at the marker's end do not invalidate the marker.
+		* __touch__: The marker is invalidated by a change that touches the marked
+		  region in any way, including changes that end at the marker's
+		  start or start at the marker's end. This is the most fragile strategy.
+	**/
+	@:optional
+	var invalidate : String; }):DisplayMarker;
 	/**
 		Create a marker on the default marker layer with the given screen
 		position and no tail. To group multiple markers together in their own
 		private layer, see {::addMarkerLayer}.Returns a {DisplayMarker}.
 	**/
-	function markScreenPosition(screenPosition:Point, ?options:Dynamic):DisplayMarker;
+	function markScreenPosition(screenPosition:Point, ?options:{ /**
+		{String} Determines the rules by which changes to the buffer *invalidate* the marker. (default: 'overlap') It can be any of the following strategies, in order of fragility:
+		* __never__: The marker is never marked as invalid. This is a good choice for
+		  markers representing selections in an editor.
+		* __surround__: The marker is invalidated by changes that completely surround it.
+		* __overlap__: The marker is invalidated by changes that surround the
+		  start or end of the marker. This is the default.
+		* __inside__: The marker is invalidated by changes that extend into the
+		  inside of the marker. Changes that end at the marker's start or
+		  start at the marker's end do not invalidate the marker.
+		* __touch__: The marker is invalidated by a change that touches the marked
+		  region in any way, including changes that end at the marker's
+		  start or start at the marker's end. This is the most fragile strategy.
+	**/
+	@:optional
+	var invalidate : String; /**
+		{String} If `'backward'`, returns the first valid position preceding an invalid position. If `'forward'`, returns the first valid position following an invalid position. If `'closest'`, returns the first valid position closest to an invalid position. Defaults to `'closest'`.
+	**/
+	var clipDirection : String; }):DisplayMarker;
 	/**
 		Find all {DisplayMarker}s on the default marker layer that
 		match the given properties.
@@ -580,7 +661,19 @@ package atom;
 		In addition, there are several special properties that will be compared
 		with the range of the markers rather than their properties.Returns an `Array` of {DisplayMarker}s
 	**/
-	function findMarkers(properties:Dynamic):Array<Dynamic>;
+	function findMarkers(properties:{ /**
+		Only include markers starting at this row in buffer   coordinates.
+	**/
+	var startBufferRow : Dynamic; /**
+		Only include markers ending at this row in buffer   coordinates.
+	**/
+	var endBufferRow : Dynamic; /**
+		Only include markers containing this {Range} or   in range-compatible {Array} in buffer coordinates.
+	**/
+	var containsBufferRange : Range; /**
+		Only include markers containing this {Point}   or {Array} of `[row, column]` in buffer coordinates.
+	**/
+	var containsBufferPosition : Point; }):Array<Dynamic>;
 	/**
 		Get the {DisplayMarker} on the default layer for the given
 		marker id.
@@ -598,7 +691,13 @@ package atom;
 	/**
 		Create a marker layer to group related markers.Returns a {DisplayMarkerLayer}.
 	**/
-	function addMarkerLayer(options:Dynamic):DisplayMarkerLayer;
+	function addMarkerLayer(options:{ /**
+		A {Boolean} indicating whether marker state should be restored on undo/redo. Defaults to `false`.
+	**/
+	var maintainHistory : Bool; /**
+		A {Boolean} indicating whether or not this marker layer should be serialized and deserialized along with the rest of the buffer. Defaults to `false`. If `true`, the marker layer's id will be maintained across the serialization boundary, allowing you to retrieve it via {::getMarkerLayer}.
+	**/
+	var persistent : Bool; }):DisplayMarkerLayer;
 	/**
 		Get a {DisplayMarkerLayer} by id.Returns a {DisplayMarkerLayer} or `` if no layer exists with the
 		given id.
@@ -625,7 +724,10 @@ package atom;
 		
 		If there are multiple cursors, they will be consolidated to a single cursor.
 	**/
-	function setCursorBufferPosition(position:Point, ?options:Dynamic):Void;
+	function setCursorBufferPosition(position:Point, ?options:{ /**
+		Determines whether the editor scrolls to the new cursor's position. Defaults to true.
+	**/
+	var autoscroll : Dynamic; }):Void;
 	/**
 		Get a `Cursor` at given screen coordinates `Point`Returns the first matched `Cursor` or
 	**/
@@ -644,7 +746,10 @@ package atom;
 		
 		If there are multiple cursors, they will be consolidated to a single cursor.
 	**/
-	function setCursorScreenPosition(position:Point, ?options:Dynamic):Void;
+	function setCursorScreenPosition(position:Point, ?options:{ /**
+		Determines whether the editor scrolls to the new cursor's position. Defaults to true.
+	**/
+	var autoscroll : Dynamic; }):Void;
 	/**
 		Add a cursor at the given position in buffer coordinates.Returns a `Cursor`.
 	**/
@@ -777,12 +882,24 @@ package atom;
 		Set the selected range in buffer coordinates. If there are multiple
 		selections, they are reduced to a single selection with the given range.
 	**/
-	function setSelectedBufferRange(bufferRange:Range, ?options:Dynamic):Void;
+	function setSelectedBufferRange(bufferRange:Range, ?options:{ /**
+		A {Boolean} indicating whether to create the selection in a reversed orientation.
+	**/
+	var reversed : Bool; /**
+		A {Boolean}, which if `true` preserves the fold settings after the selection is set.
+	**/
+	var preserveFolds : Bool; }):Void;
 	/**
 		Set the selected ranges in buffer coordinates. If there are multiple
 		selections, they are replaced by new selections with the given ranges.
 	**/
-	function setSelectedBufferRanges(bufferRanges:Array<Dynamic>, ?options:Dynamic):Void;
+	function setSelectedBufferRanges(bufferRanges:Array<Dynamic>, ?options:{ /**
+		A {Boolean} indicating whether to create the selection in a reversed orientation.
+	**/
+	var reversed : Bool; /**
+		A {Boolean}, which if `true` preserves the fold settings after the selection is set.
+	**/
+	var preserveFolds : Bool; }):Void;
 	/**
 		Get the `Range` of the most recently added selection in screen
 		coordinates.Returns a `Range`.
@@ -798,20 +915,38 @@ package atom;
 		Set the selected range in screen coordinates. If there are multiple
 		selections, they are reduced to a single selection with the given range.
 	**/
-	function setSelectedScreenRange(screenRange:Range, ?options:Dynamic):Void;
+	function setSelectedScreenRange(screenRange:Range, ?options:{ /**
+		A {Boolean} indicating whether to create the selection in a reversed orientation.
+	**/
+	var reversed : Bool; }):Void;
 	/**
 		Set the selected ranges in screen coordinates. If there are multiple
 		selections, they are replaced by new selections with the given ranges.
 	**/
-	function setSelectedScreenRanges(screenRanges:Array<Dynamic>, ?options:Dynamic):Void;
+	function setSelectedScreenRanges(screenRanges:Array<Dynamic>, ?options:{ /**
+		A {Boolean} indicating whether to create the selection in a reversed orientation.
+	**/
+	var reversed : Bool; }):Void;
 	/**
 		Add a selection for the given range in buffer coordinates.Returns the added `Selection`.
 	**/
-	function addSelectionForBufferRange(bufferRange:Range, ?options:Dynamic):Selection;
+	function addSelectionForBufferRange(bufferRange:Range, ?options:{ /**
+		A {Boolean} indicating whether to create the selection in a reversed orientation.
+	**/
+	var reversed : Bool; /**
+		A {Boolean}, which if `true` preserves the fold settings after the selection is set.
+	**/
+	var preserveFolds : Bool; }):Selection;
 	/**
 		Add a selection for the given range in screen coordinates.
 	**/
-	function addSelectionForScreenRange(screenRange:Range, ?options:Dynamic):Void;
+	function addSelectionForScreenRange(screenRange:Range, ?options:{ /**
+		A {Boolean} indicating whether to create the selection in a reversed orientation.
+	**/
+	var reversed : Bool; /**
+		A {Boolean}, which if `true` preserves the fold settings after the selection is set. Returns the added {Selection}.
+	**/
+	var preserveFolds : Bool; }):Void;
 	/**
 		Select from the current cursor position to the given position in
 		buffer coordinates.
@@ -1001,7 +1136,13 @@ package atom;
 		If you're programmatically modifying the results, you may want to try
 		{::backwardsScanInBufferRange} to avoid tripping over your own changes.
 	**/
-	function scan(regex:EReg, ?options:Dynamic, iterator:haxe.Constraints.Function):Void;
+	function scan(regex:EReg, ?options:{ /**
+		{Number} default `0`; The number of lines  before the matched line to include in the results object.
+	**/
+	var leadingContextLineCount : Float; /**
+		{Number} default `0`; The number of lines  after the matched line to include in the results object.
+	**/
+	var trailingContextLineCount : Float; }, iterator:haxe.Constraints.Function):Void;
 	/**
 		Scan regular expression matches in a given range, calling the given
 		iterator function on each match.
@@ -1079,7 +1220,10 @@ package atom;
 		Note that if soft tabs are enabled and the tab length is 2, a row with 4
 		leading spaces would have an indentation level of 2.
 	**/
-	function setIndentationForBufferRow(bufferRow:Float, newLevel:Float, ?options:Dynamic):Void;
+	function setIndentationForBufferRow(bufferRow:Float, newLevel:Float, ?options:{ /**
+		`true` to preserve any whitespace already at  the beginning of the line (default: false).
+	**/
+	var preserveLeadingWhitespace : Dynamic; }):Void;
 	/**
 		Indent rows intersecting selections by one level.
 	**/
@@ -1234,7 +1378,18 @@ package atom;
 	/**
 		Add a custom `Gutter`.Returns the newly-created `Gutter`.
 	**/
-	function addGutter(options:Dynamic):Gutter;
+	function addGutter(options:{ /**
+		(required) A unique {String} to identify this gutter.
+	**/
+	var name : String; /**
+		A {Number} that determines stacking order between   gutters. Lower priority items are forced closer to the edges of the   window. (default: -100)
+	**/
+	@:optional
+	var priority : Float; /**
+		{Boolean} specifying whether the gutter is visible   initially after being created. (default: true)
+	**/
+	@:optional
+	var visible : Bool; }):Gutter;
 	/**
 		Get this editor's gutters.Returns an `Array` of `Gutter`s.
 	**/
@@ -1247,15 +1402,24 @@ package atom;
 		Scroll the editor to reveal the most recently added cursor if it is
 		off-screen.
 	**/
-	function scrollToCursorPosition(?options:Dynamic):Void;
+	function scrollToCursorPosition(?options:{ /**
+		Center the editor around the cursor if possible. (default: true)
+	**/
+	var center : Dynamic; }):Void;
 	/**
 		Scrolls the editor to the given buffer position.
 	**/
-	function scrollToBufferPosition(bufferPosition:Dynamic, ?options:Dynamic):Void;
+	function scrollToBufferPosition(bufferPosition:Dynamic, ?options:{ /**
+		Center the editor around the position if possible. (default: false)
+	**/
+	var center : Dynamic; }):Void;
 	/**
 		Scrolls the editor to the given screen position.
 	**/
-	function scrollToScreenPosition(screenPosition:Dynamic, ?options:Dynamic):Void;
+	function scrollToScreenPosition(screenPosition:Dynamic, ?options:{ /**
+		Center the editor around the position if possible. (default: false)
+	**/
+	var center : Dynamic; }):Void;
 	/**
 		Retrieves the greyed out placeholder of a mini editor.Returns a `String`.
 	**/

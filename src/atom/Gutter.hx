@@ -37,5 +37,8 @@ package atom;
 		is invalidated, or is destroyed, the decoration will be updated to reflect
 		the marker's state.Returns a `Decoration` object
 	**/
-	function decorateMarker(marker:DisplayMarker, decorationParams:Dynamic):Decoration;
+	function decorateMarker(marker:DisplayMarker, decorationParams:{ /**
+		__Caveat__: set to `'line-number'` if this is the line-number gutter, `'gutter'` otherwise. This cannot be overridden.
+	**/
+	var type : Dynamic; }):Decoration;
 }

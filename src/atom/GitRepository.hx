@@ -25,7 +25,10 @@ package atom;
 	/**
 		Creates a new GitRepository instance.Returns a {GitRepository} instance or `null` if the repository could not be opened.
 	**/
-	static function open(path:String, options:Dynamic):GitRepository;
+	static function open(path:String, options:{ /**
+		A {Boolean}, `true` to refresh the index and statuses when the window is focused.
+	**/
+	var refreshOnWindowFocus : Bool; }):GitRepository;
 	/**
 		Destroy this {GitRepository} object.
 		

@@ -132,11 +132,20 @@ package atom;
 	/**
 		Modifies the buffer range of this marker.
 	**/
-	function setBufferRange(bufferRange:Range, ?properties:Dynamic):Void;
+	function setBufferRange(bufferRange:Range, ?properties:{ /**
+		{Boolean} If true, the marker will to be in a reversed orientation. 
+	**/
+	var reversed : Bool; }):Void;
 	/**
 		Modifies the screen range of this marker.
 	**/
-	function setScreenRange(screenRange:Range, ?options:Dynamic):Void;
+	function setScreenRange(screenRange:Range, ?options:{ /**
+		{Boolean} If true, the marker will to be in a reversed orientation.
+	**/
+	var reversed : Bool; /**
+		{String} If `'backward'`, returns the first valid position preceding an invalid position. If `'forward'`, returns the first valid position following an invalid position. If `'closest'`, returns the first valid position closest to an invalid position. Defaults to `'closest'`. Applies to the start and end of the given range. 
+	**/
+	var clipDirection : String; }):Void;
 	/**
 		Retrieves the buffer position of the marker's head.Returns a `Point`.
 	**/
@@ -148,11 +157,17 @@ package atom;
 	/**
 		Retrieves the screen position of the marker's head.Returns a `Point`.
 	**/
-	function getHeadScreenPosition(?options:Dynamic):Point;
+	function getHeadScreenPosition(?options:{ /**
+		{String} If `'backward'`, returns the first valid position preceding an invalid position. If `'forward'`, returns the first valid position following an invalid position. If `'closest'`, returns the first valid position closest to an invalid position. Defaults to `'closest'`. Applies to the start and end of the given range.
+	**/
+	var clipDirection : String; }):Point;
 	/**
 		Sets the screen position of the marker's head.
 	**/
-	function setHeadScreenPosition(screenPosition:Point, ?options:Dynamic):Void;
+	function setHeadScreenPosition(screenPosition:Point, ?options:{ /**
+		{String} If `'backward'`, returns the first valid position preceding an invalid position. If `'forward'`, returns the first valid position following an invalid position. If `'closest'`, returns the first valid position closest to an invalid position. Defaults to `'closest'`. Applies to the start and end of the given range. 
+	**/
+	var clipDirection : String; }):Void;
 	/**
 		Retrieves the buffer position of the marker's tail.Returns a `Point`.
 	**/
@@ -164,11 +179,17 @@ package atom;
 	/**
 		Retrieves the screen position of the marker's tail.Returns a `Point`.
 	**/
-	function getTailScreenPosition(?options:Dynamic):Point;
+	function getTailScreenPosition(?options:{ /**
+		{String} If `'backward'`, returns the first valid position preceding an invalid position. If `'forward'`, returns the first valid position following an invalid position. If `'closest'`, returns the first valid position closest to an invalid position. Defaults to `'closest'`. Applies to the start and end of the given range.
+	**/
+	var clipDirection : String; }):Point;
 	/**
 		Sets the screen position of the marker's tail.
 	**/
-	function setTailScreenPosition(screenPosition:Point, ?options:Dynamic):Void;
+	function setTailScreenPosition(screenPosition:Point, ?options:{ /**
+		{String} If `'backward'`, returns the first valid position preceding an invalid position. If `'forward'`, returns the first valid position following an invalid position. If `'closest'`, returns the first valid position closest to an invalid position. Defaults to `'closest'`. Applies to the start and end of the given range. 
+	**/
+	var clipDirection : String; }):Void;
 	/**
 		Retrieves the buffer position of the marker's start. This will always be
 		less than or equal to the result of {DisplayMarker::getEndBufferPosition}.Returns a `Point`.
@@ -178,7 +199,10 @@ package atom;
 		Retrieves the screen position of the marker's start. This will always be
 		less than or equal to the result of {DisplayMarker::getEndScreenPosition}.Returns a `Point`.
 	**/
-	function getStartScreenPosition(?options:Dynamic):Point;
+	function getStartScreenPosition(?options:{ /**
+		{String} If `'backward'`, returns the first valid position preceding an invalid position. If `'forward'`, returns the first valid position following an invalid position. If `'closest'`, returns the first valid position closest to an invalid position. Defaults to `'closest'`. Applies to the start and end of the given range.
+	**/
+	var clipDirection : String; }):Point;
 	/**
 		Retrieves the buffer position of the marker's end. This will always be
 		greater than or equal to the result of {DisplayMarker::getStartBufferPosition}.Returns a `Point`.
@@ -188,7 +212,10 @@ package atom;
 		Retrieves the screen position of the marker's end. This will always be
 		greater than or equal to the result of {DisplayMarker::getStartScreenPosition}.Returns a `Point`.
 	**/
-	function getEndScreenPosition(?options:Dynamic):Point;
+	function getEndScreenPosition(?options:{ /**
+		{String} If `'backward'`, returns the first valid position preceding an invalid position. If `'forward'`, returns the first valid position following an invalid position. If `'closest'`, returns the first valid position closest to an invalid position. Defaults to `'closest'`. Applies to the start and end of the given range.
+	**/
+	var clipDirection : String; }):Point;
 	/**
 		Returns a `Boolean` indicating whether the marker has a tail.
 	**/

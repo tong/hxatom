@@ -49,12 +49,28 @@ package atom;
 	/**
 		Create a new buffer backed by the given file path.Returns a `Promise` that resolves with a {TextBuffer} instance.
 	**/
-	static function load(source:String, params:Dynamic):js.Promise<Dynamic>;
+	static function load(source:String, params:{ /**
+		{String} The file's encoding.
+	**/
+	@:optional
+	var encoding : String; /**
+		A {Function} that returns a {Boolean} indicating whether the buffer should be destroyed if its file is deleted.
+	**/
+	@:optional
+	var shouldDestroyOnFileDelete : haxe.Constraints.Function; }):js.Promise<Dynamic>;
 	/**
 		Create a new buffer backed by the given file path. For better
 		performance, use {TextBuffer.load} instead.Returns a {TextBuffer} instance.
 	**/
-	static function loadSync(filePath:String, params:Dynamic):TextBuffer;
+	static function loadSync(filePath:String, params:{ /**
+		{String} The file's encoding.
+	**/
+	@:optional
+	var encoding : String; /**
+		A {Function} that returns a {Boolean} indicating whether the buffer should be destroyed if its file is deleted.
+	**/
+	@:optional
+	var shouldDestroyOnFileDelete : haxe.Constraints.Function; }):TextBuffer;
 	/**
 		Restore a {TextBuffer} based on an earlier state created using
 		the {TextBuffer::serialize} method.Returns a `Promise` that resolves with a {TextBuffer} instance.
@@ -63,7 +79,13 @@ package atom;
 	/**
 		Create a new buffer with the given params.
 	**/
-	function new(params:Dynamic):Void;
+	function new(params:{ /**
+		The initial {String} text of the buffer.
+	**/
+	var text : String; /**
+		A {Function} that returns a {Boolean} indicating whether the buffer should be destroyed if its file is deleted. 
+	**/
+	var shouldDestroyOnFileDelete : haxe.Constraints.Function; }):Void;
 	/**
 		Invoke the given callback synchronously _before_ the content of the
 		buffer changes.
@@ -258,15 +280,39 @@ package atom;
 	/**
 		Set the text in the given range.Returns the `Range` of the inserted text.
 	**/
-	function setTextInRange(range:Range, text:String, ?options:Dynamic):Range;
+	function setTextInRange(range:Range, text:String, ?options:{ /**
+		{Boolean} (default: true)
+	**/
+	@:optional
+	var normalizeLineEndings : Bool; /**
+		{String} 'skip' will skip the undo system
+	**/
+	@:optional
+	var undo : String; }):Range;
 	/**
 		Insert text at the given position.Returns the `Range` of the inserted text.
 	**/
-	function insert(position:Point, text:String, ?options:Dynamic):Range;
+	function insert(position:Point, text:String, ?options:{ /**
+		{Boolean} (default: true)
+	**/
+	@:optional
+	var normalizeLineEndings : Bool; /**
+		{String} 'skip' will skip the undo system
+	**/
+	@:optional
+	var undo : String; }):Range;
 	/**
 		Append text to the end of the buffer.Returns the `Range` of the inserted text
 	**/
-	function append(text:String, ?options:Dynamic):Range;
+	function append(text:String, ?options:{ /**
+		{Boolean} (default: true)
+	**/
+	@:optional
+	var normalizeLineEndings : Bool; /**
+		{String} 'skip' will skip the undo system
+	**/
+	@:optional
+	var undo : String; }):Range;
 	/**
 		Delete the text in the given range.Returns an empty `Range` starting at the start of deleted range.
 	**/
@@ -309,7 +355,25 @@ package atom;
 		Create a marker at the given position with no tail in the default
 		marker layer.Returns a `Marker`.
 	**/
-	function markPosition(position:Point, ?options:Dynamic):Marker;
+	function markPosition(position:Point, ?options:{ /**
+		{String} Determines the rules by which changes to the buffer *invalidate* the marker. (default: 'overlap') It can be any of the following strategies, in order of fragility:
+		* __never__: The marker is never marked as invalid. This is a good choice for
+		  markers representing selections in an editor.
+		* __surround__: The marker is invalidated by changes that completely surround it.
+		* __overlap__: The marker is invalidated by changes that surround the
+		  start or end of the marker. This is the default.
+		* __inside__: The marker is invalidated by changes that extend into the
+		  inside of the marker. Changes that end at the marker's start or
+		  start at the marker's end do not invalidate the marker.
+		* __touch__: The marker is invalidated by a change that touches the marked
+		  region in any way, including changes that end at the marker's
+		  start or start at the marker's end. This is the most fragile strategy.
+	**/
+	@:optional
+	var invalidate : String; /**
+		{Boolean} indicating whether insertions at the start or end of the marked range should be interpreted as happening *outside* the marker. Defaults to `false`, except when using the `inside` invalidation strategy or when when the marker has no tail, in which case it defaults to true. Explicitly assigning this option overrides behavior in all circumstances.
+	**/
+	var exclusive : Bool; }):Marker;
 	/**
 		Get all existing markers on the default marker layer.Returns an `Array` of `Marker`s.
 	**/
@@ -388,22 +452,46 @@ package atom;
 		If you're programmatically modifying the results, you may want to try
 		{::backwardsScan} to avoid tripping over your own changes.
 	**/
-	function scan(regex:EReg, ?options:Dynamic, iterator:haxe.Constraints.Function):Void;
+	function scan(regex:EReg, ?options:{ /**
+		{Number} default `0`; The number of lines before the  matched line to include in the results object.
+	**/
+	var leadingContextLineCount : Float; /**
+		{Number} default `0`; The number of lines after the  matched line to include in the results object.
+	**/
+	var trailingContextLineCount : Float; }, iterator:haxe.Constraints.Function):Void;
 	/**
 		Scan regular expression matches in the entire buffer in reverse
 		order, calling the given iterator function on each match.
 	**/
-	function backwardsScan(regex:EReg, ?options:Dynamic, iterator:haxe.Constraints.Function):Void;
+	function backwardsScan(regex:EReg, ?options:{ /**
+		{Number} default `0`; The number of lines before the  matched line to include in the results object.
+	**/
+	var leadingContextLineCount : Float; /**
+		{Number} default `0`; The number of lines after the  matched line to include in the results object.
+	**/
+	var trailingContextLineCount : Float; }, iterator:haxe.Constraints.Function):Void;
 	/**
 		Scan regular expression matches in a given range , calling the given
 		iterator function on each match.
 	**/
-	function scanInRange(regex:EReg, range:Range, ?options:Dynamic, callback:haxe.Constraints.Function):Void;
+	function scanInRange(regex:EReg, range:Range, ?options:{ /**
+		{Number} default `0`; The number of lines before the  matched line to include in the results object.
+	**/
+	var leadingContextLineCount : Float; /**
+		{Number} default `0`; The number of lines after the  matched line to include in the results object.
+	**/
+	var trailingContextLineCount : Float; }, callback:haxe.Constraints.Function):Void;
 	/**
 		Scan regular expression matches in a given range in reverse order,
 		calling the given iterator function on each match.
 	**/
-	function backwardsScanInRange(regex:EReg, range:Range, ?options:Dynamic, iterator:haxe.Constraints.Function):Void;
+	function backwardsScanInRange(regex:EReg, range:Range, ?options:{ /**
+		{Number} default `0`; The number of lines before the  matched line to include in the results object.
+	**/
+	var leadingContextLineCount : Float; /**
+		{Number} default `0`; The number of lines after the  matched line to include in the results object.
+	**/
+	var trailingContextLineCount : Float; }, iterator:haxe.Constraints.Function):Void;
 	/**
 		Replace all regular expression matches in the entire buffer.Returns a `Number` representing the number of replacements made.
 	**/
@@ -483,9 +571,25 @@ package atom;
 		Create a new buffer backed by the given file path. For better
 		performance, use {TextBuffer.load} instead.Returns a {TextBuffer} instance.
 	**/
-	function loadSync(filePath:String, params:Dynamic):TextBuffer;
+	function loadSync(filePath:String, params:{ /**
+		{String} The file's encoding.
+	**/
+	@:optional
+	var encoding : String; /**
+		A {Function} that returns a {Boolean} indicating whether the buffer should be destroyed if its file is deleted.
+	**/
+	@:optional
+	var shouldDestroyOnFileDelete : haxe.Constraints.Function; }):TextBuffer;
 	/**
 		Create a new buffer backed by the given file path.Returns a `Promise` that resolves with a {TextBuffer} instance.
 	**/
-	function load(source:String, params:Dynamic):js.Promise<Dynamic>;
+	function load(source:String, params:{ /**
+		{String} The file's encoding.
+	**/
+	@:optional
+	var encoding : String; /**
+		A {Function} that returns a {Boolean} indicating whether the buffer should be destroyed if its file is deleted.
+	**/
+	@:optional
+	var shouldDestroyOnFileDelete : haxe.Constraints.Function; }):js.Promise<Dynamic>;
 }

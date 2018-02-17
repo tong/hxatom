@@ -140,7 +140,19 @@ package atom;
 		Calling this method without an options parameter will open a prompt to pick
 		a file/folder to open in the new window.
 	**/
-	static function open(params:Dynamic):Void;
+	static function open(params:{ /**
+		An {Array} of {String} paths to open.
+	**/
+	var pathsToOpen : Array<Dynamic>; /**
+		A {Boolean}, true to always open a new window instead of reusing existing windows depending on the paths to open.
+	**/
+	var newWindow : Bool; /**
+		A {Boolean}, true to open the window in development mode. Development mode loads the Atom source from the locally cloned repository and also loads all the packages in ~/.atom/dev/packages
+	**/
+	var devMode : Bool; /**
+		A {Boolean}, true to open the window in safe mode. Safe mode prevents all packages installed to ~/.atom/packages from loading.
+	**/
+	var safeMode : Bool; }):Void;
 	/**
 		Prompt the user to select one or more folders.
 	**/
@@ -219,7 +231,18 @@ package atom;
 		If the dialog is closed (via `Esc` key or `X` in the top corner) without selecting a button
 		the first button will be clicked unless a "Cancel" or "No" button is provided.Returns the chosen button index `Number` if the buttons option is an array or the return value of the callback if the buttons option is an object.
 	**/
-	static function confirm(options:Dynamic):Float;
+	static function confirm(options:{ /**
+		The {String} message to display.
+	**/
+	var message : String; /**
+		The {String} detailed message to display.
+	**/
+	@:optional
+	var detailedMessage : String; /**
+		Either an array of strings or an object where keys are button names and the values are callbacks to invoke when clicked.
+	**/
+	@:optional
+	var buttons : Dynamic; }):Float;
 	/**
 		Open the dev tools for the current window.Returns a `Promise` that resolves when the DevTools have been opened.
 	**/

@@ -17,23 +17,131 @@ package atom;
 	/**
 		Add a success notification.Returns the `Notification` that was added.
 	**/
-	function addSuccess(message:String, ?options:Dynamic):Notification;
+	function addSuccess(message:String, ?options:{ /**
+		An {Array} of {Object} where each {Object} has the following options:
+	**/
+	@:optional
+	var buttons : Array<Dynamic>; /**
+		A Markdown {String} containing a longer description about the notification. By default, this **will not** preserve newlines and whitespace when it is rendered.
+	**/
+	@:optional
+	var description : String; /**
+		A plain-text {String} containing additional details about the notification. By default, this **will** preserve newlines and whitespace when it is rendered.
+	**/
+	@:optional
+	var detail : String; /**
+		A {Boolean} indicating whether this notification can be dismissed by the user. Defaults to `false`.
+	**/
+	@:optional
+	var dismissable : Bool; /**
+		A {String} name of an icon from Octicons to display in the notification header. Defaults to `'check'`.
+	**/
+	@:optional
+	var icon : String; }):Notification;
 	/**
 		Add an informational notification.Returns the `Notification` that was added.
 	**/
-	function addInfo(message:String, ?options:Dynamic):Notification;
+	function addInfo(message:String, ?options:{ /**
+		An {Array} of {Object} where each {Object} has the following options:
+	**/
+	@:optional
+	var buttons : Array<Dynamic>; /**
+		A Markdown {String} containing a longer description about the notification. By default, this **will not** preserve newlines and whitespace when it is rendered.
+	**/
+	@:optional
+	var description : String; /**
+		A plain-text {String} containing additional details about the notification. By default, this **will** preserve newlines and whitespace when it is rendered.
+	**/
+	@:optional
+	var detail : String; /**
+		A {Boolean} indicating whether this notification can be dismissed by the user. Defaults to `false`.
+	**/
+	@:optional
+	var dismissable : Bool; /**
+		A {String} name of an icon from Octicons to display in the notification header. Defaults to `'info'`.
+	**/
+	@:optional
+	var icon : String; }):Notification;
 	/**
 		Add a warning notification.Returns the `Notification` that was added.
 	**/
-	function addWarning(message:String, ?options:Dynamic):Notification;
+	function addWarning(message:String, ?options:{ /**
+		An {Array} of {Object} where each {Object} has the following options:
+	**/
+	@:optional
+	var buttons : Array<Dynamic>; /**
+		A Markdown {String} containing a longer description about the notification. By default, this **will not** preserve newlines and whitespace when it is rendered.
+	**/
+	@:optional
+	var description : String; /**
+		A plain-text {String} containing additional details about the notification. By default, this **will** preserve newlines and whitespace when it is rendered.
+	**/
+	@:optional
+	var detail : String; /**
+		A {Boolean} indicating whether this notification can be dismissed by the user. Defaults to `false`.
+	**/
+	@:optional
+	var dismissable : Bool; /**
+		A {String} name of an icon from Octicons to display in the notification header. Defaults to `'alert'`.
+	**/
+	@:optional
+	var icon : String; }):Notification;
 	/**
 		Add an error notification.Returns the `Notification` that was added.
 	**/
-	function addError(message:String, ?options:Dynamic):Notification;
+	function addError(message:String, ?options:{ /**
+		An {Array} of {Object} where each {Object} has the following options:
+	**/
+	@:optional
+	var buttons : Array<Dynamic>; /**
+		A Markdown {String} containing a longer description about the notification. By default, this **will not** preserve newlines and whitespace when it is rendered.
+	**/
+	@:optional
+	var description : String; /**
+		A plain-text {String} containing additional details about the notification. By default, this **will** preserve newlines and whitespace when it is rendered.
+	**/
+	@:optional
+	var detail : String; /**
+		A {Boolean} indicating whether this notification can be dismissed by the user. Defaults to `false`.
+	**/
+	@:optional
+	var dismissable : Bool; /**
+		A {String} name of an icon from Octicons to display in the notification header. Defaults to `'flame'`.
+	**/
+	@:optional
+	var icon : String; /**
+		A preformatted {String} with stack trace information describing the location of the error.
+	**/
+	@:optional
+	var stack : String; }):Notification;
 	/**
 		Add a fatal error notification.Returns the `Notification` that was added.
 	**/
-	function addFatalError(message:String, ?options:Dynamic):Notification;
+	function addFatalError(message:String, ?options:{ /**
+		An {Array} of {Object} where each {Object} has the following options:
+	**/
+	@:optional
+	var buttons : Array<Dynamic>; /**
+		A Markdown {String} containing a longer description about the notification. By default, this **will not** preserve newlines and whitespace when it is rendered.
+	**/
+	@:optional
+	var description : String; /**
+		A plain-text {String} containing additional details about the notification. By default, this **will** preserve newlines and whitespace when it is rendered.
+	**/
+	@:optional
+	var detail : String; /**
+		A {Boolean} indicating whether this notification can be dismissed by the user. Defaults to `false`.
+	**/
+	@:optional
+	var dismissable : Bool; /**
+		A {String} name of an icon from Octicons to display in the notification header. Defaults to `'bug'`.
+	**/
+	@:optional
+	var icon : String; /**
+		A preformatted {String} with stack trace information describing the location of the error.
+	**/
+	@:optional
+	var stack : String; }):Notification;
 	/**
 		Get all the notifications.Returns an `Array` of `Notification`s.
 	**/

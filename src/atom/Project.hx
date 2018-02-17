@@ -81,11 +81,23 @@ package atom;
 	/**
 		Set the paths of the project's directories.
 	**/
-	function setPaths(projectPaths:Array<Dynamic>, options:Dynamic):Void;
+	function setPaths(projectPaths:Array<Dynamic>, options:{ /**
+		If `true`, throw an Error if any `projectPaths` do not exist. Any remaining `projectPaths` that do exist will still be added to the project. Default: `false`.
+	**/
+	var mustExist : Dynamic; /**
+		If `true`, only add a `projectPath` if it names an existing directory. If `false` and any `projectPath` is a file or does not exist, its parent directory will be added instead. Default: `false`.
+	**/
+	var exact : Dynamic; }):Void;
 	/**
 		Add a path to the project's list of root paths
 	**/
-	function addPath(projectPath:String, options:Dynamic):Void;
+	function addPath(projectPath:String, options:{ /**
+		If `true`, throw an Error if the `projectPath` does not exist. If `false`, a `projectPath` that does not exist is ignored. Default: `false`.
+	**/
+	var mustExist : Dynamic; /**
+		If `true`, only add `projectPath` if it names an existing directory. If `false`, if `projectPath` is a a file or does not exist, its parent directory will be added instead.
+	**/
+	var exact : Dynamic; }):Void;
 	/**
 		Access a `Promise` that resolves when the filesystem watcher associated with a project
 		root directory is ready to begin receiving events.

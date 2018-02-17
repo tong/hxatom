@@ -371,13 +371,21 @@ package atom;
 		```Returns a `Disposable` with the following keys on which you can call
 		`.dispose()` to unsubscribe.
 	**/
-	function observe(keyPath:String, ?options:Dynamic, callback:haxe.Constraints.Function):Disposable;
+	function observe(keyPath:String, ?options:{ /**
+		{ScopeDescriptor} describing a path from the root of the syntax tree to a token. Get one by calling {editor.getLastCursor().getScopeDescriptor()}. See {::get} for examples. See [the scopes docs](http://flight-manual.atom.io/behind-atom/sections/scoped-settings-scopes-and-scope-descriptors/) for more information.
+	**/
+	@:optional
+	var scope : ScopeDescriptor; }, callback:haxe.Constraints.Function):Disposable;
 	/**
 		Add a listener for changes to a given key path. If `keyPath` is
 		not specified, your callback will be called on changes to any key.Returns a `Disposable` with the following keys on which you can call
 		`.dispose()` to unsubscribe.
 	**/
-	function onDidChange(?keyPath:String, ?options:Dynamic, callback:haxe.Constraints.Function):Disposable;
+	function onDidChange(?keyPath:String, ?options:{ /**
+		{ScopeDescriptor} describing a path from the root of the syntax tree to a token. Get one by calling {editor.getLastCursor().getScopeDescriptor()}. See {::get} for examples. See [the scopes docs](http://flight-manual.atom.io/behind-atom/sections/scoped-settings-scopes-and-scope-descriptors/) for more information.
+	**/
+	@:optional
+	var scope : ScopeDescriptor; }, callback:haxe.Constraints.Function):Disposable;
 	/**
 		Retrieves the setting for the given key.
 		
@@ -420,7 +428,19 @@ package atom;
 		```Returns the value from Atom's default settings, the user's configuration
 		file in the type specified by the configuration schema.
 	**/
-	function get(keyPath:String, ?options:Dynamic):Dynamic;
+	function get(keyPath:String, ?options:{ /**
+		{Array} of {String} source names. If provided, only values that were associated with these sources during {::set} will be used.
+	**/
+	@:optional
+	var sources : Array<Dynamic>; /**
+		{Array} of {String} source names. If provided, values that  were associated with these sources during {::set} will not be used.
+	**/
+	@:optional
+	var excludeSources : Array<Dynamic>; /**
+		{ScopeDescriptor} describing a path from the root of the syntax tree to a token. Get one by calling {editor.getLastCursor().getScopeDescriptor()} See [the scopes docs](http://flight-manual.atom.io/behind-atom/sections/scoped-settings-scopes-and-scope-descriptors/) for more information.
+	**/
+	@:optional
+	var scope : ScopeDescriptor; }):Dynamic;
 	/**
 		Get all of the values for the given key-path, along with their
 		associated scope selector.Returns an `Array` of `Object`s with the following keys:
@@ -462,11 +482,27 @@ package atom;
 		* `true` if the value was set.
 		* `false` if the value was not able to be coerced to the type specified in the setting's schema.
 	**/
-	function set(keyPath:String, value:Dynamic, ?options:Dynamic):Bool;
+	function set(keyPath:String, value:Dynamic, ?options:{ /**
+		{String}. eg. '.source.ruby' See [the scopes docs](http://flight-manual.atom.io/behind-atom/sections/scoped-settings-scopes-and-scope-descriptors/) for more information.
+	**/
+	@:optional
+	var scopeSelector : String; /**
+		{String} The name of a file with which the setting is associated. Defaults to the user's config file.
+	**/
+	@:optional
+	var source : String; }):Bool;
 	/**
 		Restore the setting at `keyPath` to its default value.
 	**/
-	function unset(keyPath:String, ?options:Dynamic):Void;
+	function unset(keyPath:String, ?options:{ /**
+		{String}. See {::set}
+	**/
+	@:optional
+	var scopeSelector : String; /**
+		{String}. See {::set} 
+	**/
+	@:optional
+	var source : String; }):Void;
 	/**
 		Get an `Array` of all of the `source` `String`s with which
 		settings have been added via {::set}. 

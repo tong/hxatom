@@ -27,7 +27,10 @@ package atom;
 	/**
 		Create a {ScopeDescriptor} object.
 	**/
-	function new(object:Dynamic):Void;
+	function new(object:{ /**
+		{Array} of {String}s 
+	**/
+	var scopes : Array<Dynamic>; }):Void;
 	/**
 		Returns an `Array` of `String`s
 	**/
