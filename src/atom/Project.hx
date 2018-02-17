@@ -74,9 +74,10 @@ package atom;
 	function repositoryForDirectory(directory:Directory):js.Promise<Dynamic>;
 	/**
 		Get an `Array` of `String`s containing the paths of the project's
+		directories.Get an `Array` of `String`s containing the paths of the project's
 		directories.
 	**/
-	function getPaths():Void;
+	function getPaths():Array<String>;
 	/**
 		Set the paths of the project's directories.
 	**/
@@ -105,14 +106,10 @@ package atom;
 	function getDirectories():Void;
 	/**
 		Get the path to the project directory that contains the given path,
-		and the relative path from that project directory to the given path.Returns an `Array` with two elements:
-		
-		* `projectPath` The `String` path to the project directory that contains the
-		  given path, or `null` if none is found.
-		* `relativePath` `String` The relative path from the project directory to
-		  the given path.
+		and the relative path from that project directory to the given path.Get the path to the project directory that contains the given path,
+		and the relative path from that project directory to the given path.
 	**/
-	function relativizePath(fullPath:String):Array<Dynamic>;
+	function relativizePath(fullPath:String):Array<String>;
 	/**
 		Determines whether the given path (real or symbolic) is inside the
 		project's directory.

@@ -339,6 +339,15 @@ class AtomAPI {
                     if( m.name == 'hide' )
                         m.returnValues[0].type = 'Boolean';
                 }
+            case 'Project':
+                for( m in cl.instanceMethods ) {
+                    switch m.name {
+                    case 'getPaths':
+                        m.returnValues = [ { type: 'Array<String>', description: m.description } ];
+                    case 'relativizePath':
+                        m.returnValues = [ { type: 'Array<String>', description: m.description } ];
+                    }
+                }
             case 'File':
                 for( m in cl.instanceMethods ) {
                     switch m.name {
