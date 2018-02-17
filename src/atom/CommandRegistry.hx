@@ -47,7 +47,7 @@ package atom;
 		Add one or more command listeners associated with a selector.Returns a `Disposable` on which `.dispose()` can be called to remove the
 		added command handler(s).
 	**/
-	function add():Disposable;
+	function add(target:String, commandName:String, listener:haxe.Constraints.Function):Disposable;
 	/**
 		Find all registered commands matching a query.Returns an `Array` of `CommandDescriptor` `Object`s containing the following keys:
 		

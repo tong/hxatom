@@ -24,6 +24,13 @@ typedef APIArgument = {
     var description : String;
     var type : String;
     var isOptional : Bool;
+    var children : Array<Dynamic>;
+}
+
+typedef APITitledArgument = {
+    var title : String;
+    var description : String;
+    var arguments : Array<APIArgument>;
 }
 
 typedef APIReturnValue = {
@@ -44,6 +51,7 @@ typedef APIMethod = {
     var summary : String;
     var description : String;
     @:optional var arguments : Array<APIArgument>;
+    @:optional var titledArguments : Array<APITitledArgument>;
     @:optional var returnValues : Array<APIReturnValue>;
 }
 
@@ -85,6 +93,7 @@ class AtomAPI {
 
         function escapeName( name : String ) : String {
             //TODO HACK
+            //if( name == null ) return null;
             if( name == 'args...' ) name = 'args';
             else if( name.startsWith( '...' ) ) name = name.substr(3);
             return (KWDS.indexOf( name ) != -1) ? name + '_' : name;
@@ -112,6 +121,7 @@ class AtomAPI {
             case 'WriteStream': macro : js.node.fs.WriteStream;
             case 'Function':
                 //TODO
+                //trace(">>>",name);
                 macro : haxe.Constraints.Function;
             case 'Array':
                 macro : Array<Dynamic>; //TODO
@@ -150,8 +160,9 @@ class AtomAPI {
             // instanceProperties type names should be specified.
             // This hack gets the name from the first occurence of {NAME} in summary
             var expr = ~/\{([A-Z][a-zA-Z]+)\}.*/;
-            var doc = prop.summary.trim();
-            if( doc.length == 0 ) doc = prop.description.trim();
+            var doc = prop.summary;
+            if( doc.length == 0 ) doc = prop.description;
+            doc = doc.trim();
             var ctype = if( expr.match( doc ) ) {
                 getTypeForName( expr.matched( 1 ) );
             } else {
@@ -178,18 +189,33 @@ class AtomAPI {
             }
 
             var args = new Array<FunctionArg>();
-            if( method.arguments != null ) {
-                for( arg in method.arguments ) {
+            var methodArgs = method.arguments;
+            if( methodArgs == null ) {
+                if( method.titledArguments != null ) {
+                    methodArgs = method.titledArguments[0].arguments;
+                }
+            }
+            if( methodArgs != null ) {
+                for( arg in methodArgs ) {
                     var type = switch arg.name {
                     case 'args...':
                         macro : haxe.extern.Rest<Dynamic>;
                     default:
-                        var t = getTypeForName( arg.type );
-                        if( arg.name.startsWith( '...' ) ) {
-                            t = TPath( { name : 'Rest', pack: ['haxe','extern'], params:[TPType(t)] });
+                        //trace(arg.name,arg.type);
+                        var type = getTypeForName( arg.type );
+                        if( arg.name != null ) {
+                            if( arg.name.startsWith( '...' ) ) {
+                                type = TPath( { pack: ['haxe','extern'], name : 'Rest', params: [TPType(type)] });
+                            }
+                        } else {
+                            type = getTypeForName( arg.type );
                         }
-                        t;
+                        if( type == null ) {
+                            type = macro : Dynamic;
+                        }
+                        type;
                     }
+
                     args.push({
                         opt: arg.isOptional,
                         name: escapeName( arg.name ),
@@ -205,30 +231,30 @@ class AtomAPI {
             if( method.returnValues != null ) {
                 //TODO
                 //trace(method.name+'>>>>>>>>>>>');
-                var retVal = method.returnValues[0];
-                //var retVal = null; // = method.returnValues[0];
+                var retval = method.returnValues[0];
+                //var retval = null; // = method.returnValues[0];
                 /*
                 for( rv in method.returnValues ) {
                     if( rv.type == null )
                         continue;
-                    retVal = rv;
+                    retval = rv;
                     break;
                 }
-                if( retVal == null )
+                if( retval == null )
                     trace(method);
                     */
-                if( retVal == null )
-                    ret = macro: Void;
+                if( retval == null )
+                    ret = macro : Void;
                 else {
-                    ret = getTypeForName( retVal.type );
-                    //var _doc = escapeDoc( retVal.description );
-                    var _doc = retVal.description;
+                    ret = getTypeForName( retval.type );
+                    //var _doc = escapeDoc( retval.description );
+                    var _doc = retval.description;
                     //var _doc = '';
-                    //if( retVal.type != null ) _doc += '@return `'+retVal.type+'`';//_doc;
+                    //if( retval.type != null ) _doc += '@return `'+retval.type+'`';//_doc;
                     doc += _doc;
                 }
             } else {
-                ret = macro: Void;
+                ret = macro : Void;
             }
 
             return {
@@ -303,7 +329,7 @@ class AtomAPI {
         for( f in Reflect.fields( api ) ) {
 
             var cl : APIClass = Reflect.field( api, f );
-            //if( cl.name != 'CompositeDisposable' ) continue;
+            //if( cl.name != 'CommandRegistry' ) continue;
             //trace('#############################'+cl.name);
 
             // TODO PATCH
