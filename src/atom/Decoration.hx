@@ -22,8 +22,8 @@ package atom;
 	```
 	
 	You should only use {Decoration::destroy} when you still need or do not own
-	the marker. 
-	@see <https://github.com/atom/atom/blob/v1.22.1/src/decoration.coffee#L37>
+	the marker.
+	@see <https://github.com/atom/atom/blob/v1.24.0/src/decoration.js#L39>
 
 **/
 @:require(js, atom) @:jsRequire("atom", "Decoration") extern class Decoration {
@@ -31,7 +31,7 @@ package atom;
 		Destroy this marker decoration.
 		
 		You can also destroy the marker if you own it, which will destroy this
-		decoration. 
+		decoration.
 	**/
 	function destroy():Void;
 	/**
@@ -43,13 +43,17 @@ package atom;
 	**/
 	function onDidDestroy(callback:haxe.Constraints.Function):Disposable;
 	/**
-		An id unique across all `Decoration` objects 
+		An id unique across all `Decoration` objects
 	**/
 	function getId():Void;
 	/**
 		Returns the marker associated with this `Decoration`
 	**/
 	function getMarker():Decoration;
+	/**
+		Check if this decoration is of type `type`Returns `Boolean`
+	**/
+	function isType(type:String):Bool;
 	/**
 		Returns the `Decoration`'s properties.
 	**/

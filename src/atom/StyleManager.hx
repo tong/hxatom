@@ -6,7 +6,7 @@ package atom;
 	sheets. The `StyleManager` doesn't add any style elements to the DOM on its
 	own, but is instead subscribed to by individual `<atom-styles>` elements,
 	which clone and attach style elements in different contexts.
-	@see <https://github.com/atom/atom/blob/v1.22.1/src/style-manager.js#L15>
+	@see <https://github.com/atom/atom/blob/v1.24.0/src/style-manager.js#L15>
 
 **/
 @:require(js, atom) @:jsRequire("atom", "StyleManager") extern class StyleManager {

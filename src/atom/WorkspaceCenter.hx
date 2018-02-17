@@ -2,7 +2,7 @@ package atom;
 
 /**
 	Represents the workspace at the center of the entire window.
-	@see <https://github.com/atom/atom/blob/v1.22.1/src/workspace-center.js#L7>
+	@see <https://github.com/atom/atom/blob/v1.24.0/src/workspace-center.js#L7>
 
 **/
 @:require(js, atom) @:jsRequire("atom", "WorkspaceCenter") extern class WorkspaceCenter {

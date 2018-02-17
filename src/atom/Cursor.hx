@@ -5,8 +5,8 @@ package atom;
 	where text can be inserted.
 	
 	Cursors belong to {TextEditor}s and have some metadata attached in the form
-	of a {DisplayMarker}. 
-	@see <https://github.com/atom/atom/blob/v1.22.1/src/cursor.coffee#L14>
+	of a {DisplayMarker}.
+	@see <https://github.com/atom/atom/blob/v1.24.0/src/cursor.js#L14>
 
 **/
 @:require(js, atom) @:jsRequire("atom", "Cursor") extern class Cursor {
@@ -43,7 +43,7 @@ package atom;
 	**/
 	function getScreenColumn():Dynamic;
 	/**
-		Retrieves the cursor's current buffer row. 
+		Retrieves the cursor's current buffer row.
 	**/
 	function getBufferRow():Void;
 	/**
@@ -124,73 +124,73 @@ package atom;
 	**/
 	function moveRight(?columnCount:Float, ?options:Dynamic):Void;
 	/**
-		Moves the cursor to the top of the buffer. 
+		Moves the cursor to the top of the buffer.
 	**/
 	function moveToTop():Void;
 	/**
-		Moves the cursor to the bottom of the buffer. 
+		Moves the cursor to the bottom of the buffer.
 	**/
 	function moveToBottom():Void;
 	/**
-		Moves the cursor to the beginning of the line. 
+		Moves the cursor to the beginning of the line.
 	**/
 	function moveToBeginningOfScreenLine():Void;
 	/**
-		Moves the cursor to the beginning of the buffer line. 
+		Moves the cursor to the beginning of the buffer line.
 	**/
 	function moveToBeginningOfLine():Void;
 	/**
 		Moves the cursor to the beginning of the first character in the
-		line. 
+		line.
 	**/
 	function moveToFirstCharacterOfLine():Void;
 	/**
-		Moves the cursor to the end of the line. 
+		Moves the cursor to the end of the line.
 	**/
 	function moveToEndOfScreenLine():Void;
 	/**
-		Moves the cursor to the end of the buffer line. 
+		Moves the cursor to the end of the buffer line.
 	**/
 	function moveToEndOfLine():Void;
 	/**
-		Moves the cursor to the beginning of the word. 
+		Moves the cursor to the beginning of the word.
 	**/
 	function moveToBeginningOfWord():Void;
 	/**
-		Moves the cursor to the end of the word. 
+		Moves the cursor to the end of the word.
 	**/
 	function moveToEndOfWord():Void;
 	/**
-		Moves the cursor to the beginning of the next word. 
+		Moves the cursor to the beginning of the next word.
 	**/
 	function moveToBeginningOfNextWord():Void;
 	/**
-		Moves the cursor to the previous word boundary. 
+		Moves the cursor to the previous word boundary.
 	**/
 	function moveToPreviousWordBoundary():Void;
 	/**
-		Moves the cursor to the next word boundary. 
+		Moves the cursor to the next word boundary.
 	**/
 	function moveToNextWordBoundary():Void;
 	/**
-		Moves the cursor to the previous subword boundary. 
+		Moves the cursor to the previous subword boundary.
 	**/
 	function moveToPreviousSubwordBoundary():Void;
 	/**
-		Moves the cursor to the next subword boundary. 
+		Moves the cursor to the next subword boundary.
 	**/
 	function moveToNextSubwordBoundary():Void;
 	/**
 		Moves the cursor to the beginning of the buffer line, skipping all
-		whitespace. 
+		whitespace.
 	**/
 	function skipLeadingWhitespace():Void;
 	/**
-		Moves the cursor to the beginning of the next paragraph 
+		Moves the cursor to the beginning of the next paragraph
 	**/
 	function moveToBeginningOfNextParagraph():Void;
 	/**
-		Moves the cursor to the beginning of the previous paragraph 
+		Moves the cursor to the beginning of the previous paragraph
 	**/
 	function moveToBeginningOfPreviousParagraph():Void;
 	/**
@@ -240,7 +240,7 @@ package atom;
 	**/
 	function compare(otherCursor:Cursor):Void;
 	/**
-		Deselects the current selection. 
+		Deselects the current selection.
 	**/
 	function clearSelection():Void;
 	/**

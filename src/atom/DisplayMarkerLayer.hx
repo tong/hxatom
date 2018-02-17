@@ -5,7 +5,7 @@ package atom;
 	{DisplayLayer} level. Wraps an underlying {MarkerLayer} on the {TextBuffer}.
 	
 	This API is experimental and subject to change on any release. 
-	@see <https://github.com/atom/text-buffer/blob/v13.5.10/src/display-marker-layer.coffee#L11>
+	@see <https://github.com/atom/text-buffer/blob/v13.9.3/src/display-marker-layer.coffee#L11>
 
 **/
 @:require(js, atom) @:jsRequire("atom", "DisplayMarkerLayer") extern class DisplayMarkerLayer {
@@ -43,7 +43,7 @@ package atom;
 		on this layer. *Avoid this method for optimal performance when interacting
 		with layers that could contain large numbers of markers.*
 		
-		You should prefer {onDidUpdate} when synchronous notifications aren't
+		You should prefer {::onDidUpdate} when synchronous notifications aren't
 		absolutely necessary.Returns a `Disposable`.
 	**/
 	function onDidCreateMarker(callback:haxe.Constraints.Function):Disposable;

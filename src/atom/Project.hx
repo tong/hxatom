@@ -3,8 +3,8 @@ package atom;
 /**
 	Represents a project that's opened in Atom.
 	
-	An instance of this class is always available as the `atom.project` global. 
-	@see <https://github.com/atom/atom/blob/v1.22.1/src/project.coffee#L17>
+	An instance of this class is always available as the `atom.project` global.
+	@see <https://github.com/atom/atom/blob/v1.24.0/src/project.js#L17>
 
 **/
 @:require(js, atom) @:jsRequire("atom", "Project") extern class Project {
@@ -57,7 +57,7 @@ package atom;
 		
 		This method will be removed in 2.0 because it does synchronous I/O.
 		Prefer the following, which evaluates to a `Promise` that resolves to an
-		`Array` of `Repository` objects:
+		`Array` of {GitRepository} objects:
 		
 		```
 		Promise.all(atom.project.getDirectories().map(
@@ -68,13 +68,13 @@ package atom;
 	/**
 		Get the repository for a given directory asynchronously.Returns a `Promise` that resolves with either:
 		
-		* `Repository` if a repository can be created for the given directory
+		* {GitRepository} if a repository can be created for the given directory
 		* `null` if no repository can be created for the given directory.
 	**/
 	function repositoryForDirectory(directory:Directory):js.Promise<Dynamic>;
 	/**
 		Get an `Array` of `String`s containing the paths of the project's
-		directories. 
+		directories.
 	**/
 	function getPaths():Void;
 	/**
@@ -100,7 +100,7 @@ package atom;
 	**/
 	function removePath(projectPath:String):Void;
 	/**
-		Get an `Array` of `Directory`s associated with this project. 
+		Get an `Array` of `Directory`s associated with this project.
 	**/
 	function getDirectories():Void;
 	/**

@@ -5,7 +5,7 @@ package atom;
 	root of the syntax tree to a token including _all_ scope names for the entire
 	path.
 	
-	Methods that take a `ScopeDescriptor` will also accept an {Array} of {Strings}
+	Methods that take a `ScopeDescriptor` will also accept an {Array} of {String}
 	scope names e.g. `['.source.js']`.
 	
 	You can use `ScopeDescriptor`s to get language-specific config settings via
@@ -20,7 +20,7 @@ package atom;
 	
 	See the [scopes and scope descriptor guide](http://flight-manual.atom.io/behind-atom/sections/scoped-settings-scopes-and-scope-descriptors/)
 	for more information. 
-	@see <https://github.com/atom/atom/blob/v1.22.1/src/scope-descriptor.coffee#L21>
+	@see <https://github.com/atom/atom/blob/v1.24.0/src/scope-descriptor.coffee#L21>
 
 **/
 @:require(js, atom) @:jsRequire("atom", "ScopeDescriptor") extern class ScopeDescriptor {

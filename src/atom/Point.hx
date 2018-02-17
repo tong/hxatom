@@ -11,7 +11,7 @@ package atom;
 	new Point(1, 2)
 	[1, 2] # Point compatible Array
 	```
-	@see <https://github.com/atom/text-buffer/blob/v13.5.10/src/point.coffee#L12>
+	@see <https://github.com/atom/text-buffer/blob/v13.9.3/src/point.coffee#L12>
 
 **/
 @:require(js, atom) @:jsRequire("atom", "Point") extern class Point {

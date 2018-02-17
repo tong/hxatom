@@ -45,13 +45,13 @@ package atom;
 	Multi-keystroke bindings are possible. If a sequence of one or more keystrokes
 	*partially* matches a multi-keystroke binding, the keymap enters a pending
 	state. The pending state is terminated on the next keystroke, or after
-	{::partialMatchTimeout} milliseconds has elapsed. When the pending state is
+	{::getPartialMatchTimeout} milliseconds has elapsed. When the pending state is
 	terminated via a timeout or a keystroke that leads to no matches, the longest
 	ambiguous bindings that caused the pending state are temporarily disabled and
 	the previous keystrokes are replayed. If there is ambiguity again during the
 	replay, the next longest bindings are disabled and the keystrokes are replayed
 	again. 
-	@see <https://github.com/atom/atom-keymap\blob\v8.2.7\src\keymap-manager.coffee#L66>
+	@see <https://github.com/atom/atom-keymap/blob/v8.2.9/src/keymap-manager.coffee#L66>
 
 **/
 @:require(js, atom) @:jsRequire("atom", "KeymapManager") extern class KeymapManager {
@@ -92,7 +92,7 @@ package atom;
 	**/
 	function onDidFailToReadFile(callback:haxe.Constraints.Function):Disposable;
 	/**
-		Construct [KeyBindings]{KeyBinding} from an object grouping them by CSS selector.
+		Construct {KeyBinding}s from an object grouping them by CSS selector.
 	**/
 	function build(source:String, bindings:Dynamic, priority:Float):Void;
 	/**

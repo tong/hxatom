@@ -3,7 +3,7 @@ package atom;
 /**
 	A simple color class returned from {Config::get} when the value
 	at the key path is of type 'color'.
-	@see <https://github.com/atom/atom/blob/v1.22.1/src/color.js#L7>
+	@see <https://github.com/atom/atom/blob/v1.24.0/src/color.js#L7>
 
 **/
 @:require(js, atom) @:jsRequire("atom", "Color") extern class Color {

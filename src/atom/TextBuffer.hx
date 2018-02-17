@@ -4,18 +4,14 @@ package atom;
 	A mutable text container with undo/redo support and the ability to
 	annotate logical regions in the text.
 	
-	## Working With Aggregated Changes
+	## Observing Changes
 	
-	When observing changes to the buffer's textual content, it is important to use
-	change-aggregating methods such as {::onDidChangeText}, {::onDidStopChanging},
-	and {::getChangesSinceCheckpoint} in order to maintain high performance. These
-	methods allows your code to respond to *sets* of changes rather than each
-	individual change.
-	
-	These methods report aggregated buffer updates as arrays of change objects
-	containing the following fields: `oldRange`, `newRange`, `oldText`, and
-	`newText`. The `oldText`, `newText`, and `newRange` fields are
-	self-explanatory, but the interepretation of `oldRange` is more nuanced:
+	You can observe changes in a {TextBuffer} using methods like {::onDidChange},
+	{::onDidStopChanging}, and {::getChangesSinceCheckpoint}. These methods report
+	aggregated buffer updates as arrays of change objects containing the following
+	fields: `oldRange`, `newRange`, `oldText`, and `newText`. The `oldText`,
+	`newText`, and `newRange` fields are self-explanatory, but the interepretation
+	of `oldRange` is more nuanced:
 	
 	The reported `oldRange` is the range of the replaced text in the original
 	contents of the buffer *irrespective of the spatial impact of any other
@@ -24,7 +20,7 @@ package atom;
 	be to apply the changes in reverse:
 	
 	```js
-	buffer1.onDidChangeText(({changes}) => {
+	buffer1.onDidChange(({changes}) => {
 	  for (const {oldRange, newText} of changes.reverse()) {
 	    buffer2.setTextInRange(oldRange, newText)
 	  }
@@ -36,7 +32,7 @@ package atom;
 	{::setTextInRange}, as follows:
 	
 	```js
-	buffer1.onDidChangeText(({changes}) => {
+	buffer1.onDidChange(({changes}) => {
 	  for (const {oldRange, newRange, newText} of changes) {
 	    const rangeToReplace = Range(
 	      newRange.start,
@@ -46,7 +42,7 @@ package atom;
 	  }
 	})
 	```
-	@see <https://github.com/atom/text-buffer/blob/v13.5.10/src/text-buffer.coffee#L124>
+	@see <https://github.com/atom/text-buffer/blob/v13.9.3/src/text-buffer.coffee#L112>
 
 **/
 @:require(js, atom) @:jsRequire("atom", "TextBuffer") extern class TextBuffer {
@@ -77,24 +73,14 @@ package atom;
 	**/
 	function onWillChange(callback:haxe.Constraints.Function):Disposable;
 	/**
-		Invoke the given callback synchronously when the content of the
-		buffer changes. **You should probably not be using this in packages**.
-		
-		Because observers are invoked synchronously, it's important not to perform
-		any expensive operations via this method. Consider {::onDidStopChanging} to
-		delay expensive operations until after changes stop occurring, or at the
-		very least use {::onDidChangeText} to invoke your callback once *per
-		transaction* rather than *once per change*. This will help prevent
-		performance degredation when users of your package are typing with multiple
-		cursors, and other scenarios in which multiple changes occur within
-		transactions.Returns a `Disposable` on which `.dispose()` can be called to unsubscribe.
-	**/
-	function onDidChange(callback:haxe.Constraints.Function):Disposable;
-	/**
 		Invoke the given callback synchronously when a transaction finishes
 		with a list of all the changes in the transaction.Returns a `Disposable` on which `.dispose()` can be called to unsubscribe.
 	**/
-	function onDidChangeText(callback:haxe.Constraints.Function):Disposable;
+	function onDidChange(callback:haxe.Constraints.Function):Disposable;
+	/**
+		This is now identical to {::onDidChange}. 
+	**/
+	function onDidChangeText():Void;
 	/**
 		Invoke the given callback asynchronously following one or more
 		changes after {::getStoppedChangingDelay} milliseconds elapse without an
@@ -102,7 +88,7 @@ package atom;
 		
 		This method can be used to perform potentially expensive operations that
 		don't need to be performed synchronously. If you need to run your callback
-		synchronously, use {::onDidChangeText} instead.Returns a `Disposable` on which `.dispose()` can be called to unsubscribe.
+		synchronously, use {::onDidChange} instead.Returns a `Disposable` on which `.dispose()` can be called to unsubscribe.
 	**/
 	function onDidStopChanging(callback:haxe.Constraints.Function):Disposable;
 	/**
@@ -362,9 +348,7 @@ package atom;
 	**/
 	function transact(?groupingInterval:Float, fn:haxe.Constraints.Function):Void;
 	/**
-		Clear the undo stack. When calling this method within a transaction,
-		the {::onDidChangeText} event will not be triggered because the information
-		describing the changes is lost. 
+		Clear the undo stack. 
 	**/
 	function clearUndoStack():Void;
 	/**

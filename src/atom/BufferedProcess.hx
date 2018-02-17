@@ -3,7 +3,7 @@ package atom;
 /**
 	A wrapper which provides standard error/output line buffering for
 	Node's ChildProcess.
-	@see <https://github.com/atom/atom/blob/v1.22.1/src/buffered-process.js#L22>
+	@see <https://github.com/atom/atom/blob/v1.24.0/src/buffered-process.js#L22>
 
 **/
 @:require(js, atom) @:jsRequire("atom", "BufferedProcess") extern class BufferedProcess {

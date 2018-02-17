@@ -19,8 +19,8 @@ package atom;
 	makes [HTML 5 custom elements](http://www.html5rocks.com/en/tutorials/webcomponents/customelements/)
 	an ideal tool for implementing views in Atom.
 	
-	You can access the `ViewRegistry` object via `atom.views`. 
-	@see <https://github.com/atom/atom/blob/v1.22.1/src/view-registry.coffee#L27>
+	You can access the `ViewRegistry` object via `atom.views`.
+	@see <https://github.com/atom/atom/blob/v1.24.0/src/view-registry.js#L26>
 
 **/
 @:require(js, atom) @:jsRequire("atom", "ViewRegistry") extern class ViewRegistry {

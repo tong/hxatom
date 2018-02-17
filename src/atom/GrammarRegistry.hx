@@ -2,7 +2,7 @@ package atom;
 
 /**
 	Registry containing one or more grammars. 
-	@see <https://github.com/atom/first-mate/blob/v7.0.7/src/grammar-registry.coffee#L11>
+	@see <https://github.com/atom/first-mate\blob\v7.1.0\src\grammar-registry.coffee#L11>
 
 **/
 @:require(js, atom) @:jsRequire("atom", "GrammarRegistry") extern class GrammarRegistry {
@@ -15,6 +15,10 @@ package atom;
 		it depends on being added or removed from the registry.Returns a `Disposable` on which `.dispose()` can be called to unsubscribe.
 	**/
 	function onDidUpdateGrammar(callback:haxe.Constraints.Function):Disposable;
+	/**
+		Invoke the given callback when a grammar is removed from the registry.Returns a `Disposable` on which `.dispose()` can be called to unsubscribe.
+	**/
+	function onDidRemoveGrammar(callback:haxe.Constraints.Function):Disposable;
 	/**
 		Get all the grammars in this registry.Returns a non-empty `Array` of `Grammar` instances.
 	**/

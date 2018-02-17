@@ -38,8 +38,8 @@ package atom;
 	coordinates.
 	
 	**When in doubt, just default to buffer coordinates**, then experiment with
-	soft wraps and folds to ensure your code interacts with them correctly. 
-	@see <https://github.com/atom/atom/blob/v1.22.1/src/text-editor.coffee#L60>
+	soft wraps and folds to ensure your code interacts with them correctly.
+	@see <https://github.com/atom/atom/blob/v1.24.0/src/text-editor.js#L67>
 
 **/
 @:require(js, atom) @:jsRequire("atom", "TextEditor") extern class TextEditor {
@@ -163,7 +163,7 @@ package atom;
 	**/
 	function onDidChangePlaceholderText(callback:haxe.Constraints.Function):Disposable;
 	/**
-		Retrieves the current {TextBuffer}. 
+		Retrieves the current {TextBuffer}.
 	**/
 	function getBuffer():Void;
 	/**
@@ -224,7 +224,7 @@ package atom;
 	/**
 		Saves the editor's text buffer.
 		
-		See {TextBuffer::save} for more details. 
+		See {TextBuffer::save} for more details.
 	**/
 	function save():Void;
 	/**
@@ -288,17 +288,17 @@ package atom;
 	**/
 	function insertText(text:String, ?options:Dynamic):Range;
 	/**
-		For each selection, replace the selected text with a newline. 
+		For each selection, replace the selected text with a newline.
 	**/
 	function insertNewline():Void;
 	/**
 		For each selection, if the selection is empty, delete the character
-		following the cursor. Otherwise delete the selected text. 
+		following the cursor. Otherwise delete the selected text.
 	**/
 	function delete():Void;
 	/**
 		For each selection, if the selection is empty, delete the character
-		preceding the cursor. Otherwise delete the selected text. 
+		preceding the cursor. Otherwise delete the selected text.
 	**/
 	function backspace():Void;
 	/**
@@ -312,94 +312,94 @@ package atom;
 		For each selection, transpose the selected text.
 		
 		If the selection is empty, the characters preceding and following the cursor
-		are swapped. Otherwise, the selected characters are reversed. 
+		are swapped. Otherwise, the selected characters are reversed.
 	**/
 	function transpose():Void;
 	/**
 		Convert the selected text to upper case.
 		
 		For each selection, if the selection is empty, converts the containing word
-		to upper case. Otherwise convert the selected text to upper case. 
+		to upper case. Otherwise convert the selected text to upper case.
 	**/
 	function upperCase():Void;
 	/**
 		Convert the selected text to lower case.
 		
 		For each selection, if the selection is empty, converts the containing word
-		to upper case. Otherwise convert the selected text to upper case. 
+		to upper case. Otherwise convert the selected text to upper case.
 	**/
 	function lowerCase():Void;
 	/**
 		Toggle line comments for rows intersecting selections.
 		
-		If the current grammar doesn't support comments, does nothing. 
+		If the current grammar doesn't support comments, does nothing.
 	**/
 	function toggleLineCommentsInSelection():Void;
 	/**
-		For each cursor, insert a newline at beginning the following line. 
+		For each cursor, insert a newline at beginning the following line.
 	**/
 	function insertNewlineBelow():Void;
 	/**
-		For each cursor, insert a newline at the end of the preceding line. 
+		For each cursor, insert a newline at the end of the preceding line.
 	**/
 	function insertNewlineAbove():Void;
 	/**
 		For each selection, if the selection is empty, delete all characters
 		of the containing word that precede the cursor. Otherwise delete the
-		selected text. 
+		selected text.
 	**/
 	function deleteToBeginningOfWord():Void;
 	/**
 		Similar to {::deleteToBeginningOfWord}, but deletes only back to the
-		previous word boundary. 
+		previous word boundary.
 	**/
 	function deleteToPreviousWordBoundary():Void;
 	/**
 		Similar to {::deleteToEndOfWord}, but deletes only up to the
-		next word boundary. 
+		next word boundary.
 	**/
 	function deleteToNextWordBoundary():Void;
 	/**
 		For each selection, if the selection is empty, delete all characters
 		of the containing subword following the cursor. Otherwise delete the selected
-		text. 
+		text.
 	**/
 	function deleteToBeginningOfSubword():Void;
 	/**
 		For each selection, if the selection is empty, delete all characters
 		of the containing subword following the cursor. Otherwise delete the selected
-		text. 
+		text.
 	**/
 	function deleteToEndOfSubword():Void;
 	/**
 		For each selection, if the selection is empty, delete all characters
 		of the containing line that precede the cursor. Otherwise delete the
-		selected text. 
+		selected text.
 	**/
 	function deleteToBeginningOfLine():Void;
 	/**
 		For each selection, if the selection is not empty, deletes the
 		selection; otherwise, deletes all characters of the containing line
 		following the cursor. If the cursor is already at the end of the line,
-		deletes the following newline. 
+		deletes the following newline.
 	**/
 	function deleteToEndOfLine():Void;
 	/**
 		For each selection, if the selection is empty, delete all characters
 		of the containing word following the cursor. Otherwise delete the selected
-		text. 
+		text.
 	**/
 	function deleteToEndOfWord():Void;
 	/**
-		Delete all lines intersecting selections. 
+		Delete all lines intersecting selections.
 	**/
 	function deleteLine():Void;
 	/**
-		Undo the last change. 
+		Undo the last change.
 	**/
 	function undo():Void;
 	/**
-		Redo the last change. 
+		Redo the last change.
 	**/
 	function redo():Void;
 	/**
@@ -413,7 +413,7 @@ package atom;
 	function transact(?groupingInterval:Float, fn:haxe.Constraints.Function):Void;
 	/**
 		Abort an open transaction, undoing any operations performed so far
-		within the transaction. 
+		within the transaction.
 	**/
 	function abortTransaction():Void;
 	/**
@@ -588,7 +588,7 @@ package atom;
 	function getMarker(id:Float):Void;
 	/**
 		Get all {DisplayMarker}s on the default marker layer. Consider
-		using {::findMarkers} 
+		using {::findMarkers}
 	**/
 	function getMarkers():Void;
 	/**
@@ -674,71 +674,71 @@ package atom;
 	**/
 	function moveRight(?columnCount:Float):Void;
 	/**
-		Move every cursor to the beginning of its line in buffer coordinates. 
+		Move every cursor to the beginning of its line in buffer coordinates.
 	**/
 	function moveToBeginningOfLine():Void;
 	/**
-		Move every cursor to the beginning of its line in screen coordinates. 
+		Move every cursor to the beginning of its line in screen coordinates.
 	**/
 	function moveToBeginningOfScreenLine():Void;
 	/**
-		Move every cursor to the first non-whitespace character of its line. 
+		Move every cursor to the first non-whitespace character of its line.
 	**/
 	function moveToFirstCharacterOfLine():Void;
 	/**
-		Move every cursor to the end of its line in buffer coordinates. 
+		Move every cursor to the end of its line in buffer coordinates.
 	**/
 	function moveToEndOfLine():Void;
 	/**
-		Move every cursor to the end of its line in screen coordinates. 
+		Move every cursor to the end of its line in screen coordinates.
 	**/
 	function moveToEndOfScreenLine():Void;
 	/**
-		Move every cursor to the beginning of its surrounding word. 
+		Move every cursor to the beginning of its surrounding word.
 	**/
 	function moveToBeginningOfWord():Void;
 	/**
-		Move every cursor to the end of its surrounding word. 
+		Move every cursor to the end of its surrounding word.
 	**/
 	function moveToEndOfWord():Void;
 	/**
 		Move every cursor to the top of the buffer.
 		
-		If there are multiple cursors, they will be merged into a single cursor. 
+		If there are multiple cursors, they will be merged into a single cursor.
 	**/
 	function moveToTop():Void;
 	/**
 		Move every cursor to the bottom of the buffer.
 		
-		If there are multiple cursors, they will be merged into a single cursor. 
+		If there are multiple cursors, they will be merged into a single cursor.
 	**/
 	function moveToBottom():Void;
 	/**
-		Move every cursor to the beginning of the next word. 
+		Move every cursor to the beginning of the next word.
 	**/
 	function moveToBeginningOfNextWord():Void;
 	/**
-		Move every cursor to the previous word boundary. 
+		Move every cursor to the previous word boundary.
 	**/
 	function moveToPreviousWordBoundary():Void;
 	/**
-		Move every cursor to the next word boundary. 
+		Move every cursor to the next word boundary.
 	**/
 	function moveToNextWordBoundary():Void;
 	/**
-		Move every cursor to the previous subword boundary. 
+		Move every cursor to the previous subword boundary.
 	**/
 	function moveToPreviousSubwordBoundary():Void;
 	/**
-		Move every cursor to the next subword boundary. 
+		Move every cursor to the next subword boundary.
 	**/
 	function moveToNextSubwordBoundary():Void;
 	/**
-		Move every cursor to the beginning of the next paragraph. 
+		Move every cursor to the beginning of the next paragraph.
 	**/
 	function moveToBeginningOfNextParagraph():Void;
 	/**
-		Move every cursor to the beginning of the previous paragraph. 
+		Move every cursor to the beginning of the previous paragraph.
 	**/
 	function moveToBeginningOfPreviousParagraph():Void;
 	/**
@@ -750,11 +750,11 @@ package atom;
 	**/
 	function getWordUnderCursor(?options:Dynamic):Dynamic;
 	/**
-		Get an Array of all `Cursor`s. 
+		Get an Array of all `Cursor`s.
 	**/
 	function getCursors():Void;
 	/**
-		Get all `Cursors`s, ordered by their position in the buffer
+		Get all `Cursor`s, ordered by their position in the buffer
 		instead of the order in which they were added.Returns an `Array` of `Selection`s.
 	**/
 	function getCursorsOrderedByBufferPosition():Array<Dynamic>;
@@ -830,55 +830,55 @@ package atom;
 		Move the cursor of each selection one character upward while
 		preserving the selection's tail position.
 		
-		This method may merge selections that end up intersecting. 
+		This method may merge selections that end up intersecting.
 	**/
 	function selectUp(?rowCount:Float):Void;
 	/**
 		Move the cursor of each selection one character downward while
 		preserving the selection's tail position.
 		
-		This method may merge selections that end up intersecting. 
+		This method may merge selections that end up intersecting.
 	**/
 	function selectDown(?rowCount:Float):Void;
 	/**
 		Move the cursor of each selection one character leftward while
 		preserving the selection's tail position.
 		
-		This method may merge selections that end up intersecting. 
+		This method may merge selections that end up intersecting.
 	**/
 	function selectLeft(?columnCount:Float):Void;
 	/**
 		Move the cursor of each selection one character rightward while
 		preserving the selection's tail position.
 		
-		This method may merge selections that end up intersecting. 
+		This method may merge selections that end up intersecting.
 	**/
 	function selectRight(?columnCount:Float):Void;
 	/**
 		Select from the top of the buffer to the end of the last selection
 		in the buffer.
 		
-		This method merges multiple selections into a single selection. 
+		This method merges multiple selections into a single selection.
 	**/
 	function selectToTop():Void;
 	/**
 		Selects from the top of the first selection in the buffer to the end
 		of the buffer.
 		
-		This method merges multiple selections into a single selection. 
+		This method merges multiple selections into a single selection.
 	**/
 	function selectToBottom():Void;
 	/**
 		Select all text in the buffer.
 		
-		This method merges multiple selections into a single selection. 
+		This method merges multiple selections into a single selection.
 	**/
 	function selectAll():Void;
 	/**
 		Move the cursor of each selection to the beginning of its line
 		while preserving the selection's tail position.
 		
-		This method may merge selections that end up intersecting. 
+		This method may merge selections that end up intersecting.
 	**/
 	function selectToBeginningOfLine():Void;
 	/**
@@ -887,87 +887,87 @@ package atom;
 		cursor is already on the first character of the line, move it to the
 		beginning of the line.
 		
-		This method may merge selections that end up intersecting. 
+		This method may merge selections that end up intersecting.
 	**/
 	function selectToFirstCharacterOfLine():Void;
 	/**
 		Move the cursor of each selection to the end of its line while
 		preserving the selection's tail position.
 		
-		This method may merge selections that end up intersecting. 
+		This method may merge selections that end up intersecting.
 	**/
 	function selectToEndOfLine():Void;
 	/**
 		Expand selections to the beginning of their containing word.
 		
 		Operates on all selections. Moves the cursor to the beginning of the
-		containing word while preserving the selection's tail position. 
+		containing word while preserving the selection's tail position.
 	**/
 	function selectToBeginningOfWord():Void;
 	/**
 		Expand selections to the end of their containing word.
 		
 		Operates on all selections. Moves the cursor to the end of the containing
-		word while preserving the selection's tail position. 
+		word while preserving the selection's tail position.
 	**/
 	function selectToEndOfWord():Void;
 	/**
 		For each selection, move its cursor to the preceding subword
 		boundary while maintaining the selection's tail position.
 		
-		This method may merge selections that end up intersecting. 
+		This method may merge selections that end up intersecting.
 	**/
 	function selectToPreviousSubwordBoundary():Void;
 	/**
 		For each selection, move its cursor to the next subword boundary
 		while maintaining the selection's tail position.
 		
-		This method may merge selections that end up intersecting. 
+		This method may merge selections that end up intersecting.
 	**/
 	function selectToNextSubwordBoundary():Void;
 	/**
 		For each cursor, select the containing line.
 		
-		This method merges selections on successive lines. 
+		This method merges selections on successive lines.
 	**/
 	function selectLinesContainingCursors():Void;
 	/**
-		Select the word surrounding each cursor. 
+		Select the word surrounding each cursor.
 	**/
 	function selectWordsContainingCursors():Void;
 	/**
 		For each selection, move its cursor to the preceding word boundary
 		while maintaining the selection's tail position.
 		
-		This method may merge selections that end up intersecting. 
+		This method may merge selections that end up intersecting.
 	**/
 	function selectToPreviousWordBoundary():Void;
 	/**
 		For each selection, move its cursor to the next word boundary while
 		maintaining the selection's tail position.
 		
-		This method may merge selections that end up intersecting. 
+		This method may merge selections that end up intersecting.
 	**/
 	function selectToNextWordBoundary():Void;
 	/**
 		Expand selections to the beginning of the next word.
 		
 		Operates on all selections. Moves the cursor to the beginning of the next
-		word while preserving the selection's tail position. 
+		word while preserving the selection's tail position.
 	**/
 	function selectToBeginningOfNextWord():Void;
 	/**
 		Expand selections to the beginning of the next paragraph.
 		
 		Operates on all selections. Moves the cursor to the beginning of the next
-		paragraph while preserving the selection's tail position. 
+		paragraph while preserving the selection's tail position.
 	**/
 	function selectToBeginningOfNextParagraph():Void;
 	/**
 		Expand selections to the beginning of the next paragraph.
 		
 		Operates on all selections. Moves the cursor to the beginning of the next
-		paragraph while preserving the selection's tail position. 
+		paragraph while preserving the selection's tail position.
 	**/
 	function selectToBeginningOfPreviousParagraph():Void;
 	/**
@@ -1022,7 +1022,7 @@ package atom;
 	**/
 	function setSoftTabs(softTabs:Bool):Void;
 	/**
-		Toggle soft tabs for this editor 
+		Toggle soft tabs for this editor
 	**/
 	function toggleSoftTabs():Void;
 	/**
@@ -1059,7 +1059,7 @@ package atom;
 	**/
 	function toggleSoftWrapped():Bool;
 	/**
-		Gets the column at which column will soft wrap 
+		Gets the column at which column will soft wrap
 	**/
 	function getSoftWrapColumn():Void;
 	/**
@@ -1081,11 +1081,11 @@ package atom;
 	**/
 	function setIndentationForBufferRow(bufferRow:Float, newLevel:Float, ?options:Dynamic):Void;
 	/**
-		Indent rows intersecting selections by one level. 
+		Indent rows intersecting selections by one level.
 	**/
 	function indentSelectedRows():Void;
 	/**
-		Outdent rows intersecting selections by one level. 
+		Outdent rows intersecting selections by one level.
 	**/
 	function outdentSelectedRows():Void;
 	/**
@@ -1099,20 +1099,13 @@ package atom;
 	function indentLevelForLine(line:String):Float;
 	/**
 		Indent rows intersecting selections based on the grammar's suggested
-		indent level. 
+		indent level.
 	**/
 	function autoIndentSelectedRows():Void;
 	/**
-		Get the current `Grammar` of this editor. 
+		Get the current `Grammar` of this editor.
 	**/
 	function getGrammar():Void;
-	/**
-		Set the current `Grammar` of this editor.
-		
-		Assigning a grammar will cause the editor to re-tokenize based on the new
-		grammar.
-	**/
-	function setGrammar(grammar:Grammar):Void;
 	/**
 		Returns a {ScopeDescriptor} that includes this editor's language.
 		e.g. `['.source.ruby']`, or `['.source.coffee']`. You can use this with
@@ -1137,15 +1130,15 @@ package atom;
 	**/
 	function bufferRangeForScopeAtCursor(scopeSelector:String):Range;
 	/**
-		Determine if the given row is entirely a comment 
+		Determine if the given row is entirely a comment
 	**/
 	function isBufferRowCommented():Void;
 	/**
-		For each selection, copy the selected text. 
+		For each selection, copy the selected text.
 	**/
 	function copySelectedText():Void;
 	/**
-		For each selection, cut the selected text. 
+		For each selection, cut the selected text.
 	**/
 	function cutSelectedText():Void;
 	/**
@@ -1160,13 +1153,13 @@ package atom;
 	/**
 		For each selection, if the selection is empty, cut all characters
 		of the containing screen line following the cursor. Otherwise cut the selected
-		text. 
+		text.
 	**/
 	function cutToEndOfLine():Void;
 	/**
 		For each selection, if the selection is empty, cut all characters
 		of the containing buffer line following the cursor. Otherwise cut the
-		selected text. 
+		selected text.
 	**/
 	function cutToEndOfBufferLine():Void;
 	/**
@@ -1174,11 +1167,11 @@ package atom;
 		
 		The fold will extend from the nearest preceding line with a lower
 		indentation level up to the nearest following row with a lower indentation
-		level. 
+		level.
 	**/
 	function foldCurrentRow():Void;
 	/**
-		Unfold the most recent cursor's row by one level. 
+		Unfold the most recent cursor's row by one level.
 	**/
 	function unfoldCurrentRow():Void;
 	/**
@@ -1194,15 +1187,15 @@ package atom;
 	**/
 	function unfoldBufferRow(bufferRow:Float):Void;
 	/**
-		For each selection, fold the rows it intersects. 
+		For each selection, fold the rows it intersects.
 	**/
 	function foldSelectedLines():Void;
 	/**
-		Fold all foldable lines. 
+		Fold all foldable lines.
 	**/
 	function foldAll():Void;
 	/**
-		Unfold all existing folds. 
+		Unfold all existing folds.
 	**/
 	function unfoldAll():Void;
 	/**
@@ -1223,7 +1216,7 @@ package atom;
 	function isFoldableAtScreenRow(bufferRow:Float):Bool;
 	/**
 		Fold the given buffer row if it isn't currently folded, and unfold
-		it otherwise. 
+		it otherwise.
 	**/
 	function toggleFoldAtBufferRow():Void;
 	/**

@@ -48,7 +48,7 @@ package atom;
 	```
 	
 	See {::add} for more info about adding menu's directly. 
-	@see <https://github.com/atom/atom/blob/v1.22.1/src/menu-manager.coffee#L61>
+	@see <https://github.com/atom/atom/blob/v1.24.0/src/menu-manager.coffee#L61>
 
 **/
 @:require(js, atom) @:jsRequire("atom", "MenuManager") extern class MenuManager {

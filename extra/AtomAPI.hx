@@ -181,6 +181,7 @@ class AtomAPI {
             if( doc == null ) doc = '';
 
             if( method.returnValues != null ) {
+                //TODO
                 //trace(method.name+'>>>>>>>>>>>');
                 var retVal = method.returnValues[0];
                 //var retVal = null; // = method.returnValues[0];
@@ -211,45 +212,16 @@ class AtomAPI {
             return {
                 access: access,
                 name: name,
-                kind: FFun({
-                    args: args,
-                    expr: null,
-                    ret: ret
-                }),
-                pos: pos,
-                doc: escapeDoc( doc )
+                kind: FFun( { args: args, expr: null, ret: ret } ),
+                doc: escapeDoc( doc ),
+                pos: pos
             };
         }
 
-        var types = new Array<TypeDefinition>();
+        function convertClass( cl : APIClass ) : Array<TypeDefinition> {
 
-        for( f in Reflect.fields( api ) ) {
-
-            var cl : APIClass = Reflect.field( api, f );
-            //if( cl.name != 'CompositeDisposable' ) continue;
-            //trace('#############################'+cl.name);
-
-            switch cl.name {
-            // TODO PATCH
-            case 'Workspace':
-                for( m in cl.instanceMethods ) {
-                    if( m.name == 'hide' )
-                        m.returnValues[0].type = 'Boolean';
-                }
-            // TODO PATCH
-            case 'File':
-                for( m in cl.instanceMethods ) {
-                    switch m.name {
-                    case 'constructor':
-                        m.arguments[1].isOptional = true;
-                    case 'getBaseName':
-                        m.returnValues = [ { type: 'String', description: m.description } ];
-                    case 'getParent':
-                        //trace(m);
-                        m.returnValues = [ { type: 'Directory', description: m.description } ];
-                    }
-                }
-            }
+            var types = new Array<TypeDefinition>();
+            //var extraTypes = new Array<TypeDefinition>();
 
             var sup = null;
             if( cl.superClass != null && cl.superClass != "Model" ) {
@@ -301,6 +273,42 @@ class AtomAPI {
                 kind: TDClass( sup ),
                 pos: pos
             });
+
+            //return types.concat( extraTypes );
+            return types;
+        }
+
+        var types = new Array<TypeDefinition>();
+
+        for( f in Reflect.fields( api ) ) {
+
+            var cl : APIClass = Reflect.field( api, f );
+            //if( cl.name != 'CompositeDisposable' ) continue;
+            //trace('#############################'+cl.name);
+
+            // TODO PATCH
+            switch cl.name {
+            case 'Workspace':
+                for( m in cl.instanceMethods ) {
+                    if( m.name == 'hide' )
+                        m.returnValues[0].type = 'Boolean';
+                }
+            case 'File':
+                for( m in cl.instanceMethods ) {
+                    switch m.name {
+                    case 'constructor':
+                        m.arguments[1].isOptional = true;
+                    case 'getBaseName':
+                        m.returnValues = [ { type: 'String', description: m.description } ];
+                    case 'getParent':
+                        //trace(m);
+                        m.returnValues = [ { type: 'Directory', description: m.description } ];
+                    }
+                }
+            }
+
+            var clTypes = convertClass( cl );
+            types = types.concat( clTypes );
         }
 
         ///////////////////////////// TODO HACK

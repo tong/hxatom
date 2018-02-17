@@ -31,7 +31,7 @@ package atom;
 	
 	The format for use in {::add} is the same minus the `context-menu` key. See
 	{::add} for more information. 
-	@see <https://github.com/atom/atom/blob/v1.22.1/src/context-menu-manager.coffee#L42>
+	@see <https://github.com/atom/atom/blob/v1.24.0/src/context-menu-manager.coffee#L42>
 
 **/
 @:require(js, atom) @:jsRequire("atom", "ContextMenuManager") extern class ContextMenuManager {

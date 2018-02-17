@@ -18,7 +18,7 @@ package atom;
 	### Required Methods
 	
 	#### `getTitle()`
-	@see <https://github.com/atom/atom/blob/v1.22.1/src/workspace.js#L177>
+	@see <https://github.com/atom/atom/blob/v1.24.0/src/workspace.js#L177>
 
 **/
 @:require(js, atom) @:jsRequire("atom", "Workspace") extern class Workspace {
@@ -129,9 +129,9 @@ package atom;
 	**/
 	function open(?uri:String, ?options:Dynamic):js.Promise<Dynamic>;
 	/**
-		Search the workspace for items matching the given URI and hide them.Returns a {boolean} indicating whether any items were found (and hidden).
+		Search the workspace for items matching the given URI and hide them.Returns a `Boolean` indicating whether any items were found (and hidden).
 	**/
-	function hide(?itemOrURI:String):Bool;
+	function hide(itemOrURI:String):Bool;
 	/**
 		Search the workspace for items matching the given URI. If any are found, hide them.
 		Otherwise, open the URL.Returns a Promise that resolves when the item is shown or hidden.

@@ -40,7 +40,7 @@ package atom;
 	  start or start at the marker's end. This is the most fragile strategy.
 	
 	See {TextBuffer::markRange} for usage. 
-	@see <https://github.com/atom/text-buffer/blob/v13.5.10/src/display-marker.coffee#L43>
+	@see <https://github.com/atom/text-buffer/blob/v13.9.3/src/display-marker.coffee#L43>
 
 **/
 @:require(js, atom) @:jsRequire("atom", "DisplayMarker") extern class DisplayMarker {

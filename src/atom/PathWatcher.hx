@@ -45,7 +45,7 @@ package atom;
 	the keys: `action`, a {String} describing the filesystem action that occurred, one of `"created"`, `"modified"`,
 	`"deleted"`, or `"renamed"`; `path`, a {String} containing the absolute path to the filesystem entry that was acted
 	upon; for rename events only, `oldPath`, a {String} containing the filesystem entry's former absolute path.
-	@see <https://github.com/atom/atom/blob/v1.22.1/src/path-watcher.js#L373>
+	@see <https://github.com/atom/atom/blob/v1.24.0/src/path-watcher.js#L373>
 
 **/
 @:require(js, atom) @:jsRequire("atom", "PathWatcher") extern class PathWatcher {
@@ -53,7 +53,7 @@ package atom;
 		Return a `Promise` that will resolve when the underlying native watcher is ready to begin sending events.
 		When testing filesystem watchers, it's important to await this promise before making filesystem changes that you
 		intend to assert about because there will be a delay between the instantiation of the watcher and the activation
-		of the underlying OS resources that feed it events.
+		of the underlying OS resources that feed its events.
 		
 		PathWatchers acquired through `watchPath` are already started.
 		
@@ -80,7 +80,7 @@ package atom;
 	**/
 	function onDidError(callback:haxe.Constraints.Function):Disposable;
 	/**
-		Unsubscribe all subscribers from filesystem events. Native resources will be release asynchronously,
+		Unsubscribe all subscribers from filesystem events. Native resources will be released asynchronously,
 		but this watcher will stop broadcasting events immediately.
 	**/
 	function dispose():Void;

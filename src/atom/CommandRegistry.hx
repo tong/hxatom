@@ -39,7 +39,7 @@ package atom;
 	    editor = @getModel()
 	    editor.insertText(new Date().toLocaleString())
 	```
-	@see <https://github.com/atom/atom/blob/v1.22.1/src/command-registry.js#L47>
+	@see <https://github.com/atom/atom/blob/v1.24.0/src/command-registry.js#L47>
 
 **/
 @:require(js, atom) @:jsRequire("atom", "CommandRegistry") extern class CommandRegistry {

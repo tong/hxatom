@@ -3,16 +3,16 @@ package atom;
 /**
 	Handles loading and activating available themes.
 	
-	An instance of this class is always available as the `atom.themes` global. 
-	@see <https://github.com/atom/atom/blob/v1.22.1/src/theme-manager.coffee#L12>
+	An instance of this class is always available as the `atom.themes` global.
+	@see <https://github.com/atom/atom/blob/v1.24.0/src/theme-manager.js#L14>
 
 **/
 @:require(js, atom) @:jsRequire("atom", "ThemeManager") extern class ThemeManager {
 	/**
 		Invoke `callback` when style sheet changes associated with
-		updating the list of active themes have completed.
+		updating the list of active themes have completed.Returns a `Disposable` on which `.dispose()` can be called to unsubscribe.
 	**/
-	function onDidChangeActiveThemes(callback:haxe.Constraints.Function):Void;
+	function onDidChangeActiveThemes(callback:haxe.Constraints.Function):Disposable;
 	/**
 		Returns an `Array` of `String`s of all the loaded theme names.
 	**/
@@ -22,7 +22,7 @@ package atom;
 	**/
 	function getLoadedThemes():Array<Dynamic>;
 	/**
-		Returns an `Array` of `String`s all the active theme names.
+		Returns an `Array` of `String`s of all the active theme names.
 	**/
 	function getActiveThemeNames():Array<Dynamic>;
 	/**

@@ -3,83 +3,83 @@ package atom;
 /**
 	Atom global for dealing with packages, themes, menus, and the window.
 	
-	An instance of this class is always available as the `atom` global. 
-	@see <https://github.com/atom/atom/blob/v1.22.1/src/atom-environment.coffee#L54>
+	An instance of this class is always available as the `atom` global.
+	@see <https://github.com/atom/atom/blob/v1.24.0/src/atom-environment.js#L53>
 
 **/
 @:require(js, atom) @:native("atom") extern class AtomEnvironment {
 	/**
-		A {CommandRegistry} instance 
-	**/
-	static var commands : Dynamic;
-	/**
-		A `Config` instance 
-	**/
-	static var config : Dynamic;
-	/**
-		A `Clipboard` instance 
+		A `Clipboard` instance
 	**/
 	static var clipboard : Dynamic;
 	/**
-		A {ContextMenuManager} instance 
-	**/
-	static var contextMenu : Dynamic;
-	/**
-		A {MenuManager} instance 
-	**/
-	static var menu : Dynamic;
-	/**
-		A {KeymapManager} instance 
-	**/
-	static var keymaps : Dynamic;
-	/**
-		A {TooltipManager} instance 
-	**/
-	static var tooltips : Dynamic;
-	/**
-		A {NotificationManager} instance 
-	**/
-	static var notifications : Dynamic;
-	/**
-		A `Project` instance 
-	**/
-	static var project : Dynamic;
-	/**
-		A {GrammarRegistry} instance 
-	**/
-	static var grammars : Dynamic;
-	/**
-		A {HistoryManager} instance 
-	**/
-	static var history : Dynamic;
-	/**
-		A {PackageManager} instance 
-	**/
-	static var packages : Dynamic;
-	/**
-		A {ThemeManager} instance 
-	**/
-	static var themes : Dynamic;
-	/**
-		A {StyleManager} instance 
-	**/
-	static var styles : Dynamic;
-	/**
-		A {DeserializerManager} instance 
+		A {DeserializerManager} instance
 	**/
 	static var deserializers : Dynamic;
 	/**
-		A {ViewRegistry} instance 
+		A {ViewRegistry} instance
 	**/
 	static var views : Dynamic;
 	/**
-		A `Workspace` instance 
+		A {NotificationManager} instance
+	**/
+	static var notifications : Dynamic;
+	/**
+		A `Config` instance
+	**/
+	static var config : Dynamic;
+	/**
+		A {KeymapManager} instance
+	**/
+	static var keymaps : Dynamic;
+	/**
+		A {TooltipManager} instance
+	**/
+	static var tooltips : Dynamic;
+	/**
+		A {CommandRegistry} instance
+	**/
+	static var commands : Dynamic;
+	/**
+		A {GrammarRegistry} instance
+	**/
+	static var grammars : Dynamic;
+	/**
+		A {StyleManager} instance
+	**/
+	static var styles : Dynamic;
+	/**
+		A {PackageManager} instance
+	**/
+	static var packages : Dynamic;
+	/**
+		A {ThemeManager} instance
+	**/
+	static var themes : Dynamic;
+	/**
+		A {MenuManager} instance
+	**/
+	static var menu : Dynamic;
+	/**
+		A {ContextMenuManager} instance
+	**/
+	static var contextMenu : Dynamic;
+	/**
+		A `Project` instance
+	**/
+	static var project : Dynamic;
+	/**
+		A {TextEditorRegistry} instance
+	**/
+	static var textEditors : Dynamic;
+	/**
+		A `Workspace` instance
 	**/
 	static var workspace : Dynamic;
 	/**
-		A {TextEditorRegistry} instance 
+		A {HistoryManager} instance
 	**/
-	static var textEditors : Dynamic;
+	static var history : Dynamic;
 	/**
 		Invoke the given callback whenever {::beep} is called.Returns a `Disposable` on which `.dispose()` can be called to unsubscribe.
 	**/
@@ -146,7 +146,7 @@ package atom;
 	**/
 	static function pickFolder(callback:haxe.Constraints.Function):Void;
 	/**
-		Close the current window. 
+		Close the current window.
 	**/
 	static function close():Void;
 	/**
@@ -166,31 +166,31 @@ package atom;
 	**/
 	static function setPosition(x:Float, y:Float):Void;
 	/**
-		Get the current window 
+		Get the current window
 	**/
 	static function getCurrentWindow():Void;
 	/**
-		Move current window to the center of the screen. 
+		Move current window to the center of the screen.
 	**/
 	static function center():Void;
 	/**
-		Focus the current window. 
+		Focus the current window.
 	**/
 	static function focus():Void;
 	/**
-		Show the current window. 
+		Show the current window.
 	**/
 	static function show():Void;
 	/**
-		Hide the current window. 
+		Hide the current window.
 	**/
 	static function hide():Void;
 	/**
-		Reload the current window. 
+		Reload the current window.
 	**/
 	static function reload():Void;
 	/**
-		Relaunch the entire application. 
+		Relaunch the entire application.
 	**/
 	static function restartApplication():Void;
 	/**
@@ -202,15 +202,15 @@ package atom;
 	**/
 	static function isFullScreen():Bool;
 	/**
-		Set the full screen state of the current window. 
+		Set the full screen state of the current window.
 	**/
 	static function setFullScreen():Void;
 	/**
-		Toggle the full screen state of the current window. 
+		Toggle the full screen state of the current window.
 	**/
 	static function toggleFullScreen():Void;
 	/**
-		Visually and audibly trigger a beep. 
+		Visually and audibly trigger a beep.
 	**/
 	static function beep():Void;
 	/**
@@ -230,7 +230,7 @@ package atom;
 	**/
 	static function toggleDevTools():js.Promise<Dynamic>;
 	/**
-		Execute code in dev tools. 
+		Execute code in dev tools.
 	**/
 	static function executeJavaScriptInDevTools():Void;
 }
