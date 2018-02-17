@@ -72,10 +72,12 @@ typedef APIExample = {
 
 class AtomAPI {
 
+    static var KWDS(default,null) = ['class','switch'];
+
     public static function build( api : Array<APIClass> ) : Array<TypeDefinition> {
 
-        var KWDS = ['class','switch'];
         var pos = #if macro null #else { min: 0, max: 0, file: '' } #end;
+        var types = new Array<TypeDefinition>();
 
         function escapeTypeName( name : String ) : String {
             return name.charAt( 0 ).toUpperCase() + name.substr( 1 );
@@ -101,41 +103,61 @@ class AtomAPI {
             return switch name {
             case 'Object':
                 macro: Dynamic;
-            case 'Boolean': macro: Bool;
-            case 'Double','Float','Number': macro: Float;
-            case 'RegExp': macro: EReg;
-            case 'String': macro: String;
-            case 'Promise': macro: js.Promise<Dynamic>;
-            case 'ReadStream': macro: js.node.fs.ReadStream;
-            case 'WriteStream': macro: js.node.fs.WriteStream;
+            case 'Boolean': macro : Bool;
+            case 'Double','Float','Number': macro : Float;
+            case 'RegExp': macro : EReg;
+            case 'String': macro : String;
+            case 'Promise': macro : js.Promise<Dynamic>;
+            case 'ReadStream': macro : js.node.fs.ReadStream;
+            case 'WriteStream': macro : js.node.fs.WriteStream;
             case 'Function':
                 //TODO
                 macro : haxe.Constraints.Function;
             case 'Array':
-                macro: Array<Dynamic>; //TODO
+                macro : Array<Dynamic>; //TODO
             case null:
-                macro: Dynamic;
+                macro : Dynamic;
+            case 'TextEditorRegistry': macro : Dynamic; // HACK
             case _:
+                /*
+                for( t in types ) {
+                    if( (name==t.name) ) {
+                        trace( 'FOUND: '+name );
+                    }
+                    //trace(name,t.name,(name==t.name));
+                    switch t.kind {
+                    case TDClass(sup,interfaces,isInterface):
+                        trace(name);
+                    default:
+                        trace('?');
+                    }
+                }
+                */
                 TPath( { pack: [], name: escapeTypeName( name ) } );
             }
         }
 
         function convertProperty( prop : APIProperty, isStatic = false ) : Field {
+
             var access = [];
             if( isStatic ) access.push( AStatic );
+
             var name = switch prop.name {
                 case _: escapeName( prop.name );
             }
-            // TODO HACK
+
+            // HACK
             // instanceProperties type names should be specified.
             // This hack gets the name from the first occurence of {NAME} in summary
-            var summary = prop.summary.trim();
-            var expr = ~/.+ *\{([A-Z]+[a-z0-9_]*)\} *.+\.$/;
-            var ctype = if( expr.match( summary ) ) {
-                var name = expr.matched(1);
-                getTypeForName( name );
-            } else
-                macro: Dynamic;
+            var expr = ~/\{([A-Z][a-zA-Z]+)\}.*/;
+            var doc = prop.summary.trim();
+            if( doc.length == 0 ) doc = prop.description.trim();
+            var ctype = if( expr.match( doc ) ) {
+                getTypeForName( expr.matched( 1 ) );
+            } else {
+                macro : Dynamic;
+            }
+
             return {
                 access: access,
                 name: name,
@@ -277,8 +299,6 @@ class AtomAPI {
             //return types.concat( extraTypes );
             return types;
         }
-
-        var types = new Array<TypeDefinition>();
 
         for( f in Reflect.fields( api ) ) {
 

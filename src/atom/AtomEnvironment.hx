@@ -11,63 +11,63 @@ package atom;
 	/**
 		A `Clipboard` instance
 	**/
-	static var clipboard : Dynamic;
+	static var clipboard : Clipboard;
 	/**
 		A {DeserializerManager} instance
 	**/
-	static var deserializers : Dynamic;
+	static var deserializers : DeserializerManager;
 	/**
 		A {ViewRegistry} instance
 	**/
-	static var views : Dynamic;
+	static var views : ViewRegistry;
 	/**
 		A {NotificationManager} instance
 	**/
-	static var notifications : Dynamic;
+	static var notifications : NotificationManager;
 	/**
 		A `Config` instance
 	**/
-	static var config : Dynamic;
+	static var config : Config;
 	/**
 		A {KeymapManager} instance
 	**/
-	static var keymaps : Dynamic;
+	static var keymaps : KeymapManager;
 	/**
 		A {TooltipManager} instance
 	**/
-	static var tooltips : Dynamic;
+	static var tooltips : TooltipManager;
 	/**
 		A {CommandRegistry} instance
 	**/
-	static var commands : Dynamic;
+	static var commands : CommandRegistry;
 	/**
 		A {GrammarRegistry} instance
 	**/
-	static var grammars : Dynamic;
+	static var grammars : GrammarRegistry;
 	/**
 		A {StyleManager} instance
 	**/
-	static var styles : Dynamic;
+	static var styles : StyleManager;
 	/**
 		A {PackageManager} instance
 	**/
-	static var packages : Dynamic;
+	static var packages : PackageManager;
 	/**
 		A {ThemeManager} instance
 	**/
-	static var themes : Dynamic;
+	static var themes : ThemeManager;
 	/**
 		A {MenuManager} instance
 	**/
-	static var menu : Dynamic;
+	static var menu : MenuManager;
 	/**
 		A {ContextMenuManager} instance
 	**/
-	static var contextMenu : Dynamic;
+	static var contextMenu : ContextMenuManager;
 	/**
 		A `Project` instance
 	**/
-	static var project : Dynamic;
+	static var project : Project;
 	/**
 		A {TextEditorRegistry} instance
 	**/
@@ -75,11 +75,11 @@ package atom;
 	/**
 		A `Workspace` instance
 	**/
-	static var workspace : Dynamic;
+	static var workspace : Workspace;
 	/**
 		A {HistoryManager} instance
 	**/
-	static var history : Dynamic;
+	static var history : HistoryManager;
 	/**
 		Invoke the given callback whenever {::beep} is called.Returns a `Disposable` on which `.dispose()` can be called to unsubscribe.
 	**/
