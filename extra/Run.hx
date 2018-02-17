@@ -15,11 +15,11 @@ class Run {
 	static inline var API_SOURCE_FILE = 'atom-api.json';
 
 	static function get( ?args : Array<String> ) : String {
-		var proc = new Process( 'curl', args );
+		var pro = new Process( 'curl', args );
 		var buf = new StringBuf();
-		while( true ) try buf.add( proc.stdout.readLine() ) catch(e:Eof) break;
-		var code = proc.exitCode();
-		proc.close();
+		while( true ) try buf.add( pro.stdout.readLine() ) catch(e:Eof) break;
+		var code = pro.exitCode();
+		pro.close();
 		return switch code {
 		case 0: buf.toString();
 		default: null;
@@ -53,12 +53,12 @@ class Run {
 
         for( type in types ) {
 
-            var modulePath = type.pack.join( '.' );
-            var moduleName = type.name;
+            var modPath = type.pack.join( '.' );
+            var modName = type.name;
             var code = printer.printTypeDefinition( type );
 
 			var doc = '\n\n/**\n';
-            var def : APIClass = Reflect.field( api, moduleName );
+            var def : APIClass = Reflect.field( api, modName );
             if( def != null ) {
 				var str = if( def.description != null && def.description.length > 0 )
 					def.description
@@ -73,9 +73,10 @@ class Run {
             var lines = code.split( '\n' );
             code = lines.shift() + doc + lines.join( '\n' );
 
-            if( !FileSystem.exists( '$path/$modulePath' ) ) FileSystem.createDirectory( '$path/$modulePath' );
+            if( !FileSystem.exists( '$path/$modPath' ) )
+				FileSystem.createDirectory( '$path/$modPath' );
 
-            var filePath = '$path/$modulePath/$moduleName.hx';
+            var filePath = '$path/$modPath/$modName.hx';
             File.saveContent( filePath, code );
         }
 
@@ -90,11 +91,10 @@ class Run {
 		switch args[0] {
 
 		case 'build', null:
-
 			var file = args[1];
 			if( file == null ) file = API_SOURCE_FILE;
-			if( !FileSystem.exists( file ) ) throw 'file not found [$file]';
-
+			if( !FileSystem.exists( file ) )
+				throw 'file not found [$file]';
 			var api : Array<APIClass> = Json.parse( File.getContent( file ) ).classes;
 			var out = 'src';
 			var types = build( api, out );
