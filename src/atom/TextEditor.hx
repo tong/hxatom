@@ -17,9 +17,10 @@ package atom;
 	then be called with all current editor instances and also when any editor is
 	created in the future.
 	
-	```coffee
-	atom.workspace.observeTextEditors (editor) ->
+	```js
+	atom.workspace.observeTextEditors(editor => {
 	  editor.insertText('Hello World')
+	})
 	```
 	
 	## Buffer vs. Screen Coordinates
@@ -39,7 +40,7 @@ package atom;
 	
 	**When in doubt, just default to buffer coordinates**, then experiment with
 	soft wraps and folds to ensure your code interacts with them correctly.
-	@see <https://github.com/atom/atom/blob/v1.24.0/src/text-editor.js#L67>
+	@see <https://github.com/atom/atom/blob/v1.27.0-beta1/src/text-editor.js#L69>
 
 **/
 @:require(js, atom) @:jsRequire("atom", "TextEditor") extern class TextEditor {
@@ -261,11 +262,15 @@ package atom;
 	**/
 	function getLastScreenRow():Float;
 	/**
+		
+		
 		Returns a `String` representing the contents of the line at the
 		given buffer row.
 	**/
 	function lineTextForBufferRow(bufferRow:Float):String;
 	/**
+		
+		
 		Returns a `String` representing the contents of the line at the
 		given screen row.
 	**/
@@ -278,7 +283,11 @@ package atom;
 	/**
 		Replaces the entire contents of the buffer with the given `String`.
 	**/
-	function setText(text:String):Void;
+	function setText(text:String, ?options:{ /**
+		{Boolean} Must be `true` to modify a read-only editor.
+	**/
+	@:optional
+	var bypassReadOnly : Bool; }):Void;
 	/**
 		Set the text in the given `Range` in buffer coordinates.Returns the `Range` of the newly-inserted text.
 	**/
@@ -287,28 +296,44 @@ package atom;
 	**/
 	@:optional
 	var normalizeLineEndings : Bool; /**
-		{String} 'skip' will skip the undo system
+		*Deprecated* {String} 'skip' will skip the undo system. This property is deprecated. Call groupLastChanges() on the {TextBuffer} afterward instead.
 	**/
 	@:optional
-	var undo : String; }):Range;
+	var undo : String; /**
+		{Boolean} Must be `true` to modify a read-only editor. (default: false)
+	**/
+	@:optional
+	var bypassReadOnly : Bool; }):Range;
 	/**
-		For each selection, replace the selected text with the given text.Returns a `Range` when the text has been inserted
+		For each selection, replace the selected text with the given text.Returns a `Range` when the text has been inserted.
 	**/
 	function insertText(text:String, ?options:Dynamic):Range;
 	/**
 		For each selection, replace the selected text with a newline.
 	**/
-	function insertNewline():Void;
+	function insertNewline(?options:{ /**
+		{Boolean} Must be `true` to modify a read-only editor. (default: false)
+	**/
+	@:optional
+	var bypassReadOnly : Bool; }):Void;
 	/**
 		For each selection, if the selection is empty, delete the character
 		following the cursor. Otherwise delete the selected text.
 	**/
-	function delete():Void;
+	function delete(?options:{ /**
+		{Boolean} Must be `true` to modify a read-only editor. (default: false)
+	**/
+	@:optional
+	var bypassReadOnly : Bool; }):Void;
 	/**
 		For each selection, if the selection is empty, delete the character
 		preceding the cursor. Otherwise delete the selected text.
 	**/
-	function backspace():Void;
+	function backspace(?options:{ /**
+		{Boolean} Must be `true` to modify a read-only editor. (default: false)
+	**/
+	@:optional
+	var bypassReadOnly : Bool; }):Void;
 	/**
 		Mutate the text of all the selections in a single transaction.
 		
@@ -322,94 +347,162 @@ package atom;
 		If the selection is empty, the characters preceding and following the cursor
 		are swapped. Otherwise, the selected characters are reversed.
 	**/
-	function transpose():Void;
+	function transpose(?options:{ /**
+		{Boolean} Must be `true` to modify a read-only editor. (default: false)
+	**/
+	@:optional
+	var bypassReadOnly : Bool; }):Void;
 	/**
 		Convert the selected text to upper case.
 		
 		For each selection, if the selection is empty, converts the containing word
 		to upper case. Otherwise convert the selected text to upper case.
 	**/
-	function upperCase():Void;
+	function upperCase(?options:{ /**
+		{Boolean} Must be `true` to modify a read-only editor. (default: false)
+	**/
+	@:optional
+	var bypassReadOnly : Bool; }):Void;
 	/**
 		Convert the selected text to lower case.
 		
 		For each selection, if the selection is empty, converts the containing word
 		to upper case. Otherwise convert the selected text to upper case.
 	**/
-	function lowerCase():Void;
+	function lowerCase(?options:{ /**
+		{Boolean} Must be `true` to modify a read-only editor. (default: false)
+	**/
+	@:optional
+	var bypassReadOnly : Bool; }):Void;
 	/**
 		Toggle line comments for rows intersecting selections.
 		
 		If the current grammar doesn't support comments, does nothing.
 	**/
-	function toggleLineCommentsInSelection():Void;
+	function toggleLineCommentsInSelection(?options:{ /**
+		{Boolean} Must be `true` to modify a read-only editor. (default: false)
+	**/
+	@:optional
+	var bypassReadOnly : Bool; }):Void;
 	/**
 		For each cursor, insert a newline at beginning the following line.
 	**/
-	function insertNewlineBelow():Void;
+	function insertNewlineBelow(?options:{ /**
+		{Boolean} Must be `true` to modify a read-only editor. (default: false)
+	**/
+	@:optional
+	var bypassReadOnly : Bool; }):Void;
 	/**
 		For each cursor, insert a newline at the end of the preceding line.
 	**/
-	function insertNewlineAbove():Void;
+	function insertNewlineAbove(?options:{ /**
+		{Boolean} Must be `true` to modify a read-only editor. (default: false)
+	**/
+	@:optional
+	var bypassReadOnly : Bool; }):Void;
 	/**
 		For each selection, if the selection is empty, delete all characters
 		of the containing word that precede the cursor. Otherwise delete the
 		selected text.
 	**/
-	function deleteToBeginningOfWord():Void;
+	function deleteToBeginningOfWord(?options:{ /**
+		{Boolean} Must be `true` to modify a read-only editor. (default: false)
+	**/
+	@:optional
+	var bypassReadOnly : Bool; }):Void;
 	/**
 		Similar to {::deleteToBeginningOfWord}, but deletes only back to the
 		previous word boundary.
 	**/
-	function deleteToPreviousWordBoundary():Void;
+	function deleteToPreviousWordBoundary(?options:{ /**
+		{Boolean} Must be `true` to modify a read-only editor. (default: false)
+	**/
+	@:optional
+	var bypassReadOnly : Bool; }):Void;
 	/**
 		Similar to {::deleteToEndOfWord}, but deletes only up to the
 		next word boundary.
 	**/
-	function deleteToNextWordBoundary():Void;
+	function deleteToNextWordBoundary(?options:{ /**
+		{Boolean} Must be `true` to modify a read-only editor. (default: false)
+	**/
+	@:optional
+	var bypassReadOnly : Bool; }):Void;
 	/**
 		For each selection, if the selection is empty, delete all characters
 		of the containing subword following the cursor. Otherwise delete the selected
 		text.
 	**/
-	function deleteToBeginningOfSubword():Void;
+	function deleteToBeginningOfSubword(?options:{ /**
+		{Boolean} Must be `true` to modify a read-only editor. (default: false)
+	**/
+	@:optional
+	var bypassReadOnly : Bool; }):Void;
 	/**
 		For each selection, if the selection is empty, delete all characters
 		of the containing subword following the cursor. Otherwise delete the selected
 		text.
 	**/
-	function deleteToEndOfSubword():Void;
+	function deleteToEndOfSubword(?options:{ /**
+		{Boolean} Must be `true` to modify a read-only editor. (default: false)
+	**/
+	@:optional
+	var bypassReadOnly : Bool; }):Void;
 	/**
 		For each selection, if the selection is empty, delete all characters
 		of the containing line that precede the cursor. Otherwise delete the
 		selected text.
 	**/
-	function deleteToBeginningOfLine():Void;
+	function deleteToBeginningOfLine(?options:{ /**
+		{Boolean} Must be `true` to modify a read-only editor. (default: false)
+	**/
+	@:optional
+	var bypassReadOnly : Bool; }):Void;
 	/**
 		For each selection, if the selection is not empty, deletes the
 		selection; otherwise, deletes all characters of the containing line
 		following the cursor. If the cursor is already at the end of the line,
 		deletes the following newline.
 	**/
-	function deleteToEndOfLine():Void;
+	function deleteToEndOfLine(?options:{ /**
+		{Boolean} Must be `true` to modify a read-only editor. (default: false)
+	**/
+	@:optional
+	var bypassReadOnly : Bool; }):Void;
 	/**
 		For each selection, if the selection is empty, delete all characters
 		of the containing word following the cursor. Otherwise delete the selected
 		text.
 	**/
-	function deleteToEndOfWord():Void;
+	function deleteToEndOfWord(?options:{ /**
+		{Boolean} Must be `true` to modify a read-only editor. (default: false)
+	**/
+	@:optional
+	var bypassReadOnly : Bool; }):Void;
 	/**
 		Delete all lines intersecting selections.
 	**/
-	function deleteLine():Void;
+	function deleteLine(?options:{ /**
+		{Boolean} Must be `true` to modify a read-only editor. (default: false)
+	**/
+	@:optional
+	var bypassReadOnly : Bool; }):Void;
 	/**
 		Undo the last change.
 	**/
-	function undo():Void;
+	function undo(?options:{ /**
+		{Boolean} Must be `true` to modify a read-only editor. (default: false)
+	**/
+	@:optional
+	var bypassReadOnly : Bool; }):Void;
 	/**
 		Redo the last change.
 	**/
-	function redo():Void;
+	function redo(?options:{ /**
+		{Boolean} Must be `true` to modify a read-only editor. (default: false)
+	**/
+	@:optional
+	var bypassReadOnly : Bool; }):Void;
 	/**
 		Batch multiple operations as a single undo/redo step.
 		
@@ -699,7 +792,7 @@ package atom;
 	**/
 	var persistent : Bool; }):DisplayMarkerLayer;
 	/**
-		Get a {DisplayMarkerLayer} by id.Returns a {DisplayMarkerLayer} or `` if no layer exists with the
+		Get a {DisplayMarkerLayer} by id.Returns a {DisplayMarkerLayer} or `undefined` if no layer exists with the
 		given id.
 	**/
 	function getMarkerLayer(id:Dynamic):DisplayMarkerLayer;
@@ -729,7 +822,7 @@ package atom;
 	**/
 	var autoscroll : Dynamic; }):Void;
 	/**
-		Get a `Cursor` at given screen coordinates `Point`Returns the first matched `Cursor` or
+		Get a `Cursor` at given screen coordinates `Point`Returns the first matched `Cursor` or undefined
 	**/
 	function getCursorAtScreenPosition(position:Point):Cursor;
 	/**
@@ -851,6 +944,8 @@ package atom;
 	**/
 	function getLastCursor():Cursor;
 	/**
+		
+		
 		Returns the word surrounding the most recently added cursor.
 	**/
 	function getWordUnderCursor(?options:Dynamic):Dynamic;
@@ -1106,7 +1201,16 @@ package atom;
 	**/
 	function selectToBeginningOfPreviousParagraph():Void;
 	/**
-		Select the range of the given marker if it is valid.Returns the selected `Range` or `` if the marker is invalid.
+		For each selection, select the syntax node that contains
+		that selection.
+	**/
+	function selectLargerSyntaxNode():Void;
+	/**
+		Undo the effect a preceding call to {::selectLargerSyntaxNode}.
+	**/
+	function selectSmallerSyntaxNode():Void;
+	/**
+		Select the range of the given marker if it is valid.Returns the selected `Range` or `undefined` if the marker is invalid.
 	**/
 	function selectMarker(marker:DisplayMarker):Range;
 	/**
@@ -1227,11 +1331,19 @@ package atom;
 	/**
 		Indent rows intersecting selections by one level.
 	**/
-	function indentSelectedRows():Void;
+	function indentSelectedRows(?options:{ /**
+		{Boolean} Must be `true` to modify a read-only editor.
+	**/
+	@:optional
+	var bypassReadOnly : Bool; }):Void;
 	/**
 		Outdent rows intersecting selections by one level.
 	**/
-	function outdentSelectedRows():Void;
+	function outdentSelectedRows(?options:{ /**
+		{Boolean} Must be `true` to modify a read-only editor.
+	**/
+	@:optional
+	var bypassReadOnly : Bool; }):Void;
 	/**
 		Get the indentation level of the given line of text.
 		
@@ -1245,7 +1357,11 @@ package atom;
 		Indent rows intersecting selections based on the grammar's suggested
 		indent level.
 	**/
-	function autoIndentSelectedRows():Void;
+	function autoIndentSelectedRows(?options:{ /**
+		{Boolean} Must be `true` to modify a read-only editor.
+	**/
+	@:optional
+	var bypassReadOnly : Bool; }):Void;
 	/**
 		Get the current `Grammar` of this editor.
 	**/
@@ -1257,12 +1373,13 @@ package atom;
 	**/
 	function getRootScopeDescriptor():ScopeDescriptor;
 	/**
-		Get the syntactic scopeDescriptor for the given position in buffer
+		Get the syntactic {ScopeDescriptor} for the given position in buffer
 		coordinates. Useful with `Config.get`.
 		
 		For example, if called with a position inside the parameter list of an
-		anonymous CoffeeScript function, the method returns the following array:
-		`["source.coffee", "meta.inline.function.coffee", "variable.parameter.function.coffee"]`Returns a {ScopeDescriptor}.
+		anonymous CoffeeScript function, this method returns a {ScopeDescriptor} with
+		the following scopes array:
+		`["source.coffee", "meta.function.inline.coffee", "meta.parameters.coffee", "variable.parameter.function.coffee"]`Returns a {ScopeDescriptor}.
 	**/
 	function scopeDescriptorForBufferPosition(bufferPosition:Point):ScopeDescriptor;
 	/**
@@ -1284,7 +1401,11 @@ package atom;
 	/**
 		For each selection, cut the selected text.
 	**/
-	function cutSelectedText():Void;
+	function cutSelectedText(?options:{ /**
+		{Boolean} Must be `true` to modify a read-only editor.
+	**/
+	@:optional
+	var bypassReadOnly : Bool; }):Void;
 	/**
 		For each selection, replace the selected text with the contents of
 		the clipboard.
@@ -1299,13 +1420,21 @@ package atom;
 		of the containing screen line following the cursor. Otherwise cut the selected
 		text.
 	**/
-	function cutToEndOfLine():Void;
+	function cutToEndOfLine(?options:{ /**
+		{Boolean} Must be `true` to modify a read-only editor.
+	**/
+	@:optional
+	var bypassReadOnly : Bool; }):Void;
 	/**
 		For each selection, if the selection is empty, cut all characters
 		of the containing buffer line following the cursor. Otherwise cut the
 		selected text.
 	**/
-	function cutToEndOfBufferLine():Void;
+	function cutToEndOfBufferLine(?options:{ /**
+		{Boolean} Must be `true` to modify a read-only editor.
+	**/
+	@:optional
+	var bypassReadOnly : Bool; }):Void;
 	/**
 		Fold the most recent cursor's row based on its indentation level.
 		

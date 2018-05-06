@@ -8,7 +8,7 @@ package atom;
 	Examples: [status-bar](https://github.com/atom/status-bar)
 	and [find-and-replace](https://github.com/atom/find-and-replace) both use
 	panels.
-	@see <https://github.com/atom/atom/blob/v1.24.0/src/panel.js#L11>
+	@see <https://github.com/atom/atom/blob/v1.27.0-beta1/src/panel.js#L11>
 
 **/
 @:require(js, atom) @:jsRequire("atom", "Panel") extern class Panel {

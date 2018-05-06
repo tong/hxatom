@@ -4,7 +4,7 @@ package atom;
 	Atom global for dealing with packages, themes, menus, and the window.
 	
 	An instance of this class is always available as the `atom` global.
-	@see <https://github.com/atom/atom/blob/v1.24.0/src/atom-environment.js#L53>
+	@see <https://github.com/atom/atom/blob/v1.27.0-beta1/src/atom-environment.js#L52>
 
 **/
 @:require(js, atom) @:native("atom") extern class AtomEnvironment {
@@ -228,8 +228,16 @@ package atom;
 	/**
 		A flexible way to open a dialog akin to an alert dialog.
 		
+		While both async and sync versions are provided, it is recommended to use the async version
+		such that the renderer process is not blocked while the dialog box is open.
+		
+		The async version accepts the same options as Electron's `dialog.showMessageBox`.
+		For convenience, it sets `type` to `'info'` and `normalizeAccessKeys` to `true` by default.
+		
 		If the dialog is closed (via `Esc` key or `X` in the top corner) without selecting a button
-		the first button will be clicked unless a "Cancel" or "No" button is provided.Returns the chosen button index `Number` if the buttons option is an array or the return value of the callback if the buttons option is an object.
+		the first button will be clicked unless a "Cancel" or "No" button is provided.Returns the chosen button index `Number` if the buttons option is an array
+		or the return value of the callback if the buttons option is an object.
+		If a callback function is supplied, returns `undefined`.
 	**/
 	static function confirm(options:{ /**
 		The {String} message to display.
@@ -239,10 +247,10 @@ package atom;
 	**/
 	@:optional
 	var detailedMessage : String; /**
-		Either an array of strings or an object where keys are button names and the values are callbacks to invoke when clicked.
+		Either an {Array} of {String}s or an {Object} where keys are button names and the values are callback {Function}s to invoke when clicked.
 	**/
 	@:optional
-	var buttons : Dynamic; }):Float;
+	var buttons : Array<Dynamic>; }, ?callback:haxe.Constraints.Function):Float;
 	/**
 		Open the dev tools for the current window.Returns a `Promise` that resolves when the DevTools have been opened.
 	**/

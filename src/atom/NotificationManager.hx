@@ -6,7 +6,7 @@ package atom;
 	
 	An instance of this class is always available as the `atom.notifications`
 	global.
-	@see <https://github.com/atom/atom/blob/v1.24.0/src/notification-manager.js#L10>
+	@see <https://github.com/atom/atom/blob/v1.27.0-beta1/src/notification-manager.js#L10>
 
 **/
 @:require(js, atom) @:jsRequire("atom", "NotificationManager") extern class NotificationManager {
@@ -14,6 +14,10 @@ package atom;
 		Invoke the given callback after a notification has been added.Returns a `Disposable` on which `.dispose()` can be called to unsubscribe.
 	**/
 	function onDidAddNotification(callback:haxe.Constraints.Function):Disposable;
+	/**
+		Invoke the given callback after the notifications have been cleared.Returns a `Disposable` on which `.dispose()` can be called to unsubscribe.
+	**/
+	function onDidClearNotifications(callback:haxe.Constraints.Function):Disposable;
 	/**
 		Add a success notification.Returns the `Notification` that was added.
 	**/
@@ -146,4 +150,8 @@ package atom;
 		Get all the notifications.Returns an `Array` of `Notification`s.
 	**/
 	function getNotifications():Array<Dynamic>;
+	/**
+		Clear all the notifications.
+	**/
+	function clear():Void;
 }

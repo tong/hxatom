@@ -42,7 +42,7 @@ package atom;
 	  }
 	})
 	```
-	@see <https://github.com/atom/text-buffer/blob/v13.9.3/src/text-buffer.coffee#L112>
+	@see <https://github.com/atom/text-buffer/blob/v13.14.1/src/text-buffer.coffee#L112>
 
 **/
 @:require(js, atom) @:jsRequire("atom", "TextBuffer") extern class TextBuffer {
@@ -242,7 +242,8 @@ package atom;
 	**/
 	function getLastLine():String;
 	/**
-		Get the text of the line at the given row, without its line ending.Returns a `String`.
+		Get the text of the line at the given 0-indexed row, without its
+		line ending.Returns a `String`.
 	**/
 	function lineForRow(row:Float):String;
 	/**
@@ -269,6 +270,11 @@ package atom;
 	**/
 	function nextNonBlankRow(startRow:Float):Float;
 	/**
+		Return true if the buffer contains any astral-plane Unicode characters that
+		are encoded as surrogate pairs.Returns a `Boolean`.
+	**/
+	function hasAstral():Bool;
+	/**
 		Replace the entire contents of the buffer with the given text.Returns a `Range` spanning the new buffer contents.
 	**/
 	function setText(text:String):Range;
@@ -285,7 +291,7 @@ package atom;
 	**/
 	@:optional
 	var normalizeLineEndings : Bool; /**
-		{String} 'skip' will skip the undo system
+		*Deprecated* {String} 'skip' will cause this change to be grouped with the preceding change for the purposes of undo and redo. This property is deprecated. Call groupLastChanges() on the buffer after instead.
 	**/
 	@:optional
 	var undo : String; }):Range;
@@ -297,7 +303,7 @@ package atom;
 	**/
 	@:optional
 	var normalizeLineEndings : Bool; /**
-		{String} 'skip' will skip the undo system
+		*Deprecated* {String} 'skip' will skip the undo system. This property is deprecated. Call groupLastChanges() on the {TextBuffer} afterward instead.
 	**/
 	@:optional
 	var undo : String; }):Range;
@@ -309,7 +315,7 @@ package atom;
 	**/
 	@:optional
 	var normalizeLineEndings : Bool; /**
-		{String} 'skip' will skip the undo system
+		*Deprecated* {String} 'skip' will skip the undo system. This property is deprecated. Call groupLastChanges() on the {TextBuffer} afterward instead.
 	**/
 	@:optional
 	var undo : String; }):Range;
@@ -318,20 +324,32 @@ package atom;
 	**/
 	function delete(range:Range):Range;
 	/**
-		Delete the line associated with a specified row.Returns the `Range` of the deleted text.
+		Delete the line associated with a specified 0-indexed row.Returns the `Range` of the deleted text.
 	**/
 	function deleteRow(row:Float):Range;
 	/**
-		Delete the lines associated with the specified row range.
+		Delete the lines associated with the specified 0-indexed row range.
 		
-		If the row range is out of bounds, it will be clipped. If the startRow is
-		greater than the end row, they will be reordered.Returns the `Range` of the deleted text.
+		If the row range is out of bounds, it will be clipped. If the `startRow` is
+		greater than the `endRow`, they will be reordered.Returns the `Range` of the deleted text.
 	**/
 	function deleteRows(startRow:Float, endRow:Float):Range;
 	/**
 		Create a layer to contain a set of related markers.Returns a {MarkerLayer}.
 	**/
-	function addMarkerLayer(options:Dynamic):MarkerLayer;
+	function addMarkerLayer(?options:{ /**
+		A {Boolean} indicating whether or not the state of this layer should be restored on undo/redo operations. Defaults to `false`.
+	**/
+	@:optional
+	var maintainHistory : Bool; /**
+		A {Boolean} indicating whether or not this marker layer should be serialized and deserialized along with the rest of the buffer. Defaults to `false`. If `true`, the marker layer's id will be maintained across the serialization boundary, allowing you to retrieve it via {::getMarkerLayer}.
+	**/
+	@:optional
+	var persistent : Bool; /**
+		A {String} indicating role of this marker layer
+	**/
+	@:optional
+	var role : String; }):MarkerLayer;
 	/**
 		Get a {MarkerLayer} by id.Returns a {MarkerLayer} or `` if no layer exists with the given
 		id.
@@ -340,19 +358,19 @@ package atom;
 	/**
 		Get the default {MarkerLayer}.
 		
-		All marker APIs not tied to an explicit layer interact with this default
+		All `Marker` APIs not tied to an explicit layer interact with this default
 		layer.Returns a {MarkerLayer}.
 	**/
 	function getDefaultMarkerLayer():MarkerLayer;
 	/**
-		Create a marker with the given range in the default marker layer.
-		This marker will maintain its logical location as the buffer is changed, so
-		if you mark a particular word, the marker will remain over that word even if
-		the word's location in the buffer changes.Returns a `Marker`.
+		Create a `Marker` with the given range in the default {MarkerLayer}.
+		This marker will maintain its logical location as the buffer is changed,
+		so if you mark a particular word, the marker will remain over that word
+		even if the word's location in the buffer changes.Returns a `Marker`.
 	**/
-	function markRange(range:Range, properties:Dynamic):Marker;
+	function markRange(range:Range, ?properties:Dynamic):Marker;
 	/**
-		Create a marker at the given position with no tail in the default
+		Create a `Marker` at the given position with no tail in the default
 		marker layer.Returns a `Marker`.
 	**/
 	function markPosition(position:Point, ?options:{ /**
@@ -373,6 +391,7 @@ package atom;
 	var invalidate : String; /**
 		{Boolean} indicating whether insertions at the start or end of the marked range should be interpreted as happening *outside* the marker. Defaults to `false`, except when using the `inside` invalidation strategy or when when the marker has no tail, in which case it defaults to true. Explicitly assigning this option overrides behavior in all circumstances.
 	**/
+	@:optional
 	var exclusive : Bool; }):Marker;
 	/**
 		Get all existing markers on the default marker layer.Returns an `Array` of `Marker`s.
@@ -395,13 +414,21 @@ package atom;
 	**/
 	function getMarkerCount():Float;
 	/**
-		Undo the last operation. If a transaction is in progress, aborts it. 
+		Undo the last operation. If a transaction is in progress, aborts it.Returns a `Boolean` of whether or not a change was made.
 	**/
-	function undo():Void;
+	function undo(?options:{ /**
+		Restore snapshot of selections marker layer to given selectionsMarkerLayer.
+	**/
+	@:optional
+	var selectionsMarkerLayer : Dynamic; }):Bool;
 	/**
-		Redo the last operation 
+		Redo the last operationReturns a `Boolean` of whether or not a change was made.
 	**/
-	function redo():Void;
+	function redo(?options:{ /**
+		Restore snapshot of selections marker layer to given selectionsMarkerLayer.
+	**/
+	@:optional
+	var selectionsMarkerLayer : Dynamic; }):Bool;
 	/**
 		Batch multiple operations as a single undo/redo step.
 		
@@ -410,16 +437,34 @@ package atom;
 		abort the transaction, call {::abortTransaction} to terminate the function's
 		execution and revert any changes performed up to the abortion.
 	**/
-	function transact(?groupingInterval:Float, fn:haxe.Constraints.Function):Void;
+	function transact(?options:{ /**
+		The {Number} of milliseconds for which this transaction should be considered 'open for grouping' after it begins. If a transaction with a positive `groupingInterval` is committed while the previous transaction is still open for grouping, the two transactions are merged with respect to undo and redo.
+	**/
+	@:optional
+	var groupingInterval : Float; /**
+		When provided, skip taking snapshot for other selections markerLayers except given one.
+	**/
+	@:optional
+	var selectionsMarkerLayer : Dynamic; }, ?groupingInterval:Float, fn:haxe.Constraints.Function):Void;
+	/**
+		Abort the currently running transaction
+		
+		Only intended to be called within the `fn` option to {::transact} 
+	**/
+	function abortTransaction():Void;
 	/**
 		Clear the undo stack. 
 	**/
 	function clearUndoStack():Void;
 	/**
 		Create a pointer to the current state of the buffer for use
-		with {::revertToCheckpoint} and {::groupChangesSinceCheckpoint}.Returns a checkpoint value.
+		with {::revertToCheckpoint} and {::groupChangesSinceCheckpoint}.Returns a checkpoint id value.
 	**/
-	function createCheckpoint():Dynamic;
+	function createCheckpoint(?options:{ /**
+		When provided, skip taking snapshot for other selections markerLayers except given one.
+	**/
+	@:optional
+	var selectionsMarkerLayer : Dynamic; }):Dynamic;
 	/**
 		Revert the buffer to the state it was in when the given
 		checkpoint was created.
@@ -429,7 +474,11 @@ package atom;
 		undo history, no changes will be made to the buffer and this method will
 		return `false`.Returns a `Boolean` indicating whether the operation succeeded.
 	**/
-	function revertToCheckpoint():Bool;
+	function revertToCheckpoint(checkpoint:Float, ?options:{ /**
+		Restore snapshot of selections marker layer to given selectionsMarkerLayer.
+	**/
+	@:optional
+	var selectionsMarkerLayer : Dynamic; }):Bool;
 	/**
 		Group all changes since the given checkpoint into a single
 		transaction for purposes of undo/redo.
@@ -437,14 +486,25 @@ package atom;
 		If the given checkpoint is no longer present in the undo history, no
 		grouping will be performed and this method will return `false`.Returns a `Boolean` indicating whether the operation succeeded.
 	**/
-	function groupChangesSinceCheckpoint():Bool;
+	function groupChangesSinceCheckpoint(checkpoint:Float, ?options:{ /**
+		When provided, skip taking snapshot for other selections markerLayers except given one.
+	**/
+	@:optional
+	var selectionsMarkerLayer : Dynamic; }):Bool;
+	/**
+		Group the last two text changes for purposes of undo/redo.
+		
+		This operation will only succeed if there are two changes on the undo
+		stack. It will not group past the beginning of an open transaction.Returns a `Boolean` indicating whether the operation succeeded.
+	**/
+	function groupLastChanges():Bool;
 	/**
 		
 		
 		If the given checkpoint is no longer present in the undo history, this
 		method will return an empty `Array`.Returns a list of changes since the given checkpoint.
 	**/
-	function getChangesSinceCheckpoint():Dynamic;
+	function getChangesSinceCheckpoint(checkpoint:Float):Dynamic;
 	/**
 		Scan regular expression matches in the entire buffer, calling the
 		given iterator function on each match.
@@ -517,6 +577,10 @@ package atom;
 		appended.Returns a `Point`.
 	**/
 	function getEndPosition():Point;
+	/**
+		Get the length of the buffer's text. 
+	**/
+	function getLength():Void;
 	/**
 		Get the length of the buffer in characters.Returns a `Number`.
 	**/

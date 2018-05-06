@@ -5,7 +5,7 @@ package atom;
 	{DisplayLayer} level. Wraps an underlying {MarkerLayer} on the {TextBuffer}.
 	
 	This API is experimental and subject to change on any release. 
-	@see <https://github.com/atom/text-buffer/blob/v13.9.3/src/display-marker-layer.coffee#L11>
+	@see <https://github.com/atom/text-buffer/blob/v13.14.1/src/display-marker-layer.coffee#L11>
 
 **/
 @:require(js, atom) @:jsRequire("atom", "DisplayMarkerLayer") extern class DisplayMarkerLayer {

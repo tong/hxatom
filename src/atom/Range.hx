@@ -6,7 +6,7 @@ package atom;
 	Every public method that takes a range also accepts a *range-compatible*
 	{Array}. This means a 2-element array containing {Point}s or point-compatible
 	arrays. So the following are equivalent:
-	@see <https://github.com/atom/text-buffer/blob/v13.9.3/src/range.coffee#L18>
+	@see <https://github.com/atom/text-buffer/blob/v13.14.1/src/range.coffee#L18>
 
 **/
 @:require(js, atom) @:jsRequire("atom", "Range") extern class Range {
@@ -102,12 +102,12 @@ package atom;
 		Returns a `Boolean` indicating whether this range contains the given
 		range.
 	**/
-	function containsRange(otherRange:Range, exclusive:Dynamic):Bool;
+	function containsRange(otherRange:Range, ?exclusive:Bool):Bool;
 	/**
 		Returns a `Boolean` indicating whether this range contains the given
 		point.
 	**/
-	function containsPoint(point:Point, exclusive:Dynamic):Bool;
+	function containsPoint(point:Point, ?exclusive:Bool):Bool;
 	/**
 		Returns a `Boolean` indicating whether this range intersects the
 		given row `Number`.

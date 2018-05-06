@@ -18,7 +18,7 @@ package atom;
 	repo.getShortHead() # 'master'
 	repo.getShortHead('vendor/path/to/a/submodule') # 'dead1234'
 	```
-	@see <https://github.com/atom/atom/blob/v1.24.0/src/git-repository.js#L42>
+	@see <https://github.com/atom/atom/blob/v1.27.0-beta1/src/git-repository.js#L42>
 
 **/
 @:require(js, atom) @:jsRequire("atom", "GitRepository") extern class GitRepository {
@@ -97,6 +97,8 @@ package atom;
 	**/
 	function isSubmodule(path:String):Bool;
 	/**
+		
+		
 		Returns the number of commits behind the current branch is from the
 		its upstream remote branch.
 	**/
@@ -110,14 +112,20 @@ package atom;
 	**/
 	function getCachedUpstreamAheadBehindCount(path:String):Dynamic;
 	/**
+		
+		
 		Returns the git configuration value specified by the key.
 	**/
 	function getConfigValue(key:String, path:String):Dynamic;
 	/**
+		
+		
 		Returns the origin url of the repository.
 	**/
 	function getOriginURL(?path:String):Dynamic;
 	/**
+		
+		
 		Returns the upstream branch for the current HEAD, or null if there
 		is no upstream branch for the current HEAD.
 	**/
@@ -131,14 +139,20 @@ package atom;
 	**/
 	function getReferences(path:String):Dynamic;
 	/**
+		
+		
 		Returns the current `String` SHA for the given reference.
 	**/
 	function getReferenceTarget(reference:String, path:String):String;
 	/**
+		
+		
 		Returns true if the given path is modified.
 	**/
 	function isPathModified(path:String):Dynamic;
 	/**
+		
+		
 		Returns true if the given path is new.
 	**/
 	function isPathNew(path:String):Dynamic;
@@ -161,10 +175,14 @@ package atom;
 	**/
 	function getCachedPathStatus(path:String):Float;
 	/**
+		
+		
 		Returns true if the given status indicates modification.
 	**/
 	function isStatusModified(status:Float):Dynamic;
 	/**
+		
+		
 		Returns true if the given status indicates a new path.
 	**/
 	function isStatusNew(status:Float):Dynamic;

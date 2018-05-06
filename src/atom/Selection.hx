@@ -2,7 +2,7 @@ package atom;
 
 /**
 	Represents a selection in the {TextEditor}.
-	@see <https://github.com/atom/atom/blob/v1.24.0/src/selection.js#L10>
+	@see <https://github.com/atom/atom/blob/v1.27.0-beta1/src/selection.js#L10>
 
 **/
 @:require(js, atom) @:jsRequire("atom", "Selection") extern class Selection {
@@ -37,6 +37,8 @@ package atom;
 	**/
 	var autoscroll : Bool; }):Void;
 	/**
+		
+		
 		Returns the starting and ending buffer rows the selection is
 		highlighting.
 	**/
@@ -219,108 +221,184 @@ package atom;
 	**/
 	@:optional
 	var normalizeLineEndings : Bool; /**
-		If `skip`, skips the undo stack for this operation.
+		*Deprecated* If `skip`, skips the undo stack for this operation. This property is deprecated. Call groupLastChanges() on the {TextBuffer} afterward instead.
 	**/
-	var undo : Dynamic; }):Void;
+	var undo : TextBuffer; /**
+		{Boolean} Must be `true` to modify a read-only editor. (default: false)
+	**/
+	@:optional
+	var bypassReadOnly : Bool; }):Void;
 	/**
 		Removes the first character before the selection if the selection
 		is empty otherwise it deletes the selection.
 	**/
-	function backspace():Void;
+	function backspace(?options:{ /**
+		{Boolean} Must be `true` to modify text within a read-only editor. (default: false)
+	**/
+	@:optional
+	var bypassReadOnly : Bool; }):Void;
 	/**
 		Removes the selection or, if nothing is selected, then all
 		characters from the start of the selection back to the previous word
 		boundary.
 	**/
-	function deleteToPreviousWordBoundary():Void;
+	function deleteToPreviousWordBoundary(?options:{ /**
+		{Boolean} Must be `true` to modify text within a read-only editor. (default: false)
+	**/
+	@:optional
+	var bypassReadOnly : Bool; }):Void;
 	/**
 		Removes the selection or, if nothing is selected, then all
 		characters from the start of the selection up to the next word
 		boundary.
 	**/
-	function deleteToNextWordBoundary():Void;
+	function deleteToNextWordBoundary(?options:{ /**
+		{Boolean} Must be `true` to modify text within a read-only editor. (default: false)
+	**/
+	@:optional
+	var bypassReadOnly : Bool; }):Void;
 	/**
 		Removes from the start of the selection to the beginning of the
 		current word if the selection is empty otherwise it deletes the selection.
 	**/
-	function deleteToBeginningOfWord():Void;
+	function deleteToBeginningOfWord(?options:{ /**
+		{Boolean} Must be `true` to modify text within a read-only editor. (default: false)
+	**/
+	@:optional
+	var bypassReadOnly : Bool; }):Void;
 	/**
 		Removes from the beginning of the line which the selection begins on
 		all the way through to the end of the selection.
 	**/
-	function deleteToBeginningOfLine():Void;
+	function deleteToBeginningOfLine(?options:{ /**
+		{Boolean} Must be `true` to modify text within a read-only editor. (default: false)
+	**/
+	@:optional
+	var bypassReadOnly : Bool; }):Void;
 	/**
 		Removes the selection or the next character after the start of the
 		selection if the selection is empty.
 	**/
-	function delete():Void;
+	function delete(?options:{ /**
+		{Boolean} Must be `true` to modify text within a read-only editor. (default: false)
+	**/
+	@:optional
+	var bypassReadOnly : Bool; }):Void;
 	/**
 		If the selection is empty, removes all text from the cursor to the
 		end of the line. If the cursor is already at the end of the line, it
 		removes the following newline. If the selection isn't empty, only deletes
 		the contents of the selection.
 	**/
-	function deleteToEndOfLine():Void;
+	function deleteToEndOfLine(?options:{ /**
+		{Boolean} Must be `true` to modify text within a read-only editor. (default: false)
+	**/
+	@:optional
+	var bypassReadOnly : Bool; }):Void;
 	/**
 		Removes the selection or all characters from the start of the
 		selection to the end of the current word if nothing is selected.
 	**/
-	function deleteToEndOfWord():Void;
+	function deleteToEndOfWord(?options:{ /**
+		{Boolean} Must be `true` to modify text within a read-only editor. (default: false)
+	**/
+	@:optional
+	var bypassReadOnly : Bool; }):Void;
 	/**
 		Removes the selection or all characters from the start of the
 		selection to the end of the current word if nothing is selected.
 	**/
-	function deleteToBeginningOfSubword():Void;
+	function deleteToBeginningOfSubword(?options:{ /**
+		{Boolean} Must be `true` to modify text within a read-only editor. (default: false)
+	**/
+	@:optional
+	var bypassReadOnly : Bool; }):Void;
 	/**
 		Removes the selection or all characters from the start of the
 		selection to the end of the current word if nothing is selected.
 	**/
-	function deleteToEndOfSubword():Void;
+	function deleteToEndOfSubword(?options:{ /**
+		{Boolean} Must be `true` to modify text within a read-only editor. (default: false)
+	**/
+	@:optional
+	var bypassReadOnly : Bool; }):Void;
 	/**
 		Removes only the selected text.
 	**/
-	function deleteSelectedText():Void;
+	function deleteSelectedText(?options:{ /**
+		{Boolean} Must be `true` to modify text within a read-only editor. (default: false)
+	**/
+	@:optional
+	var bypassReadOnly : Bool; }):Void;
 	/**
 		Removes the line at the beginning of the selection if the selection
 		is empty unless the selection spans multiple lines in which case all lines
 		are removed.
 	**/
-	function deleteLine():Void;
+	function deleteLine(?options:{ /**
+		{Boolean} Must be `true` to modify text within a read-only editor. (default: false)
+	**/
+	@:optional
+	var bypassReadOnly : Bool; }):Void;
 	/**
 		Joins the current line with the one below it. Lines will
 		be separated by a single space.
 		
 		If there selection spans more than one line, all the lines are joined together.
 	**/
-	function joinLines():Void;
+	function joinLines(?options:{ /**
+		{Boolean} Must be `true` to modify text within a read-only editor. (default: false)
+	**/
+	@:optional
+	var bypassReadOnly : Bool; }):Void;
 	/**
 		Removes one level of indent from the currently selected rows.
 	**/
-	function outdentSelectedRows():Void;
+	function outdentSelectedRows(?options:{ /**
+		{Boolean} Must be `true` to modify text within a read-only editor. (default: false)
+	**/
+	@:optional
+	var bypassReadOnly : Bool; }):Void;
 	/**
 		Sets the indentation level of all selected rows to values suggested
 		by the relevant grammars.
 	**/
-	function autoIndentSelectedRows():Void;
+	function autoIndentSelectedRows(?options:{ /**
+		{Boolean} Must be `true` to modify text within a read-only editor. (default: false)
+	**/
+	@:optional
+	var bypassReadOnly : Bool; }):Void;
 	/**
 		Wraps the selected lines in comments if they aren't currently part
 		of a comment.
 		
 		Removes the comment if they are currently wrapped in a comment.
 	**/
-	function toggleLineComments():Void;
+	function toggleLineComments(?options:{ /**
+		{Boolean} Must be `true` to modify text within a read-only editor. (default: false)
+	**/
+	@:optional
+	var bypassReadOnly : Bool; }):Void;
 	/**
 		Cuts the selection until the end of the screen line.
 	**/
-	function cutToEndOfLine():Void;
+	function cutToEndOfLine(maintainClipboard:Bool, ?options:{ /**
+		{Boolean} Must be `true` to modify text within a read-only editor. (default: false)
+	**/
+	@:optional
+	var bypassReadOnly : Bool; }):Void;
 	/**
 		Cuts the selection until the end of the buffer line.
 	**/
-	function cutToEndOfBufferLine():Void;
+	function cutToEndOfBufferLine(maintainClipboard:Bool, ?options:{ /**
+		{Boolean} Must be `true` to modify text within a read-only editor. (default: false)
+	**/
+	@:optional
+	var bypassReadOnly : Bool; }):Void;
 	/**
 		Copies the selection to the clipboard and then deletes it.
 	**/
-	function cut(maintainClipboard:Bool, fullLine:Bool):Void;
+	function cut(maintainClipboard:Bool, fullLine:Bool, bypassReadOnly:Bool):Void;
 	/**
 		Copies the current selection to the clipboard.
 	**/
@@ -332,7 +410,11 @@ package atom;
 	/**
 		If the selection spans multiple rows, indent all of them.
 	**/
-	function indentSelectedRows():Void;
+	function indentSelectedRows(?options:{ /**
+		{Boolean} Must be `true` to modify text within a read-only editor. (default: false)
+	**/
+	@:optional
+	var bypassReadOnly : Bool; }):Void;
 	/**
 		Moves the selection down one row.
 	**/

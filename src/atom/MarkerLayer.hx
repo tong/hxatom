@@ -4,7 +4,7 @@ package atom;
 	*Experimental:* A container for a related set of markers.
 	
 	This API is experimental and subject to change on any release. 
-	@see <https://github.com/atom/text-buffer/blob/v13.9.3/src/marker-layer.coffee#L15>
+	@see <https://github.com/atom/text-buffer/blob/v13.14.1/src/marker-layer.coffee#L15>
 
 **/
 @:require(js, atom) @:jsRequire("atom", "MarkerLayer") extern class MarkerLayer {
@@ -43,6 +43,10 @@ package atom;
 		See the documentation for {TextBuffer::findMarkers}. 
 	**/
 	function findMarkers():Void;
+	/**
+		Get the role of the marker layer e.g. `atom.selection`.Returns a `String`.
+	**/
+	function getRole():String;
 	/**
 		Create a marker with the given range.Returns a `Marker`.
 	**/

@@ -18,7 +18,7 @@ package atom;
 	### Required Methods
 	
 	#### `getTitle()`
-	@see <https://github.com/atom/atom/blob/v1.24.0/src/workspace.js#L177>
+	@see <https://github.com/atom/atom/blob/v1.27.0-beta1/src/workspace.js#L175>
 
 **/
 @:require(js, atom) @:jsRequire("atom", "Workspace") extern class Workspace {
@@ -170,6 +170,8 @@ package atom;
 	**/
 	function createItemForURI(uri:String):js.Promise<Dynamic>;
 	/**
+		
+		
 		Returns a `Boolean` that is `true` if `object` is a `TextEditor`.
 	**/
 	function isTextEditor(object:Dynamic):Bool;
@@ -215,7 +217,7 @@ package atom;
 	**/
 	function getTextEditors():Array<Dynamic>;
 	/**
-		Get the workspace center's active item if it is a {TextEditor}.Returns a {TextEditor} or `` if the workspace center's current
+		Get the workspace center's active item if it is a {TextEditor}.Returns a {TextEditor} or `undefined` if the workspace center's current
 		active item is not a {TextEditor}.
 	**/
 	function getActiveTextEditor():TextEditor;
@@ -241,21 +243,21 @@ package atom;
 	function activatePreviousPane():Void;
 	/**
 		Get the first pane container that contains an item with the given
-		URI.Returns a `Dock`, the {WorkspaceCenter}, or `` if no item exists
+		URI.Returns a `Dock`, the {WorkspaceCenter}, or `undefined` if no item exists
 		with the given URI.
 	**/
 	function paneContainerForURI(uri:String):Dock;
 	/**
-		Get the first pane container that contains the given item.Returns a `Dock`, the {WorkspaceCenter}, or `` if no item exists
+		Get the first pane container that contains the given item.Returns a `Dock`, the {WorkspaceCenter}, or `undefined` if no item exists
 		with the given URI.
 	**/
 	function paneContainerForItem(item:Dynamic):Dock;
 	/**
-		Get the first `Pane` that contains an item with the given URI.Returns a `Pane` or `` if no item exists with the given URI.
+		Get the first `Pane` that contains an item with the given URI.Returns a `Pane` or `undefined` if no item exists with the given URI.
 	**/
 	function paneForURI(uri:String):Pane;
 	/**
-		Get the `Pane` containing the given item.Returns a `Pane` or `` if no pane exists for the given item.
+		Get the `Pane` containing the given item.Returns a `Pane` or `undefined` if no pane exists for the given item.
 	**/
 	function paneForItem(item:Dynamic):Pane;
 	/**
@@ -412,6 +414,8 @@ package atom;
 	@:optional
 	var autoFocus : Bool; }):Panel;
 	/**
+		
+		
 		Returns the `Panel` associated with the given item.
 	**/
 	function panelForItem(item:Dynamic):Panel;

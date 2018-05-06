@@ -4,7 +4,7 @@ package atom;
 	Handles loading and activating available themes.
 	
 	An instance of this class is always available as the `atom.themes` global.
-	@see <https://github.com/atom/atom/blob/v1.24.0/src/theme-manager.js#L14>
+	@see <https://github.com/atom/atom/blob/v1.27.0-beta1/src/theme-manager.js#L14>
 
 **/
 @:require(js, atom) @:jsRequire("atom", "ThemeManager") extern class ThemeManager {

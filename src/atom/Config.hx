@@ -351,7 +351,7 @@ package atom;
 	## Best practices
 	
 	* Don't depend on (or write to) configuration keys outside of your keypath.
-	@see <https://github.com/atom/atom/blob/v1.24.0/src/config.coffee#L369>
+	@see <https://github.com/atom/atom/blob/v1.27.0-beta1/src/config.js#L364>
 
 **/
 @:require(js, atom) @:jsRequire("atom", "Config") extern class Config {
@@ -499,13 +499,13 @@ package atom;
 	**/
 	@:optional
 	var scopeSelector : String; /**
-		{String}. See {::set} 
+		{String}. See {::set}
 	**/
 	@:optional
 	var source : String; }):Void;
 	/**
 		Get an `Array` of all of the `source` `String`s with which
-		settings have been added via {::set}. 
+		settings have been added via {::set}.
 	**/
 	function getSources():Void;
 	/**
@@ -514,10 +514,6 @@ package atom;
 		option.Returns an `Object` eg. `{type: 'integer', default: 23, minimum: 1}`.
 	**/
 	function getSchema(keyPath:String):Dynamic;
-	/**
-		Get the `String` path to the config file being used. 
-	**/
-	function getUserConfigPath():Void;
 	/**
 		Suppress calls to handler functions registered with {::onDidChange}
 		and {::observe} for the duration of `callback`. After `callback` executes,

@@ -2,7 +2,7 @@ package atom;
 
 /**
 	Represents the workspace at the center of the entire window.
-	@see <https://github.com/atom/atom/blob/v1.24.0/src/workspace-center.js#L7>
+	@see <https://github.com/atom/atom/blob/v1.27.0-beta1/src/workspace-center.js#L7>
 
 **/
 @:require(js, atom) @:jsRequire("atom", "WorkspaceCenter") extern class WorkspaceCenter {
@@ -102,7 +102,7 @@ package atom;
 	**/
 	function getTextEditors():Array<Dynamic>;
 	/**
-		Get the active item if it is an {TextEditor}.Returns an {TextEditor} or `` if the current active item is not an
+		Get the active item if it is an {TextEditor}.Returns an {TextEditor} or `undefined` if the current active item is not an
 		{TextEditor}.
 	**/
 	function getActiveTextEditor():TextEditor;

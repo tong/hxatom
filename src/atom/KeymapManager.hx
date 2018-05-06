@@ -51,7 +51,7 @@ package atom;
 	the previous keystrokes are replayed. If there is ambiguity again during the
 	replay, the next longest bindings are disabled and the keystrokes are replayed
 	again. 
-	@see <https://github.com/atom/atom-keymap/blob/v8.2.9/src/keymap-manager.coffee#L66>
+	@see <https://github.com/atom/atom-keymap/blob/v8.2.10/src/keymap-manager.coffee#L66>
 
 **/
 @:require(js, atom) @:jsRequire("atom", "KeymapManager") extern class KeymapManager {

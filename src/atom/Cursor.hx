@@ -6,7 +6,7 @@ package atom;
 	
 	Cursors belong to {TextEditor}s and have some metadata attached in the form
 	of a {DisplayMarker}.
-	@see <https://github.com/atom/atom/blob/v1.24.0/src/cursor.js#L14>
+	@see <https://github.com/atom/atom/blob/v1.27.0-beta1/src/cursor.js#L14>
 
 **/
 @:require(js, atom) @:jsRequire("atom", "Cursor") extern class Cursor {
@@ -91,6 +91,8 @@ package atom;
 	**/
 	function isBetweenWordAndNonWord():Dynamic;
 	/**
+		
+		
 		Returns whether this cursor is between a word's start and end.
 	**/
 	function isInsideWord(?options:{ /**
@@ -215,6 +217,8 @@ package atom;
 	**/
 	function moveToBeginningOfPreviousParagraph():Void;
 	/**
+		
+		
 		Returns buffer position of previous word boundary. It might be on
 		the current word, or the previous word.
 	**/
@@ -223,6 +227,8 @@ package atom;
 	**/
 	var wordRegex : EReg; }):Dynamic;
 	/**
+		
+		
 		Returns buffer position of the next word boundary. It might be on
 		the current word, or the previous word.
 	**/
@@ -261,6 +267,8 @@ package atom;
 	**/
 	var wordRegex : EReg; }):Range;
 	/**
+		
+		
 		Returns the buffer Range occupied by the word located under the cursor.
 	**/
 	function getCurrentWordBufferRange(?options:{ /**
@@ -268,6 +276,8 @@ package atom;
 	**/
 	var wordRegex : EReg; }):Dynamic;
 	/**
+		
+		
 		Returns the buffer Range for the current line.
 	**/
 	function getCurrentLineBufferRange(?options:{ /**
