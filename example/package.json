@@ -6,6 +6,6 @@
   "repository": "https://github.com/tong/hxatom",
   "license": "MIT",
   "engines": {
-    "atom": ">=1.20.0 <2.0.0"
+    "atom": ">=1.27.2 <2.0.0"
   }
 }
