@@ -6,7 +6,7 @@ package atom;
 	
 	Cursors belong to {TextEditor}s and have some metadata attached in the form
 	of a {DisplayMarker}.
-	@see <https://github.com/atom/atom/blob/v1.27.0-beta1/src/cursor.js#L14>
+	@see <https://github.com/atom/atom/blob/v1.27.2/src/cursor.js#L14>
 
 **/
 @:require(js, atom) @:jsRequire("atom", "Cursor") extern class Cursor {

@@ -4,7 +4,7 @@ package atom;
 	Represents a gutter within a {TextEditor}.
 	
 	See {TextEditor::addGutter} for information on creating a gutter.
-	@see <https://github.com/atom/atom/blob/v1.27.0-beta1/src/gutter.js#L8>
+	@see <https://github.com/atom/atom/blob/v1.27.2/src/gutter.js#L8>
 
 **/
 @:require(js, atom) @:jsRequire("atom", "Gutter") extern class Gutter {

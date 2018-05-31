@@ -5,7 +5,7 @@ package atom;
 	to run.
 	
 	This is necessary on Windows since it doesn't support shebang `#!` lines.
-	@see <https://github.com/atom/atom/blob/v1.27.0-beta1/src/buffered-node-process.js#L14>
+	@see <https://github.com/atom/atom/blob/v1.27.2/src/buffered-node-process.js#L14>
 
 **/
 @:require(js, atom) @:jsRequire("atom", "BufferedNodeProcess") extern class BufferedNodeProcess extends atom.BufferedProcess {
