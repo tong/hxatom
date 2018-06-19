@@ -628,6 +628,7 @@ package atom;
 	var type : Dynamic; /**
 		This CSS class will be applied to the decorated line number, line, text spans, highlight regions, cursors, or overlay.
 	**/
+	@:native("class")
 	var class_ : Dynamic; /**
 		An {Object} containing CSS style properties to apply to the relevant DOM node. Currently this only works with a `type` of `cursor` or `text`.
 	**/

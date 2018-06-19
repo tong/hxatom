@@ -91,6 +91,12 @@ class AtomAPI {
             return name.charAt( 0 ).toUpperCase() + name.substr( 1 );
         }
 
+        /*
+        function escapeFieldName( field : Field ) : Field {
+            return null;
+        }
+        */
+
         function escapeName( name : String ) : String {
             //TODO HACK
             //if( name == null ) return null;
@@ -110,8 +116,7 @@ class AtomAPI {
 
         function getTypeForName( name : String ) : ComplexType {
             return switch name {
-            case 'Object':
-                macro: Dynamic;
+            case 'Object': macro: Dynamic;
             case 'Boolean': macro : Bool;
             case 'Double','Float','Number': macro : Float;
             case 'RegExp': macro : EReg;
@@ -125,7 +130,8 @@ class AtomAPI {
                 //trace(">>>",name);
                 macro : haxe.Constraints.Function;
             case 'Array':
-                macro : Array<Dynamic>; //TODO
+                // TODO parse array type from description (?)
+                macro : Array<Dynamic>;
             case null:
                 macro : Dynamic;
             case 'TextEditorRegistry': macro : Dynamic; // HACK
@@ -150,12 +156,23 @@ class AtomAPI {
 
         function convertProperty( prop : APIProperty, isStatic = false ) : Field {
 
-            var access = [];
-            if( isStatic ) access.push( AStatic );
-
-            var name = switch prop.name {
-                case _: escapeName( prop.name );
+            var name = prop.name;
+            if( name == 'args...' ) name = 'args';
+            else if( name.startsWith( '...' ) ) name = name.substr(3);
+            else {
+                //trace( name, KWDS.indexOf( name ) );
             }
+
+            /*
+            //trace(">>>>>> "+name);
+            var meta = new Array<MetadataEntry>();
+            if( KWDS.indexOf( name ) != -1 ) {
+                trace(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+                var ename = name+'_';
+                meta.push( { name: ':native', params: [ macro $i{'js'}, macro $i{'atom'} ], pos: pos } );
+                name = ename;
+            }
+            */
 
             // HACK
             // instanceProperties type names should be specified.
@@ -164,19 +181,24 @@ class AtomAPI {
             var doc = prop.summary;
             if( doc.length == 0 ) doc = prop.description;
             doc = doc.trim();
+
             var ctype = if( expr.match( doc ) ) {
                 getTypeForName( expr.matched( 1 ) );
             } else {
                 macro : Dynamic;
             }
 
-            return {
-                access: access,
-                name: name,
-                kind: FVar( ctype ),
+            var field : Field = {
+                name: prop.name,
+                access: [],
                 pos: pos,
+                kind: FVar( ctype ),
                 doc: escapeDoc( prop.description )
             };
+
+            if( isStatic ) field.access.push( AStatic );
+            
+            return field;
         }
 
         function convertMethod( method : APIMethod, isStatic = false ) : Field {
@@ -186,7 +208,8 @@ class AtomAPI {
 
             var name = switch method.name {
                 case 'constructor': 'new';
-                case _: escapeName( method.name );
+                ///case _: escapeName( method.name );
+                case _: method.name;
             }
 
             var args = new Array<FunctionArg>();
@@ -208,6 +231,28 @@ class AtomAPI {
                             if( arg.children != null ) {
                                 var fields = new Array<Field>();
                                 for( child in arg.children ) {
+                                    var name = child.name;
+                                    var meta = new Array<MetadataEntry>();
+                                    if( KWDS.indexOf( name ) != -1 ) {
+                                        var ename = name+'_';
+                                        meta.push(
+                                            {
+                                                name: ':native',
+                                                params: [ { expr: EConst( CString( name ) ), pos: pos } ],
+                                                pos: pos
+                                            }
+                                        );
+                                        name = ename;
+                                    }
+                                    if( child.isOptional ) meta.push( { name: ":optional", pos: pos } );
+                                    fields.push( {
+                                        name: name,
+                                        doc: child.description,
+                                        kind: FVar( getTypeForName( child.type ) ),
+                                        meta: meta,
+                                        pos: pos
+                                    } );
+                                    /*
                                     var meta = new Array<MetadataEntry>();
                                     if( child.isOptional ) meta.push( { name: ":optional", pos: pos } );
                                     fields.push({
@@ -217,6 +262,7 @@ class AtomAPI {
                                         meta: meta,
                                         pos: pos
                                     });
+                                    */
                                 }
                                 type = TAnonymous( fields );
                             }
