@@ -19,8 +19,8 @@ package atom;
 	* {Cursor::getScopeDescriptor} to get a cursor's descriptor based on position.
 	
 	See the [scopes and scope descriptor guide](http://flight-manual.atom.io/behind-atom/sections/scoped-settings-scopes-and-scope-descriptors/)
-	for more information. 
-	@see <https://github.com/atom/atom/blob/v1.27.2/src/scope-descriptor.coffee#L21>
+	for more information.
+	@see <https://github.com/atom/atom/blob/v1.28.1/src/scope-descriptor.js#L21>
 
 **/
 @:require(js, atom) @:jsRequire("atom", "ScopeDescriptor") extern class ScopeDescriptor {
@@ -28,7 +28,7 @@ package atom;
 		Create a {ScopeDescriptor} object.
 	**/
 	function new(object:{ /**
-		{Array} of {String}s 
+		{Array} of {String}s
 	**/
 	var scopes : Array<Dynamic>; }):Void;
 	/**

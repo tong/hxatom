@@ -42,7 +42,7 @@ package atom;
 	  }
 	})
 	```
-	@see <https://github.com/atom/text-buffer/blob/v13.14.1/src/text-buffer.coffee#L112>
+	@see <https://github.com/atom/text-buffer/blob/v13.14.2/src/text-buffer.coffee#L112>
 
 **/
 @:require(js, atom) @:jsRequire("atom", "TextBuffer") extern class TextBuffer {

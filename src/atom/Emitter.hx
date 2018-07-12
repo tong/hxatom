@@ -22,7 +22,7 @@ package atom;
 	      @emitter.emit 'did-change-name', name
 	    @name
 	```
-	@see <https://github.com/atom/event-kit/blob/v2.4.0/src/emitter.coffee#L25>
+	@see <https://github.com/atom/event-kit/blob/v2.5.0/src/emitter.coffee#L26>
 
 **/
 @:require(js, atom) @:jsRequire("atom", "Emitter") extern class Emitter {

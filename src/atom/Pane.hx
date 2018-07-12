@@ -10,7 +10,7 @@ package atom;
 	to a pane, it will replace the currently pending item, if any, instead of
 	simply being added. In the default configuration, the text in the tab for
 	pending items is shown in italics.
-	@see <https://github.com/atom/atom/blob/v1.27.2/src/pane.js#L21>
+	@see <https://github.com/atom/atom/blob/v1.28.1/src/pane.js#L21>
 
 **/
 @:require(js, atom) @:jsRequire("atom", "Pane") extern class Pane {
