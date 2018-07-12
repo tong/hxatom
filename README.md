@@ -23,4 +23,8 @@ haxelib run atom path/to/your/atom-api.json
 
 
 ## Usage
-See: [example](example)
+
+See:
+ - [./hxatom/example](./example)
+ - https://github.com/tong/atom-clock
+ - https://github.com/tong/atom-videoplayer
