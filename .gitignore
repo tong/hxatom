@@ -1,7 +1,7 @@
 _*
 *.xml
-api/
 doc/
+haxedoc.xml
 example/*.js
 haxedoc.xml
 atom.zip
