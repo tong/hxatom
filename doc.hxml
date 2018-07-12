@@ -1,11 +1,3 @@
---no-output
--js _
--lib atom
-Atom
---macro include("atom",true,["atom.language"])
--dce no
--D doc-gen
--xml haxedoc.xml
-
+haxedoc.hxml
 --next
--cmd haxelib run dox -i ./ -o doc/ --title Hxatom -D version 1.0.0-beta.2 -D source-path https://github.com/tong/hxatom/blob/master/src -D description 'Type definitions for the atom text editor package api'
+-cmd haxelib run dox -i ./ -o doc/ --title Hxatom -D version 1.0.0-beta.3 -D source-path https://github.com/tong/hxatom/blob/master/src -D description 'Type definitions for the atom text editor package api'
