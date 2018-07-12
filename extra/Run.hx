@@ -48,7 +48,7 @@ class Run {
 
 		if( !FileSystem.exists( path ) ) FileSystem.createDirectory( path );
 
-		var types = AtomAPI.build( api );
+		var types = AtomAPI.create( api );
         var printer = new haxe.macro.Printer();
 
         for( type in types ) {
@@ -83,6 +83,17 @@ class Run {
         return types;
     }
 
+	static function copyDirectory( src : String, dst : String ) {
+		for( f in FileSystem.readDirectory( src ) ) {
+            var s = '$src/$f';
+            var d = '$dst/$f' ;
+            if( FileSystem.isDirectory( s ) ) {
+               if( !FileSystem.exists( d ) ) FileSystem.createDirectory( d );
+               copyDirectory( s, d );
+            } else File.copy( s, d );
+        }
+	}
+
 	static function main() {
 
 		var args = Sys.args();
@@ -99,6 +110,8 @@ class Run {
 			var out = 'src';
 			var types = build( api, out );
 			Sys.println( 'Generated [${types.length}] modules into [$out]' );
+			Sys.println( 'Copying extra types from ./extra/types' );
+			copyDirectory(  'extra/types', out ); // Copy extra types
 
 		case 'update':
 			downloadFile( 'https://api.github.com/repos/atom/atom/releases', 'api/releases.json' );

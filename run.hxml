@@ -2,3 +2,4 @@
 -main Run
 -cp extra
 -dce full
+-debug
