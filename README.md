@@ -9,22 +9,30 @@
 ## Install
 
 ```sh
+# Release version from haxelib:
+haxelib install atom
+# Development version from git:
 haxelib git atom https://github.com/tong/hxatom.git
-```
-
-
-## Generate Type Definitions
-
-All type definitions are generated from [atom-api.json](atom-api.json) to the [src/](src/) directory by [extra/AtomAPI.hx](extra/AtomAPI.hx).  
-To (re)generate type definitions using [another atom version](https://github.com/atom/atom/releases) run:
-```sh
-haxelib run atom path/to/your/atom-api.json
 ```
 
 
 ## Usage
 
-See:
- - [./hxatom/example](./example)
- - https://github.com/tong/atom-clock
- - https://github.com/tong/atom-videoplayer
+ - [Basic example](./example)
+ - https://atom.io/packages/clock
+ - https://atom.io/packages/videoplayer
+
+
+## Generate Externs
+
+Haxe externs are generated from the [atom-api.json](atom-api.json)
+Do not make changes to the externs itself as they will be overwritten, but edit the [extra/AtomAPI.hx](generator).
+
+```sh
+# Rebuild generator (run.n)
+haxe run.hxml
+# Generate externs
+neko run.n [atom-api.json]
+```
+
+To use another api version download [atom-api.json](https://github.com/atom/atom/releases) and rebuild.
