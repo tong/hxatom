@@ -23,7 +23,7 @@ package atom;
 	
 	You should only use {Decoration::destroy} when you still need or do not own
 	the marker.
-	@see <https://github.com/atom/atom/blob/v1.28.1/src/decoration.js#L38>
+	@see <https://github.com/atom/atom/blob/v1.28.2/src/decoration.js#L38>
 
 **/
 @:require(js, atom) @:jsRequire("atom", "Decoration") extern class Decoration {

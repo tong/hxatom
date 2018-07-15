@@ -4,7 +4,7 @@ package atom;
 	Atom global for dealing with packages, themes, menus, and the window.
 	
 	An instance of this class is always available as the `atom` global.
-	@see <https://github.com/atom/atom/blob/v1.28.1/src/atom-environment.js#L52>
+	@see <https://github.com/atom/atom/blob/v1.28.2/src/atom-environment.js#L52>
 
 **/
 @:require(js, atom) @:native("atom") extern class AtomEnvironment {

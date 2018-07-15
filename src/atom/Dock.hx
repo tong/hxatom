@@ -5,7 +5,7 @@ package atom;
 	You should not create a Dock directly. Instead, access one of the three docks of the workspace
 	via {Workspace::getLeftDock}, {Workspace::getRightDock}, and {Workspace::getBottomDock}
 	or add an item to a dock via {Workspace::open}.
-	@see <https://github.com/atom/atom/blob/v1.28.1/src/dock.js#L21>
+	@see <https://github.com/atom/atom/blob/v1.28.2/src/dock.js#L21>
 
 **/
 @:require(js, atom) @:jsRequire("atom", "Dock") extern class Dock {

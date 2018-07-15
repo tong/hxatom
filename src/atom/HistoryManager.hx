@@ -6,7 +6,7 @@ package atom;
 	An instance of this class is always available as the `atom.history` global.
 	
 	The project history is used to enable the 'Reopen Project' menu.
-	@see <https://github.com/atom/atom/blob/v1.28.1/src/history-manager.js#L8>
+	@see <https://github.com/atom/atom/blob/v1.28.2/src/history-manager.js#L8>
 
 **/
 @:require(js, atom) @:jsRequire("atom", "HistoryManager") extern class HistoryManager {

@@ -4,7 +4,7 @@ package atom;
 	Represents the clipboard used for copying and pasting in Atom.
 	
 	An instance of this class is always available as the `atom.clipboard` global.
-	@see <https://github.com/atom/atom/blob/v1.28.1/src/clipboard.js#L16>
+	@see <https://github.com/atom/atom/blob/v1.28.2/src/clipboard.js#L16>
 
 **/
 @:require(js, atom) @:jsRequire("atom", "Clipboard") extern class Clipboard {

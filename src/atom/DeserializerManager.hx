@@ -5,7 +5,7 @@ package atom;
 	
 	An instance of this class is always available as the `atom.deserializers`
 	global.
-	@see <https://github.com/atom/atom/blob/v1.28.1/src/deserializer-manager.js#L23>
+	@see <https://github.com/atom/atom/blob/v1.28.2/src/deserializer-manager.js#L23>
 
 **/
 @:require(js, atom) @:jsRequire("atom", "DeserializerManager") extern class DeserializerManager {

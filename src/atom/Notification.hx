@@ -2,7 +2,7 @@ package atom;
 
 /**
 	A notification to the user containing a message and type.
-	@see <https://github.com/atom/atom/blob/v1.28.1/src/notification.js#L6>
+	@see <https://github.com/atom/atom/blob/v1.28.2/src/notification.js#L6>
 
 **/
 @:require(js, atom) @:jsRequire("atom", "Notification") extern class Notification {
