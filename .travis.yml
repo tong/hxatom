@@ -16,10 +16,12 @@ branches:
     - master
     - dev
 
+install:
+    - haxelib install electron
+    - haxelib install dox
+    - haxelib dev atom .
+    
 script:
-  - haxelib install electron
-  - haxelib install dox
-  - haxelib dev atom .
   - haxe run.hxml
   - neko run.n
   - haxe doc.hxml
