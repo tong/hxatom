@@ -2,18 +2,18 @@
 @:keep
 class Main {
 
-    static inline function __init__() {
-        untyped module.exports = Main;
-    }
-
+    @:expose("activate")
     static function activate( state ) {
-        trace( 'Hxatom activate' );
         trace( atom.AtomEnvironment );
-        Atom.notifications.addInfo('Hxatom!');
+        Atom.notifications.addSuccess( 'HXAtom!', {
+            detail: 'https://github.com/tong/hxatom',
+            dismissable: true
+        } );
     }
 
+    @:expose("deactivate")
     static function deactivate() {
-        trace( 'Hxatom deactivate' );
+        trace( 'HXAtom deactivate' );
     }
 
 }
