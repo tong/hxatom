@@ -2,7 +2,7 @@
     "name": "atom",
     "version": "1.28.2",
     "description": "Type definitions for the atom text editor",
-    "tags": ["atom","ide","editor","texteditor","development"],
+    "tags": ["atom","ide","editor","texteditor","development","extern","js"],
     "url": "https://github.com/tong/hxatom",
     "license": "Public",
     "contributors": ["tong"],
