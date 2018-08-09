@@ -1,2 +1,0 @@
-
-typedef Atom = atom.AtomEnvironment;
