@@ -1,19 +1,18 @@
 package atom;
-
 /**
 	History manager for remembering which projects have been opened.
 	
 	An instance of this class is always available as the `atom.history` global.
 	
 	The project history is used to enable the 'Reopen Project' menu.
-	@see <https://github.com/atom/atom/blob/v1.28.2/src/history-manager.js#L8>
-
+	
+	@see https://github.com/atom/atom/blob/v1.29.0/src/history-manager.js#L8
 **/
-@:require(js, atom) @:jsRequire("atom", "HistoryManager") extern class HistoryManager {
+@:jsRequire("atom", "HistoryManager") extern class HistoryManager {
 	/**
-		Obtain a list of previously opened projects.Returns an `Array` of {HistoryProject} objects, most recent first.
+		Obtain a list of previously opened projects.
 	**/
-	function getProjects():Array<Dynamic>;
+	function getProjects():Array<Any>;
 	/**
 		Clear all projects from the history.
 		
@@ -25,7 +24,7 @@ package atom;
 	**/
 	function clearProjects():Void;
 	/**
-		Invoke the given callback when the list of projects changes.Returns a `Disposable` on which `.dispose()` can be called to unsubscribe.
+		Invoke the given callback when the list of projects changes.
 	**/
-	function onDidChangeProjects(callback:haxe.Constraints.Function):Disposable;
+	function onDidChangeProjects(callback:haxe.Constraints.Function):atom.Disposable;
 }

@@ -1,14 +1,13 @@
 package atom;
-
 /**
-	An object that aggregates multiple {Disposable} instances together
+	An object that aggregates multiple `Disposable` instances together
 	into a single disposable, so they can all be disposed as a group.
 	
 	These are very useful when subscribing to multiple events.
-	@see <https://github.com/atom/event-kit/blob/v2.5.0/src/composite-disposable.coffee#L24>
-
+	
+	@see https://github.com/atom/event-kit/blob/v2.5.0/src/composite-disposable.coffee#L24
 **/
-@:require(js, atom) @:jsRequire("atom", "CompositeDisposable") extern class CompositeDisposable {
+@:jsRequire("atom", "CompositeDisposable") extern class CompositeDisposable {
 	/**
 		Construct an instance, optionally with one or more disposables 
 	**/
@@ -24,11 +23,11 @@ package atom;
 		
 		If this object has already been disposed, this method has no effect.
 	**/
-	function add(disposables:haxe.extern.Rest<Disposable>):Void;
+	function add(disposables:haxe.extern.Rest<atom.Disposable>):Void;
 	/**
 		Remove a previously added disposable.
 	**/
-	function remove(disposable:Disposable):Void;
+	function remove(disposable:atom.Disposable):Void;
 	/**
 		Alias to {CompositeDisposable::remove} 
 	**/

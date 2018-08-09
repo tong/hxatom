@@ -1,5 +1,4 @@
 package atom;
-
 /**
 	Associates listener functions with commands in a
 	context-sensitive way using CSS selectors. You can access a global instance of
@@ -39,33 +38,21 @@ package atom;
 	    editor = @getModel()
 	    editor.insertText(new Date().toLocaleString())
 	```
-	@see <https://github.com/atom/atom/blob/v1.28.2/src/command-registry.js#L47>
-
+	
+	@see https://github.com/atom/atom/blob/v1.29.0/src/command-registry.js#L47
 **/
-@:require(js, atom) @:jsRequire("atom", "CommandRegistry") extern class CommandRegistry {
+@:jsRequire("atom", "CommandRegistry") extern class CommandRegistry {
 	/**
-		Add one or more command listeners associated with a selector.Returns a `Disposable` on which `.dispose()` can be called to remove the
-		added command handler(s).
+		Add one or more command listeners associated with a selector.
 	**/
-	function add(target:String, commandName:String, listener:haxe.Constraints.Function):Disposable;
+	function add():atom.Disposable;
 	/**
-		Find all registered commands matching a query.Returns an `Array` of `CommandDescriptor` `Object`s containing the following keys:
-		
-		* `name` The name of the command. For example, `user:insert-date`.
-		* `displayName` The display name of the command. For example,
-		  `User: Insert Date`.
-		  Additional metadata may also be present in the returned descriptor:
-		* `description` a `String` describing the function of the command in more
-		  detail than the title
-		* `tags` an `Array` of `String`s that describe keywords related to the
-		  command
-		  Any additional nonstandard metadata provided when the command was `add`ed
-		  may also be present in the returned descriptor.
+		Find all registered commands matching a query.
 	**/
 	function findCommands(params:{ /**
 		A DOM node that is the hypothetical target of a given command.
 	**/
-	var target : Dynamic; }):Array<Dynamic>;
+	var target : Dynamic; }):Array<Any>;
 	/**
 		Simulate the dispatch of a command on a DOM node.
 		

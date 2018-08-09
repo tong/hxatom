@@ -1,5 +1,4 @@
 package atom;
-
 /**
 	Provides a registry for menu items that you'd like to appear in the
 	application menu.
@@ -48,15 +47,14 @@ package atom;
 	```
 	
 	See {::add} for more info about adding menu's directly. 
-	@see <https://github.com/atom/atom/blob/v1.28.2/src/menu-manager.coffee#L61>
-
+	
+	@see https://github.com/atom/atom/blob/v1.29.0/src/menu-manager.coffee#L61
 **/
-@:require(js, atom) @:jsRequire("atom", "MenuManager") extern class MenuManager {
+@:jsRequire("atom", "MenuManager") extern class MenuManager {
 	/**
-		Adds the given items to the application menu.Returns a `Disposable` on which `.dispose()` can be called to remove the
-		added menu items.
+		Adds the given items to the application menu.
 	**/
-	function add(items:Array<Dynamic>):Disposable;
+	function add(items:Array<Any>):atom.Disposable;
 	/**
 		Refreshes the currently visible menu. 
 	**/

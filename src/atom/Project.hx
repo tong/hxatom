@@ -1,27 +1,26 @@
 package atom;
-
 /**
 	Represents a project that's opened in Atom.
 	
 	An instance of this class is always available as the `atom.project` global.
-	@see <https://github.com/atom/atom/blob/v1.28.2/src/project.js#L17>
-
+	
+	@see https://github.com/atom/atom/blob/v1.29.0/src/project.js#L17
 **/
-@:require(js, atom) @:jsRequire("atom", "Project") extern class Project {
+@:jsRequire("atom", "Project") extern class Project {
 	/**
-		Invoke the given callback when the project paths change.Returns a `Disposable` on which `.dispose()` can be called to unsubscribe.
+		Invoke the given callback when the project paths change.
 	**/
-	function onDidChangePaths(callback:haxe.Constraints.Function):Disposable;
+	function onDidChangePaths(callback:haxe.Constraints.Function):atom.Disposable;
 	/**
 		Invoke the given callback when a text buffer is added to the
-		project.Returns a `Disposable` on which `.dispose()` can be called to unsubscribe.
+		project.
 	**/
-	function onDidAddBuffer(callback:haxe.Constraints.Function):Disposable;
+	function onDidAddBuffer(callback:haxe.Constraints.Function):atom.Disposable;
 	/**
 		Invoke the given callback with all current and future text
-		buffers in the project.Returns a `Disposable` on which `.dispose()` can be called to unsubscribe.
+		buffers in the project.
 	**/
-	function observeBuffers(callback:haxe.Constraints.Function):Disposable;
+	function observeBuffers(callback:haxe.Constraints.Function):atom.Disposable;
 	/**
 		Invoke a callback when a filesystem change occurs within any open
 		project path.
@@ -48,9 +47,9 @@ package atom;
 		
 		When writing tests against functionality that uses this method, be sure to wait for the
 		`Promise` returned by {::getWatcherPromise} before manipulating the filesystem to ensure that
-		the watcher is receiving events.Returns a `Disposable` to manage this event subscription.
+		the watcher is receiving events.
 	**/
-	function onDidChangeFiles(callback:haxe.Constraints.Function):Disposable;
+	function onDidChangeFiles(callback:haxe.Constraints.Function):atom.Disposable;
 	/**
 		Get an `Array` of {GitRepository}s associated with the project's
 		directories.
@@ -66,22 +65,18 @@ package atom;
 	**/
 	function getRepositories():Void;
 	/**
-		Get the repository for a given directory asynchronously.Returns a `Promise` that resolves with either:
-		
-		* {GitRepository} if a repository can be created for the given directory
-		* `null` if no repository can be created for the given directory.
+		Get the repository for a given directory asynchronously.
 	**/
-	function repositoryForDirectory(directory:Directory):js.Promise<Dynamic>;
+	function repositoryForDirectory(directory:atom.Directory):js.Promise<Any>;
 	/**
 		Get an `Array` of `String`s containing the paths of the project's
-		directories.Get an `Array` of `String`s containing the paths of the project's
 		directories.
 	**/
-	function getPaths():Array<String>;
+	function getPaths():Void;
 	/**
 		Set the paths of the project's directories.
 	**/
-	function setPaths(projectPaths:Array<Dynamic>, options:{ /**
+	function setPaths(projectPaths:Array<Any>, options:{ /**
 		If `true`, throw an Error if any `projectPaths` do not exist. Any remaining `projectPaths` that do exist will still be added to the project. Default: `false`.
 	**/
 	var mustExist : Dynamic; /**
@@ -103,11 +98,9 @@ package atom;
 		root directory is ready to begin receiving events.
 		
 		This is especially useful in test cases, where it's important to know that the watcher is
-		ready before manipulating the filesystem to produce events.Returns a `Promise` that resolves with the {PathWatcher} associated with this project root
-		once it has initialized and is ready to start sending events. The Promise will reject with
-		an error instead if `projectPath` is not currently a root directory.
+		ready before manipulating the filesystem to produce events.
 	**/
-	function getWatcherPromise(projectPath:String):js.Promise<Dynamic>;
+	function getWatcherPromise(projectPath:String):js.Promise<Any>;
 	/**
 		remove a path from the project's list of root paths.
 	**/
@@ -118,16 +111,15 @@ package atom;
 	function getDirectories():Void;
 	/**
 		Get the path to the project directory that contains the given path,
-		and the relative path from that project directory to the given path.Get the path to the project directory that contains the given path,
 		and the relative path from that project directory to the given path.
 	**/
-	function relativizePath(fullPath:String):Array<String>;
+	function relativizePath(fullPath:String):Array<Any>;
 	/**
 		Determines whether the given path (real or symbolic) is inside the
 		project's directory.
 		
 		This method does not actually check if the path exists, it just checks their
-		locations relative to each other.Returns whether the path is inside the project's root directory.
+		locations relative to each other.
 	**/
 	function contains(pathToCheck:String):Dynamic;
 }

@@ -1,22 +1,21 @@
 package atom;
-
 /**
 	Represents a decoration that applies to every marker on a given
 	layer. Created via {TextEditor::decorateMarkerLayer}. 
-	@see <https://github.com/atom/atom/blob/v1.28.2/src/layer-decoration.coffee#L7>
-
+	
+	@see https://github.com/atom/atom/blob/v1.29.0/src/layer-decoration.coffee#L7
 **/
-@:require(js, atom) @:jsRequire("atom", "LayerDecoration") extern class LayerDecoration {
+@:jsRequire("atom", "LayerDecoration") extern class LayerDecoration {
 	/**
 		Destroys the decoration. 
 	**/
 	function destroy():Void;
 	/**
-		Determine whether this decoration is destroyed.Returns a `Boolean`.
+		Determine whether this decoration is destroyed.
 	**/
 	function isDestroyed():Bool;
 	/**
-		Get this decoration's properties.Returns an `Object`.
+		Get this decoration's properties.
 	**/
 	function getProperties():Dynamic;
 	/**
@@ -26,5 +25,5 @@ package atom;
 	/**
 		Override the decoration properties for a specific marker.
 	**/
-	function setPropertiesForMarker(marker:DisplayMarker, properties:Dynamic):Void;
+	function setPropertiesForMarker(marker:atom.DisplayMarker, properties:Dynamic):Void;
 }

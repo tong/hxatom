@@ -1,5 +1,4 @@
 package atom;
-
 /**
 	`ViewRegistry` handles the association between model and view
 	types in Atom. We call this association a View Provider. As in, for a given
@@ -12,7 +11,7 @@ package atom;
 	just handles presentation.
 	
 	Note: Models can be any object, but must implement a `getTitle()` function
-	if they are to be displayed in a {Pane}
+	if they are to be displayed in a `Pane`
 	
 	View providers inform the workspace how your model objects should be
 	presented in the DOM. A view provider must always return a DOM node, which
@@ -20,16 +19,15 @@ package atom;
 	an ideal tool for implementing views in Atom.
 	
 	You can access the `ViewRegistry` object via `atom.views`.
-	@see <https://github.com/atom/atom/blob/v1.28.2/src/view-registry.js#L26>
-
+	
+	@see https://github.com/atom/atom/blob/v1.29.0/src/view-registry.js#L26
 **/
-@:require(js, atom) @:jsRequire("atom", "ViewRegistry") extern class ViewRegistry {
+@:jsRequire("atom", "ViewRegistry") extern class ViewRegistry {
 	/**
 		Add a provider that will be used to construct views in the
-		workspace's view layer based on model objects in its model layer.Returns a `Disposable` on which `.dispose()` can be called to remove the
-		added provider.
+		workspace's view layer based on model objects in its model layer.
 	**/
-	function addViewProvider(?modelConstructor:haxe.Constraints.Function, createView:haxe.Constraints.Function):Disposable;
+	function addViewProvider(?modelConstructor:haxe.Constraints.Function, createView:haxe.Constraints.Function):atom.Disposable;
 	/**
 		Get the view associated with an object in the workspace.
 		
@@ -53,7 +51,7 @@ package atom;
 		  provider to create a view associated with the object, and return the
 		  view.
 		
-		If no associated view is returned by the sequence an error is thrown.Returns a DOM element.
+		If no associated view is returned by the sequence an error is thrown.
 	**/
 	function getView():Dynamic;
 }

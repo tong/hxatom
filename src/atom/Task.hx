@@ -1,5 +1,4 @@
 package atom;
-
 /**
 	Run a node script in a separate process.
 	
@@ -7,14 +6,14 @@ package atom;
 	
 	For a real-world example, see the [scan-handler](https://github.com/atom/atom/blob/master/src/scan-handler.coffee)
 	and the [instantiation of the task](https://github.com/atom/atom/blob/4a20f13162f65afc816b512ad7201e528c3443d7/src/project.coffee#L245).
-	@see <https://github.com/atom/atom/blob/v1.28.2/src/task.coffee#L40>
-
+	
+	@see https://github.com/atom/atom/blob/v1.29.0/src/task.coffee#L40
 **/
-@:require(js, atom) @:jsRequire("atom", "Task") extern class Task {
+@:jsRequire("atom", "Task") extern class Task {
 	/**
-		A helper method to easily launch and run a task once.Returns the created `Task`.
+		A helper method to easily launch and run a task once.
 	**/
-	static function once(taskPath:String, args:Dynamic):Task;
+	static function once(taskPath:String, args:Dynamic):atom.Task;
 	/**
 		Creates a task. You should probably use {.once}
 	**/
@@ -34,13 +33,13 @@ package atom;
 	**/
 	function send(message:Dynamic):Void;
 	/**
-		Call a function when an event is emitted by the child processReturns a `Disposable` that can be used to stop listening for the event.
+		Call a function when an event is emitted by the child process
 	**/
-	function on(eventName:String, callback:haxe.Constraints.Function):Disposable;
+	function on(eventName:String, callback:haxe.Constraints.Function):atom.Disposable;
 	/**
-		A helper method to easily launch and run a task once.Returns the created `Task`.
+		A helper method to easily launch and run a task once.
 	**/
-	function once(taskPath:String, args:Dynamic):Task;
+	function once(taskPath:String, args:Dynamic):atom.Task;
 	/**
 		Forcefully stop the running task.
 		
@@ -48,7 +47,7 @@ package atom;
 	**/
 	function terminate():Void;
 	/**
-		Cancel the running task and emit an event if it was canceled.Returns a `Boolean` indicating whether the task was terminated.
+		Cancel the running task and emit an event if it was canceled.
 	**/
 	function cancel():Bool;
 }

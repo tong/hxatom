@@ -1,30 +1,29 @@
 package atom;
-
 /**
 	Represents the workspace at the center of the entire window.
-	@see <https://github.com/atom/atom/blob/v1.28.2/src/workspace-center.js#L7>
-
+	
+	@see https://github.com/atom/atom/blob/v1.29.0/src/workspace-center.js#L7
 **/
-@:require(js, atom) @:jsRequire("atom", "WorkspaceCenter") extern class WorkspaceCenter {
+@:jsRequire("atom", "WorkspaceCenter") extern class WorkspaceCenter {
 	/**
 		Invoke the given callback with all current and future text
-		editors in the workspace center.Returns a `Disposable` on which `.dispose()` can be called to unsubscribe.
+		editors in the workspace center.
 	**/
-	function observeTextEditors(callback:haxe.Constraints.Function):Disposable;
+	function observeTextEditors(callback:haxe.Constraints.Function):atom.Disposable;
 	/**
 		Invoke the given callback with all current and future panes items
-		in the workspace center.Returns a `Disposable` on which `.dispose()` can be called to unsubscribe.
+		in the workspace center.
 	**/
-	function observePaneItems(callback:haxe.Constraints.Function):Disposable;
+	function observePaneItems(callback:haxe.Constraints.Function):atom.Disposable;
 	/**
 		Invoke the given callback when the active pane item changes.
 		
 		Because observers are invoked synchronously, it's important not to perform
 		any expensive operations via this method. Consider
 		{::onDidStopChangingActivePaneItem} to delay operations until after changes
-		stop occurring.Returns a `Disposable` on which `.dispose()` can be called to unsubscribe.
+		stop occurring.
 	**/
-	function onDidChangeActivePaneItem(callback:haxe.Constraints.Function):Disposable;
+	function onDidChangeActivePaneItem(callback:haxe.Constraints.Function):atom.Disposable;
 	/**
 		Invoke the given callback when the active pane item stops
 		changing.
@@ -33,87 +32,86 @@ package atom;
 		change. Handling changes here rather than in the synchronous
 		{::onDidChangeActivePaneItem} prevents unneeded work if the user is quickly
 		changing or closing tabs and ensures critical UI feedback, like changing the
-		highlighted tab, gets priority over work that can be done asynchronously.Returns a `Disposable` on which `.dispose()` can be called to unsubscribe.
+		highlighted tab, gets priority over work that can be done asynchronously.
 	**/
-	function onDidStopChangingActivePaneItem(callback:haxe.Constraints.Function):Disposable;
+	function onDidStopChangingActivePaneItem(callback:haxe.Constraints.Function):atom.Disposable;
 	/**
 		Invoke the given callback with the current active pane item and
-		with all future active pane items in the workspace center.Returns a `Disposable` on which `.dispose()` can be called to unsubscribe.
+		with all future active pane items in the workspace center.
 	**/
-	function observeActivePaneItem(callback:haxe.Constraints.Function):Disposable;
+	function observeActivePaneItem(callback:haxe.Constraints.Function):atom.Disposable;
 	/**
 		Invoke the given callback when a pane is added to the workspace
-		center.Returns a `Disposable` on which `.dispose()` can be called to unsubscribe.
+		center.
 	**/
-	function onDidAddPane(callback:haxe.Constraints.Function):Disposable;
+	function onDidAddPane(callback:haxe.Constraints.Function):atom.Disposable;
 	/**
 		Invoke the given callback before a pane is destroyed in the
-		workspace center.Returns a `Disposable` on which `.dispose()` can be called to unsubscribe.
+		workspace center.
 	**/
-	function onWillDestroyPane(callback:haxe.Constraints.Function):Disposable;
+	function onWillDestroyPane(callback:haxe.Constraints.Function):atom.Disposable;
 	/**
 		Invoke the given callback when a pane is destroyed in the
-		workspace center.Returns a `Disposable` on which `.dispose()` can be called to unsubscribe.
+		workspace center.
 	**/
-	function onDidDestroyPane(callback:haxe.Constraints.Function):Disposable;
+	function onDidDestroyPane(callback:haxe.Constraints.Function):atom.Disposable;
 	/**
 		Invoke the given callback with all current and future panes in the
-		workspace center.Returns a `Disposable` on which `.dispose()` can be called to unsubscribe.
+		workspace center.
 	**/
-	function observePanes(callback:haxe.Constraints.Function):Disposable;
+	function observePanes(callback:haxe.Constraints.Function):atom.Disposable;
 	/**
-		Invoke the given callback when the active pane changes.Returns a `Disposable` on which `.dispose()` can be called to unsubscribe.
+		Invoke the given callback when the active pane changes.
 	**/
-	function onDidChangeActivePane(callback:haxe.Constraints.Function):Disposable;
+	function onDidChangeActivePane(callback:haxe.Constraints.Function):atom.Disposable;
 	/**
 		Invoke the given callback with the current active pane and when
-		the active pane changes.Returns a `Disposable` on which `.dispose()` can be called to unsubscribe.
+		the active pane changes.
 	**/
-	function observeActivePane(callback:haxe.Constraints.Function):Disposable;
+	function observeActivePane(callback:haxe.Constraints.Function):atom.Disposable;
 	/**
 		Invoke the given callback when a pane item is added to the
-		workspace center.Returns a `Disposable` on which `.dispose()` can be called to unsubscribe.
+		workspace center.
 	**/
-	function onDidAddPaneItem(callback:haxe.Constraints.Function):Disposable;
+	function onDidAddPaneItem(callback:haxe.Constraints.Function):atom.Disposable;
 	/**
 		Invoke the given callback when a pane item is about to be
-		destroyed, before the user is prompted to save it.Returns a `Disposable` on which `.dispose` can be called to unsubscribe.
+		destroyed, before the user is prompted to save it.
 	**/
-	function onWillDestroyPaneItem(callback:haxe.Constraints.Function):Disposable;
+	function onWillDestroyPaneItem(callback:haxe.Constraints.Function):atom.Disposable;
 	/**
-		Invoke the given callback when a pane item is destroyed.Returns a `Disposable` on which `.dispose` can be called to unsubscribe.
+		Invoke the given callback when a pane item is destroyed.
 	**/
-	function onDidDestroyPaneItem(callback:haxe.Constraints.Function):Disposable;
+	function onDidDestroyPaneItem(callback:haxe.Constraints.Function):atom.Disposable;
 	/**
 		Invoke the given callback when a text editor is added to the
-		workspace center.Returns a `Disposable` on which `.dispose()` can be called to unsubscribe.
+		workspace center.
 	**/
-	function onDidAddTextEditor(callback:haxe.Constraints.Function):Disposable;
+	function onDidAddTextEditor(callback:haxe.Constraints.Function):atom.Disposable;
 	/**
-		Get all pane items in the workspace center.Returns an `Array` of items.
+		Get all pane items in the workspace center.
 	**/
-	function getPaneItems():Array<Dynamic>;
+	function getPaneItems():Array<Any>;
 	/**
-		Get the active `Pane`'s active item.Returns an pane item `Object`.
+		Get the active `Pane`'s active item.
 	**/
 	function getActivePaneItem():Dynamic;
 	/**
-		Get all text editors in the workspace center.Returns an `Array` of {TextEditor}s.
+		Get all text editors in the workspace center.
 	**/
-	function getTextEditors():Array<Dynamic>;
+	function getTextEditors():Array<Any>;
 	/**
-		Get the active item if it is an {TextEditor}.Returns an {TextEditor} or `undefined` if the current active item is not an
-		{TextEditor}.
+		Get the active item if it is an {TextEditor}.
 	**/
-	function getActiveTextEditor():TextEditor;
+	function getActiveTextEditor():atom.TextEditor;
 	/**
-		Get all panes in the workspace center.Returns an `Array` of `Pane`s.
+		Get all panes in the workspace center.
 	**/
-	function getPanes():Array<Dynamic>;
+	function getPanes():Array<Any>;
 	/**
-		Get the active `Pane`.Returns a `Pane`.
+		Get the active `Pane`.
 	**/
-	function getActivePane():Pane;
+	function getActivePane():atom.Pane;
 	/**
 		Make the next pane active.
 	**/

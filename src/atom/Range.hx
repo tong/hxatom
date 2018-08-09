@@ -1,125 +1,78 @@
 package atom;
-
 /**
 	Represents a region in a buffer in row/column coordinates.
 	
 	Every public method that takes a range also accepts a *range-compatible*
-	{Array}. This means a 2-element array containing {Point}s or point-compatible
+	`Array`. This means a 2-element array containing `Point`s or point-compatible
 	arrays. So the following are equivalent:
-	@see <https://github.com/atom/text-buffer/blob/v13.14.2/src/range.coffee#L18>
-
+	
+	@see https://github.com/atom/text-buffer/blob/v13.14.3/src/range.coffee#L18
 **/
-@:require(js, atom) @:jsRequire("atom", "Range") extern class Range {
+@:jsRequire("atom", "Range") extern class Range {
 	/**
-		A `Point` representing the start of the `Range`. 
+		Convert any range-compatible object to a `Range`.
 	**/
-	var start : Point;
-	/**
-		A `Point` representing the end of the `Range`. 
-	**/
-	var end : Point;
-	/**
-		Convert any range-compatible object to a `Range`.Returns: A `Range` based on the given object.
-	**/
-	static function fromObject(object:Range, copy:Dynamic):Range;
+	static function fromObject(object:atom.Range, copy:Dynamic):atom.Range;
 	/**
 		Call this with the result of `Range.serialize` to construct a new Range.
 	**/
-	static function deserialize(array:Array<Dynamic>):Void;
+	static function deserialize(array:Array<Any>):Void;
+	/**
+		A `Point` representing the start of the `Range`. 
+	**/
+	var start : Dynamic;
+	/**
+		A `Point` representing the end of the `Range`. 
+	**/
+	var end : Dynamic;
 	/**
 		Construct a `Range` object
 	**/
-	function new(pointA:Point, pointB:Point):Void;
-	/**
-		Returns a new range with the same start and end positions.
-	**/
+	function new(pointA:atom.Point, pointB:atom.Point):Void;
 	function copy():Dynamic;
-	/**
-		Returns a new range with the start and end positions negated.
-	**/
 	function negate():Dynamic;
-	/**
-		Returns a plain javascript object representation of the range.
-	**/
 	function serialize():Dynamic;
 	/**
-		Is the start position of this range equal to the end position?Returns a `Boolean`.
+		Is the start position of this range equal to the end position?
 	**/
 	function isEmpty():Bool;
-	/**
-		Returns a `Boolean` indicating whether this range starts and ends on
-		the same row.
-	**/
 	function isSingleLine():Bool;
 	/**
-		Get the number of rows in this range.Returns a `Number`.
+		Get the number of rows in this range.
 	**/
 	function getRowCount():Float;
-	/**
-		Returns an array of all rows in the range.
-	**/
 	function getRows():Dynamic;
 	/**
 		Freezes the range and its start and end point so it becomes
-		immutable and returns itself.Returns an immutable version of this `Range`
+		immutable and returns itself.
 	**/
-	function freeze():Range;
-	/**
-		Returns a new range that contains this range and the given range.
-	**/
-	function union(otherRange:Range):Dynamic;
+	function freeze():atom.Range;
+	function union(otherRange:atom.Range):Dynamic;
 	/**
 		Build and return a new range by translating this range's start and
-		end points by the given delta(s).Returns a `Range`.
+		end points by the given delta(s).
 	**/
-	function translate(startDelta:Point, ?endDelta:Point):Range;
+	function translate(startDelta:atom.Point, ?endDelta:atom.Point):atom.Range;
 	/**
 		Build and return a new range by traversing this range's start and
 		end points by the given delta.
 		
-		See `Point.traverse` for details of how traversal differs from translation.Returns a `Range`.
+		See `Point.traverse` for details of how traversal differs from translation.
 	**/
-	function traverse(delta:Point):Range;
+	function traverse(delta:atom.Point):atom.Range;
 	/**
-		Compare two RangesReturns `-1` if this range starts before the argument or contains it.
+		Compare two Ranges
 	**/
-	function compare(otherRange:Range):Dynamic;
+	function compare(otherRange:atom.Range):Dynamic;
+	function isEqual(otherRange:atom.Range):Bool;
+	function coversSameRows(otherRange:atom.Range):Bool;
 	/**
-		Returns a `Boolean` indicating whether this range has the same start
-		and end points as the given `Range` or range-compatible `Array`.
+		Determines whether this range intersects with the argument.
 	**/
-	function isEqual(otherRange:Range):Bool;
-	/**
-		Returns a `Boolean` indicating whether this range starts and ends on
-		the same row as the argument.
-	**/
-	function coversSameRows(otherRange:Range):Bool;
-	/**
-		Determines whether this range intersects with the argument.Returns a `Boolean`.
-	**/
-	function intersectsWith(otherRange:Range, ?exclusive:Bool):Bool;
-	/**
-		Returns a `Boolean` indicating whether this range contains the given
-		range.
-	**/
-	function containsRange(otherRange:Range, ?exclusive:Bool):Bool;
-	/**
-		Returns a `Boolean` indicating whether this range contains the given
-		point.
-	**/
-	function containsPoint(point:Point, ?exclusive:Bool):Bool;
-	/**
-		Returns a `Boolean` indicating whether this range intersects the
-		given row `Number`.
-	**/
+	function intersectsWith(otherRange:atom.Range, ?exclusive:Bool):Bool;
+	function containsRange(otherRange:atom.Range, ?exclusive:Bool):Bool;
+	function containsPoint(point:atom.Point, ?exclusive:Bool):Bool;
 	function intersectsRow(row:Float):Bool;
-	/**
-		Returns a `Boolean` indicating whether this range intersects the
-		row range indicated by the given startRow and endRow `Number`s.
-	**/
 	function intersectsRowRange(startRow:Float, endRow:Float):Bool;
-	/**
-		Returns a string representation of the range.
-	**/
 	function toString():Dynamic;
 }

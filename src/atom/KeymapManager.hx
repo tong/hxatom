@@ -1,5 +1,4 @@
 package atom;
-
 /**
 	Allows commands to be associated with keystrokes in a
 	context-sensitive way. In Atom, you can access a global instance of this
@@ -51,27 +50,27 @@ package atom;
 	the previous keystrokes are replayed. If there is ambiguity again during the
 	replay, the next longest bindings are disabled and the keystrokes are replayed
 	again. 
-	@see <https://github.com/atom/atom-keymap/blob/v8.2.10/src/keymap-manager.coffee#L66>
-
+	
+	@see https://github.com/atom/atom-keymap/blob/v8.2.10/src/keymap-manager.coffee#L66
 **/
-@:require(js, atom) @:jsRequire("atom", "KeymapManager") extern class KeymapManager {
+@:jsRequire("atom", "KeymapManager") extern class KeymapManager {
 	/**
 		Create a keydown DOM event for testing purposes.
 	**/
 	static function buildKeydownEvent(key:Dynamic, ?options:{ /**
-		A {Boolean} indicating the ctrl modifier key
+		A `Boolean` indicating the ctrl modifier key
 	**/
 	var ctrl : Bool; /**
-		A {Boolean} indicating the alt modifier key
+		A `Boolean` indicating the alt modifier key
 	**/
 	var alt : Bool; /**
-		A {Boolean} indicating the shift modifier key
+		A `Boolean` indicating the shift modifier key
 	**/
 	var shift : Bool; /**
-		A {Boolean} indicating the cmd modifier key
+		A `Boolean` indicating the cmd modifier key
 	**/
 	var cmd : Bool; /**
-		A {Number} indicating `which` value of the event. See the docs for KeyboardEvent for more information.
+		A `Number` indicating `which` value of the event. See the docs for KeyboardEvent for more information.
 	**/
 	var which : Float; /**
 		The target element of the event. 
@@ -95,23 +94,23 @@ package atom;
 	function destroy():Void;
 	/**
 		Invoke the given callback when one or more keystrokes completely
-		match a key binding.Returns a `Disposable` on which `.dispose()` can be called to unsubscribe.
+		match a key binding.
 	**/
-	function onDidMatchBinding(callback:haxe.Constraints.Function):Disposable;
+	function onDidMatchBinding(callback:haxe.Constraints.Function):atom.Disposable;
 	/**
 		Invoke the given callback when one or more keystrokes partially
-		match a binding.Returns a `Disposable` on which `.dispose()` can be called to unsubscribe.
+		match a binding.
 	**/
-	function onDidPartiallyMatchBindings(callback:haxe.Constraints.Function):Disposable;
+	function onDidPartiallyMatchBindings(callback:haxe.Constraints.Function):atom.Disposable;
 	/**
 		Invoke the given callback when one or more keystrokes fail to match
-		any bindings.Returns a `Disposable` on which `.dispose()` can be called to unsubscribe.
+		any bindings.
 	**/
-	function onDidFailToMatchBinding(callback:haxe.Constraints.Function):Disposable;
+	function onDidFailToMatchBinding(callback:haxe.Constraints.Function):atom.Disposable;
 	/**
-		Invoke the given callback when a keymap file not able to be loaded.Returns a `Disposable` on which `.dispose()` can be called to unsubscribe.
+		Invoke the given callback when a keymap file not able to be loaded.
 	**/
-	function onDidFailToReadFile(callback:haxe.Constraints.Function):Disposable;
+	function onDidFailToReadFile(callback:haxe.Constraints.Function):atom.Disposable;
 	/**
 		Construct {KeyBinding}s from an object grouping them by CSS selector.
 	**/
@@ -121,22 +120,22 @@ package atom;
 	**/
 	function add(source:String, bindings:Dynamic, priority:Float):Void;
 	/**
-		Get all current key bindings.Returns an `Array` of {KeyBinding}s.
+		Get all current key bindings.
 	**/
-	function getKeyBindings():Array<Dynamic>;
+	function getKeyBindings():Array<Any>;
 	/**
-		Get the key bindings for a given command and optional target.Returns an `Array` of key bindings.
+		Get the key bindings for a given command and optional target.
 	**/
 	function findKeyBindings(params:{ /**
-		A {String} representing one or more keystrokes, such as 'ctrl-x ctrl-s'
+		A `String` representing one or more keystrokes, such as 'ctrl-x ctrl-s'
 	**/
 	var keystrokes : String; /**
-		A {String} representing the name of a command, such as 'editor:backspace'
+		A `String` representing the name of a command, such as 'editor:backspace'
 	**/
 	var command : String; /**
 		An optional DOM element constraining the search. If this parameter is supplied, the call will only return bindings that can be invoked by a KeyboardEvent originating from the target element.
 	**/
-	var target : Dynamic; }):Array<Dynamic>;
+	var target : Dynamic; }):Array<Any>;
 	/**
 		Load the key bindings from the given path.
 	**/
@@ -144,7 +143,7 @@ package atom;
 		If `true`, the keymap will also reload the file at the given path whenever it changes. This option cannot be used with directory paths.
 	**/
 	var watch : Dynamic; /**
-		A {Number} used to sort keybindings which have the same specificity. 
+		A `Number` used to sort keybindings which have the same specificity. 
 	**/
 	var priority : Float; }):Void;
 	/**
@@ -155,7 +154,7 @@ package atom;
 		that's what you're looking for, call {::loadKeymap} with `watch: true`.
 	**/
 	function watchKeymap(path:String, options:{ /**
-		A {Number} used to sort keybindings which have the same specificity. 
+		A `Number` used to sort keybindings which have the same specificity. 
 	**/
 	var priority : Float; }):Void;
 	/**
@@ -181,7 +180,7 @@ package atom;
 	**/
 	function handleKeyboardEvent(event:Dynamic):Void;
 	/**
-		Translate a keydown event to a keystroke string.Returns a `String` describing the keystroke.
+		Translate a keydown event to a keystroke string.
 	**/
 	function keystrokeForKeyboardEvent(event:Dynamic):String;
 	/**
@@ -189,12 +188,12 @@ package atom;
 		This API is useful for working around Chrome bugs or changing how Atom
 		resolves certain key combinations. If multiple resolvers are installed,
 		the most recently-added resolver returning a string for a given keystroke
-		takes precedence.Returns a `Disposable` that removes the added resolver.
+		takes precedence.
 	**/
-	function addKeystrokeResolver(resolver:haxe.Constraints.Function):Disposable;
+	function addKeystrokeResolver(resolver:haxe.Constraints.Function):atom.Disposable;
 	/**
 		Get the number of milliseconds allowed before pending states caused
-		by partial matches of multi-keystroke bindings are terminated.Returns a `Number`
+		by partial matches of multi-keystroke bindings are terminated.
 	**/
 	function getPartialMatchTimeout():Float;
 }

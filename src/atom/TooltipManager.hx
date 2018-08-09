@@ -1,20 +1,18 @@
 package atom;
-
 /**
 	Associates tooltips with HTML elements.
 	
 	You can get the `TooltipManager` via `atom.tooltips`.
-	@see <https://github.com/atom/atom/blob/v1.28.2/src/tooltip-manager.js#L48>
-
+	
+	@see https://github.com/atom/atom/blob/v1.29.0/src/tooltip-manager.js#L48
 **/
-@:require(js, atom) @:jsRequire("atom", "TooltipManager") extern class TooltipManager {
+@:jsRequire("atom", "TooltipManager") extern class TooltipManager {
 	/**
-		Add a tooltip to the given element.Returns a `Disposable` on which `.dispose()` can be called to remove the
-		tooltip.
+		Add a tooltip to the given element.
 	**/
-	function add(target:Dynamic, options:Dynamic):Disposable;
+	function add(target:Dynamic, options:Dynamic):atom.Disposable;
 	/**
-		Find the tooltips that have been applied to the given element.Returns an `Array` of `Tooltip` objects that match the `target`.
+		Find the tooltips that have been applied to the given element.
 	**/
-	function findTooltips(target:Dynamic):Array<Dynamic>;
+	function findTooltips(target:Dynamic):Array<Any>;
 }

@@ -1,12 +1,11 @@
 package atom;
-
 /**
 	Represents a decoration that follows a {DisplayMarker}. A decoration is
 	basically a visual representation of a marker. It allows you to add CSS
 	classes to line numbers in the gutter, lines, and add selection-line regions
 	around marked ranges of text.
 	
-	{Decoration} objects are not meant to be created directly, but created with
+	`Decoration` objects are not meant to be created directly, but created with
 	{TextEditor::decorateMarker}. eg.
 	
 	```coffee
@@ -21,12 +20,12 @@ package atom;
 	marker.destroy()
 	```
 	
-	You should only use {Decoration::destroy} when you still need or do not own
+	You should only use `Decoration.destroy` when you still need or do not own
 	the marker.
-	@see <https://github.com/atom/atom/blob/v1.28.2/src/decoration.js#L38>
-
+	
+	@see https://github.com/atom/atom/blob/v1.29.0/src/decoration.js#L38
 **/
-@:require(js, atom) @:jsRequire("atom", "Decoration") extern class Decoration {
+@:jsRequire("atom", "Decoration") extern class Decoration {
 	/**
 		Destroy this marker decoration.
 		
@@ -35,29 +34,23 @@ package atom;
 	**/
 	function destroy():Void;
 	/**
-		When the `Decoration` is updated via `Decoration.update`.Returns a `Disposable` on which `.dispose()` can be called to unsubscribe.
+		When the `Decoration` is updated via `Decoration.update`.
 	**/
-	function onDidChangeProperties(callback:haxe.Constraints.Function):Disposable;
+	function onDidChangeProperties(callback:haxe.Constraints.Function):atom.Disposable;
 	/**
-		Invoke the given callback when the `Decoration` is destroyedReturns a `Disposable` on which `.dispose()` can be called to unsubscribe.
+		Invoke the given callback when the `Decoration` is destroyed
 	**/
-	function onDidDestroy(callback:haxe.Constraints.Function):Disposable;
+	function onDidDestroy(callback:haxe.Constraints.Function):atom.Disposable;
 	/**
 		An id unique across all `Decoration` objects
 	**/
 	function getId():Void;
+	function getMarker():atom.Decoration;
 	/**
-		Returns the marker associated with this `Decoration`
-	**/
-	function getMarker():Decoration;
-	/**
-		Check if this decoration is of type `type`Returns `Boolean`
+		Check if this decoration is of type `type`
 	**/
 	function isType(type:String):Bool;
-	/**
-		Returns the `Decoration`'s properties.
-	**/
-	function getProperties():Decoration;
+	function getProperties():atom.Decoration;
 	/**
 		Update the marker with new Properties. Allows you to change the decoration's class.
 	**/

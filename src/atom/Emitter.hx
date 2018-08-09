@@ -1,5 +1,4 @@
 package atom;
-
 /**
 	Utility class to be used when implementing event-based APIs that
 	allows for handlers registered via `::on` to be invoked with calls to
@@ -22,10 +21,10 @@ package atom;
 	      @emitter.emit 'did-change-name', name
 	    @name
 	```
-	@see <https://github.com/atom/event-kit/blob/v2.5.0/src/emitter.coffee#L26>
-
+	
+	@see https://github.com/atom/event-kit/blob/v2.5.0/src/emitter.coffee#L26
 **/
-@:require(js, atom) @:jsRequire("atom", "Emitter") extern class Emitter {
+@:jsRequire("atom", "Emitter") extern class Emitter {
 	/**
 		Construct an emitter.
 		
@@ -44,14 +43,14 @@ package atom;
 	function dispose():Void;
 	/**
 		Register the given handler function to be invoked whenever events by
-		the given name are emitted via {::emit}.Returns a `Disposable` on which `.dispose()` can be called to unsubscribe.
+		the given name are emitted via {::emit}.
 	**/
-	function on(eventName:String, handler:haxe.Constraints.Function):Disposable;
+	function on(eventName:String, handler:haxe.Constraints.Function):atom.Disposable;
 	/**
 		Register the given handler function to be invoked the next time an
-		events with the given name is emitted via {::emit}.Returns a `Disposable` on which `.dispose()` can be called to unsubscribe.
+		events with the given name is emitted via {::emit}.
 	**/
-	function once(eventName:String, handler:haxe.Constraints.Function):Disposable;
+	function once(eventName:String, handler:haxe.Constraints.Function):atom.Disposable;
 	/**
 		Register the given handler function to be invoked *before* all
 		other handlers existing at the time of subscription whenever events by the
@@ -62,9 +61,9 @@ package atom;
 		updated before third-party event handlers registered on a child object via a
 		public API are invoked. Your handler could itself be preempted via
 		subsequent calls to this method, but this can be controlled by keeping
-		methods based on `::preempt` private.Returns a `Disposable` on which `.dispose()` can be called to unsubscribe.
+		methods based on `::preempt` private.
 	**/
-	function preempt(eventName:String, handler:haxe.Constraints.Function):Disposable;
+	function preempt(eventName:String, handler:haxe.Constraints.Function):atom.Disposable;
 	/**
 		Invoke handlers registered via {::on} for the given event name.
 	**/

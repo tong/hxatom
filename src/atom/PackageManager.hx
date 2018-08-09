@@ -1,5 +1,4 @@
 package atom;
-
 /**
 	Package manager for coordinating the lifecycle of Atom packages.
 	
@@ -17,34 +16,34 @@ package atom;
 	
 	Packages can be enabled/disabled via the `core.disabledPackages` config
 	settings and also by calling `enablePackage()/disablePackage()`.
-	@see <https://github.com/atom/atom/blob/v1.28.2/src/package-manager.js#L30>
-
+	
+	@see https://github.com/atom/atom/blob/v1.29.0/src/package-manager.js#L30
 **/
-@:require(js, atom) @:jsRequire("atom", "PackageManager") extern class PackageManager {
+@:jsRequire("atom", "PackageManager") extern class PackageManager {
 	/**
-		Invoke the given callback when all packages have been loaded.Returns a `Disposable` on which `.dispose()` can be called to unsubscribe.
+		Invoke the given callback when all packages have been loaded.
 	**/
-	function onDidLoadInitialPackages(callback:haxe.Constraints.Function):Disposable;
+	function onDidLoadInitialPackages(callback:haxe.Constraints.Function):atom.Disposable;
 	/**
-		Invoke the given callback when all packages have been activated.Returns a `Disposable` on which `.dispose()` can be called to unsubscribe.
+		Invoke the given callback when all packages have been activated.
 	**/
-	function onDidActivateInitialPackages(callback:haxe.Constraints.Function):Disposable;
+	function onDidActivateInitialPackages(callback:haxe.Constraints.Function):atom.Disposable;
 	/**
-		Invoke the given callback when a package is activated.Returns a `Disposable` on which `.dispose()` can be called to unsubscribe.
+		Invoke the given callback when a package is activated.
 	**/
-	function onDidActivatePackage(callback:haxe.Constraints.Function):Disposable;
+	function onDidActivatePackage(callback:haxe.Constraints.Function):atom.Disposable;
 	/**
-		Invoke the given callback when a package is deactivated.Returns a `Disposable` on which `.dispose()` can be called to unsubscribe.
+		Invoke the given callback when a package is deactivated.
 	**/
-	function onDidDeactivatePackage(callback:haxe.Constraints.Function):Disposable;
+	function onDidDeactivatePackage(callback:haxe.Constraints.Function):atom.Disposable;
 	/**
-		Invoke the given callback when a package is loaded.Returns a `Disposable` on which `.dispose()` can be called to unsubscribe.
+		Invoke the given callback when a package is loaded.
 	**/
-	function onDidLoadPackage(callback:haxe.Constraints.Function):Disposable;
+	function onDidLoadPackage(callback:haxe.Constraints.Function):atom.Disposable;
 	/**
-		Invoke the given callback when a package is unloaded.Returns a `Disposable` on which `.dispose()` can be called to unsubscribe.
+		Invoke the given callback when a package is unloaded.
 	**/
-	function onDidUnloadPackage(callback:haxe.Constraints.Function):Disposable;
+	function onDidUnloadPackage(callback:haxe.Constraints.Function):atom.Disposable;
 	/**
 		Get the path to the apm command.
 		
@@ -54,9 +53,9 @@ package atom;
 	**/
 	function getApmPath():Void;
 	/**
-		Get the paths being used to look for packages.Returns an `Array` of `String` directory paths.
+		Get the paths being used to look for packages.
 	**/
-	function getPackageDirPaths():Array<Dynamic>;
+	function getPackageDirPaths():Array<Any>;
 	/**
 		Resolve the given package name to a path on disk.
 		
@@ -64,19 +63,19 @@ package atom;
 	**/
 	function resolvePackagePath(name:String):Void;
 	/**
-		Is the package with the given name bundled with Atom?Returns a `Boolean`.
+		Is the package with the given name bundled with Atom?
 	**/
 	function isBundledPackage(name:String):Bool;
 	/**
-		Enable the package with the given name.Returns the `Package` that was enabled or null if it isn't loaded.
+		Enable the package with the given name.
 	**/
-	function enablePackage(name:String):Package;
+	function enablePackage(name:String):atom.Package;
 	/**
-		Disable the package with the given name.Returns the `Package` that was disabled or null if it isn't loaded.
+		Disable the package with the given name.
 	**/
-	function disablePackage(name:String):Package;
+	function disablePackage(name:String):atom.Package;
 	/**
-		Is the package with the given name disabled?Returns a `Boolean`.
+		Is the package with the given name disabled?
 	**/
 	function isPackageDisabled(name:String):Bool;
 	/**
@@ -84,43 +83,28 @@ package atom;
 	**/
 	function getActivePackages():Void;
 	/**
-		Get the active `Package` with the given name.Returns a `Package` or undefined.
+		Get the active `Package` with the given name.
 	**/
-	function getActivePackage(name:String):Package;
+	function getActivePackage(name:String):atom.Package;
 	/**
-		Is the `Package` with the given name active?Returns a `Boolean`.
+		Is the `Package` with the given name active?
 	**/
 	function isPackageActive(name:String):Bool;
-	/**
-		Returns a `Boolean` indicating whether package activation has occurred.
-	**/
 	function hasActivatedInitialPackages():Bool;
 	/**
 		Get an `Array` of all the loaded `Package`s
 	**/
 	function getLoadedPackages():Void;
 	/**
-		Get the loaded `Package` with the given name.Returns a `Package` or undefined.
+		Get the loaded `Package` with the given name.
 	**/
-	function getLoadedPackage(name:String):Package;
+	function getLoadedPackage(name:String):atom.Package;
 	/**
-		Is the package with the given name loaded?Returns a `Boolean`.
+		Is the package with the given name loaded?
 	**/
 	function isPackageLoaded(name:String):Bool;
-	/**
-		Returns a `Boolean` indicating whether package loading has occurred.
-	**/
 	function hasLoadedInitialPackages():Bool;
-	/**
-		Returns an `Array` of `String`s of all the available package paths.
-	**/
-	function getAvailablePackagePaths():Array<Dynamic>;
-	/**
-		Returns an `Array` of `String`s of all the available package names.
-	**/
-	function getAvailablePackageNames():Array<Dynamic>;
-	/**
-		Returns an `Array` of `String`s of all the available package metadata.
-	**/
-	function getAvailablePackageMetadata():Array<Dynamic>;
+	function getAvailablePackagePaths():Array<Any>;
+	function getAvailablePackageNames():Array<Any>;
+	function getAvailablePackageMetadata():Array<Any>;
 }
