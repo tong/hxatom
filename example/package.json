@@ -1,5 +1,5 @@
 {
-	"name": "hxatom",
+	"name": "hxatom-example",
 	"main": "./main.js",
 	"version": "1.0.0",
 	"description": "Atom example package built with haxe",
@@ -13,9 +13,7 @@
 		"url": "https://github.com/tong/hxatom/issues"
 	},
 	"keywords": [
-		"hxatom",
-		"haxe",
-		"example"
+		"haxe"
 	]
 
 }

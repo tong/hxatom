@@ -4,8 +4,7 @@ class Main {
 
     @:expose("activate")
     static function activate( state ) {
-        trace( atom.AtomEnvironment );
-        Atom.notifications.addSuccess( 'HXAtom!', {
+        Atom.notifications.addInfo( 'HXAtom example package activated', {
             detail: 'https://github.com/tong/hxatom',
             dismissable: true
         } );
@@ -13,7 +12,7 @@ class Main {
 
     @:expose("deactivate")
     static function deactivate() {
-        trace( 'HXAtom deactivate' );
+        trace( 'HXAtom example package deactivated' );
     }
 
 }
