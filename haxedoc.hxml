@@ -1,8 +1,8 @@
 --no-output
 -js _
+-xml haxedoc.xml
 -lib atom
-Atom
---macro include("atom",true,["atom.language"])
 -dce no
 -D doc-gen
--xml haxedoc.xml
+Atom
+--macro include("atom",true,["atom.language"])
