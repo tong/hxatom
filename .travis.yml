@@ -17,12 +17,12 @@ branches:
     - dev
 
 install:
-    - haxelib install electron
-    - haxelib install dox
-    - haxelib dev atom .
-    
+  - haxelib install electron
+  - haxelib install dox
+  - haxelib dev atom .
+
 script:
-  - haxe run.hxml
-  - neko run.n
+  - rm -rf src/
+  - haxe api.hxml
   - haxe doc.hxml
   - haxe --cwd example build.hxml
