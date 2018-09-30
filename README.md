@@ -1,9 +1,9 @@
 
-# Atom Haxe Type Definitions
+# HXAtom
+
+Haxe type definitions for [atom](https://atom.io/docs/api), a hackable text editor for the 21st Century.
 
 [![Build Status](https://travis-ci.org/tong/hxatom.svg?branch=master)](https://travis-ci.org/tong/hxatom) [![Haxelib Version](https://img.shields.io/github/tag/tong/hxatom.svg?style=flat-square&colorA=EA8220&colorB=FBC707&label=haxelib)](http://lib.haxe.org/p/atom/)
-
-> Haxe→JS type definitions for [atom](https://atom.io/docs/api), a hackable text editor for the 21st Century.
 
 
 ## Install

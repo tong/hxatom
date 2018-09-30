@@ -4,6 +4,7 @@ api/
 doc/
 haxedoc.xml
 example/*.js
+example/*.js.map
 haxedoc.xml
 atom.zip
 run.n
