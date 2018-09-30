@@ -12,21 +12,24 @@ using StringTools;
 using haxe.macro.TypeTools;
 using haxe.macro.ComplexTypeTools;
 
+@:require(haxe_ver >= 4.0)
 class AtomAPI {
 
-	static var KWDS = ['class','switch'];
-	static var addDocumentation : Bool;
+	static function generate( apiFile = 'atom-api.json', destination = 'src', clean = false, addDocumentation = true ) {
 
-	static function generate( apiFile = 'atom-api.json', destination = 'src', addDocumentation = true ) {
-
-		if( !FileSystem.exists( apiFile ) ) {
+		if( !FileSystem.exists( apiFile ) )
 			Context.fatalError( 'API description file [$apiFile] not found', Context.currentPos() );
-		}
 
-		AtomAPI.addDocumentation = addDocumentation;
+		if( clean ) rmdir( destination );
+
 		var json = Json.parse( File.getContent( apiFile ) ).classes;
-		var classes : Array<Dynamic> = [for(f in Reflect.fields( json )) Reflect.field( json, f ) ];
-		var types = build( classes );
+		var classes = [for(f in Reflect.fields(json)) Reflect.field(json,f) ];
+		var types = new Gen( ['atom'] ).process( classes );
+
+		// TODO HACK
+		types.push( { pack: ['atom'], name: 'Marker', kind: TDAlias(macro : Any), fields: [], pos: null } );
+		types.push( { pack: [], name: 'Atom', kind: TDAlias(macro : atom.AtomEnvironment), fields: [], pos: null, doc: 'Alias for atom.AtomEnvironment' } );
+
 		var printer = new haxe.macro.Printer();
 
 		for( type in types ) {
@@ -36,27 +39,49 @@ class AtomAPI {
 			File.saveContent( '$dir/${type.name}.hx', code );
 		}
 
-		copyDirectory(  'extra/types', destination ); // Copy extra types
+		cpdir(  'extra/types', destination ); // Copy extra types
 	}
 
-	static function copyDirectory( src : String, dst : String ) {
+	static function cpdir( src : String, dst : String ) {
 		for( f in FileSystem.readDirectory( src ) ) {
             var s = '$src/$f';
             var d = '$dst/$f' ;
             if( FileSystem.isDirectory( s ) ) {
                if( !FileSystem.exists( d ) ) FileSystem.createDirectory( d );
-               copyDirectory( s, d );
+               cpdir( s, d );
             } else File.copy( s, d );
         }
 	}
 
-	static function build( classes : Array<Dynamic> ) {
+	static function rmdir( path : String ) {
+		if( FileSystem.exists( path ) ) {
+			for( e in FileSystem.readDirectory( path ) ) {
+				var p = '$path/$e';
+				FileSystem.isDirectory( p ) ? rmdir( p ) : FileSystem.deleteFile( p );
+			}
+			FileSystem.deleteDirectory( path );
+		}
+	}
+}
+
+private class Gen {
+
+	static var KWDS = ['class','switch'];
+
+	var root : Array<String>;
+	var addDocumentation : Bool;
+	var classes : Array<Dynamic>;
+
+	public function new( ?root : Array<String>, addDocumentation = true ) {
+		this.root = (root != null) ? root : [];
+		this.addDocumentation = addDocumentation;
+	}
+
+	public function process( classes : Array<Dynamic> ) {
+
+		this.classes = classes;
 
 		var types = new Array<TypeDefinition>();
-
-		// TODO HACK
-		types.push( { pack: ['atom'], name: 'Marker', kind: TDAlias(macro : Any), fields: [], pos: null } );
-		types.push( { pack: [], name: 'Atom', kind: TDAlias(macro : atom.AtomEnvironment), fields: [], pos: null, doc: 'Alias for atom.AtomEnvironment' } );
 
 		for( cl in classes ) {
 
@@ -75,7 +100,7 @@ class AtomAPI {
 			var sup = null;
 			//TODO Model is not defined
 			if( cl.superClass != null && cl.superClass != "Model"  ) {
-				sup = { pack: ["atom"], name: cl.superClass };
+				sup = { pack: root, name: cl.superClass };
 			}
 
 			var fields = new Array<Field>();
@@ -91,12 +116,12 @@ class AtomAPI {
 			case _: meta.push( { name: ':jsRequire', params: [macro "atom",macro $v{cl.name}], pos: null } );
 			}
 
-			var doc = if( addDocumentation ) {
-				getDoc( cl.description )+'\n\n@see '+cl.srcUrl;
-			} else null;
+			var doc = getDoc( cl.description );
+			if( doc == null ) doc = '';
+			doc = doc+'\n\n@see '+cl.srcUrl;
 
 			types.push( {
-				pack: ["atom"],
+				pack: root,
 				name: cl.name,
 				isExtern: true,
 				kind: TDClass( sup ),
@@ -110,14 +135,27 @@ class AtomAPI {
 		return types;
 	}
 
-	static function createVarField( v, isStatic = false ) : Field {
+	function createVarField( v, isStatic = false ) : Field {
 		var name = v.name;
 		var access = [];
 		if( isStatic ) access.push( AStatic );
-		return createField( name, FVar( macro : Dynamic ), access, v.description );
+		//HACK to have types for Atom properties
+		var type : ComplexType;
+		var expr = ~/^.*\{([A-Z][A-Za-z]+)\}.*$/;
+		if( expr.match( v.summary ) ) {
+			var n = expr.matched(1);
+			for( c in classes ) {
+				if( c.name == n ) {
+					type = TPath( { name: n, pack: root.copy() } );
+					break;
+				}
+			}
+		}
+		if( type == null ) type = macro:Dynamic;
+		return createField( name, FVar( type ), access, v.description );
 	}
 
-	static function createMethodField( m, isStatic = false ) : Field {
+	function createMethodField( m, isStatic = false ) : Field {
 
 		var name = m.name;
 		var access = [];
@@ -145,24 +183,18 @@ class AtomAPI {
 				args.push({ name: name, type: type, opt: arg.isOptional });
 			}
 		}
+
 		if( m.arguments != null ) createArgs( m.arguments );
-		/*
+		//TODO
 		if( m.titledArguments != null ) {
-			for( ta in cast(m.titledArguments,Array<Dynamic>) ) {
-				//trace(ta);
-				createArgs( ta.arguments );
-			}
-			//var targs : Array<Dynamic> = m.titledArguments;
-			//for( a in targs ) createArgs( targs.arguments );
-			//createArgs( targs );
-			//for( targ in cast(m.titledArguments,Array<Dynamic>) ) createArgs( m.titledArguments.arguments );
+			var ta = cast(m.titledArguments,Array<Dynamic>);
+			createArgs( ta[0].arguments );
 		}
-		*/
 
 		return createField( name, FFun( { args: args, expr: null, ret: ret } ), access, m.description );
 	}
 
-	static function createField( name : String, kind : FieldType, ?access : Array<Access>, ?doc : String ) : Field {
+	function createField( name : String, kind : FieldType, ?access : Array<Access>, ?doc : String ) : Field {
 		if( KWDS.indexOf( name ) != -1 ) {
 			//TODO
 			trace("INVALID FIELD NAME "+name );
@@ -171,7 +203,7 @@ class AtomAPI {
 		return { access: access, name: name, kind: kind, doc: getDoc( doc ), pos: null };
 	}
 
-	static function getComplexType( type, ?children : Array<Dynamic>, isOptional = false ) : ComplexType {
+	function getComplexType( type, ?children : Array<Dynamic>, isOptional = false ) : ComplexType {
 		var t : ComplexType = switch type {
 			//case null: macro : Void;
 			case null: macro : Dynamic;
@@ -222,7 +254,7 @@ class AtomAPI {
 		return t;
 	}
 
-	static function getDoc( str : String ) : String {
+	function getDoc( str : String ) : String {
 		if( !addDocumentation || str == null || str.length == 0 )
 			return null;
 		//TODO
