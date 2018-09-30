@@ -1,2 +1,2 @@
---macro AtomAPI.generate("atom-api.json","src")
+--macro AtomAPI.generate("atom-api.json","src",false,true)
 -D eval-stack
