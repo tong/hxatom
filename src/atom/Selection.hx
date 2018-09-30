@@ -2,7 +2,7 @@ package atom;
 /**
 	Represents a selection in the {TextEditor}.
 	
-	@see https://github.com/atom/atom/blob/v1.29.0/src/selection.js#L10
+	@see https://github.com/atom/atom/blob/v1.31.1/src/selection.js#L10
 **/
 @:jsRequire("atom", "Selection") extern class Selection {
 	/**

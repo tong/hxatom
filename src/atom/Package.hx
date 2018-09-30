@@ -3,7 +3,7 @@ package atom;
 	Loads and activates a package's main module and resources such as
 	stylesheets, keymaps, grammar, editor properties, and menus.
 	
-	@see https://github.com/atom/atom/blob/v1.29.0/src/package.js#L16
+	@see https://github.com/atom/atom/blob/v1.31.1/src/package.js#L16
 **/
 @:jsRequire("atom", "Package") extern class Package {
 	/**

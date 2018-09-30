@@ -7,7 +7,7 @@ package atom;
 	For a real-world example, see the [scan-handler](https://github.com/atom/atom/blob/master/src/scan-handler.coffee)
 	and the [instantiation of the task](https://github.com/atom/atom/blob/4a20f13162f65afc816b512ad7201e528c3443d7/src/project.coffee#L245).
 	
-	@see https://github.com/atom/atom/blob/v1.29.0/src/task.coffee#L40
+	@see https://github.com/atom/atom/blob/v1.31.1/src/task.coffee#L40
 **/
 @:jsRequire("atom", "Task") extern class Task {
 	/**

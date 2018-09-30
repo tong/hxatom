@@ -4,7 +4,7 @@ package atom;
 	
 	This API is experimental and subject to change on any release. 
 	
-	@see https://github.com/atom/text-buffer/blob/v13.14.3/src/marker-layer.coffee#L15
+	@see https://github.com/atom/text-buffer/blob/v13.14.6/src/marker-layer.coffee#L15
 **/
 @:jsRequire("atom", "MarkerLayer") extern class MarkerLayer {
 	/**

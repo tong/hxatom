@@ -2,3 +2,4 @@
 Main
 -lib atom
 -dce full
+-debug

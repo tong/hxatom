@@ -39,13 +39,13 @@ package atom;
 	    editor.insertText(new Date().toLocaleString())
 	```
 	
-	@see https://github.com/atom/atom/blob/v1.29.0/src/command-registry.js#L47
+	@see https://github.com/atom/atom/blob/v1.31.1/src/command-registry.js#L47
 **/
 @:jsRequire("atom", "CommandRegistry") extern class CommandRegistry {
 	/**
 		Add one or more command listeners associated with a selector.
 	**/
-	function add():atom.Disposable;
+	function add(target:String, commandName:String, listener:haxe.Constraints.Function):atom.Disposable;
 	/**
 		Find all registered commands matching a query.
 	**/

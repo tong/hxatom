@@ -33,7 +33,7 @@ package atom;
 	### Value Coercion
 	
 	Config settings each have a type specified by way of a
-	[schema](json-schema.org). For example we might an integer setting that only
+	[schema](json-schema.org). For example we might want an integer setting that only
 	allows integers greater than `0`:
 	
 	```coffee
@@ -351,7 +351,7 @@ package atom;
 	
 	* Don't depend on (or write to) configuration keys outside of your keypath.
 	
-	@see https://github.com/atom/atom/blob/v1.29.0/src/config.js#L364
+	@see https://github.com/atom/atom/blob/v1.31.1/src/config.js#L364
 **/
 @:jsRequire("atom", "Config") extern class Config {
 	/**

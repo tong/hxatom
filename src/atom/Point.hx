@@ -11,7 +11,7 @@ package atom;
 	[1, 2] # Point compatible Array
 	```
 	
-	@see https://github.com/atom/text-buffer/blob/v13.14.3/src/point.coffee#L12
+	@see https://github.com/atom/text-buffer/blob/v13.14.6/src/point.coffee#L12
 **/
 @:jsRequire("atom", "Point") extern class Point {
 	/**
@@ -22,11 +22,11 @@ package atom;
 	/**
 		A zero-indexed `Number` representing the row of the `Point`. 
 	**/
-	var row : Dynamic;
+	var row : atom.Point;
 	/**
 		A zero-indexed `Number` representing the column of the `Point`. 
 	**/
-	var column : Dynamic;
+	var column : atom.Point;
 	/**
 		Construct a `Point` object
 	**/

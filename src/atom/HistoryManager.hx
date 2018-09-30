@@ -6,7 +6,7 @@ package atom;
 	
 	The project history is used to enable the 'Reopen Project' menu.
 	
-	@see https://github.com/atom/atom/blob/v1.29.0/src/history-manager.js#L8
+	@see https://github.com/atom/atom/blob/v1.31.1/src/history-manager.js#L8
 **/
 @:jsRequire("atom", "HistoryManager") extern class HistoryManager {
 	/**

@@ -4,7 +4,7 @@ package atom;
 	
 	An instance of this class is always available as the `atom.project` global.
 	
-	@see https://github.com/atom/atom/blob/v1.29.0/src/project.js#L17
+	@see https://github.com/atom/atom/blob/v1.31.1/src/project.js#L17
 **/
 @:jsRequire("atom", "Project") extern class Project {
 	/**
@@ -50,6 +50,16 @@ package atom;
 		the watcher is receiving events.
 	**/
 	function onDidChangeFiles(callback:haxe.Constraints.Function):atom.Disposable;
+	/**
+		Invoke the given callback with all current and future
+		repositories in the project.
+	**/
+	function observeRepositories(callback:haxe.Constraints.Function):atom.Disposable;
+	/**
+		Invoke the given callback when a repository is added to the
+		project.
+	**/
+	function onDidAddRepository(callback:haxe.Constraints.Function):atom.Disposable;
 	/**
 		Get an `Array` of {GitRepository}s associated with the project's
 		directories.

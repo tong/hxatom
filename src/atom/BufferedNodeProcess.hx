@@ -5,7 +5,7 @@ package atom;
 	
 	This is necessary on Windows since it doesn't support shebang `#!` lines.
 	
-	@see https://github.com/atom/atom/blob/v1.29.0/src/buffered-node-process.js#L14
+	@see https://github.com/atom/atom/blob/v1.31.1/src/buffered-node-process.js#L14
 **/
 @:jsRequire("atom", "BufferedNodeProcess") extern class BufferedNodeProcess extends atom.BufferedProcess {
 	/**

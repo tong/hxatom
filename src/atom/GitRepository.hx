@@ -18,7 +18,7 @@ package atom;
 	repo.getShortHead('vendor/path/to/a/submodule') # 'dead1234'
 	```
 	
-	@see https://github.com/atom/atom/blob/v1.29.0/src/git-repository.js#L42
+	@see https://github.com/atom/atom/blob/v1.31.1/src/git-repository.js#L42
 **/
 @:jsRequire("atom", "GitRepository") extern class GitRepository {
 	/**
@@ -51,7 +51,7 @@ package atom;
 		Invoke the given callback when a multiple files' statuses have
 		changed. For example, on window focus, the status of all the paths in the
 		repo is checked. If any of them have changed, this will be fired. Call
-		{::getPathStatus(path)} to get the status for your path of choice.
+		{::getPathStatus} to get the status for your path of choice.
 	**/
 	function onDidChangeStatuses(callback:haxe.Constraints.Function):atom.Disposable;
 	/**

@@ -6,7 +6,7 @@ package atom;
 	`Array`. This means a 2-element array containing `Point`s or point-compatible
 	arrays. So the following are equivalent:
 	
-	@see https://github.com/atom/text-buffer/blob/v13.14.3/src/range.coffee#L18
+	@see https://github.com/atom/text-buffer/blob/v13.14.6/src/range.coffee#L18
 **/
 @:jsRequire("atom", "Range") extern class Range {
 	/**
@@ -20,11 +20,11 @@ package atom;
 	/**
 		A `Point` representing the start of the `Range`. 
 	**/
-	var start : Dynamic;
+	var start : atom.Range;
 	/**
 		A `Point` representing the end of the `Range`. 
 	**/
-	var end : Dynamic;
+	var end : atom.Range;
 	/**
 		Construct a `Range` object
 	**/

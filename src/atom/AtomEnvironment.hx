@@ -4,69 +4,69 @@ package atom;
 	
 	An instance of this class is always available as the `atom` global.
 	
-	@see https://github.com/atom/atom/blob/v1.29.0/src/atom-environment.js#L52
+	@see https://github.com/atom/atom/blob/v1.31.1/src/atom-environment.js#L52
 **/
 @:native("atom") extern class AtomEnvironment {
 	/**
 		A `Clipboard` instance
 	**/
-	static var clipboard : Dynamic;
+	static var clipboard : atom.Clipboard;
 	/**
 		A {DeserializerManager} instance
 	**/
-	static var deserializers : Dynamic;
+	static var deserializers : atom.DeserializerManager;
 	/**
 		A {ViewRegistry} instance
 	**/
-	static var views : Dynamic;
+	static var views : atom.ViewRegistry;
 	/**
 		A {NotificationManager} instance
 	**/
-	static var notifications : Dynamic;
+	static var notifications : atom.NotificationManager;
 	/**
 		A `Config` instance
 	**/
-	static var config : Dynamic;
+	static var config : atom.Config;
 	/**
 		A {KeymapManager} instance
 	**/
-	static var keymaps : Dynamic;
+	static var keymaps : atom.KeymapManager;
 	/**
 		A {TooltipManager} instance
 	**/
-	static var tooltips : Dynamic;
+	static var tooltips : atom.TooltipManager;
 	/**
 		A {CommandRegistry} instance
 	**/
-	static var commands : Dynamic;
+	static var commands : atom.CommandRegistry;
 	/**
 		A {GrammarRegistry} instance
 	**/
-	static var grammars : Dynamic;
+	static var grammars : atom.GrammarRegistry;
 	/**
 		A {StyleManager} instance
 	**/
-	static var styles : Dynamic;
+	static var styles : atom.StyleManager;
 	/**
 		A {PackageManager} instance
 	**/
-	static var packages : Dynamic;
+	static var packages : atom.PackageManager;
 	/**
 		A {ThemeManager} instance
 	**/
-	static var themes : Dynamic;
+	static var themes : atom.ThemeManager;
 	/**
 		A {MenuManager} instance
 	**/
-	static var menu : Dynamic;
+	static var menu : atom.MenuManager;
 	/**
 		A {ContextMenuManager} instance
 	**/
-	static var contextMenu : Dynamic;
+	static var contextMenu : atom.ContextMenuManager;
 	/**
 		A `Project` instance
 	**/
-	static var project : Dynamic;
+	static var project : atom.Project;
 	/**
 		A {TextEditorRegistry} instance
 	**/
@@ -74,11 +74,11 @@ package atom;
 	/**
 		A `Workspace` instance
 	**/
-	static var workspace : Dynamic;
+	static var workspace : atom.Workspace;
 	/**
 		A {HistoryManager} instance
 	**/
-	static var history : Dynamic;
+	static var history : atom.HistoryManager;
 	/**
 		Invoke the given callback whenever {::beep} is called.
 	**/

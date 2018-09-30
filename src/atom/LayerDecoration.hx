@@ -3,7 +3,7 @@ package atom;
 	Represents a decoration that applies to every marker on a given
 	layer. Created via {TextEditor::decorateMarkerLayer}. 
 	
-	@see https://github.com/atom/atom/blob/v1.29.0/src/layer-decoration.coffee#L7
+	@see https://github.com/atom/atom/blob/v1.31.1/src/layer-decoration.coffee#L7
 **/
 @:jsRequire("atom", "LayerDecoration") extern class LayerDecoration {
 	/**

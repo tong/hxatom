@@ -40,7 +40,7 @@ package atom;
 	**When in doubt, just default to buffer coordinates**, then experiment with
 	soft wraps and folds to ensure your code interacts with them correctly.
 	
-	@see https://github.com/atom/atom/blob/v1.29.0/src/text-editor.js#L69
+	@see https://github.com/atom/atom/blob/v1.31.1/src/text-editor.js#L69
 **/
 @:jsRequire("atom", "TextEditor") extern class TextEditor {
 	/**
@@ -1468,7 +1468,28 @@ package atom;
 		`Boolean` specifying whether the gutter is visible   initially after being created. (default: true)
 	**/
 	@:optional
-	var visible : Bool; }):atom.Gutter;
+	var visible : Bool; /**
+		`String` specifying the type of gutter to create. `'decorated'`   gutters are useful as a destination for decorations created with `Gutter.decorateMarker`.   `'line-number'` gutters.
+	**/
+	@:optional
+	var type : String; /**
+		`String` added to the CSS classnames of the gutter's root DOM element.
+	**/
+	@:optional
+	@:native("class")
+	var class_ : String; /**
+		`Function` called by a `'line-number'` gutter to generate the label for each line number   element. Should return a `String` that will be used to label the corresponding line.
+	**/
+	@:optional
+	var labelFn : haxe.Constraints.Function; /**
+		`Function` to be called when a mousedown event is received by a line-number    element within this `type: 'line-number'` `Gutter`. If unspecified, the default behavior is to select the    clicked buffer row.
+	**/
+	@:optional
+	var onMouseDown : haxe.Constraints.Function; /**
+		`Function` to be called when a mousemove event occurs on a line-number element within    within this `type: 'line-number'` `Gutter`.
+	**/
+	@:optional
+	var onMouseMove : haxe.Constraints.Function; }):atom.Gutter;
 	/**
 		Get this editor's gutters.
 	**/

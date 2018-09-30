@@ -6,7 +6,7 @@ package atom;
 	own, but is instead subscribed to by individual `<atom-styles>` elements,
 	which clone and attach style elements in different contexts.
 	
-	@see https://github.com/atom/atom/blob/v1.29.0/src/style-manager.js#L15
+	@see https://github.com/atom/atom/blob/v1.31.1/src/style-manager.js#L15
 **/
 @:jsRequire("atom", "StyleManager") extern class StyleManager {
 	/**
