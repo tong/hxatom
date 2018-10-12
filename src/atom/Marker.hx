@@ -1,2 +1,2 @@
 package atom;
-typedef Marker = Any;
+typedef Marker = Dynamic;

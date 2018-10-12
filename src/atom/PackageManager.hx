@@ -17,7 +17,7 @@ package atom;
 	Packages can be enabled/disabled via the `core.disabledPackages` config
 	settings and also by calling `enablePackage()/disablePackage()`.
 	
-	@see https://github.com/atom/atom/blob/v1.31.1/src/package-manager.js#L30
+	@see https://github.com/atom/atom/blob/v1.31.2/src/package-manager.js#L30
 **/
 @:jsRequire("atom", "PackageManager") extern class PackageManager {
 	/**
