@@ -301,7 +301,7 @@ package atom;
 	* **bold** - `**bold**`
 	* *italics* - `*italics*`
 	* [links](https://atom.io) - `[links](https://atom.io)`
-	* `code spans` - `\`code spans\``
+	* `code spans` - `` `code spans` ``
 	* line breaks - `line breaks<br/>`
 	* ~~strikethrough~~ - `~~strikethrough~~`
 	
@@ -351,7 +351,7 @@ package atom;
 	
 	* Don't depend on (or write to) configuration keys outside of your keypath.
 	
-	@see https://github.com/atom/atom/blob/v1.31.2/src/config.js#L364
+	@see https://github.com/atom/atom/blob/v1.32.1/src/config.js#L364
 **/
 @:jsRequire("atom", "Config") extern class Config {
 	/**

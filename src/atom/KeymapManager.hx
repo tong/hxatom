@@ -51,7 +51,7 @@ package atom;
 	replay, the next longest bindings are disabled and the keystrokes are replayed
 	again. 
 	
-	@see https://github.com/atom/atom-keymap/blob/v8.2.10/src/keymap-manager.coffee#L66
+	@see https://github.com/atom/atom-keymap/blob/v8.2.11/src/keymap-manager.coffee#L66
 **/
 @:jsRequire("atom", "KeymapManager") extern class KeymapManager {
 	/**
