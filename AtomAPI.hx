@@ -20,18 +20,16 @@ class AtomAPI {
 		if( !FileSystem.exists( apiFile ) )
 			Context.fatalError( 'API description file [$apiFile] not found', Context.currentPos() );
 
-		if( clean ) rmdir( destination );
 
 		var json = Json.parse( File.getContent( apiFile ) ).classes;
 		var classes = [for(f in Reflect.fields(json)) Reflect.field(json,f) ];
 		var types = new Gen( ['atom'] ).process( classes );
 
-		// TODO HACK
-		types.push( { pack: ['atom'], name: 'Marker', kind: TDAlias(macro : Any), fields: [], pos: null } );
-		types.push( { pack: [], name: 'Atom', kind: TDAlias(macro : atom.AtomEnvironment), fields: [], pos: null, doc: 'Alias for atom.AtomEnvironment' } );
+		types.push( { pack: [], name: 'Atom', kind: TDAlias(macro:atom.AtomEnvironment), fields: [], pos: null, doc: 'Alias for atom.AtomEnvironment' } );
+
+		if( clean ) rmdir( destination );
 
 		var printer = new haxe.macro.Printer();
-
 		for( type in types ) {
 			var code = printer.printTypeDefinition( type );
 			var dir = destination+'/'+type.pack.join('/');
@@ -82,6 +80,8 @@ private class Gen {
 		this.classes = classes;
 
 		var types = new Array<TypeDefinition>();
+
+		types.push( { pack: ['atom'], name: 'Marker', kind: TDAlias(macro:Dynamic), fields: [], pos: null } );
 
 		for( cl in classes ) {
 
@@ -141,6 +141,7 @@ private class Gen {
 		if( isStatic ) access.push( AStatic );
 		//HACK to have types for Atom properties
 		var type : ComplexType;
+		//TODO really #?!
 		var expr = ~/^.*\{([A-Z][A-Za-z]+)\}.*$/;
 		if( expr.match( v.summary ) ) {
 			var n = expr.matched(1);
@@ -151,7 +152,7 @@ private class Gen {
 				}
 			}
 		}
-		if( type == null ) type = macro:Dynamic;
+		if( type == null ) type = macro : Dynamic;
 		return createField( name, FVar( type ), access, v.description );
 	}
 
@@ -170,12 +171,11 @@ private class Gen {
 			ret = (m.returnValues == null) ? macro : Void : getComplexType( m.returnValues );
 		}
 
-		//TODO
 		var args = new Array<FunctionArg>();
-		function createArgs( arguments : Array<Dynamic>) {
-			for( arg in arguments ) {
-				var type = getComplexType( arg.type, arg.children );
+		if( m.arguments != null ) {
+			for( arg in cast(m.arguments,Array<Dynamic>) ) {
 				var name : String = arg.name;
+				var type = getComplexType( arg.type, arg.children );
 				if( name.startsWith( '...' ) ) {
 					name = name.substr( 3 );
 					type = macro : haxe.extern.Rest<$type>;
@@ -183,12 +183,9 @@ private class Gen {
 				args.push({ name: name, type: type, opt: arg.isOptional });
 			}
 		}
-
-		if( m.arguments != null ) createArgs( m.arguments );
 		//TODO
 		if( m.titledArguments != null ) {
-			var ta = cast(m.titledArguments,Array<Dynamic>);
-			createArgs( ta[0].arguments );
+			args.push({ name: 'rest', type:  macro : haxe.extern.Rest<Dynamic> });
 		}
 
 		return createField( name, FFun( { args: args, expr: null, ret: ret } ), access, m.description );
@@ -214,13 +211,16 @@ private class Gen {
 			case 'Double','Float','Number': macro : Float;
 			case 'Function':
 				//TODO type parameters
+				//trace(children);
 				macro : haxe.Constraints.Function;
 			case 'HTMLElement': macro : js.html.HtmlElement;
 			case 'Object':
+				//if( children == null || children.length == 0 ) macro : Any else {
 				if( children == null || children.length == 0 ) macro : Dynamic else {
 					var fields = new Array<Field>();
 					for( c in children ) {
-						var _type = getComplexType( c.type, null, c.isOptional );
+						//var _type = getComplexType( c.type, null, c.isOptional );
+						var _type = getComplexType( c.type );
 						var _name = c.name;
 						var meta = new Array<MetadataEntry>();
 						if( c.isOptional ) meta.push( { name: ':optional', pos: null } );
@@ -247,10 +247,25 @@ private class Gen {
 				var types : Array<Dynamic> = cast type;
 				if( types.length == 1 ) getComplexType( types[0].type ) else macro : Dynamic;
 			default:
-				//trace(type);
+				/*
+				trace(type);
+				var has = false;
+				for( c in classes ) {
+					if( c.name == type ) {
+						has = true;
+						break;
+					}
+				}
+				if( !has ) {
+					 Context.warning( '[$type] not found', Context.currentPos() );
+				}
+				*/
 				TPath( { pack: ["atom"], name: type } );
 		}
-		//if( isOptional ) t = TOptional(t);
+		if( isOptional ) {
+			//trace(type);
+			//t = TOptional(t);
+		}
 		return t;
 	}
 
