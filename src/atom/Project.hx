@@ -4,7 +4,7 @@ package atom;
 	
 	An instance of this class is always available as the `atom.project` global.
 	
-	@see https://github.com/atom/atom/blob/v1.32.1/src/project.js#L17
+	@see https://github.com/atom/atom/blob/v1.32.2/src/project.js#L17
 **/
 @:jsRequire("atom", "Project") extern class Project {
 	/**

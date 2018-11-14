@@ -6,7 +6,7 @@ package atom;
 	An instance of this class is always available as the `atom.notifications`
 	global.
 	
-	@see https://github.com/atom/atom/blob/v1.32.1/src/notification-manager.js#L10
+	@see https://github.com/atom/atom/blob/v1.32.2/src/notification-manager.js#L10
 **/
 @:jsRequire("atom", "NotificationManager") extern class NotificationManager {
 	/**

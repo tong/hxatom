@@ -1,13 +1,13 @@
 {
 	"name": "hxatom-example",
 	"main": "./main.js",
-	"version": "1.31.2",
+	"version": "1.32.2",
 	"description": "Atom example package built with haxe",
 	"repository": "https://github.com/tong/hxatom",
 	"homepage": "https://github.com/tong/hxatom",
 	"license": "MIT",
 	"engines": {
-		"atom": ">=1.31.2 <2.0.0"
+		"atom": ">=1.32.2 <2.0.0"
 	},
 	"bugs": {
 		"url": "https://github.com/tong/hxatom/issues"
