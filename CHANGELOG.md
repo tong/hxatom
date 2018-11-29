@@ -1,3 +1,6 @@
+## 1.33.0
+ * API upgrade
+ 
 ## 1.29.0
  * API generator revision
 
