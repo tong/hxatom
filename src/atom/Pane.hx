@@ -10,7 +10,7 @@ package atom;
 	simply being added. In the default configuration, the text in the tab for
 	pending items is shown in italics.
 	
-	@see https://github.com/atom/atom/blob/v1.32.2/src/pane.js#L21
+	@see https://github.com/atom/atom/blob/v1.33.0/src/pane.js#L21
 **/
 @:jsRequire("atom", "Pane") extern class Pane {
 	/**

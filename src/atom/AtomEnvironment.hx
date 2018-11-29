@@ -4,7 +4,7 @@ package atom;
 	
 	An instance of this class is always available as the `atom` global.
 	
-	@see https://github.com/atom/atom/blob/v1.32.2/src/atom-environment.js#L52
+	@see https://github.com/atom/atom/blob/v1.33.0/src/atom-environment.js#L52
 **/
 @:native("atom") extern class AtomEnvironment {
 	/**

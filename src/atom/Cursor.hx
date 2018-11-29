@@ -6,7 +6,7 @@ package atom;
 	Cursors belong to {TextEditor}s and have some metadata attached in the form
 	of a {DisplayMarker}.
 	
-	@see https://github.com/atom/atom/blob/v1.32.2/src/cursor.js#L14
+	@see https://github.com/atom/atom/blob/v1.33.0/src/cursor.js#L14
 **/
 @:jsRequire("atom", "Cursor") extern class Cursor {
 	/**
@@ -72,6 +72,10 @@ package atom;
 		Retrieves the scope descriptor for the cursor's current position.
 	**/
 	function getScopeDescriptor():atom.ScopeDescriptor;
+	/**
+		Retrieves the syntax tree scope descriptor for the cursor's current position.
+	**/
+	function getSyntaxTreeScopeDescriptor():atom.ScopeDescriptor;
 	function hasPrecedingCharactersOnLine():Dynamic;
 	/**
 		Identifies if this cursor is the last in the {TextEditor}.

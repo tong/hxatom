@@ -4,7 +4,7 @@ package atom;
 	
 	An instance of this class is always available as the `atom.clipboard` global.
 	
-	@see https://github.com/atom/atom/blob/v1.32.2/src/clipboard.js#L16
+	@see https://github.com/atom/atom/blob/v1.33.0/src/clipboard.js#L16
 **/
 @:jsRequire("atom", "Clipboard") extern class Clipboard {
 	/**

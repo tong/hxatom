@@ -40,7 +40,7 @@ package atom;
 	**When in doubt, just default to buffer coordinates**, then experiment with
 	soft wraps and folds to ensure your code interacts with them correctly.
 	
-	@see https://github.com/atom/atom/blob/v1.32.2/src/text-editor.js#L69
+	@see https://github.com/atom/atom/blob/v1.33.0/src/text-editor.js#L69
 **/
 @:jsRequire("atom", "TextEditor") extern class TextEditor {
 	/**
@@ -1332,6 +1332,20 @@ package atom;
 		`["source.coffee", "meta.function.inline.coffee", "meta.parameters.coffee", "variable.parameter.function.coffee"]`
 	**/
 	function scopeDescriptorForBufferPosition(bufferPosition:atom.Point):atom.ScopeDescriptor;
+	/**
+		Get the syntactic tree {ScopeDescriptor} for the given position in buffer
+		coordinates or the syntactic {ScopeDescriptor} for TextMate language mode
+		
+		For example, if called with a position inside the parameter list of a
+		JavaScript class function, this method returns a {ScopeDescriptor} with
+		the following syntax nodes array:
+		`["source.js", "program", "expression_statement", "assignment_expression", "class", "class_body", "method_definition", "formal_parameters", "identifier"]`
+		if tree-sitter is used
+		and the following scopes array:
+		`["source.js"]`
+		if textmate is used
+	**/
+	function syntaxTreeScopeDescriptorForBufferPosition(bufferPosition:atom.Point):atom.ScopeDescriptor;
 	/**
 		Get the range in buffer coordinates of all tokens surrounding the
 		cursor that match the given scope selector.

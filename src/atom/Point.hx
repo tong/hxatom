@@ -11,13 +11,18 @@ package atom;
 	[1, 2] # Point compatible Array
 	```
 	
-	@see https://github.com/atom/text-buffer/blob/v13.14.10/src/point.coffee#L12
+	@see https://github.com/atom/text-buffer/blob/v13.15.0/src/point.coffee#L12
 **/
 @:jsRequire("atom", "Point") extern class Point {
 	/**
 		Convert any point-compatible object to a `Point`.
 	**/
 	static function fromObject(object:atom.Point, copy:Dynamic):atom.Point;
+	/**
+		
+		
+		
+	**/
 	static function min(point1:atom.Point, point2:atom.Point):atom.Point;
 	/**
 		A zero-indexed `Number` representing the row of the `Point`. 
@@ -54,10 +59,35 @@ package atom;
 	**/
 	function traverse(other:atom.Point):atom.Point;
 	function compare(other:atom.Point):Dynamic;
+	/**
+		
+		
+		
+	**/
 	function isEqual(other:atom.Point):Bool;
+	/**
+		
+		
+		
+	**/
 	function isLessThan(other:atom.Point):Bool;
+	/**
+		
+		
+		
+	**/
 	function isLessThanOrEqual(other:atom.Point):Bool;
+	/**
+		
+		
+		
+	**/
 	function isGreaterThan(other:atom.Point):Bool;
+	/**
+		
+		
+		
+	**/
 	function isGreaterThanOrEqual(other:atom.Point):Bool;
 	function toArray():Dynamic;
 	function serialize():Dynamic;

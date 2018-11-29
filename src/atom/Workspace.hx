@@ -18,7 +18,7 @@ package atom;
 	
 	#### `getTitle()`
 	
-	@see https://github.com/atom/atom/blob/v1.32.2/src/workspace.js#L175
+	@see https://github.com/atom/atom/blob/v1.33.0/src/workspace.js#L175
 **/
 @:jsRequire("atom", "Workspace") extern class Workspace {
 	/**

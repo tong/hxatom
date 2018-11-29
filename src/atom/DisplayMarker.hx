@@ -40,7 +40,7 @@ package atom;
 	
 	See {TextBuffer::markRange} for usage. 
 	
-	@see https://github.com/atom/text-buffer/blob/v13.14.10/src/display-marker.coffee#L43
+	@see https://github.com/atom/text-buffer/blob/v13.15.0/src/display-marker.coffee#L43
 **/
 @:jsRequire("atom", "DisplayMarker") extern class DisplayMarker {
 	/**
@@ -88,6 +88,11 @@ package atom;
 		Compares this marker to another based on their ranges.
 	**/
 	function compare(other:atom.DisplayMarker):Float;
+	/**
+		
+		
+		
+	**/
 	function isEqual(other:atom.DisplayMarker):Bool;
 	/**
 		Gets the buffer range of this marker.
