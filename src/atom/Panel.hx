@@ -8,7 +8,7 @@ package atom;
 	and [find-and-replace](https://github.com/atom/find-and-replace) both use
 	panels.
 	
-	@see https://github.com/atom/atom/blob/v1.33.0/src/panel.js#L11
+	@see https://github.com/atom/atom/blob/v1.33.1/src/panel.js#L11
 **/
 @:jsRequire("atom", "Panel") extern class Panel {
 	/**

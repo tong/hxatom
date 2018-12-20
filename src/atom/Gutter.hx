@@ -4,7 +4,7 @@ package atom;
 	
 	See {TextEditor::addGutter} for information on creating a gutter.
 	
-	@see https://github.com/atom/atom/blob/v1.33.0/src/gutter.js#L8
+	@see https://github.com/atom/atom/blob/v1.33.1/src/gutter.js#L8
 **/
 @:jsRequire("atom", "Gutter") extern class Gutter {
 	/**

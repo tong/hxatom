@@ -6,7 +6,7 @@ package atom;
 	`Array`. This means a 2-element array containing `Point`s or point-compatible
 	arrays. So the following are equivalent:
 	
-	@see https://github.com/atom/text-buffer/blob/v13.15.0/src/range.coffee#L18
+	@see https://github.com/atom/text-buffer/blob/v13.15.1/src/range.coffee#L18
 **/
 @:jsRequire("atom", "Range") extern class Range {
 	/**

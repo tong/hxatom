@@ -4,7 +4,7 @@ package atom;
 	
 	An instance of this class is always available as the `atom.themes` global.
 	
-	@see https://github.com/atom/atom/blob/v1.33.0/src/theme-manager.js#L14
+	@see https://github.com/atom/atom/blob/v1.33.1/src/theme-manager.js#L14
 **/
 @:jsRequire("atom", "ThemeManager") extern class ThemeManager {
 	/**

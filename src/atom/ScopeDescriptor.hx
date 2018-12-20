@@ -20,7 +20,7 @@ package atom;
 	See the [scopes and scope descriptor guide](http://flight-manual.atom.io/behind-atom/sections/scoped-settings-scopes-and-scope-descriptors/)
 	for more information.
 	
-	@see https://github.com/atom/atom/blob/v1.33.0/src/scope-descriptor.js#L21
+	@see https://github.com/atom/atom/blob/v1.33.1/src/scope-descriptor.js#L21
 **/
 @:jsRequire("atom", "ScopeDescriptor") extern class ScopeDescriptor {
 	/**
