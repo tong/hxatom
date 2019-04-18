@@ -20,7 +20,7 @@ package atom;
 	
 	You can access the `ViewRegistry` object via `atom.views`.
 	
-	@see https://github.com/atom/atom/blob/v1.33.1/src/view-registry.js#L26
+	@see https://github.com/atom/atom/blob/v1.36.0/src/view-registry.js#L26
 **/
 @:jsRequire("atom", "ViewRegistry") extern class ViewRegistry {
 	/**

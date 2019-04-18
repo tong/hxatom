@@ -4,7 +4,7 @@ package atom;
 	
 	An instance of this class is always available as the `atom.project` global.
 	
-	@see https://github.com/atom/atom/blob/v1.33.1/src/project.js#L17
+	@see https://github.com/atom/atom/blob/v1.36.0/src/project.js#L17
 **/
 @:jsRequire("atom", "Project") extern class Project {
 	/**
@@ -34,11 +34,11 @@ package atom;
 		    // absolute path to the filesystem entry that was touched
 		    console.log(`Event path: ${event.path}`)
 		
-		    if (event.type === 'renamed') {
+		    if (event.action === 'renamed') {
 		      console.log(`.. renamed from: ${event.oldPath}`)
 		    }
 		  }
-		}
+		})
 		
 		disposable.dispose()
 		```

@@ -40,7 +40,7 @@ package atom;
 	**When in doubt, just default to buffer coordinates**, then experiment with
 	soft wraps and folds to ensure your code interacts with them correctly.
 	
-	@see https://github.com/atom/atom/blob/v1.33.1/src/text-editor.js#L69
+	@see https://github.com/atom/atom/blob/v1.36.0/src/text-editor.js#L69
 **/
 @:jsRequire("atom", "TextEditor") extern class TextEditor {
 	/**
@@ -163,10 +163,6 @@ package atom;
 	**/
 	function onDidChangePlaceholderText(callback:haxe.Constraints.Function):atom.Disposable;
 	/**
-		Retrieves the current {TextBuffer}.
-	**/
-	function getBuffer():Void;
-	/**
 		Calls your `callback` when a `Gutter` is added to the editor.
 		Immediately calls your callback for each existing gutter.
 	**/
@@ -179,6 +175,10 @@ package atom;
 		Calls your `callback` when a `Gutter` is removed from the editor.
 	**/
 	function onDidRemoveGutter(callback:haxe.Constraints.Function):atom.Disposable;
+	/**
+		Retrieves the current {TextBuffer}.
+	**/
+	function getBuffer():Void;
 	/**
 		Get the editor's title for display in other parts of the
 		UI such as the tabs.
@@ -566,14 +566,17 @@ package atom;
 		
 		The following are the supported decorations types:
 		
-		* __line__: Adds your CSS `class` to the line nodes within the range
-		    marked by the marker
-		* __line-number__: Adds your CSS `class` to the line number nodes within the
-		    range marked by the marker
-		* __highlight__: Adds a new highlight div to the editor surrounding the
-		    range marked by the marker. When the user selects text, the selection is
-		    visualized with a highlight decoration internally. The structure of this
-		    highlight will be
+		* __line__: Adds the given CSS `class` to the lines overlapping the rows
+		    spanned by the marker.
+		* __line-number__: Adds the given CSS `class` to the line numbers overlapping
+		    the rows spanned by the marker
+		* __text__: Injects spans into all text overlapping the marked range, then adds
+		    the given `class` or `style` to these spans. Use this to manipulate the foreground
+		    color or styling of text in a range.
+		* __highlight__: Creates an absolutely-positioned `.highlight` div to the editor
+		    containing nested divs that cover the marked region. For example, when the user
+		    selects text, the selection is implemented with a highlight decoration. The structure
+		    of this highlight will be:
 		  ```html
 		    <div class="highlight <your-class>">
 		      <!-- Will be one region for each row in the range. Spans 2 lines? There will be 2 regions. -->
@@ -581,17 +584,22 @@ package atom;
 		    </div>
 		  ```
 		* __overlay__: Positions the view associated with the given item at the head
-		    or tail of the given `DisplayMarker`.
-		* __gutter__: A decoration that tracks a {DisplayMarker} in a `Gutter`. Gutter
-		    decorations are created by calling `Gutter.decorateMarker` on the
-		    desired `Gutter` instance.
+		    or tail of the given `DisplayMarker`, depending on the `position` property.
+		* __gutter__: Tracks a {DisplayMarker} in a `Gutter`. Gutter decorations are created
+		    by calling `Gutter.decorateMarker` on the desired `Gutter` instance.
 		* __block__: Positions the view associated with the given item before or
-		    after the row of the given `TextEditorMarker`.
+		    after the row of the given {DisplayMarker}, depending on the `position` property.
+		    Block decorations at the same screen row are ordered by their `order` property.
+		* __cursor__: Render a cursor at the head of the {DisplayMarker}. If multiple cursor decorations
+		    are created for the same marker, their class strings and style objects are combined
+		    into a single cursor. This decoration type may be used to style existing cursors
+		    by passing in their markers or to render artificial cursors that don't actaully
+		    exist in the model by passing a marker that isn't associated with a real cursor.
 	**/
 	function decorateMarker(marker:atom.DisplayMarker, decorationParams:{ /**
-		There are several supported decoration types. The behavior of the types are as follows:
+		Determines the behavior and appearance of this `Decoration`. Supported decoration types and their uses are listed above.
 	**/
-	var type : Dynamic; /**
+	var type : atom.Decoration; /**
 		This CSS class will be applied to the decorated line number, line, text spans, highlight regions, cursors, or overlay.
 	**/
 	@:native("class")
@@ -623,6 +631,10 @@ package atom;
 	**/
 	@:optional
 	var position : Dynamic; /**
+		Only applicable to decorations of type `block`. Controls  where the view is positioned relative to other block decorations at the  same screen row. If unspecified, block decorations render oldest to newest.
+	**/
+	@:optional
+	var order : Dynamic; /**
 		Only applicable to decorations of type  `overlay`. Determines whether the decoration adjusts its horizontal or  vertical position to remain fully visible when it would otherwise  overflow the editor. Defaults to `true`.
 	**/
 	@:optional
