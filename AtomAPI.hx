@@ -238,7 +238,12 @@ private class Gen {
 					}
 					TAnonymous( fields );
 				}
-			case 'Promise': macro : js.Promise<Any>;
+			case 'Promise':
+				#if (haxe_ver>=4)
+				macro : js.lib.Promise<Any>;
+				#else
+				macro : js.Promise<Any>;
+				#end
 			case 'ReadStream': macro : js.node.fs.ReadStream;
 			case 'RegExp': macro : EReg;
 			case 'String': macro : String;
