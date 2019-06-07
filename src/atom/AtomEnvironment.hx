@@ -4,7 +4,7 @@ package atom;
 	
 	An instance of this class is always available as the `atom` global.
 	
-	@see https://github.com/atom/atom/blob/v1.36.0/src/atom-environment.js#L55
+	@see https://github.com/atom/atom/blob/v1.37.0/src/atom-environment.js#L55
 **/
 @:native("atom") extern class AtomEnvironment {
 	/**
@@ -232,11 +232,11 @@ package atom;
 	/**
 		Open the dev tools for the current window.
 	**/
-	static function openDevTools():js.Promise<Any>;
+	static function openDevTools():js.lib.Promise<Any>;
 	/**
 		Toggle the visibility of the dev tools for the current window.
 	**/
-	static function toggleDevTools():js.Promise<Any>;
+	static function toggleDevTools():js.lib.Promise<Any>;
 	/**
 		Execute code in dev tools.
 	**/

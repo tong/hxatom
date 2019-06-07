@@ -18,7 +18,7 @@ package atom;
 	
 	#### `getTitle()`
 	
-	@see https://github.com/atom/atom/blob/v1.36.0/src/workspace.js#L175
+	@see https://github.com/atom/atom/blob/v1.37.0/src/workspace.js#L175
 **/
 @:jsRequire("atom", "Workspace") extern class Workspace {
 	/**
@@ -151,7 +151,7 @@ package atom;
 		A `String` containing the name of the location in which this item should be opened (one of "left", "right", "bottom", or "center"). If omitted, Atom will fall back to the last location in which a user has placed an item with the same URI or, if this is a new URI, the default location specified by the item. NOTE: This option should almost always be omitted to honor user preference.
 	**/
 	@:optional
-	var location : String; }):js.Promise<Any>;
+	var location : String; }):js.lib.Promise<Any>;
 	/**
 		Search the workspace for items matching the given URI and hide them.
 	**/
@@ -167,7 +167,7 @@ package atom;
 		If no URI is given, or no registered opener can open the URI, a new empty
 		{TextEditor} will be created.
 	**/
-	function createItemForURI(uri:String):js.Promise<Any>;
+	function createItemForURI(uri:String):js.lib.Promise<Any>;
 	/**
 		
 		
@@ -182,7 +182,7 @@ package atom;
 		Asynchronously reopens the last-closed item's URI if it hasn't already been
 		reopened.
 	**/
-	function reopenItem():js.Promise<Any>;
+	function reopenItem():js.lib.Promise<Any>;
 	/**
 		Register an opener for a uri.
 		
@@ -421,9 +421,9 @@ package atom;
 	var leadingContextLineCount : Float; /**
 		`Number` default `0`; The number of lines  after the matched line to include in the results object.
 	**/
-	var trailingContextLineCount : Float; }, iterator:haxe.Constraints.Function):js.Promise<Any>;
+	var trailingContextLineCount : Float; }, iterator:haxe.Constraints.Function):js.lib.Promise<Any>;
 	/**
 		Performs a replace across all the specified files in the project.
 	**/
-	function replace(regex:EReg, replacementText:String, filePaths:Array<Any>, iterator:haxe.Constraints.Function):js.Promise<Any>;
+	function replace(regex:EReg, replacementText:String, filePaths:Array<Any>, iterator:haxe.Constraints.Function):js.lib.Promise<Any>;
 }

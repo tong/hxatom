@@ -4,7 +4,7 @@ package atom;
 	
 	You can get the `TooltipManager` via `atom.tooltips`.
 	
-	@see https://github.com/atom/atom/blob/v1.36.0/src/tooltip-manager.js#L48
+	@see https://github.com/atom/atom/blob/v1.37.0/src/tooltip-manager.js#L48
 **/
 @:jsRequire("atom", "TooltipManager") extern class TooltipManager {
 	/**

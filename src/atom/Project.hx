@@ -4,7 +4,7 @@ package atom;
 	
 	An instance of this class is always available as the `atom.project` global.
 	
-	@see https://github.com/atom/atom/blob/v1.36.0/src/project.js#L17
+	@see https://github.com/atom/atom/blob/v1.37.0/src/project.js#L17
 **/
 @:jsRequire("atom", "Project") extern class Project {
 	/**
@@ -77,7 +77,7 @@ package atom;
 	/**
 		Get the repository for a given directory asynchronously.
 	**/
-	function repositoryForDirectory(directory:atom.Directory):js.Promise<Any>;
+	function repositoryForDirectory(directory:atom.Directory):js.lib.Promise<Any>;
 	/**
 		Get an `Array` of `String`s containing the paths of the project's
 		directories.
@@ -110,7 +110,7 @@ package atom;
 		This is especially useful in test cases, where it's important to know that the watcher is
 		ready before manipulating the filesystem to produce events.
 	**/
-	function getWatcherPromise(projectPath:String):js.Promise<Any>;
+	function getWatcherPromise(projectPath:String):js.lib.Promise<Any>;
 	/**
 		remove a path from the project's list of root paths.
 	**/

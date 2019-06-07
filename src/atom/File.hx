@@ -14,7 +14,7 @@ package atom;
 		Creates the file on disk that corresponds to `::getPath()` if no
 		such file already exists.
 	**/
-	function create():js.Promise<Any>;
+	function create():js.lib.Promise<Any>;
 	/**
 		Invoke the given callback when the file's contents change.
 	**/
@@ -70,7 +70,7 @@ package atom;
 	/**
 		Overwrites the file with the given text.
 	**/
-	function write(text:String):js.Promise<Any>;
+	function write(text:String):js.lib.Promise<Any>;
 	function createWriteStream():Dynamic;
 	/**
 		Overwrites the file with the given text.

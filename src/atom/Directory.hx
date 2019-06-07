@@ -13,7 +13,7 @@ package atom;
 		Creates the directory on disk that corresponds to `::getPath()` if
 		no such directory already exists.
 	**/
-	function create(?mode:Float):js.Promise<Any>;
+	function create(?mode:Float):js.lib.Promise<Any>;
 	/**
 		Invoke the given callback when the directory's contents change.
 	**/

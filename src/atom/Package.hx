@@ -3,7 +3,7 @@ package atom;
 	Loads and activates a package's main module and resources such as
 	stylesheets, keymaps, grammar, editor properties, and menus.
 	
-	@see https://github.com/atom/atom/blob/v1.36.0/src/package.js#L15
+	@see https://github.com/atom/atom/blob/v1.37.0/src/package.js#L15
 **/
 @:jsRequire("atom", "Package") extern class Package {
 	/**
@@ -21,7 +21,7 @@ package atom;
 		Rebuild native modules in this package's dependencies for the
 		current version of Atom.
 	**/
-	function rebuild():js.Promise<Any>;
+	function rebuild():js.lib.Promise<Any>;
 	/**
 		If a previous rebuild failed, get the contents of stderr.
 	**/

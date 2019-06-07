@@ -10,7 +10,7 @@ package atom;
 	simply being added. In the default configuration, the text in the tab for
 	pending items is shown in italics.
 	
-	@see https://github.com/atom/atom/blob/v1.36.0/src/pane.js#L21
+	@see https://github.com/atom/atom/blob/v1.37.0/src/pane.js#L21
 **/
 @:jsRequire("atom", "Pane") extern class Pane {
 	/**
@@ -175,7 +175,7 @@ package atom;
 	/**
 		Destroy the active item and activate the next item.
 	**/
-	function destroyActiveItem():js.Promise<Any>;
+	function destroyActiveItem():js.lib.Promise<Any>;
 	/**
 		Destroy the given item.
 		
@@ -183,7 +183,7 @@ package atom;
 		last item, the pane will be destroyed if the `core.destroyEmptyPanes` config
 		setting is `true`.
 	**/
-	function destroyItem(item:Dynamic, ?force:Bool):js.Promise<Any>;
+	function destroyItem(item:Dynamic, ?force:Bool):js.lib.Promise<Any>;
 	/**
 		Destroy all items.
 	**/
@@ -200,11 +200,11 @@ package atom;
 		Prompt the user for a location and save the active item with the
 		path they select.
 	**/
-	function saveActiveItemAs(?nextAction:haxe.Constraints.Function):js.Promise<Any>;
+	function saveActiveItemAs(?nextAction:haxe.Constraints.Function):js.lib.Promise<Any>;
 	/**
 		Save the given item.
 	**/
-	function saveItem(item:Dynamic, ?nextAction:haxe.Constraints.Function):js.Promise<Any>;
+	function saveItem(item:Dynamic, ?nextAction:haxe.Constraints.Function):js.lib.Promise<Any>;
 	/**
 		Prompt the user for a location and save the active item with the
 		path they select.
