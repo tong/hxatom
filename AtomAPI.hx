@@ -25,7 +25,16 @@ class AtomAPI {
 		var classes = [for(f in Reflect.fields(json)) Reflect.field(json,f) ];
 		var types = new Gen( ['atom'] ).process( classes );
 
-		types.push( { pack: [], name: 'Atom', kind: TDAlias(macro:atom.AtomEnvironment), fields: [], pos: null, doc: 'Alias for atom.AtomEnvironment' } );
+		types.push( {
+			pack: [],
+			name: 'Atom',
+			kind: TDAlias(macro:atom.AtomEnvironment),
+			fields: [],
+			pos: null,
+			#if (haxe_ver>=4)
+			doc: 'Alias for atom.AtomEnvironment'
+			#end
+		} );
 
 		if( clean ) rmdir( destination );
 
@@ -127,8 +136,8 @@ private class Gen {
 				kind: TDClass( sup ),
 				fields: fields,
 				meta: meta,
-				doc: doc,
-				pos: null
+				pos: null,
+				#if (haxe_ver>=4) doc: doc, #end
 			} );
 		}
 
