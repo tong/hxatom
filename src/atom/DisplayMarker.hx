@@ -40,7 +40,7 @@ package atom;
 	
 	See {TextBuffer::markRange} for usage. 
 	
-	@see https://github.com/atom/text-buffer/blob/v13.15.1/src/display-marker.coffee#L43
+	@see https://github.com/atom/text-buffer/blob/v13.17.3/src/display-marker.coffee#L43
 **/
 @:jsRequire("atom", "DisplayMarker") extern class DisplayMarker {
 	/**

@@ -367,7 +367,7 @@ package atom;
 	
 	* Don't depend on (or write to) configuration keys outside of your keypath.
 	
-	@see https://github.com/atom/atom/blob/v1.37.0/src/config.js#L380
+	@see https://github.com/atom/atom/blob/v1.53.0/src/config.js#L383
 **/
 @:jsRequire("atom", "Config") extern class Config {
 	/**

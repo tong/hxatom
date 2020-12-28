@@ -2,7 +2,7 @@ package atom;
 /**
 	Represents a directory on disk that can be watched for changes. 
 	
-	@see https://github.com/atom/node-pathwatcher/blob/v8.0.1/src/directory.coffee#L13
+	@see https://github.com/atom/node-pathwatcher/blob/v8.1.0/src/directory.coffee#L13
 **/
 @:jsRequire("atom", "Directory") extern class Directory {
 	/**

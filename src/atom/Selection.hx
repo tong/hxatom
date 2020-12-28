@@ -2,7 +2,7 @@ package atom;
 /**
 	Represents a selection in the {TextEditor}.
 	
-	@see https://github.com/atom/atom/blob/v1.37.0/src/selection.js#L10
+	@see https://github.com/atom/atom/blob/v1.53.0/src/selection.js#L9
 **/
 @:jsRequire("atom", "Selection") extern class Selection {
 	/**
@@ -23,6 +23,9 @@ package atom;
 		Modifies the buffer `Range` for the selection.
 	**/
 	function setBufferRange(bufferRange:atom.Range, ?options:{ /**
+		`Boolean` indicating whether to set the selection in a reversed orientation.
+	**/
+	var reversed : Bool; /**
 		if `true`, the fold settings are preserved after the selection moves.
 	**/
 	var preserveFolds : Dynamic; /**

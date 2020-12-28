@@ -5,7 +5,7 @@ package atom;
 	
 	This API is experimental and subject to change on any release. 
 	
-	@see https://github.com/atom/text-buffer/blob/v13.15.1/src/display-marker-layer.coffee#L11
+	@see https://github.com/atom/text-buffer/blob/v13.17.3/src/display-marker-layer.coffee#L11
 **/
 @:jsRequire("atom", "DisplayMarkerLayer") extern class DisplayMarkerLayer {
 	/**

@@ -3,7 +3,7 @@ package atom;
 	Represents an individual file that can be watched, read from, and
 	written to. 
 	
-	@see https://github.com/atom/node-pathwatcher/blob/v8.0.1/src/file.coffee#L17
+	@see https://github.com/atom/node-pathwatcher/blob/v8.1.0/src/file.coffee#L17
 **/
 @:jsRequire("atom", "File") extern class File {
 	/**
@@ -65,12 +65,22 @@ package atom;
 	/**
 		Reads the contents of the file.
 	**/
-	function read(flushCache:Bool):Dynamic;
+	function read(flushCache:Bool):String;
+	/**
+		
+		
+		
+	**/
 	function createReadStream():Dynamic;
 	/**
 		Overwrites the file with the given text.
 	**/
 	function write(text:String):js.lib.Promise<Any>;
+	/**
+		
+		
+		
+	**/
 	function createWriteStream():Dynamic;
 	/**
 		Overwrites the file with the given text.

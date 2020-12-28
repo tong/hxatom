@@ -40,7 +40,7 @@ package atom;
 	**When in doubt, just default to buffer coordinates**, then experiment with
 	soft wraps and folds to ensure your code interacts with them correctly.
 	
-	@see https://github.com/atom/atom/blob/v1.37.0/src/text-editor.js#L69
+	@see https://github.com/atom/atom/blob/v1.53.0/src/text-editor.js#L73
 **/
 @:jsRequire("atom", "TextEditor") extern class TextEditor {
 	/**
@@ -593,7 +593,7 @@ package atom;
 		* __cursor__: Render a cursor at the head of the {DisplayMarker}. If multiple cursor decorations
 		    are created for the same marker, their class strings and style objects are combined
 		    into a single cursor. This decoration type may be used to style existing cursors
-		    by passing in their markers or to render artificial cursors that don't actaully
+		    by passing in their markers or to render artificial cursors that don't actually
 		    exist in the model by passing a marker that isn't associated with a real cursor.
 	**/
 	function decorateMarker(marker:atom.DisplayMarker, decorationParams:{ /**

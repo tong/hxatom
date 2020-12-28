@@ -2,7 +2,7 @@ package atom;
 /**
 	Registry containing one or more grammars. 
 	
-	@see https://github.com/atom/first-mate/blob/v7.1.3/src/grammar-registry.coffee#L11
+	@see https://github.com/atom/first-mate/blob/v7.4.1/src/grammar-registry.coffee#L11
 **/
 @:jsRequire("atom", "GrammarRegistry") extern class GrammarRegistry {
 	/**

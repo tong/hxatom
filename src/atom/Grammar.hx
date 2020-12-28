@@ -5,7 +5,7 @@ package atom;
 	This class should not be instantiated directly but instead obtained from
 	a {GrammarRegistry} by calling {GrammarRegistry::loadGrammar}. 
 	
-	@see https://github.com/atom/first-mate/blob/v7.1.3/src/grammar.coffee#L19
+	@see https://github.com/atom/first-mate/blob/v7.4.1/src/grammar.coffee#L19
 **/
 @:jsRequire("atom", "Grammar") extern class Grammar {
 	/**

@@ -4,7 +4,7 @@ package atom;
 	
 	An instance of this class is always available as the `atom` global.
 	
-	@see https://github.com/atom/atom/blob/v1.37.0/src/atom-environment.js#L55
+	@see https://github.com/atom/atom/blob/v1.53.0/src/atom-environment.js#L57
 **/
 @:native("atom") extern class AtomEnvironment {
 	/**
@@ -101,6 +101,10 @@ package atom;
 	static function inSafeMode():Bool;
 	static function inSpecMode():Bool;
 	/**
+		Get the full name of this Atom release (e.g. "Atom", "Atom Beta")
+	**/
+	static function getAppName():String;
+	/**
 		Get the version of the Atom application.
 	**/
 	static function getVersion():String;
@@ -116,6 +120,10 @@ package atom;
 		DOM elements for the editor, and reading the config.
 	**/
 	static function getWindowLoadTime():Float;
+	/**
+		Get the all the markers with the information about startup time.
+	**/
+	static function getStartupMarkers():Dynamic;
 	/**
 		Get the load settings for the current window.
 	**/
