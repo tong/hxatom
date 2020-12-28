@@ -42,7 +42,7 @@ package atom;
 	})
 	```
 	
-	@see https://github.com/atom/text-buffer/blob/v13.14.6/src/text-buffer.coffee#L112
+	@see https://github.com/atom/text-buffer/blob/v13.17.3/src/text-buffer.js#L62
 **/
 @:jsRequire("atom", "TextBuffer") extern class TextBuffer {
 	/**
@@ -56,7 +56,7 @@ package atom;
 		A `Function` that returns a `Boolean` indicating whether the buffer should be destroyed if its file is deleted.
 	**/
 	@:optional
-	var shouldDestroyOnFileDelete : haxe.Constraints.Function; }):js.Promise<Any>;
+	var shouldDestroyOnFileDelete : haxe.Constraints.Function; }):js.lib.Promise<Any>;
 	/**
 		Create a new buffer backed by the given file path. For better
 		performance, use {TextBuffer.load} instead.
@@ -74,7 +74,7 @@ package atom;
 		Restore a {TextBuffer} based on an earlier state created using
 		the {TextBuffer::serialize} method.
 	**/
-	static function deserialize(params:Dynamic):js.Promise<Any>;
+	static function deserialize(params:Dynamic):js.lib.Promise<Any>;
 	/**
 		Create a new buffer with the given params.
 	**/
@@ -82,7 +82,7 @@ package atom;
 		The initial `String` text of the buffer.
 	**/
 	var text : String; /**
-		A `Function` that returns a `Boolean` indicating whether the buffer should be destroyed if its file is deleted. 
+		A `Function` that returns a `Boolean` indicating whether the buffer should be destroyed if its file is deleted.
 	**/
 	var shouldDestroyOnFileDelete : haxe.Constraints.Function; }):Void;
 	/**
@@ -99,7 +99,7 @@ package atom;
 	**/
 	function onDidChange(callback:haxe.Constraints.Function):atom.Disposable;
 	/**
-		This is now identical to {::onDidChange}. 
+		This is now identical to {::onDidChange}.
 	**/
 	function onDidChangeText():Void;
 	/**
@@ -221,7 +221,8 @@ package atom;
 	**/
 	function isEmpty():Bool;
 	/**
-		Get the entire text of the buffer.
+		Get the entire text of the buffer. Avoid using this unless you know that the
+		buffer's text is reasonably short.
 	**/
 	function getText():String;
 	/**
@@ -442,11 +443,11 @@ package atom;
 	/**
 		Abort the currently running transaction
 		
-		Only intended to be called within the `fn` option to {::transact} 
+		Only intended to be called within the `fn` option to {::transact}
 	**/
 	function abortTransaction():Void;
 	/**
-		Clear the undo stack. 
+		Clear the undo stack.
 	**/
 	function clearUndoStack():Void;
 	/**
@@ -571,7 +572,7 @@ package atom;
 	**/
 	function getEndPosition():atom.Point;
 	/**
-		Get the length of the buffer's text. 
+		Get the length of the buffer's text.
 	**/
 	function getLength():Void;
 	/**
@@ -613,38 +614,13 @@ package atom;
 	/**
 		Save the buffer.
 	**/
-	function save():js.Promise<Any>;
+	function save():js.lib.Promise<Any>;
 	/**
 		Save the buffer at a specific path.
 	**/
-	function saveAs(filePath:Dynamic):js.Promise<Any>;
+	function saveAs(filePath:Dynamic):js.lib.Promise<Any>;
 	/**
 		Reload the file's content from disk.
 	**/
-	function reload():js.Promise<Any>;
-	/**
-		Create a new buffer backed by the given file path. For better
-		performance, use {TextBuffer.load} instead.
-	**/
-	function loadSync(filePath:String, params:{ /**
-		`String` The file's encoding.
-	**/
-	@:optional
-	var encoding : String; /**
-		A `Function` that returns a `Boolean` indicating whether the buffer should be destroyed if its file is deleted.
-	**/
-	@:optional
-	var shouldDestroyOnFileDelete : haxe.Constraints.Function; }):atom.TextBuffer;
-	/**
-		Create a new buffer backed by the given file path.
-	**/
-	function load(source:String, params:{ /**
-		`String` The file's encoding.
-	**/
-	@:optional
-	var encoding : String; /**
-		A `Function` that returns a `Boolean` indicating whether the buffer should be destroyed if its file is deleted.
-	**/
-	@:optional
-	var shouldDestroyOnFileDelete : haxe.Constraints.Function; }):js.Promise<Any>;
+	function reload():js.lib.Promise<Any>;
 }
