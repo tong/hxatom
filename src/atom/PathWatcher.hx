@@ -45,7 +45,7 @@ package atom;
 	`"deleted"`, or `"renamed"`; `path`, a `String` containing the absolute path to the filesystem entry that was acted
 	upon; for rename events only, `oldPath`, a `String` containing the filesystem entry's former absolute path.
 	
-	@see https://github.com/atom/atom/blob/v1.53.0/src/path-watcher.js#L363
+	@see https://github.com/atom/atom/blob/v1.54.0/src/path-watcher.js#L363
 **/
 @:jsRequire("atom", "PathWatcher") extern class PathWatcher {
 	/**

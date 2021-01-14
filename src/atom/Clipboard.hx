@@ -4,7 +4,7 @@ package atom;
 	
 	An instance of this class is always available as the `atom.clipboard` global.
 	
-	@see https://github.com/atom/atom/blob/v1.53.0/src/clipboard.js#L15
+	@see https://github.com/atom/atom/blob/v1.54.0/src/clipboard.js#L15
 **/
 @:jsRequire("atom", "Clipboard") extern class Clipboard {
 	/**
@@ -18,6 +18,14 @@ package atom;
 		Read the text from the clipboard.
 	**/
 	function read():String;
+	/**
+		Write the given text to the macOS find pasteboard
+	**/
+	function writeFindText():Void;
+	/**
+		Read the text from the macOS find pasteboard.
+	**/
+	function readFindText():String;
 	/**
 		Read the text from the clipboard and return both the text and the
 		associated metadata.

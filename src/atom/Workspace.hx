@@ -154,7 +154,7 @@ package atom;
 	This method indicates whether Atom should prompt the user to save this item
 	when the user closes or reloads the window. Returns a boolean.
 	
-	@see https://github.com/atom/atom/blob/v1.53.0/src/workspace.js#L176
+	@see https://github.com/atom/atom/blob/v1.54.0/src/workspace.js#L176
 **/
 @:jsRequire("atom", "Workspace") extern class Workspace {
 	/**

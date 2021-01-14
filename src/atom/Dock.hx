@@ -5,7 +5,7 @@ package atom;
 	via `Workspace.getLeftDock`, `Workspace.getRightDock`, and `Workspace.getBottomDock`
 	or add an item to a dock via `Workspace.open`.
 	
-	@see https://github.com/atom/atom/blob/v1.53.0/src/dock.js#L21
+	@see https://github.com/atom/atom/blob/v1.54.0/src/dock.js#L21
 **/
 @:jsRequire("atom", "Dock") extern class Dock {
 	/**

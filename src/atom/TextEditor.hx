@@ -40,7 +40,7 @@ package atom;
 	**When in doubt, just default to buffer coordinates**, then experiment with
 	soft wraps and folds to ensure your code interacts with them correctly.
 	
-	@see https://github.com/atom/atom/blob/v1.53.0/src/text-editor.js#L73
+	@see https://github.com/atom/atom/blob/v1.54.0/src/text-editor.js#L73
 **/
 @:jsRequire("atom", "TextEditor") extern class TextEditor {
 	/**

@@ -18,7 +18,7 @@ package atom;
 	repo.getShortHead('vendor/path/to/a/submodule') # 'dead1234'
 	```
 	
-	@see https://github.com/atom/atom/blob/v1.53.0/src/git-repository.js#L41
+	@see https://github.com/atom/atom/blob/v1.54.0/src/git-repository.js#L41
 **/
 @:jsRequire("atom", "GitRepository") extern class GitRepository {
 	/**
