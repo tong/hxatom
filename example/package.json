@@ -7,7 +7,7 @@
 	"homepage": "https://github.com/tong/hxatom",
 	"license": "MIT",
 	"engines": {
-		"atom": ">=1.37.0 <2.0.0"
+		"atom": ">=1.54.0 <2.0.0"
 	},
 	"bugs": {
 		"url": "https://github.com/tong/hxatom/issues"
